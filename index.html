@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lisha Traders | Premium Indian Green Cardamom Exporter & Wholesaler</title>
+  <meta name="description" content="Lisha Traders delivers premium quality green cardamom sourced from auctions and plantations across India. Moisture-controlled packaging, competitive wholesale pricing, and bulk delivery.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LANGUAGE SELECTION MODAL -->
+  <div class="lang-modal-overlay" id="lang-modal">
+    <div class="lang-modal-container">
+      <div class="lang-modal-logo">
+        LISHA <span>TRADERS</span>
+      </div>
+      <h3>Choose Your Language</h3>
+      <h3 style="font-family:'Mukta', sans-serif; font-size:22px; margin-top:-10px; font-weight:500;">अपनी भाषा चुनें</h3>
+      <h3 style="font-family:'Pavanam', sans-serif; font-size:20px; margin-top:-10px; font-weight:500;">உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்</h3>
+      <div class="lang-options">
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="hi" style="font-family:'Mukta', sans-serif; font-weight:500;">हिन्दी (Hindi)</button>
+        <button class="lang-btn" data-lang="ta" style="font-family:'Pavanam', sans-serif;">தமிழ் (Tamil)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D SECTION LOADER -->
+  <div class="loader-3d" id="loader-3d">
+    <div class="loader-panel left"></div>
+    <div class="loader-panel right"></div>
+    <div class="loader-content">
+      <div class="loader-card">
+        <div class="loader-spinner"></div>
+        <span id="loader-status">Rendering Section...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="nav">
+      <a href="#" class="logo">
+        LISHA
+        <span>TRADERS</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#hero" data-translate="nav_home">Home</a>
+        <a href="#products" data-translate="nav_products">Products</a>
+        <a href="#why" data-translate="nav_about">About Us</a>
+        <a href="#process" data-translate="nav_process">Our Process</a>
+        <a href="#pack" data-translate="nav_pack">Packaging</a>
+        <a href="#calculator" data-translate="nav_calc">Quote Calculator</a>
+        <a href="#gallery" data-translate="nav_gallery">Gallery</a>
+        <a href="#contact" data-translate="nav_contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-select-wrapper">
+          <button class="lang-dropdown-btn" id="lang-dropdown-btn">🌐 EN</button>
+          <div class="lang-dropdown-menu" id="lang-dropdown-menu">
+            <button data-lang="en">English</button>
+            <button data-lang="hi" style="font-family:'Mukta', sans-serif; font-weight:500;">हिन्दी</button>
+            <button data-lang="ta" style="font-family:'Pavanam', sans-serif;">தமிழ்</button>
+          </div>
+        </div>
+        <a href="#calculator" class="btn btn-dark" data-translate="btn_get_quote">Get a Quote →</a>
+        <button class="burger-menu" id="burger-menu" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-content reveal">
+        <div class="eyebrow" data-translate="hero_eyebrow">Premium Indian Cardamom</div>
+        <h1 data-translate="hero_title">Pure Scent. <br><span>Perfect Grade.</span> Trusted Globally.</h1>
+        <p data-translate="hero_desc">Lisha Traders delivers premium quality green cardamom sourced directly from authentic auction houses and high-altitude plantations in Bodinayakanur, India.</p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-dark" data-translate="hero_btn_explore">Explore Grades →</a>
+          <a href="#calculator" class="btn btn-outline" data-translate="hero_btn_calc">Calculate Price →</a>
+        </div>
+      </div>
+      <div class="hero-media reveal delay-1">
+        <div class="hero-photo-wrapper">
+          <img src="assets/hero_cardamom.png" alt="Premium Green Cardamom Pods by Lisha Traders">
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">🌿</div>
+          <div>
+            <strong data-translate="hero_badge_title">100% Export Quality</strong>
+            <span data-translate="hero_badge_desc">Handpicked sorting & grade verification</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="bg-white" id="products">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-translate="products_eyebrow">Product Offerings</div>
+        <h2 data-translate="products_title">Our Cardamom Grades</h2>
+      </div>
+      <!-- PRODUCT CATEGORY TABS -->
+      <div class="product-tabs reveal" style="display:flex; justify-content:center; gap:20px; margin-bottom:40px;">
+        <button class="tab-btn active" id="tab-green-cardamom" data-type="green" data-translate="prod_tab_green">Green Cardamom</button>
+        <button class="tab-btn" id="tab-yellow-cardamom" data-type="yellow" data-translate="prod_tab_yellow">Yellow/Pale Green Cardamom</button>
+      </div>
+
+      <div class="products-grid active-grid" id="products-grid-green">
+        <!-- 6mm Card -->
+        <div class="p-card reveal" data-grade="6mm">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="podGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#9fc88a"/>
+                  <stop offset="100%" stop-color="#568045"/>
+                </linearGradient>
+              </defs>
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 58 35, 58 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 42 35, 42 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_6_lbl">6.0 mm</h4>
+          <p data-translate="grade_6_sub">Standard Sized (Medium)</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 7mm Card -->
+        <div class="p-card reveal delay-1" data-grade="7mm">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 62 35, 62 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 38 35, 38 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_7_lbl">7.0 mm</h4>
+          <p data-translate="grade_7_sub">Premium Bold (AGEB)</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 7.5mm Card -->
+        <div class="p-card reveal delay-2" data-grade="7.5mm">
+          <span class="p-tag" data-translate="tag_popular">Popular</span>
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 60 35, 60 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 40 35, 40 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_75_lbl">7.5 mm</h4>
+          <p data-translate="grade_75_sub">Elite Premium Bold</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 7.5-8mm Card -->
+        <div class="p-card reveal delay-3" data-grade="7.5-8mm">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 61 35, 61 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 39 35, 39 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_75_8_lbl">7.5 - 8.0 mm</h4>
+          <p data-translate="grade_75_8_sub">Super Bold Export Mix</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 8mm Card -->
+        <div class="p-card reveal" data-grade="8mm">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 64 35, 64 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 36 35, 36 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_8_lbl">8.0 mm</h4>
+          <p data-translate="grade_8_sub">Super Extra Bold (Super Jumbo)</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 8.5mm Card -->
+        <div class="p-card reveal delay-1" data-grade="8.5mm">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 65 35, 65 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 35 35, 35 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_85_lbl">8.5 mm</h4>
+          <p data-translate="grade_85_sub">Imperial Jumbo Bold</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 9mm Card -->
+        <div class="p-card reveal delay-2" data-grade="9mm">
+          <span class="p-tag" style="background:var(--gold-dark)" data-translate="tag_royal">Royal Selection</span>
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#podGrad)" stroke="#3d5c31" stroke-width="1.5"/>
+              <path d="M50 15 C 66 35, 66 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 34 35, 34 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_9_lbl">9.0 mm</h4>
+          <p data-translate="grade_9_sub">Supreme Royal Jumbo</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="products-grid-yellow" style="display: none;">
+        <!-- 6mm Card (Yellow) -->
+        <div class="p-card reveal" data-grade="6mm-yellow">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="yellowPodGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f5efa6"/>
+                  <stop offset="100%" stop-color="#b8ae58"/>
+                </linearGradient>
+              </defs>
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 58 35, 58 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 42 35, 42 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_6_lbl">6.0 mm</h4>
+          <p data-translate="grade_6_sub_yellow">Standard Pale Grade (MGB)</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 7mm Card (Yellow) -->
+        <div class="p-card reveal delay-1" data-grade="7mm-yellow">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 62 35, 62 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 38 35, 38 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_7_lbl">7.0 mm</h4>
+          <p data-translate="grade_7_sub_yellow">Premium Bold Pale (MGEB)</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 7.5mm Card (Yellow) -->
+        <div class="p-card reveal delay-2" data-grade="7.5mm-yellow">
+          <span class="p-tag" data-translate="tag_popular">Popular</span>
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 60 35, 60 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 40 35, 40 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_75_lbl">7.5 mm</h4>
+          <p data-translate="grade_75_sub_yellow">Elite Premium Pale Bold</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 7.5-8mm Card (Yellow) -->
+        <div class="p-card reveal delay-3" data-grade="7.5-8mm-yellow">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 61 35, 61 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 39 35, 39 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_75_8_lbl">7.5 - 8.0 mm</h4>
+          <p data-translate="grade_75_8_sub_yellow">Super Pale Export Mix</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 8mm Card (Yellow) -->
+        <div class="p-card reveal" data-grade="8mm-yellow">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 64 35, 64 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 36 35, 36 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_8_lbl">8.0 mm</h4>
+          <p data-translate="grade_8_sub_yellow">Super Extra Pale Bold (Jumbo)</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 8.5mm Card (Yellow) -->
+        <div class="p-card reveal delay-1" data-grade="8.5mm-yellow">
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 65 35, 65 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 35 35, 35 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_85_lbl">8.5 mm</h4>
+          <p data-translate="grade_85_sub_yellow">Imperial Pale Jumbo Bold</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+
+        <!-- 9mm Card (Yellow) -->
+        <div class="p-card reveal delay-2" data-grade="9mm-yellow">
+          <span class="p-tag" style="background:var(--gold-dark)" data-translate="tag_royal">Royal Selection</span>
+          <div class="p-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="url(#yellowPodGrad)" stroke="#8c8332" stroke-width="1.5"/>
+              <path d="M50 15 C 66 35, 66 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+              <path d="M50 15 C 34 35, 34 65, 50 85" stroke="var(--gold)" stroke-width="1.2" opacity="0.8"/>
+            </svg>
+          </div>
+          <h4 data-translate="grade_9_lbl">9.0 mm</h4>
+          <p data-translate="grade_9_sub_yellow">Supreme Royal Pale Jumbo</p>
+          <div class="p-footer">
+            <span data-translate="specs_detail">Specs & Detail</span>
+            <div class="p-arrow">→</div>
+          </div>
+        </div>
+      <div class="center-btn reveal">
+        <a href="#calculator" class="btn btn-dark" data-translate="btn_calc_bulk">Calculate Bulk Quote →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why" id="why">
+    <div class="wrap why-grid">
+      <div class="why-photo-panel reveal">
+        <div class="why-photo">
+          <img src="assets/OWNER%20NAME.png" alt="Owner & Founder of Lisha Traders">
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="eyebrow" data-translate="about_eyebrow">Our Brand Legacy</div>
+        <h2 data-translate="about_title">A Quality You Can Trust, Service You Can Rely On.</h2>
+        <div class="feature-grid">
+          <div class="feature">
+            <div>
+              <h4 data-translate="feat_1_title">Premium Sorter Quality</h4>
+              <p data-translate="feat_1_desc">Double sorted and handpicked to ensure uniform color and minimal empty pods.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div>
+              <h4 data-translate="feat_2_title">Domestic &amp; Export Shipping</h4>
+              <p data-translate="feat_2_desc">Reliable packaging and cargo coordination for timely delivery across states and global ports.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div>
+              <h4 data-translate="feat_3_title">Auction &amp; Farmer Sourced</h4>
+              <p data-translate="feat_3_desc">Direct collection from regulated auctions and licensed farmers ensuring authentic origins.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div>
+              <h4 data-translate="feat_4_title">Flexible Bulk Capabilities</h4>
+              <p data-translate="feat_4_desc">No requirement is too large. Scalable supply chains from 100 kg up to containers.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div>
+              <h4 data-translate="feat_5_title">Competitive Direct Pricing</h4>
+              <p data-translate="feat_5_desc">Sourcing directly from the growing belts allows us to provide unmatched pricing structures.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div>
+              <h4 data-translate="feat_6_title">Long-term Business Focus</h4>
+              <p data-translate="feat_6_desc">We work on transparent parameters to build years of reliable partnership with wholesalers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS SECTION -->
+  <section class="bg-cream-2" id="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-translate="process_eyebrow">Standard Operating Procedure</div>
+        <h2 data-translate="process_title">From Harvest to Your Inventory</h2>
+      </div>
+      <div class="process-steps reveal">
+        <!-- Step 1 -->
+        <div class="step-card active" data-step="1">
+          <h4 data-translate="step_1_tab">1. Sourcing</h4>
+        </div>
+        <!-- Step 2 -->
+        <div class="step-card" data-step="2">
+          <h4 data-translate="step_2_tab">2. Auctioning</h4>
+        </div>
+        <!-- Step 3 -->
+        <div class="step-card" data-step="3">
+          <h4 data-translate="step_3_tab">3. Sorting</h4>
+        </div>
+        <!-- Step 4 -->
+        <div class="step-card" data-step="4">
+          <h4 data-translate="step_4_tab">4. Packaging</h4>
+        </div>
+        <!-- Step 5 -->
+        <div class="step-card" data-step="5">
+          <h4 data-translate="step_5_tab">5. Dispatch</h4>
+        </div>
+      </div>
+
+      <!-- Detail Box representing active step -->
+      <div class="step-desc-box reveal delay-1">
+        <h3 data-translate="step_details_title">Step Details</h3>
+        <div class="step-desc-content active" id="step-desc-1">
+          <h5 data-translate="step_1_title">1. Selective Plantation Sourcing</h5>
+          <p data-translate="step_1_desc">We build direct ties with estates located in the Western Ghats (Theni, Idukki, Munnar regions). Cardamom pods are picked when fully ripe. Sourcing from high altitudes guarantees the highest density and concentration of volatile natural oils within the seeds.</p>
+        </div>
+        <div class="step-desc-content" id="step-desc-2">
+          <h5 data-translate="step_2_title">2. Regulated Spices Board Auctions</h5>
+          <p data-translate="step_2_desc">We actively participate in official auctions supervised by the Spices Board of India in Bodinayakanur and Vandanmettu. This ensures complete transparency, regulatory clearance, chemical testing adherence, and fair pricing mechanics.</p>
+        </div>
+        <div class="step-desc-content" id="step-desc-3">
+          <h5 data-translate="step_3_title">3. Strict Mechanical &amp; Manual Grading</h5>
+          <p data-translate="step_3_desc">The bought pods undergo sieve sorting to define sizing ranges accurately (5.5mm to 8mm+). Next, visual inspectors sort out light pods, thrips-damaged pods, split pods, and foreign plant material under controlled laboratory grade settings.</p>
+        </div>
+        <div class="step-desc-content" id="step-desc-4">
+          <h5 data-translate="step_4_title">4. Moisture &amp; Aroma Preserving Pack</h5>
+          <p data-translate="step_4_desc">Graded cardamom is stored under monitored humidity. We pack the orders in food-grade, high-barrier laminates that prevent ambient humidity absorption, safeguarding flavor density and keeping the color green during transit.</p>
+        </div>
+        <div class="step-desc-content" id="step-desc-5">
+          <h5 data-translate="step_5_title">5. Safe Transit Logistics</h5>
+          <p data-translate="step_5_desc">Whether by container or cargo truck, the shipments are labeled clearly and shipped with dry container liners. We handle complete documentation, tax filings (GST, Export Clearance), and share real-time tracking numbers with our buyers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGING SECTION -->
+  <section class="bg-white" id="pack">
+    <div class="wrap pack-grid">
+      <div class="reveal">
+        <div class="eyebrow" data-translate="pack_eyebrow">Packaging Options</div>
+        <h2 data-translate="pack_title">Flavor Preservation Systems</h2>
+        <p data-translate="pack_desc">Volatile essential oils evaporate when exposed to heat and moisture. Our specialized packing systems ensure the cardamom reaches your warehouse smelling as fresh as the day it was cured.</p>
+        
+        <!-- Weight Tab Selectors -->
+        <div class="weights">
+          <div class="weight-selector active" data-weight="1kg">
+            <span data-translate="pack_1kg_tab">1 kg Pouches</span>
+          </div>
+          <div class="weight-selector" data-weight="5kg">
+            <span data-translate="pack_5kg_tab">5 kg Bags</span>
+          </div>
+          <div class="weight-selector" data-weight="10kg">
+            <span data-translate="pack_10kg_tab">10 kg Cartons</span>
+          </div>
+          <div class="weight-selector" data-weight="25kg">
+            <span data-translate="pack_25kg_tab">25 kg Bulk Gunny</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pack-media reveal delay-1">
+        <div class="pouch-visual">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 15 L70 15 L78 28 L82 85 L18 85 L22 28 Z" fill="#0c1e13" stroke="var(--gold)" stroke-width="2"/>
+            <circle cx="50" cy="55" r="16" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <path d="M50 42 C 55 48, 55 58, 50 68 C 45 58, 45 48, 50 42 Z" fill="var(--gold)"/>
+          </svg>
+          <strong>LISHA</strong>
+          <span>TRADERS</span>
+          <div class="pouch-label" id="current-pouch-label" data-translate="pack_select_lbl">Select packaging...</div>
+        </div>
+        <div class="check-card">
+          <ul>
+            <li data-translate="pack_point_1">Moisture-Controlled Poly Barrier</li>
+            <li data-translate="pack_point_2">Oxygen Absorption Strips</li>
+            <li data-translate="pack_point_3">Food-Grade Thick Foil Laminate</li>
+            <li data-translate="pack_point_4">Sturdy Outer Cartons for Transit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR SECTION -->
+  <section class="bg-cream-2" id="calculator">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-translate="calc_eyebrow">Price &amp; Volume Estimator</div>
+        <h2 data-translate="calc_title">Bulk Quote Request Calculator</h2>
+      </div>
+
+      <div class="calculator-box reveal">
+        <div class="calc-grid">
+          <!-- Inputs Column -->
+          <div class="calc-form">
+            <!-- Variety Selector inside Calculator -->
+            <div class="form-group">
+              <label class="calc-label" data-translate="calc_label_variety">Cardamom Variety</label>
+              <div class="calc-variety-selector">
+                <button class="variety-btn active" id="variety-green" data-val="green" type="button" data-translate="prod_tab_green">Green Cardamom</button>
+                <button class="variety-btn" id="variety-yellow" data-val="yellow" type="button" data-translate="prod_tab_yellow">Yellow/Pale Green Cardamom</button>
+              </div>
+            </div>
+
+            <!-- Grade selection -->
+            <div class="form-group">
+              <label data-translate="calc_label_grade">Select Cardamom Size/Grade</label>
+              <div class="grade-radios" id="calc-grade-selector">
+                <div class="grade-radio-btn" data-val="6mm" data-translate="grade_6_lbl">6.0 mm</div>
+                <div class="grade-radio-btn" data-val="7mm" data-translate="grade_7_lbl">7.0 mm</div>
+                <div class="grade-radio-btn selected" data-val="7.5mm" data-translate="grade_75_lbl">7.5 mm</div>
+                <div class="grade-radio-btn" data-val="7.5-8mm" data-translate="grade_75_8_lbl">7.5 - 8.0 mm</div>
+                <div class="grade-radio-btn" data-val="8mm" data-translate="grade_8_lbl">8.0 mm</div>
+                <div class="grade-radio-btn" data-val="8.5mm" data-translate="grade_85_lbl">8.5 mm</div>
+                <div class="grade-radio-btn" data-val="9mm" data-translate="grade_9_lbl">9.0 mm</div>
+              </div>
+            </div>
+
+            <!-- Quantity input with slider -->
+            <div class="form-group range-container">
+              <label data-translate="calc_label_qty">Select Target Quantity</label>
+              <div class="range-labels">
+                <span data-translate="calc_min_label">Min: 5 kg</span>
+                <span data-translate="calc_max_label">Max: 5000 kg</span>
+              </div>
+              <input type="range" id="calc-qty-range" min="5" max="5000" step="5" value="500">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input type="number" id="calc-qty-input" min="5" max="100000" value="500">
+                <span style="font-weight:700; color:var(--green-900);" data-translate="calc_unit">Kilograms (KG)</span>
+              </div>
+            </div>
+
+            <!-- Add Item Button -->
+            <div class="form-group" style="margin-top: 30px;">
+              <button type="button" class="btn btn-dark" id="calc-add-item-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;" data-translate="btn_calc_add_item">
+                Add to Inquiry List +
+              </button>
+            </div>
+          </div>
+
+          <!-- Invoice/Estimation breakdown -->
+          <div class="calc-results">
+            <div>
+              <div class="invoice-header">
+                <h4 data-translate="calc_summary_header">ESTIMATE SUMMARY</h4>
+                <span id="invoice-id">LISHA-Q-001</span>
+              </div>
+
+              <!-- Itemized List Table Wrapper -->
+              <div class="estimator-list-container" style="margin: 20px 0; border: 1px dashed var(--line); padding: 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.4); max-height: 240px; overflow-y: auto;">
+                <div id="estimator-empty-msg" style="text-align: center; color: var(--muted); padding: 20px 0; font-size: 13.5px;" data-translate="calc_empty_cart">
+                  No items added yet. Select variety, size, and quantity, then click 'Add to Inquiry List'.
+                </div>
+                <table class="estimator-table" id="estimator-table" style="width:100%; display:none; border-collapse:collapse; font-size:13.5px;">
+                  <thead>
+                    <tr style="border-bottom: 2px solid var(--line); text-align: left; font-weight: 700; color: var(--green-900);">
+                      <th style="padding: 6px 4px;" data-translate="table_th_item">Item</th>
+                      <th style="padding: 6px 4px; text-align: right;" data-translate="table_th_qty">Qty</th>
+                      <th style="padding: 6px 4px; text-align: right;" data-translate="table_th_bags">Bags</th>
+                      <th style="padding: 6px 4px; text-align: right;" data-translate="table_th_price">Price</th>
+                      <th style="padding: 6px 4px; text-align: center;"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="estimator-table-body">
+                    <!-- Dynamic Rows Added Here -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Grand Totals Section -->
+              <div class="invoice-lines" id="estimator-totals-section" style="display:none; border-top: 2px solid var(--line); margin-top: 12px; padding-top: 12px;">
+                <div class="invoice-line">
+                  <span data-translate="calc_summary_items">Total Items:</span>
+                  <strong id="summary-items-count">0</strong>
+                </div>
+                <div class="invoice-line">
+                  <span data-translate="calc_summary_vol">Total Volume:</span>
+                  <strong id="summary-qty">0 kg</strong>
+                </div>
+                <div class="invoice-line">
+                  <span data-translate="calc_summary_bags">Total Shipping Bags:</span>
+                  <strong id="summary-bags">0 units</strong>
+                </div>
+                <div class="invoice-line total">
+                  <span data-translate="calc_summary_range">Total Indicative Value:</span>
+                  <strong id="summary-price">₹0</strong>
+                </div>
+              </div>
+
+              <p class="calc-disclaimer" data-translate="calc_disclaimer">*Note: Cardamom prices fluctuate daily according to Bodinayakanur auction indexes. This is an estimated volume breakdown for supply planning. Actual price ranges will be locked in upon direct inquiry.</p>
+            </div>
+            
+            <div class="calc-btn-group">
+              <button class="btn btn-dark" id="calc-whatsapp-btn" data-translate="btn_calc_whatsapp">Send Quote Request via WhatsApp →</button>
+              <button class="btn btn-outline" id="calc-email-btn" data-translate="btn_calc_email">Send Quote Request via Email</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="gallery-section reveal">
+        <div class="gallery-head">
+          <div>
+            <div class="eyebrow" data-translate="gallery_eyebrow">Visual Tour</div>
+            <h2 data-translate="gallery_title">Premium Quality Gallery</h2>
+          </div>
+          <a href="#contact" class="btn btn-outline-white" data-translate="btn_gallery_visit">Request Factory Visit</a>
+        </div>
+        <div class="gallery-grid">
+          <div class="g-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#0f2516"/>
+              <path d="M50 15 C 65 30, 65 50, 50 85 C 35 50, 35 30, 50 15 Z" fill="#2d6b3f"/>
+              <circle cx="50" cy="50" r="10" fill="#4eb270"/>
+            </svg>
+            <div class="g-overlay">
+              <span data-translate="gallery_card_1_eyebrow">Sourcing</span>
+              <h4 data-translate="gallery_card_1_title">Fresh Harvest</h4>
+            </div>
+          </div>
+          <div class="g-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#163620"/>
+              <ellipse cx="50" cy="50" rx="35" ry="18" fill="#2d6b3f"/>
+              <line x1="15" y1="50" x2="85" y2="50" stroke="#4eb270"/>
+            </svg>
+            <div class="g-overlay">
+              <span data-translate="gallery_card_2_eyebrow">Mechanical Sorting</span>
+              <h4 data-translate="gallery_card_2_title">Sieve Sizing</h4>
+            </div>
+          </div>
+          <div class="g-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#0a180e"/>
+              <circle cx="50" cy="50" r="28" fill="#4eb270" opacity="0.3"/>
+              <circle cx="50" cy="50" r="20" fill="#4eb270"/>
+            </svg>
+            <div class="g-overlay">
+              <span data-translate="gallery_card_3_eyebrow">Visual Inspection</span>
+              <h4 data-translate="gallery_card_3_title">Color Sorting</h4>
+            </div>
+          </div>
+          <div class="g-photo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#1f4b2c"/>
+              <rect x="25" y="20" width="50" height="60" rx="8" fill="#0a180e" stroke="#4eb270"/>
+            </svg>
+            <div class="g-overlay">
+              <span data-translate="gallery_card_4_eyebrow">Logistics</span>
+              <h4 data-translate="gallery_card_4_title">Safe Packing</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section class="bg-white" id="testimonials">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-translate="test_eyebrow">Testimonials</div>
+        <h2 data-translate="test_title">Trusted by Spices Wholesalers &amp; Traders</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="t-card reveal">
+          <div class="quote-mark">“</div>
+          <p data-translate="test_1_quote">Lisha Traders provides consistently high-quality green cardamom. Their sieve measurements are extremely accurate, ensuring uniform sizing in every shipment. Sourcing is fast and reliable.</p>
+          <div class="t-person">
+            <div class="avatar">RB</div>
+            <div>
+              <strong>Ramesh B.</strong>
+              <span data-translate="test_1_role">Wholesale Trader, Rajasthan</span>
+            </div>
+          </div>
+        </div>
+        <div class="t-card reveal delay-1">
+          <div class="quote-mark">“</div>
+          <p data-translate="test_2_quote">We have been sourcing 7mm and 8mm cardamom from Lisha Traders for over 2 years. Their moisture level is always below 12%, which is essential for shelf life stability. Exceptional pricing!</p>
+          <div class="t-person">
+            <div class="avatar">AK</div>
+            <div>
+              <strong>Aravind K.</strong>
+              <span data-translate="test_2_role">Spice Exporter, Bengaluru</span>
+            </div>
+          </div>
+        </div>
+        <div class="t-card reveal delay-2">
+          <div class="quote-mark">“</div>
+          <p data-translate="test_3_quote">Reliable, professional, and transparent. We appreciate their packaging options. Even during the peak dry seasons, they deliver premium grades without delays. Recommended wholesaler.</p>
+          <div class="t-person">
+            <div class="avatar">SP</div>
+            <div>
+              <strong>Sajida P.</strong>
+              <span data-translate="test_3_role">Retail Chain Supplier, Kerala</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="center-btn reveal" style="margin-top: 40px;">
+        <button class="btn btn-outline" id="write-review-btn" data-translate="btn_write_review">Write a Review</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & INQUIRY SECTION -->
+  <section class="bg-cream-2" id="contact">
+    <div class="wrap">
+      <div class="cta-section reveal">
+        <div class="cta-grid">
+          <div>
+            <div class="eyebrow" style="color:var(--gold-light);" data-translate="contact_eyebrow">Let's Connect</div>
+            <h2 data-translate="contact_title">Establish a Reliable Sourcing Channel</h2>
+            <p data-translate="contact_desc">Speak to our wholesale desk to review sample cards, request customized packaging layouts, or request details on the current Spices Board auction listings.</p>
+            <form class="calc-form" id="contact-form" style="max-width:500px; margin-top:20px;">
+              <div class="form-group">
+                <input type="text" id="contact-name" placeholder="Your Name / Company" required style="padding:14px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06); color:#fff; font-family:var(--font-sans); outline:none;">
+              </div>
+              <div class="form-group">
+                <input type="email" id="contact-email" placeholder="Your Email Address" required style="padding:14px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06); color:#fff; font-family:var(--font-sans); outline:none;">
+              </div>
+              <div class="form-group">
+                <input type="text" id="contact-phone" placeholder="WhatsApp / Phone Number" required style="padding:14px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06); color:#fff; font-family:var(--font-sans); outline:none;">
+              </div>
+              <div class="form-group">
+                <textarea id="contact-msg" placeholder="Tell us about your bulk requirement (Grade, Sizing, Target Destination)..." required rows="4" style="padding:14px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06); color:#fff; font-family:var(--font-sans); outline:none; resize:none;"></textarea>
+              </div>
+              <button type="submit" class="btn btn-light" style="align-self:flex-start;" data-translate="btn_contact_submit">Submit Bulk Inquiry</button>
+            </form>
+          </div>
+          <div class="cta-info">
+            <div class="cta-info-item">
+              <span class="cta-info-icon">📞</span>
+              <div class="cta-info-text">
+                <strong data-translate="contact_info_phone_lbl">Phone / WhatsApp</strong>
+                <a href="https://wa.me/917904612672" target="_blank">+91 79046 12672</a>
+              </div>
+            </div>
+            <div class="cta-info-item">
+              <span class="cta-info-icon">✉️</span>
+              <div class="cta-info-text">
+                <strong data-translate="contact_info_email_lbl">Corporate Email</strong>
+                <a href="mailto:info@lishatraders.com">info@lishatraders.com</a>
+              </div>
+            </div>
+            <div class="cta-info-item">
+              <span class="cta-info-icon">📍</span>
+              <div class="cta-info-text">
+                <strong data-translate="contact_info_loc_lbl">Trading Hub &amp; Factory</strong>
+                <span data-translate="contact_info_loc_val">Bodinayakanur, Theni District, Tamil Nadu - 625513, India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="foot-logo">
+            LISHA TRADERS
+            <span>EST. 2012</span>
+          </div>
+          <p class="foot-desc" data-translate="foot_desc">Premium wholesale suppliers &amp; sorting house of green cardamom. Sourced from Kerala plantations, sorting in Bodinayakanur, Tamil Nadu.</p>
+          <div class="social-row">
+            <a href="https://wa.me/917904612672" target="_blank" aria-label="WhatsApp">W</a>
+            <a href="#" aria-label="Facebook">F</a>
+            <a href="#" aria-label="Instagram">I</a>
+            <a href="#" aria-label="LinkedIn">L</a>
+          </div>
+        </div>
+        <div>
+          <h5 data-translate="foot_site_lbl">Sitemap</h5>
+          <ul>
+            <li><a href="#hero" data-translate="nav_home">Home</a></li>
+            <li><a href="#products" data-translate="nav_products">Grades Portfolio</a></li>
+            <li><a href="#why" data-translate="nav_about">About Sourcing</a></li>
+            <li><a href="#process" data-translate="nav_process">Quality Check Steps</a></li>
+            <li><a href="#pack" data-translate="nav_pack">Flavor Preservation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-translate="foot_grades_lbl">Grades</h5>
+          <ul>
+            <li><a href="#products" data-translate="grade_6_lbl">6.0 mm</a></li>
+            <li><a href="#products" data-translate="grade_7_lbl">7.0 mm</a></li>
+            <li><a href="#products" data-translate="grade_75_lbl">7.5 mm</a></li>
+            <li><a href="#products" data-translate="grade_8_lbl">8.0 mm</a></li>
+            <li><a href="#products" data-translate="grade_9_lbl">9.0 mm</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-translate="foot_source_lbl">Regulated Sourcing</h5>
+          <ul>
+            <li><a href="#why" data-translate="foot_link_auction">Auction Verification</a></li>
+            <li><a href="#why" data-translate="foot_link_certs">Quality Certifications</a></li>
+            <li><a href="#why" data-translate="foot_link_desk">Bulk Exporter desk</a></li>
+            <li><a href="#contact" data-translate="foot_link_factory">Factory Inquiry</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-translate="foot_rights">© 2026 Lisha Traders. All Rights Reserved. Coordinated in Bodinayakanur, India.</span>
+        <span data-translate="foot_policy">Spices Board License | Trade &amp; Export Policy | Terms of Supply</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PRODUCT SPECIFICATION MODAL -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close Modal">&times;</button>
+      <div class="modal-body">
+        <div class="modal-header-info">
+          <div class="modal-icon-wrap">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 75 35, 75 65, 50 85 C 25 65, 25 35, 50 15 Z" fill="#4eb270"/>
+            </svg>
+          </div>
+          <div class="modal-title">
+            <h3 id="modal-grade-title">6.5 mm Cardamom</h3>
+            <p id="modal-grade-type">Premium Medium Bold Grade</p>
+          </div>
+        </div>
+        <div class="modal-specs">
+          <div class="spec-item">
+            <span data-translate="modal_spec_sieve_lbl">Sieve Size Diameter</span>
+            <strong id="modal-spec-sieve">> 6.5 mm</strong>
+          </div>
+          <div class="spec-item">
+            <span data-translate="modal_spec_moisture_lbl">Moisture Content</span>
+            <strong id="modal-spec-moisture">&lt; 12.0% Max</strong>
+          </div>
+          <div class="spec-item">
+            <span data-translate="modal_spec_weight_lbl">Liter Weight (g/l)</span>
+            <strong id="modal-spec-weight">380 - 410 g/l</strong>
+          </div>
+          <div class="spec-item">
+            <span data-translate="modal_spec_color_lbl">Color Profile</span>
+            <strong id="modal-spec-color">Deep Sage Green (AGB)</strong>
+          </div>
+        </div>
+        <div class="modal-desc">
+          <h4 data-translate="modal_spec_summary_lbl">Product Summary</h4>
+          <p id="modal-spec-desc">Our premium 6.5mm grade green cardamom is ideal for standard packaging retail lines and industrial spice mixtures. Sorted to ensure split pods stay below 2%, it offers a sweet, woody flavor note from volatile oils.</p>
+        </div>
+        <div class="modal-action">
+          <a href="#calculator" class="btn btn-dark" id="modal-action-quote-btn" data-translate="modal_spec_btn_quote">Estimate Quantity</a>
+          <button class="btn btn-outline" id="modal-action-back-btn" data-translate="modal_spec_btn_close">Close Specs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WRITE REVIEW MODAL -->
+  <div class="modal-overlay" id="review-modal">
+    <div class="modal-container" style="max-width:500px;">
+      <button class="modal-close" id="review-modal-close-btn" aria-label="Close Modal">&times;</button>
+      <div class="modal-body">
+        <div class="modal-header-info">
+          <div class="modal-icon-wrap" style="background:var(--cream-2); border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <span style="font-size:24px; color:var(--gold);">★</span>
+          </div>
+          <div class="modal-title">
+            <h3 data-translate="review_modal_title">Submit Your Testimonial</h3>
+            <p style="font-size:12px; color:var(--muted); margin-top:2px;">Help us improve our wholesale spice distribution</p>
+          </div>
+        </div>
+        
+        <form id="review-form" class="calc-form" style="margin-top:20px; color:var(--ink); display:flex; flex-direction:column; gap:16px;">
+          <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+            <label style="color:var(--green-900); font-weight:600; font-size:14px;" data-translate="review_label_name">Your Name</label>
+            <input type="text" id="review-name" required placeholder="e.g. Ramesh Kumar" style="padding:12px; border:1px solid var(--line); border-radius:var(--radius-sm); font-family:var(--font-sans); outline:none; background:var(--white);">
+          </div>
+          <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+            <label style="color:var(--green-900); font-weight:600; font-size:14px;" data-translate="review_label_role">Role / Location / Company</label>
+            <input type="text" id="review-role" required placeholder="e.g. Spice Importer, Mumbai" style="padding:12px; border:1px solid var(--line); border-radius:var(--radius-sm); font-family:var(--font-sans); outline:none; background:var(--white);">
+          </div>
+          <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+            <label style="color:var(--green-900); font-weight:600; font-size:14px;" data-translate="review_label_rating">Rating</label>
+            <div class="rating-stars" id="review-stars" style="display:flex; gap:8px; font-size:28px; color:#ddd; cursor:pointer; user-select:none;">
+              <span class="star selected" data-value="1">★</span>
+              <span class="star selected" data-value="2">★</span>
+              <span class="star selected" data-value="3">★</span>
+              <span class="star selected" data-value="4">★</span>
+              <span class="star selected" data-value="5">★</span>
+            </div>
+            <input type="hidden" id="review-rating-val" value="5">
+          </div>
+          <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+            <label style="color:var(--green-900); font-weight:600; font-size:14px;" data-translate="review_label_text">Your Review</label>
+            <textarea id="review-text" required placeholder="Tell others about your sourcing experience with us..." rows="4" style="padding:12px; border:1px solid var(--line); border-radius:var(--radius-sm); font-family:var(--font-sans); outline:none; resize:none; background:var(--white);"></textarea>
+          </div>
+          <div class="modal-action" style="margin-top:10px;">
+            <button type="submit" class="btn btn-dark" data-translate="review_btn_submit" style="width:100%;">Submit Review</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
