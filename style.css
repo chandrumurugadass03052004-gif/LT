@@ -2359,8 +2359,8 @@ footer {
   z-index: 10;
 }
 
-.cardamom-pod-wrap {
-  width: 180px;
+.cardamom-blast-wrap {
+  width: 250px;
   height: 250px;
   position: relative;
   display: flex;
@@ -2369,76 +2369,162 @@ footer {
   margin-bottom: 30px;
 }
 
-/* Pod Halves positioning */
-.pod-half {
+/* Pod cluster style */
+.pod-cluster {
+  position: absolute;
+  width: 120px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.8s ease;
+  z-index: 5;
+}
+
+.cluster-pod {
   position: absolute;
   width: 90px;
-  height: 180px;
-  transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  height: 160px;
+  transition: transform 1.2s cubic-bezier(0.1, 0.8, 0.1, 1), opacity 0.8s ease;
   transform-origin: bottom center;
 }
 
-.left-half {
-  left: 0;
-  transform: translateX(45px); /* Initially joined at center */
+.pod-center {
+  transform: rotate(0deg) scale(1.1);
+  z-index: 5;
 }
 
-.right-half {
-  right: 0;
-  transform: translateX(-45px); /* Initially joined at center */
+.pod-left {
+  transform: rotate(-25deg) translateX(-20px) scale(0.95);
+  z-index: 4;
 }
 
-/* Breaking animation class triggered by JavaScript */
-.cardamom-loader-overlay.animate-break .left-half {
-  transform: translateX(-15px) rotate(-18deg) translateY(10px);
+.pod-right {
+  transform: rotate(25deg) translateX(20px) scale(0.95);
+  z-index: 4;
 }
 
-.cardamom-loader-overlay.animate-break .right-half {
-  transform: translateX(15px) rotate(18deg) translateY(10px);
+/* Blasting action */
+.cardamom-loader-overlay.animate-break .pod-center {
+  transform: translateY(-220px) rotate(15deg) scale(0.2);
+  opacity: 0;
 }
 
-/* Seeds / Rice grains styling */
-.seeds-burst {
+.cardamom-loader-overlay.animate-break .pod-left {
+  transform: translateX(-240px) translateY(80px) rotate(-75deg) scale(0.2);
+  opacity: 0;
+}
+
+.cardamom-loader-overlay.animate-break .pod-right {
+  transform: translateX(240px) translateY(80px) rotate(75deg) scale(0.2);
+  opacity: 0;
+}
+
+/* Shockwave blast ring */
+.blast-shockwave {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(110, 199, 135, 0.4);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cardamom-loader-overlay.animate-break .blast-shockwave {
+  animation: shockwave-expand 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes shockwave-expand {
+  0% { transform: scale(0.2); opacity: 1; border-color: rgba(110, 199, 135, 0.8); }
+  50% { border-color: rgba(212, 175, 55, 0.5); }
+  100% { transform: scale(4.5); opacity: 0; border-width: 1px; }
+}
+
+/* Blasting particles layout */
+.blast-particles-container {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
 
-.seed {
+/* Seed & Dust base styles */
+.blast-seed {
   position: absolute;
-  width: 8px;
-  height: 16px;
-  background: linear-gradient(135deg, #f7d070 0%, #d4af37 100%); /* Rice grain color */
+  width: 9px;
+  height: 17px;
+  background: linear-gradient(135deg, #f7d070 0%, #d4af37 100%);
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
   opacity: 0;
-  transform: scale(0);
-  transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
+  transform: scale(0) translate(0, 0);
+  transition: transform 1.8s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 0.8s ease;
+  z-index: 10;
 }
 
-/* Trigger animation delay transitions for bursting grains */
-.cardamom-loader-overlay.animate-break .seed {
+.blast-dust {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle, #ffe699 0%, #d4af37 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 4px #ffe699;
+  opacity: 0;
+  transform: scale(0) translate(0, 0);
+  transition: transform 2s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 1s ease;
+  z-index: 9;
+}
+
+.cardamom-loader-overlay.animate-break .blast-seed,
+.cardamom-loader-overlay.animate-break .blast-dust {
   opacity: 1;
 }
 
-.cardamom-loader-overlay.animate-break .seed.s1  { transform: translate(-30px, -60px) rotate(45deg) scale(1.2); transition-delay: 0.1s; }
-.cardamom-loader-overlay.animate-break .seed.s2  { transform: translate(30px, -60px) rotate(-45deg) scale(1.1); transition-delay: 0.12s; }
-.cardamom-loader-overlay.animate-break .seed.s3  { transform: translate(-50px, -20px) rotate(90deg) scale(1); transition-delay: 0.15s; }
-.cardamom-loader-overlay.animate-break .seed.s4  { transform: translate(50px, -20px) rotate(-90deg) scale(1); transition-delay: 0.17s; }
-.cardamom-loader-overlay.animate-break .seed.s5  { transform: translate(-40px, 30px) rotate(135deg) scale(1.1); transition-delay: 0.2s; }
-.cardamom-loader-overlay.animate-break .seed.s6  { transform: translate(40px, 30px) rotate(-135deg) scale(1.2); transition-delay: 0.22s; }
-.cardamom-loader-overlay.animate-break .seed.s7  { transform: translate(-10px, -90px) rotate(15deg) scale(0.9); transition-delay: 0.25s; }
-.cardamom-loader-overlay.animate-break .seed.s8  { transform: translate(10px, -90px) rotate(-15deg) scale(1); transition-delay: 0.27s; }
-.cardamom-loader-overlay.animate-break .seed.s9  { transform: translate(-20px, 70px) rotate(165deg) scale(1.1); transition-delay: 0.3s; }
-.cardamom-loader-overlay.animate-break .seed.s10 { transform: translate(20px, 70px) rotate(-165deg) scale(1); transition-delay: 0.32s; }
-.cardamom-loader-overlay.animate-break .seed.s11 { transform: translate(-65px, 10px) rotate(75deg) scale(1.1); transition-delay: 0.35s; }
-.cardamom-loader-overlay.animate-break .seed.s12 { transform: translate(65px, 10px) rotate(-75deg) scale(1.1); transition-delay: 0.38s; }
+/* Seeds Blasting Directions & Offsets */
+.cardamom-loader-overlay.animate-break .blast-seed.bs1  { transform: translate(-80px, -130px) rotate(45deg) scale(1.1); transition-delay: 0.05s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs2  { transform: translate(80px, -130px) rotate(-45deg) scale(1.1); transition-delay: 0.07s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs3  { transform: translate(-140px, -40px) rotate(90deg) scale(1); transition-delay: 0.09s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs4  { transform: translate(140px, -40px) rotate(-90deg) scale(1); transition-delay: 0.11s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs5  { transform: translate(-100px, 90px) rotate(135deg) scale(1.1); transition-delay: 0.13s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs6  { transform: translate(100px, 90px) rotate(-135deg) scale(1.1); transition-delay: 0.15s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs7  { transform: translate(-20px, -170px) rotate(15deg) scale(0.95); transition-delay: 0.17s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs8  { transform: translate(20px, -170px) rotate(-15deg) scale(0.95); transition-delay: 0.19s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs9  { transform: translate(-50px, 150px) rotate(165deg) scale(1.05); transition-delay: 0.21s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs10 { transform: translate(50px, 150px) rotate(-165deg) scale(1.05); transition-delay: 0.23s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs11 { transform: translate(-160px, 30px) rotate(75deg) scale(1.1); transition-delay: 0.25s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs12 { transform: translate(160px, 30px) rotate(-75deg) scale(1.1); transition-delay: 0.27s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs13 { transform: translate(-120px, -100px) rotate(60deg) scale(1); transition-delay: 0.29s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs14 { transform: translate(120px, -100px) rotate(-60deg) scale(1); transition-delay: 0.31s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs15 { transform: translate(-110px, 130px) rotate(120deg) scale(1); transition-delay: 0.33s; }
+.cardamom-loader-overlay.animate-break .blast-seed.bs16 { transform: translate(110px, 130px) rotate(-120deg) scale(1); transition-delay: 0.35s; }
+
+/* Spice Dust particles directions (further outwards, fade/float) */
+.cardamom-loader-overlay.animate-break .blast-dust.bd1  { transform: translate(-180px, -180px) scale(1.5); transition-delay: 0.05s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd2  { transform: translate(180px, -180px) scale(1.2); transition-delay: 0.08s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd3  { transform: translate(-230px, 20px) scale(1.4); transition-delay: 0.1s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd4  { transform: translate(230px, 20px) scale(1.3); transition-delay: 0.12s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd5  { transform: translate(-150px, 200px) scale(1.5); transition-delay: 0.14s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd6  { transform: translate(150px, 200px) scale(1.6); transition-delay: 0.16s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd7  { transform: translate(0px, -240px) scale(1.1); transition-delay: 0.18s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd8  { transform: translate(-90px, -220px) scale(1.3); transition-delay: 0.2s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd9  { transform: translate(90px, -220px) scale(1.2); transition-delay: 0.22s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd10 { transform: translate(-220px, -100px) scale(1.4); transition-delay: 0.24s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd11 { transform: translate(220px, -100px) scale(1.5); transition-delay: 0.26s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd12 { transform: translate(-240px, 120px) scale(1.3); transition-delay: 0.28s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd13 { transform: translate(240px, 120px) scale(1.4); transition-delay: 0.3s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd14 { transform: translate(-70px, 230px) scale(1.5); transition-delay: 0.32s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd15 { transform: translate(70px, 230px) scale(1.6); transition-delay: 0.34s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd16 { transform: translate(-190px, -70px) scale(1.2); transition-delay: 0.36s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd17 { transform: translate(190px, -70px) scale(1.3); transition-delay: 0.38s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd18 { transform: translate(-130px, -150px) scale(1.4); transition-delay: 0.4s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd19 { transform: translate(130px, -150px) scale(1.2); transition-delay: 0.42s; }
+.cardamom-loader-overlay.animate-break .blast-dust.bd20 { transform: translate(0px, 250px) scale(1.5); transition-delay: 0.44s; }
 
 .loader-brand-text {
   font-family: var(--font-serif);

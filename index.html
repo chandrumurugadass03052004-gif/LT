@@ -16,48 +16,87 @@
   <div class="cardamom-loader-overlay" id="cardamom-loader">
     <div class="loader-bg-glow"></div>
     <div class="animation-container">
-      <div class="cardamom-pod-wrap">
-        <div class="pod-half left-half">
-          <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="left-shell-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#7cd294" />
-                <stop offset="50%" stop-color="#4eb270" />
-                <stop offset="100%" stop-color="#2d7e48" />
-              </linearGradient>
-            </defs>
-            <path d="M50 10 C32 40, 20 80, 20 110 C20 145, 32 175, 50 190 L50 10 Z" fill="url(#left-shell-grad)" stroke="#1e522e" stroke-width="2"/>
-            <path d="M40 30 C30 60, 26 95, 27 125 C28 150, 38 175, 45 183" stroke="#256c3b" stroke-width="1.5" stroke-dasharray="3,3"/>
-            <path d="M46 50 C38 80, 34 110, 36 140 C38 160, 44 175, 47 180" stroke="#256c3b" stroke-width="1.5" stroke-dasharray="3,3"/>
-          </svg>
+      <div class="cardamom-blast-wrap">
+        <div class="blast-shockwave"></div>
+        <div class="pod-cluster">
+          <div class="cluster-pod pod-center">
+            <svg viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 10 C25 40, 20 80, 20 110 C20 145, 30 170, 50 175 C70 170, 80 145, 80 110 C80 80, 75 40, 50 10 Z" fill="url(#green-pod-1)" stroke="#1b4322" stroke-width="2"/>
+              <path d="M50 10 C38 45, 35 85, 38 125" stroke="#256c3b" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <path d="M50 10 C62 45, 65 85, 62 125" stroke="#256c3b" stroke-width="1.5" stroke-dasharray="3,3"/>
+            </svg>
+          </div>
+          <div class="cluster-pod pod-left">
+            <svg viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 10 C25 40, 20 80, 20 110 C20 145, 30 170, 50 175 C70 170, 80 145, 80 110 C80 80, 75 40, 50 10 Z" fill="url(#green-pod-2)" stroke="#15361b" stroke-width="2"/>
+              <path d="M50 10 C38 45, 35 85, 38 125" stroke="#23683a" stroke-width="1.5" stroke-dasharray="3,3"/>
+            </svg>
+          </div>
+          <div class="cluster-pod pod-right">
+            <svg viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 10 C25 40, 20 80, 20 110 C20 145, 30 170, 50 175 C70 170, 80 145, 80 110 C80 80, 75 40, 50 10 Z" fill="url(#green-pod-3)" stroke="#15361b" stroke-width="2"/>
+              <path d="M50 10 C62 45, 65 85, 62 125" stroke="#23683a" stroke-width="1.5" stroke-dasharray="3,3"/>
+            </svg>
+          </div>
         </div>
-        <div class="pod-half right-half">
-          <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="right-shell-grad" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#67bf7f" />
-                <stop offset="50%" stop-color="#3d9c5d" />
-                <stop offset="100%" stop-color="#23683a" />
-              </linearGradient>
-            </defs>
-            <path d="M50 10 C68 40, 80 80, 80 110 C80 145, 68 175, 50 190 L50 10 Z" fill="url(#right-shell-grad)" stroke="#1e522e" stroke-width="2"/>
-            <path d="M60 30 C70 60, 74 95, 73 125 C72 150, 62 175, 55 183" stroke="#23683a" stroke-width="1.5" stroke-dasharray="3,3"/>
-            <path d="M54 50 C62 80, 66 110, 64 140 C62 160, 56 175, 53 180" stroke="#23683a" stroke-width="1.5" stroke-dasharray="3,3"/>
-          </svg>
-        </div>
-        <div class="seeds-burst">
-          <div class="seed s1"></div>
-          <div class="seed s2"></div>
-          <div class="seed s3"></div>
-          <div class="seed s4"></div>
-          <div class="seed s5"></div>
-          <div class="seed s6"></div>
-          <div class="seed s7"></div>
-          <div class="seed s8"></div>
-          <div class="seed s9"></div>
-          <div class="seed s10"></div>
-          <div class="seed s11"></div>
-          <div class="seed s12"></div>
+
+        <svg style="width:0; height:0; position:absolute;">
+          <defs>
+            <linearGradient id="green-pod-1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8ce2a3" />
+              <stop offset="50%" stop-color="#4eb270" />
+              <stop offset="100%" stop-color="#1e5831" />
+            </linearGradient>
+            <linearGradient id="green-pod-2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7cd294" />
+              <stop offset="50%" stop-color="#3c9c5d" />
+              <stop offset="100%" stop-color="#154223" />
+            </linearGradient>
+            <linearGradient id="green-pod-3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#6ec787" />
+              <stop offset="50%" stop-color="#348e52" />
+              <stop offset="100%" stop-color="#10361c" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="blast-particles-container">
+          <div class="blast-seed bs1"></div>
+          <div class="blast-seed bs2"></div>
+          <div class="blast-seed bs3"></div>
+          <div class="blast-seed bs4"></div>
+          <div class="blast-seed bs5"></div>
+          <div class="blast-seed bs6"></div>
+          <div class="blast-seed bs7"></div>
+          <div class="blast-seed bs8"></div>
+          <div class="blast-seed bs9"></div>
+          <div class="blast-seed bs10"></div>
+          <div class="blast-seed bs11"></div>
+          <div class="blast-seed bs12"></div>
+          <div class="blast-seed bs13"></div>
+          <div class="blast-seed bs14"></div>
+          <div class="blast-seed bs15"></div>
+          <div class="blast-seed bs16"></div>
+          <div class="blast-dust bd1"></div>
+          <div class="blast-dust bd2"></div>
+          <div class="blast-dust bd3"></div>
+          <div class="blast-dust bd4"></div>
+          <div class="blast-dust bd5"></div>
+          <div class="blast-dust bd6"></div>
+          <div class="blast-dust bd7"></div>
+          <div class="blast-dust bd8"></div>
+          <div class="blast-dust bd9"></div>
+          <div class="blast-dust bd10"></div>
+          <div class="blast-dust bd11"></div>
+          <div class="blast-dust bd12"></div>
+          <div class="blast-dust bd13"></div>
+          <div class="blast-dust bd14"></div>
+          <div class="blast-dust bd15"></div>
+          <div class="blast-dust bd16"></div>
+          <div class="blast-dust bd17"></div>
+          <div class="blast-dust bd18"></div>
+          <div class="blast-dust bd19"></div>
+          <div class="blast-dust bd20"></div>
         </div>
       </div>
       <div class="loader-brand-text">LISHA TRADERS</div>
