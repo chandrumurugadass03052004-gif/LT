@@ -2096,4 +2096,71 @@ document.addEventListener('DOMContentLoaded', () => {
     motionObserver.observe(el);
   });
 
+  // G. GALLERY LIGHTBOX POPUP FEATURE
+  const initGalleryLightbox = () => {
+    const galleryItems = document.querySelectorAll('.g-photo');
+    const lightbox = document.getElementById('lightbox-modal');
+    const mediaContainer = document.getElementById('lightbox-media-container');
+    const closeBtn = document.getElementById('lightbox-close');
+    const captionEyebrow = lightbox?.querySelector('.lightbox-eyebrow');
+    const captionTitle = lightbox?.querySelector('.lightbox-title');
+
+    if (!galleryItems.length || !lightbox || !mediaContainer || !closeBtn) return;
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Clear previous content
+        mediaContainer.innerHTML = '';
+
+        // Find either image or SVG inside the item
+        const img = item.querySelector('img');
+        const svg = item.querySelector('svg');
+        const eyebrow = item.querySelector('[data-translate*="eyebrow"]')?.textContent || '';
+        const title = item.querySelector('[data-translate*="title"]')?.textContent || '';
+
+        if (img) {
+          const clonedImg = img.cloneNode(true);
+          clonedImg.removeAttribute('style'); // Remove inline styles if any
+          mediaContainer.appendChild(clonedImg);
+        } else if (svg) {
+          const clonedSvg = svg.cloneNode(true);
+          mediaContainer.appendChild(clonedSvg);
+        }
+
+        // Set captions
+        if (captionEyebrow) captionEyebrow.textContent = eyebrow;
+        if (captionTitle) captionTitle.textContent = title;
+
+        // Open Lightbox
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // Lock background scroll
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = ''; // Unlock scroll
+    };
+
+    closeBtn.addEventListener('click', closeLightbox);
+    
+    // Close on clicking backdrop/outside content
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+        closeLightbox();
+      }
+    });
+  };
+
+  initGalleryLightbox();
+
 });
