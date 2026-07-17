@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'review_alert_success': 'Thank you for your testimonial! Your review has been added to our board.',
       'review_delete_confirm': 'Are you sure you want to remove this review?',
       'prod_tab_green': 'Green Cardamom',
-      'prod_tab_yellow': 'Yellow / Pale Green Cardamom',
+      'prod_tab_yellow': 'Fruit Cardamom (Yellow/Pale)',
       'grade_6_sub_yellow': 'Standard Pale Grade (MGB)',
       'grade_7_sub_yellow': 'Premium Bold Pale (MGEB)',
       'grade_75_sub_yellow': 'Elite Premium Pale Bold',
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'review_alert_success': 'आपकी समीक्षा के लिए धन्यवाद! आपकी समीक्षा बोर्ड पर जोड़ दी गई है।',
       'review_delete_confirm': 'क्या आप वाकई इस समीक्षा को हटाना चाहते हैं?',
       'prod_tab_green': 'हरी इलायची',
-      'prod_tab_yellow': 'पीली/हल्की हरी इलायची',
+      'prod_tab_yellow': 'फ्रूट इलायची (पीला/हल्की)',
       'grade_6_sub_yellow': 'मानक पीला ग्रेड (MGB)',
       'grade_7_sub_yellow': 'प्रीमियम बोल्ड पीला ग्रेड (MGEB)',
       'grade_75_sub_yellow': 'कुलीन प्रीमियम पीला बोल्ड',
@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'review_alert_success': 'உங்கள் மதிப்புரைக்கு நன்றி! உங்கள் மதிப்புரை எங்களது பலகையில் சேர்க்கப்பட்டுள்ளது.',
       'review_delete_confirm': 'இந்த மதிப்புரையை நீக்க விரும்புகிறீர்களா?',
       'prod_tab_green': 'பச்சை ஏலக்காய்',
-      'prod_tab_yellow': 'மஞ்சள்/வெளிர் பச்சை ஏலக்காய்',
+      'prod_tab_yellow': 'பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       'grade_6_sub_yellow': 'தரமான வெளிர் தரம் (MGB)',
       'grade_7_sub_yellow': 'பிரீமியம் போல்ட் வெளிர் தரம் (MGEB)',
       'grade_75_sub_yellow': 'எலைட் பிரீமியம் வெளிர் தரம்',
@@ -686,16 +686,16 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'The rarest cardamom selection in the world. Exceeds 9.0 mm in pod diameter, offering ultimate seed count and supreme volatile oil content.'
     },
     '6mm-yellow': {
-      title: '6.0 mm Yellow/Pale Cardamom',
+      title: '6.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Medium Grade (Standard Sized)',
       sieve: '> 6.0 mm (diameter mesh)',
       moisture: '12.0% Max humidity',
       weight: '350 - 370 g/l test weight',
       color: 'Golden Straw Yellow (MGB)',
-      desc: 'Sorted to ensure uniform color. Our 6mm Yellow/Pale Cardamom represents a highly affordable yet high-grade selection for retail packaging houses and restaurant supply distributors. Sweet, mild aroma.'
+      desc: 'Sorted to ensure uniform color. Our 6mm Fruit Cardamom (Yellow/Pale) represents a highly affordable yet high-grade selection for retail packaging houses and restaurant supply distributors. Sweet, mild aroma.'
     },
     '7mm-yellow': {
-      title: '7.0 mm Yellow/Pale Cardamom',
+      title: '7.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Premium Bold Grade (MGEB)',
       sieve: '> 7.0 mm (diameter mesh)',
       moisture: '11.5% Max humidity',
@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Exceptionally plump pods filled with high volatile natural oil content. Sorted carefully to exclude damaged units. Represents a premium domestic grade for catering houses and retail branding.'
     },
     '7.5mm-yellow': {
-      title: '7.5 mm Yellow/Pale Cardamom',
+      title: '7.5 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Elite Premium Bold',
       sieve: '> 7.5 mm (diameter mesh)',
       moisture: '11.2% Max humidity',
@@ -713,7 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Highly sought-after export grade. Visually sorted to guarantee a high color index, minimum thrips spot percentage, and deep seed count. Excellent value for international markets.'
     },
     '7.5-8mm-yellow': {
-      title: '7.5 - 8.0 mm Yellow/Pale Cardamom',
+      title: '7.5 - 8.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Super Bold Export Mix',
       sieve: '7.5 mm - 8.0 mm range',
       moisture: '11.0% Max humidity',
@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Perfect hybrid grading featuring the largest premium bold pods. Exceptionally filled with black fragrant seeds. Handpicked and double sorted for global shipping.'
     },
     '8mm-yellow': {
-      title: '8.0 mm Yellow/Pale Cardamom',
+      title: '8.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Super Extra Bold (Super Jumbo)',
       sieve: '> 8.0 mm (diameter mesh)',
       moisture: '10.5% Max humidity',
@@ -731,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'The ultimate pinnacle of Indian cardamom quality. Immense pods sorted with dual sieve steps. Exclusively handpicked for international gourmet distributors and premium gifting brands. Robust fragrance profile.'
     },
     '8.5mm-yellow': {
-      title: '8.5 mm Yellow/Pale Cardamom',
+      title: '8.5 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Imperial Jumbo Bold',
       sieve: '> 8.5 mm (diameter mesh)',
       moisture: '10.2% Max humidity',
@@ -740,7 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Gourmet grade visual cardamom. Selected exclusively for premium gifting, international luxury packaging, and royal spice blends.'
     },
     '9mm-yellow': {
-      title: '9.0 mm Yellow/Pale Cardamom',
+      title: '9.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Supreme Royal Jumbo',
       sieve: '> 9.0 mm (diameter mesh)',
       moisture: '10.0% Max humidity',
@@ -815,16 +815,16 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'दुनिया में सबसे दुर्लभ इलायची चयन। फली व्यास में 9.0 मिमी से अधिक, अंतिम बीज संख्या और सर्वोच्च वाष्पशील तेल सामग्री प्रदान करता है।'
     },
     '6mm-yellow': {
-      title: '6.0 मिमी पीली/हल्की इलायची',
+      title: '6.0 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'मध्यम ग्रेड (मानक आकार)',
       sieve: '> 6.0 मिमी (व्यास मेष)',
       moisture: '12.0% अधिकतम नमी',
       weight: '350 - 370 ग्राम/लीटर परीक्षण वजन',
       color: 'सुनहरा पुआल पीला (MGB)',
-      desc: 'समान रंग सुनिश्चित करने के लिए सावधानीपूर्वक छांटा गया। हमारी 6 मिमी पीली/हल्की इलायची खुदरा पैकेजिंग घरों और थोक विक्रेताओं के लिए एक अत्यधिक किफायती चयन है।'
+      desc: 'समान रंग सुनिश्चित करने के लिए सावधानीपूर्वक छांटा गया। हमारी 6 मिमी फ्रूट इलायची (पीली/हल्की) खुदरा पैकेजिंग घरों और थोक विक्रेताओं के लिए एक अत्यधिक किफायती चयन है।'
     },
     '7mm-yellow': {
-      title: '7.0 मिमी पीली/हल्की इलायची',
+      title: '7.0 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'प्रीमियम बोल्ड पीला ग्रेड (MGEB)',
       sieve: '> 7.0 मिमी (व्यास मेष)',
       moisture: '11.5% अधिकतम नमी',
@@ -833,7 +833,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'असाधारण रूप से मोटे पॉड्स। खानपान और खुदरा ब्रांडिंग के लिए एक प्रीमियम घरेलू ग्रेड का प्रतिनिधित्व करता है।'
     },
     '7.5mm-yellow': {
-      title: '7.5 मिमी पीली/हल्की इलायची',
+      title: '7.5 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'एलीट प्रीमियम पीला बोल्ड',
       sieve: '> 7.5 मिमी (व्यास मेष)',
       moisture: '11.2% अधिकतम नमी',
@@ -842,7 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'अत्यधिक निर्यात ग्रेड। उच्च रंग सूचकांक, न्यूनतम थ्रिप्स स्पॉट और गहरे बीजों की संख्या की गारंटी के लिए सावधानीपूर्वक छांटा गया।'
     },
     '7.5-8mm-yellow': {
-      title: '7.5 - 8.0 मिमी पीली/हल्की इलायची',
+      title: '7.5 - 8.0 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'सुपर पीला निर्यात मिश्रण',
       sieve: '7.5 मिमी - 8.0 मिमी वरंभ',
       moisture: '11.0% अधिकतम नमी',
@@ -851,7 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'सटीक हाइब्रिड ग्रेडिंग जिसमें सबसे बड़े प्रीमियम पीला बोल्ड पॉड्स शामिल हैं। काले सुगंधित बीजों से विशेष रूप से भरे हुए।'
     },
     '8mm-yellow': {
-      title: '8.0 मिमी पीली/हल्की इलायची',
+      title: '8.0 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'सुपर एक्स्ट्रा पीला बोल्ड (जंबो)',
       sieve: '> 8.0 मिमी (व्यास मेष)',
       moisture: '10.5% अधिकतम नमी',
@@ -860,7 +860,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'भारतीय इलायची गुणवत्ता का सर्वोच्च शिखर। दोहरी छलनी छंटाई। अंतरराष्ट्रीय पेटू वितरकों और प्रीमियम उपहार देने वाले ब्रांडों के लिए उत्कृष्ट।'
     },
     '8.5mm-yellow': {
-      title: '8.5 मिमी पीली/हल्की इलायची',
+      title: '8.5 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'इंपीरियल पीला जंबो बोल्ड',
       sieve: '> 8.5 मिमी (व्यास मेष)',
       moisture: '10.2% अधिकतम नमी',
@@ -869,7 +869,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'पेटू ग्रेड दृश्य इलायची। विशेष रूप से प्रीमियम उपहार देने, अंतरराष्ट्रीय लक्जरी पैकेजिंग और शाही मसाला मिश्रणों के लिए चुनी गई।'
     },
     '9mm-yellow': {
-      title: '9.0 मिमी पीली/हल्की इलायची',
+      title: '9.0 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'सुप्रीम रॉयल पीला जंबो',
       sieve: '> 9.0 मिमी (व्यास मेष)',
       moisture: '10.0% अधिकतम नमी',
@@ -944,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'உலகின் மிக அரிய ஏலக்காய் ரகம். 9.0 மிமீ விட்டம் கொண்ட காய்கள், அதிக விதைகளையும் சிறந்த நறுமண எண்ணெய்களையும் கொண்டது.'
     },
     '6mm-yellow': {
-      title: '6.0 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '6.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'நடுத்தர தரம் (சாதாரண அளவு)',
       sieve: '> 6.0 மிமீ (விட்டம் வலை)',
       moisture: '12.0% அதிகபட்ச ஈரப்பதம்',
@@ -953,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'சீரான நிறத்தை உறுதி செய்ய கவனமாக தரம் பிரிக்கப்பட்டது. சில்லறை பேக்கேஜிங் மற்றும் உணவக சப்ளையர்களுக்கு மிகவும் மலிவான தேர்வு.'
     },
     '7mm-yellow': {
-      title: '7.0 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '7.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'பிரீமியம் போல்ட் தரம் (MGEB)',
       sieve: '> 7.0 மிமீ (விட்டம் வலை)',
       moisture: '11.5% அதிகபட்ச ஈரப்பதம்',
@@ -962,7 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'அரோமா எண்ணெய்கள் நிறைந்த முழுமையான ஏலக்காய் காய்கள். கேட்டரிங் மற்றும் சில்லறை வர்த்தகத்திற்கு ஏற்ற பிரீமியம் தரம்.'
     },
     '7.5mm-yellow': {
-      title: '7.5 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '7.5 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'எலைட் பிரீமியம் போல்ட்',
       sieve: '> 7.5 மிமீ (விட்டம் வலை)',
       moisture: '11.2% அதிகபட்ச ஈரப்பதம்',
@@ -971,7 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'ஏற்றுமதி தரம். சிறந்த நிறம், தரம் மற்றும் அதிக விதைகள் நிறைந்த காய்களை உறுதி செய்ய தரம் பிரிக்கப்பட்டது.'
     },
     '7.5-8mm-yellow': {
-      title: '7.5 - 8.0 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '7.5 - 8.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'சூப்பர் போல்ட் ஏற்றுமதி கலவை',
       sieve: '7.5 மிமீ - 8.0 மிமீ வரம்பு',
       moisture: '11.0% அதிகபட்ச ஈரப்பதம்',
@@ -980,7 +980,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'மிகப்பெரிய பிரீமியம் போல்ட் காய்களைக் கொண்ட சிறந்த தரம். கறுப்பு நறுமண விதைகள் மற்றும் இரட்டை தரம் பிரிக்கப்பட்டது.'
     },
     '8mm-yellow': {
-      title: '8.0 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '8.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'சூப்பர் எக்ஸ்ட்ரா போல்ட் (ஜம்போ)',
       sieve: '> 8.0 மிமீ (விட்டம் வலை)',
       moisture: '10.5% அதிகபட்ச ஈரப்பதம்',
@@ -989,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'மஞ்சள் ஏலக்காய் தரத்தின் உச்சகட்டம். இரண்டு முறை சல்லடை மூலம் தரம் பிரிக்கப்பட்டு, பிரீமியம் பரிசுப் பெட்டிகளுக்கு ஏற்றது.'
     },
     '8.5mm-yellow': {
-      title: '8.5 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '8.5 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'இம்பீரியல் ஜம்போ போல்ட்',
       sieve: '> 8.5 மிமீ (விட்டம் வலை)',
       moisture: '10.2% அதிகபட்ச ஈரப்பதம்',
@@ -998,7 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'பரிசுப் பெட்டிகள் மற்றும் இம்பீரியல் நறுமண கலவைகளுக்கு ஏற்ற சிறப்பு தேர்வு.'
     },
     '9mm-yellow': {
-      title: '9.0 மிமீ மஞ்சள்/வெளிர் ஏலக்காய்',
+      title: '9.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'சுப்ரீம் ராயல் ஜம்போ',
       sieve: '> 9.0 மிமீ (விட்டம் வலை)',
       moisture: '10.0% அதிகபட்ச ஈரப்பதம்',
@@ -1682,7 +1682,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const tr = document.createElement('tr');
       const varLabel = item.variety === 'yellow' ? 
-        (translations[currentLang]['prod_tab_yellow'] || 'Yellow/Pale') : 
+        (translations[currentLang]['prod_tab_yellow'] || 'Fruit Cardamom (Yellow/Pale)') : 
         (translations[currentLang]['prod_tab_green'] || 'Green');
 
       const sizeLabel = currentGradeNames[item.grade] || item.grade;
@@ -1795,7 +1795,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let itemsDetails = '';
     estimateItems.forEach((item, index) => {
-      const varName = item.variety === 'yellow' ? 'Yellow/Pale Green Cardamom' : 'Green Cardamom';
+      const varName = item.variety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
       const gradeName = currentGradeNames[item.grade] || item.grade;
       itemsDetails += `${index + 1}. ${varName} (${gradeName}) - ${item.qty} KG (${item.bags} bags, packed in ${item.packaging})\n`;
     });
