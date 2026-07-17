@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Privacy Policy | Lisha Traders</title>
+  <meta name="description" content="At Lisha Traders, we value your privacy and are committed to protecting your personal and business information. This Privacy Policy explains how we collect, use, store, and protect the information you provide when using our website.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --green-accent: #1B5E20;
-      --text-dark: #111111;
-      --text-muted: #64748B;
-      --border-color: #E2E8F0;
-      --bg-light: #F8FAFC;
+      --text-black: #000000;
+      --border-color: #E5E7EB;
       --white: #FFFFFF;
       --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'DM Sans', system-ui, sans-serif;
-      --radius-sm: 6px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
+      --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --radius-card: 16px;
+      --radius-sm: 8px;
     }
 
     * {
@@ -34,9 +32,9 @@
 
     body {
       background-color: var(--white);
-      color: var(--text-dark);
+      color: var(--text-black);
       font-family: var(--font-sans);
-      line-height: 1.7;
+      line-height: 1.75;
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
     }
@@ -47,7 +45,7 @@
       padding: 0 24px;
     }
 
-    /* Elegant Header */
+    /* Header Styling */
     header {
       border-bottom: 1px solid var(--border-color);
       background: var(--white);
@@ -60,25 +58,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 0;
+      padding: 16px 0;
     }
 
     .logo {
       font-family: var(--font-serif);
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--green-accent);
       text-decoration: none;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
+      line-height: 0.95;
+      display: flex;
+      flex-direction: column;
     }
 
     .logo span {
-      color: #C9A227; /* Gold accent matching main logo */
       font-family: var(--font-sans);
       font-size: 10px;
-      letter-spacing: 0.3em;
-      display: block;
       font-weight: 600;
+      color: var(--green-accent);
+      letter-spacing: 0.35em;
       margin-top: 2px;
     }
 
@@ -99,9 +99,8 @@
 
     /* Hero Section */
     .hero-section {
-      padding: 80px 0 50px;
+      padding: 90px 0 60px;
       border-bottom: 1px solid var(--border-color);
-      animation: fadeIn 0.8s ease-out;
     }
 
     .hero-label {
@@ -125,41 +124,41 @@
 
     .hero-desc {
       font-size: 18px;
-      color: var(--text-muted);
+      color: var(--text-black);
       max-width: 750px;
       margin-bottom: 30px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .meta-info {
       display: flex;
       gap: 30px;
-      font-size: 14px;
-      color: var(--text-muted);
+      font-size: 14.5px;
+      color: var(--text-black);
       border-top: 1px solid var(--border-color);
       padding-top: 20px;
       display: inline-flex;
     }
 
     .meta-info strong {
-      color: var(--text-dark);
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--green-accent);
     }
 
-    /* Main Container (Two Columns) */
+    /* Main Content Column Grid */
     .main-grid {
       display: grid;
       grid-template-columns: 280px 1fr;
       gap: 60px;
-      padding: 60px 0 100px;
+      padding: 80px 0 100px;
       align-items: start;
     }
 
-    /* Sidebar Navigation (Sticky) */
+    /* Sticky Sidebar Table of Contents */
     .sidebar {
       position: sticky;
-      top: 100px;
-      max-height: calc(100vh - 120px);
+      top: 110px;
+      max-height: calc(100vh - 150px);
       overflow-y: auto;
       padding-right: 15px;
       border-right: 1px solid var(--border-color);
@@ -182,47 +181,62 @@
     }
 
     .toc-list a {
-      color: var(--text-muted);
+      color: var(--green-accent);
+      opacity: 0.6;
       text-decoration: none;
       font-size: 14.5px;
       font-weight: 500;
-      transition: color 0.3s, padding-left 0.3s;
+      transition: opacity 0.3s, padding-left 0.3s;
       display: block;
     }
 
     .toc-list a:hover,
     .toc-list a.active {
-      color: var(--green-accent);
-      padding-left: 5px;
+      opacity: 1;
+      font-weight: 600;
+      padding-left: 6px;
     }
 
-    /* Content Area */
+    /* Content Area & Cards */
     .content-area {
       max-width: 900px;
       display: flex;
       flex-direction: column;
-      gap: 60px;
+      gap: 40px;
     }
 
     .policy-section {
-      scroll-margin-top: 120px;
-      animation: fadeInUp 0.8s ease-out;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      scroll-margin-top: 125px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .policy-section:hover {
+      border-color: var(--green-accent);
+      box-shadow: 0 4px 24px rgba(27, 94, 32, 0.03);
     }
 
     h2 {
       font-family: var(--font-serif);
-      font-size: 28px;
+      font-size: 26px;
       color: var(--green-accent);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       font-weight: 600;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 10px;
     }
 
     p {
       margin-bottom: 20px;
-      color: var(--text-dark);
+      color: var(--text-black);
       font-size: 16px;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
     }
 
     ul {
@@ -231,98 +245,118 @@
       padding-left: 5px;
     }
 
+    ul:last-child {
+      margin-bottom: 0;
+    }
+
     ul li {
       position: relative;
       padding-left: 20px;
       margin-bottom: 12px;
       font-size: 15.5px;
-      color: var(--text-dark);
+      color: var(--text-black);
+    }
+
+    ul li:last-child {
+      margin-bottom: 0;
     }
 
     ul li::before {
       content: "•";
       color: var(--green-accent);
       font-weight: bold;
-      font-size: 18px;
+      font-size: 20px;
       position: absolute;
       left: 0;
-      top: -2px;
+      top: -3px;
     }
 
     .sub-section-title {
       font-family: var(--font-sans);
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--green-accent);
-      margin: 25px 0 12px;
+      margin: 30px 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    /* Contact Card */
-    .contact-card {
-      background: var(--white);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 35px;
-      margin-top: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    .sub-section-title:first-of-type {
+      margin-top: 10px;
     }
 
-    .contact-card-title {
-      font-family: var(--font-serif);
-      font-size: 22px;
-      color: var(--green-accent);
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
+    /* Premium Contact Info Card Grid */
     .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
     }
 
     .contact-item {
       display: flex;
+      gap: 16px;
       align-items: flex-start;
-      gap: 15px;
-      font-size: 15px;
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--white);
+      transition: border-color 0.3s;
     }
 
-    .contact-item-icon {
-      font-size: 18px;
-      line-height: 1;
-      margin-top: 2px;
+    .contact-item:hover {
+      border-color: var(--green-accent);
     }
 
-    .contact-item-text strong {
-      display: block;
+    .contact-icon {
+      font-size: 20px;
       color: var(--green-accent);
-      font-weight: 600;
-      margin-bottom: 2px;
+      line-height: 1.2;
     }
 
-    .contact-item-text a {
+    .contact-details strong {
+      display: block;
+      font-size: 13px;
+      color: var(--green-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .contact-details {
+      font-size: 15px;
+      color: var(--text-black);
+    }
+
+    .contact-details a {
       color: var(--green-accent);
       text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
     }
 
-    .contact-item-text a:hover {
+    .contact-details a:hover {
       text-decoration: underline;
+      opacity: 0.8;
     }
 
-    /* Bottom Highlighted Box */
+    /* Bottom Notice */
     .bottom-notice {
-      background: var(--bg-light);
+      background: var(--white);
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 30px;
-      margin-top: 40px;
       border-left: 4px solid var(--green-accent);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      transition: box-shadow 0.3s;
+    }
+
+    .bottom-notice:hover {
+      box-shadow: 0 4px 24px rgba(27, 94, 32, 0.03);
     }
 
     .bottom-notice-title {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 22px;
       color: var(--green-accent);
       font-weight: 600;
       margin-bottom: 12px;
@@ -330,49 +364,86 @@
 
     .bottom-notice p {
       margin: 0;
-      font-size: 15px;
-      color: var(--text-dark);
+      font-size: 15.5px;
+      color: var(--text-black);
     }
 
-    /* Footer styling */
+    /* Footer Styling */
     footer {
       border-top: 1px solid var(--border-color);
       padding: 40px 0;
       text-align: center;
       font-size: 14px;
-      color: var(--text-muted);
+      color: var(--text-black);
+      opacity: 0.8;
     }
 
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Smooth Scroll Entry Animations */
+    .fade-in-card {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .fade-in-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Responsive Overrides */
+    /* Responsive Queries */
     @media (max-width: 992px) {
       .main-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+        padding: 50px 0 80px;
       }
       
       .sidebar {
-        display: none; /* Hide Table of Contents on mobile/tablet to avoid clutter */
+        display: none; /* Hide TOC navigation on tablet/mobile */
       }
       
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+
       h1 {
         font-size: 38px;
+      }
+      
+      .policy-section {
+        padding: 30px 24px;
+      }
+
+      .bottom-notice {
+        padding: 30px 24px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+
+      .hero-desc {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 22px;
+        margin-bottom: 18px;
+      }
+
+      .meta-info {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 16px;
+        width: 100%;
+      }
+
+      .contact-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
     }
   </style>
@@ -433,7 +504,7 @@
       <main class="content-area">
         
         <!-- SECTION 1 -->
-        <section class="policy-section" id="section-1">
+        <section class="policy-section fade-in-card" id="section-1">
           <h2>1 Introduction</h2>
           <p>Lisha Traders respects the privacy of every visitor.</p>
           <p>This Privacy Policy explains how information is collected, used, stored and protected when you visit our website, submit quotation requests, contact us, or conduct business with us.</p>
@@ -441,7 +512,7 @@
         </section>
 
         <!-- SECTION 2 -->
-        <section class="policy-section" id="section-2">
+        <section class="policy-section fade-in-card" id="section-2">
           <h2>2 Information We Collect</h2>
           
           <div class="sub-section-title">Personal Information</div>
@@ -475,7 +546,7 @@
         </section>
 
         <!-- SECTION 3 -->
-        <section class="policy-section" id="section-3">
+        <section class="policy-section fade-in-card" id="section-3">
           <h2>3 How We Use Your Information</h2>
           <p>We may use your information to:</p>
           <ul>
@@ -492,7 +563,7 @@
         </section>
 
         <!-- SECTION 4 -->
-        <section class="policy-section" id="section-4">
+        <section class="policy-section fade-in-card" id="section-4">
           <h2>4 Cookies</h2>
           <p>Our website may use cookies to:</p>
           <ul>
@@ -505,7 +576,7 @@
         </section>
 
         <!-- SECTION 5 -->
-        <section class="policy-section" id="section-5">
+        <section class="policy-section fade-in-card" id="section-5">
           <h2>5 Information Sharing</h2>
           <p>We may share information only when necessary with:</p>
           <ul>
@@ -518,14 +589,14 @@
         </section>
 
         <!-- SECTION 6 -->
-        <section class="policy-section" id="section-6">
+        <section class="policy-section fade-in-card" id="section-6">
           <h2>6 Data Security</h2>
           <p>We use reasonable administrative, technical, and organizational safeguards to protect your information against unauthorized access, loss, misuse, or alteration.</p>
           <p>Although we strive to protect your information, no internet transmission or storage system can be guaranteed to be completely secure.</p>
         </section>
 
         <!-- SECTION 7 -->
-        <section class="policy-section" id="section-7">
+        <section class="policy-section fade-in-card" id="section-7">
           <h2>7 Data Retention</h2>
           <p>Information is retained only for as long as necessary to:</p>
           <ul>
@@ -537,7 +608,7 @@
         </section>
 
         <!-- SECTION 8 -->
-        <section class="policy-section" id="section-8">
+        <section class="policy-section fade-in-card" id="section-8">
           <h2>8 Your Rights</h2>
           <p>You may request to:</p>
           <ul>
@@ -550,20 +621,20 @@
         </section>
 
         <!-- SECTION 9 -->
-        <section class="policy-section" id="section-9">
+        <section class="policy-section fade-in-card" id="section-9">
           <h2>9 Third-Party Services</h2>
           <p>Our website may contain links to third-party websites.</p>
           <p>Lisha Traders is not responsible for the privacy practices or content of external websites.</p>
         </section>
 
         <!-- SECTION 10 -->
-        <section class="policy-section" id="section-10">
+        <section class="policy-section fade-in-card" id="section-10">
           <h2>10 Children's Privacy</h2>
           <p>This website is intended for business users and is not directed to individuals under the age of 18.</p>
         </section>
 
         <!-- SECTION 11 -->
-        <section class="policy-section" id="section-11">
+        <section class="policy-section fade-in-card" id="section-11">
           <h2>11 Changes to this Policy</h2>
           <p>We may update this Privacy Policy from time to time.</p>
           <p>Any updates will be published on this page with a revised "Last Updated" date.</p>
@@ -571,59 +642,54 @@
         </section>
 
         <!-- SECTION 12 -->
-        <section class="policy-section" id="section-12">
+        <section class="policy-section fade-in-card" id="section-12">
           <h2>12 Contact Information</h2>
-          
-          <div class="contact-card">
-            <div class="contact-card-title">Lisha Traders</div>
-            <div class="contact-list">
-              <div class="contact-item">
-                <span class="contact-item-icon">📍</span>
-                <div class="contact-item-text">
-                  <strong>Business Address</strong>
-                  Bodinayakanur, Theni District, Tamil Nadu - 625513, India
-                </div>
+          <div class="contact-list">
+            <div class="contact-item">
+              <span class="contact-icon">📍</span>
+              <div class="contact-details">
+                <strong>Business Address</strong>
+                Bodinayakanur, Theni District, Tamil Nadu - 625513, India
               </div>
-              <div class="contact-item">
-                <span class="contact-item-icon">📞</span>
-                <div class="contact-item-text">
-                  <strong>Phone Number</strong>
-                  <a href="tel:+917904612672">+91 79046 12672</a>
-                </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📞</span>
+              <div class="contact-details">
+                <strong>Phone Number</strong>
+                <a href="tel:+917904612672">+91 79046 12672</a>
               </div>
-              <div class="contact-item">
-                <span class="contact-item-icon">💬</span>
-                <div class="contact-item-text">
-                  <strong>WhatsApp</strong>
-                  <a href="https://wa.me/917904612672" target="_blank">+91 79046 12672</a>
-                </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">💬</span>
+              <div class="contact-details">
+                <strong>WhatsApp</strong>
+                <a href="https://wa.me/917904612672" target="_blank">+91 79046 12672</a>
               </div>
-              <div class="contact-item">
-                <span class="contact-item-icon">✉️</span>
-                <div class="contact-item-text">
-                  <strong>Email Address</strong>
-                  <a href="mailto:info@lishatraders.com">info@lishatraders.com</a>
-                </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">✉️</span>
+              <div class="contact-details">
+                <strong>Email Address</strong>
+                <a href="mailto:info@lishatraders.com">info@lishatraders.com</a>
               </div>
-              <div class="contact-item">
-                <span class="contact-item-icon">🕒</span>
-                <div class="contact-item-text">
-                  <strong>Business Hours</strong>
-                  Monday - Saturday: 9:00 AM - 6:00 PM
-                </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">🕒</span>
+              <div class="contact-details">
+                <strong>Business Hours</strong>
+                Monday - Saturday: 9:00 AM - 6:00 PM
               </div>
             </div>
           </div>
-
-          <!-- Bottom Notice -->
-          <div class="bottom-notice">
-            <div class="bottom-notice-title">Your Privacy Matters</div>
-            <p>
-              We value the trust you place in Lisha Traders. We are committed to handling your information responsibly and using it only for legitimate business purposes in accordance with applicable laws.
-            </p>
-          </div>
-
         </section>
+
+        <!-- BOTTOM NOTICE -->
+        <div class="bottom-notice fade-in-card">
+          <div class="bottom-notice-title">Your Privacy Matters</div>
+          <p>
+            We value the trust you place in Lisha Traders. We are committed to handling your information responsibly and using it only for legitimate business purposes in accordance with applicable laws.
+          </p>
+        </div>
 
       </main>
 
@@ -638,17 +704,18 @@
   </footer>
 
   <script>
-    // Smooth scroll active TOC styling
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. Smooth scroll active TOC styling (ScrollSpy)
       const sections = document.querySelectorAll('.policy-section');
       const tocLinks = document.querySelectorAll('.toc-link');
 
-      window.addEventListener('scroll', () => {
+      const handleScrollSpy = () => {
         let current = '';
+        const scrollPosition = window.scrollY + 160;
+
         sections.forEach(section => {
           const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (window.scrollY >= (sectionTop - 150)) {
+          if (scrollPosition >= sectionTop) {
             current = section.getAttribute('id');
           }
         });
@@ -659,6 +726,31 @@
             link.classList.add('active');
           }
         });
+      };
+
+      window.addEventListener('scroll', handleScrollSpy);
+      handleScrollSpy(); // Run initially to highlight the correct item
+
+      // 2. Smooth entrance animation via IntersectionObserver
+      const animateCards = document.querySelectorAll('.fade-in-card');
+      
+      const observerOptions = {
+        root: null,
+        threshold: 0.05,
+        rootMargin: '0px 0px -40px 0px'
+      };
+
+      const cardObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      animateCards.forEach(card => {
+        cardObserver.observe(card);
       });
     });
   </script>
