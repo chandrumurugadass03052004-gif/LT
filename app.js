@@ -2178,4 +2178,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initGalleryLightbox();
 
+  // Register Why Choose Us section layout elements for scroll animations
+  if (typeof motionObserver !== 'undefined') {
+    document.querySelectorAll('.why-choose-business, .why-image-wrapper, .why-cta-block').forEach(el => {
+      el.classList.add('reveal-fade-up');
+      motionObserver.observe(el);
+    });
+    document.querySelectorAll('.why-card, .why-stat-card, .why-trust-bar').forEach(el => {
+      el.classList.add('stagger-reveal');
+      motionObserver.observe(el);
+    });
+  }
+
+  // Real-time statistics count-up animation
+  const initCountUpStats = () => {
+    const countElements = document.querySelectorAll('.why-stats-row .count-up');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const targetVal = parseInt(el.getAttribute('data-target'), 10);
+          const suffix = el.getAttribute('data-suffix') || '';
+          let currentVal = 0;
+          const duration = 1200; // Total animation ms
+          const steps = 30;
+          const increment = Math.ceil(targetVal / steps);
+          const stepTime = duration / steps;
+          const timer = setInterval(() => {
+            currentVal += increment;
+            if (currentVal >= targetVal) {
+              currentVal = targetVal;
+              clearInterval(timer);
+            }
+            el.innerText = currentVal + suffix;
+          }, stepTime);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    countElements.forEach(el => countObserver.observe(el));
+  };
+
+  initCountUpStats();
+
 });
