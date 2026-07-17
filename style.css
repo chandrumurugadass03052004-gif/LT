@@ -1706,7 +1706,7 @@ input[type="number"]:focus {
   font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 0.35em;
-  color: var(--gold-500);
+  color: var(--gold);
   margin-top: 5px;
   font-weight: 500;
 }
