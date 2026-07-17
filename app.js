@@ -2183,13 +2183,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
 
   // Add reveal-fade-up class dynamically to section layout wrappers
-  document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section, .premium-footer').forEach(el => {
+  document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section').forEach(el => {
     el.classList.add('reveal-fade-up');
     motionObserver.observe(el);
   });
 
   // Add stagger-reveal class dynamically to grid cards and columns
-  document.querySelectorAll('.p-card, .why-photo, .feature, .t-card, .pack-card, .calc-form, .cta-info-item, .footer-grid-redesign > div, .contact-card-item, .credential-badge').forEach(el => {
+  document.querySelectorAll('.p-card, .why-photo, .feature, .t-card, .pack-card, .calc-form, .cta-info-item, .contact-card-item, .credential-badge').forEach(el => {
     el.classList.add('stagger-reveal');
     motionObserver.observe(el);
   });
