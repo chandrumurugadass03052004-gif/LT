@@ -262,7 +262,8 @@ header.scrolled {
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: clamp(20px, 3.5vw, 60px);
   padding: 16px 24px;
   max-width: 1200px;
   margin: 0 auto;
@@ -324,9 +325,18 @@ header.scrolled {
   display: flex;
   align-items: center;
   gap: clamp(8px, 1.2vw, 16px);
+  margin-left: auto; /* Push actions to the far right */
 }
 
 /* Language-specific menu adjustments to prevent text wrapping on laptops */
+body.lang-ta .nav {
+  gap: clamp(12px, 2vw, 36px);
+}
+
+body.lang-hi .nav {
+  gap: clamp(15px, 2.5vw, 45px);
+}
+
 body.lang-ta .nav-links {
   gap: clamp(8px, 1.5vw, 24px);
   font-size: clamp(11.5px, 0.9vw, 13.5px);
