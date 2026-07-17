@@ -1862,12 +1862,16 @@ footer {
     right: 0;
   }
   
+  .nav {
+    padding: 16px 15px;
+  }
+  
   .burger-menu {
     display: block;
   }
   
   .nav-actions {
-    margin-right: 40px;
+    margin-right: 0;
   }
   
   .products-grid {
