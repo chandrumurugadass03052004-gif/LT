@@ -1664,103 +1664,156 @@ input[type="number"]:focus {
 }
 
 /* ---------- FOOTER ---------- */
-footer {
-  background: var(--green-900);
-  color: #a4b3a8;
+/* ---------- PREMIUM REDESIGNED FOOTER ---------- */
+.premium-footer {
+  background: var(--white);
+  color: var(--green-900);
   padding: 80px 0 40px;
+  border-top: 1px solid rgba(18, 53, 36, 0.08);
+  font-family: var(--font-sans);
   position: relative;
-  border-top: 1px solid var(--line);
+  z-index: 10;
 }
 
-.footer-grid {
+.footer-grid-redesign {
   display: grid;
-  grid-template-columns: 1.4fr 0.9fr 0.9fr 0.8fr;
-  gap: 50px;
-  margin-bottom: 60px;
+  grid-template-columns: 2.2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
-.footer-grid h5 {
-  color: var(--white);
-  font-size: 13.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 22px;
-}
-
-.footer-grid ul {
-  list-style: none;
-}
-
-.footer-grid ul li {
-  margin-bottom: 12px;
-  font-size: 14.5px;
-}
-
-.footer-grid ul li a:hover {
-  color: var(--white);
-  transform: translateX(3px);
-  display: inline-block;
-}
-
-.foot-logo {
+.footer-col h5 {
   font-family: var(--font-serif);
-  font-size: 26px;
-  color: var(--white);
-  margin-bottom: 18px;
-  letter-spacing: 0.08em;
+  font-size: 18px;
+  color: var(--green-900);
+  margin-bottom: 25px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
-.foot-logo span {
+.foot-logo-redesign {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.06em;
+  color: var(--green-900);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.foot-logo-redesign span {
   display: block;
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.35em;
-  font-weight: 700;
-  color: var(--gold);
-  margin-top: 4px;
+  color: var(--gold-500);
+  margin-top: 5px;
+  font-weight: 500;
 }
 
-.foot-desc {
+.foot-description {
   font-size: 14px;
-  max-width: 280px;
-  color: #92a497;
-  margin-bottom: 24px;
   line-height: 1.6;
+  color: var(--muted);
+  max-width: 320px;
+  margin: 0;
 }
 
-.social-row {
+.footer-links-list,
+.footer-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-.social-row a {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: var(--transition);
+.footer-links-list a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-.social-row a:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  transform: translateY(-3px);
+.footer-links-list a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--green-900);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.footer-links-list a:hover {
   color: var(--green-900);
 }
 
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 30px;
+.footer-links-list a:hover::after {
+  width: 100%;
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.footer-contact-list a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact-list a:hover {
+  color: var(--green-900);
+}
+
+.contact-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  user-select: none;
+  margin-top: 2px;
+}
+
+.footer-contact-list li:hover .contact-icon {
+  transform: scale(1.22);
+}
+
+.footer-divider {
+  border: 0;
+  height: 1px;
+  background: rgba(18, 53, 36, 0.1);
+  margin: 40px 0 25px;
+}
+
+.footer-bottom-redesign {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  color: #839588;
+  align-items: center;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.footer-bottom-redesign .copyright {
+  font-weight: 500;
+}
+
+.footer-bottom-redesign .designer {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--green-900);
 }
 
 /* ---------- RESPONSIVE MEDIA QUERIES ---------- */
