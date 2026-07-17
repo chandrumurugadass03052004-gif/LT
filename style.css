@@ -289,9 +289,10 @@ header.scrolled {
 
 .nav-links {
   display: flex;
-  gap: 36px;
-  font-size: 14.5px;
+  gap: clamp(10px, 2.2vw, 36px);
+  font-size: clamp(12.5px, 1vw, 14.5px);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .nav-links a {
@@ -322,7 +323,24 @@ header.scrolled {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(8px, 1.2vw, 16px);
+}
+
+/* Language-specific menu adjustments to prevent text wrapping on laptops */
+body.lang-ta .nav-links {
+  gap: clamp(8px, 1.5vw, 24px);
+  font-size: clamp(11.5px, 0.9vw, 13.5px);
+}
+
+body.lang-hi .nav-links {
+  gap: clamp(8px, 1.8vw, 28px);
+  font-size: clamp(12px, 0.95vw, 14px);
+}
+
+body.lang-ta .nav-actions .btn,
+body.lang-hi .nav-actions .btn {
+  padding: 8px clamp(10px, 1.5vw, 18px);
+  font-size: clamp(12px, 0.95vw, 13.5px);
 }
 
 /* Mobile Menu Button */
