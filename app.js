@@ -182,7 +182,36 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_alert_empty_submit': 'Please add at least one cardamom grade sizing to your estimate list first.',
       'stat_years': 'Years Legacy',
       'stat_tons': 'Tons Distributed',
-      'stat_partners': 'Wholesale Partners'
+      'stat_partners': 'Wholesale Partners',
+      'why_biz_label': 'WHY CHOOSE US',
+      'why_biz_title': 'Trusted by Businesses. <br>Built on <span style="color: #4eb270;">Quality</span>.',
+      'why_biz_subheading': 'Lisha Traders supplies premium Indian green cardamom with a commitment to consistent quality, transparent business practices, and long-term customer relationships.',
+      'why_feat_1_title': 'Premium Quality',
+      'why_feat_1_desc': 'Every batch is carefully sourced and graded to maintain consistent quality standards.',
+      'why_feat_2_title': 'Trusted Procurement',
+      'why_feat_2_desc': 'We source premium cardamom from trusted auction markets and verified suppliers.',
+      'why_feat_3_title': 'Transparent Business',
+      'why_feat_3_desc': 'Clear quotations, honest communication, and straightforward pricing.',
+      'why_feat_4_title': 'Secure Packaging',
+      'why_feat_4_desc': 'Products are packed carefully to preserve freshness during transportation.',
+      'why_feat_5_title': 'Reliable Delivery',
+      'why_feat_5_desc': 'Orders are processed efficiently with timely dispatch across India.',
+      'why_feat_6_title': 'Customer First',
+      'why_feat_6_desc': 'We focus on building long-term relationships through dependable service and support.',
+      'why_stat_1_lbl': 'Bulk Orders Delivered',
+      'why_stat_2_lbl': 'Quality Checked',
+      'why_stat_3_lbl': 'Customer Support',
+      'why_trust_title': 'Trusted Business Practices',
+      'why_badge_gst': '✓ GST Invoice Available',
+      'why_badge_wholesale': '✓ Wholesale Orders',
+      'why_badge_bulk': '✓ Bulk Supply',
+      'why_badge_quality': '✓ Quality Checked',
+      'why_badge_packaging': '✓ Secure Packaging',
+      'why_badge_support': '✓ Responsive Support',
+      'why_cta_title': 'Let\'s Build a Long-Term Business Relationship.',
+      'why_cta_desc': 'Whether you are a wholesaler, distributor, retailer, or exporter, Lisha Traders is committed to supplying premium-quality green cardamom with reliable service and transparent communication.',
+      'why_cta_btn_quote': 'Request Bulk Quote',
+      'why_cta_btn_contact': 'Contact Us'
     },
     'hi': {
       'nav_home': 'होम',
@@ -362,7 +391,36 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_alert_empty_submit': 'कृपया पहले अपनी अनुमान सूची में कम से कम एक इलायची ग्रेड आकार जोड़ें.',
       'stat_years': 'वर्षों की विरासत',
       'stat_tons': 'टन वितरित',
-      'stat_partners': 'थोक भागीदार'
+      'stat_partners': 'थोक भागीदार',
+      'why_biz_label': 'हमें क्यों चुनें',
+      'why_biz_title': 'व्यवसायों द्वारा विश्वसनीय। <br><span style="color: #4eb270;">गुणवत्ता</span> पर निर्मित।',
+      'why_biz_subheading': 'लीशा ट्रेडर्स निरंतर गुणवत्ता, पारदर्शी व्यावसायिक प्रथाओं और दीर्घकालिक ग्राहक संबंधों के प्रति प्रतिबद्धता के साथ प्रीमियम भारतीय हरी इलायची की आपूर्ति करता है।',
+      'why_feat_1_title': 'प्रीमियम गुणवत्ता',
+      'why_feat_1_desc': 'लगातार गुणवत्ता मानकों को बनाए रखने के लिए प्रत्येक बैच को सावधानीपूर्वक प्राप्त और वर्गीकृत किया जाता है।',
+      'why_feat_2_title': 'विश्वसनीय खरीद',
+      'why_feat_2_desc': 'हम विश्वसनीय नीलामी बाजारों और सत्यापित आपूर्तिकर्ताओं से प्रीमियम इलायची प्राप्त करते हैं।',
+      'why_feat_3_title': 'पारदर्शी व्यवसाय',
+      'why_feat_3_desc': 'स्पष्ट उद्धरण, ईमानदार संचार और सीधा मूल्य निर्धारण।',
+      'why_feat_4_title': 'सुरक्षित पैकेजिंग',
+      'why_feat_4_desc': 'परिवहन के दौरान ताजगी बनाए रखने के लिए उत्पादों को सावधानीपूर्वक पैक किया जाता है।',
+      'why_feat_5_title': 'विश्वसनीय वितरण',
+      'why_feat_5_desc': 'भारत भर में समय पर प्रेषण के साथ ऑर्डर कुशलतापूर्वक संसाधित किए जाते हैं।',
+      'why_feat_6_title': 'ग्राहक सर्वोपरि',
+      'why_feat_6_desc': 'हम भरोसेमंद सेवा और सहायता के माध्यम से दीर्घकालिक संबंध बनाने पर ध्यान केंद्रित करते हैं।',
+      'why_stat_1_lbl': 'बल्क ऑर्डर वितरित',
+      'why_stat_2_lbl': 'गुणवत्ता जांची गई',
+      'why_stat_3_lbl': 'ग्राहक सेवा',
+      'why_trust_title': 'विश्वसनीय व्यावसायिक प्रथाएं',
+      'why_badge_gst': '✓ जीएसटी चालान उपलब्ध',
+      'why_badge_wholesale': '✓ थोक ऑर्डर',
+      'why_badge_bulk': '✓ थोक आपूर्ति',
+      'why_badge_quality': '✓ गुणवत्ता जांची गई',
+      'why_badge_packaging': '✓ सुरक्षित पैकेजिंग',
+      'why_badge_support': '✓ उत्तरदायी सहायता',
+      'why_cta_title': 'आइए एक दीर्घकालिक व्यावसायिक संबंध बनाएं।',
+      'why_cta_desc': 'चाहे आप थोक विक्रेता हों, वितरक हों, खुदरा विक्रेता हों या निर्यातक हों, लीशा ट्रेडर्स विश्वसनीय सेवा और पारदर्शी संचार के साथ प्रीमियम-गुणवत्ता वाली हरी इलायची की आपूर्ति करने के लिए प्रतिबद्ध है।',
+      'why_cta_btn_quote': 'थोक कोटेशन का अनुरोध करें',
+      'why_cta_btn_contact': 'संपर्क करें'
     },
     'ta': {
       'nav_home': 'முகப்பு',
@@ -542,7 +600,36 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_alert_empty_submit': 'தயவுசெய்து முதலில் உங்கள் மதிப்பீட்டுப் பட்டியலில் ஏதேனும் ஒரு ஏலக்காய் அளவைச் சேர்க்கவும்.',
       'stat_years': 'ஆண்டுகள் பாரம்பரியம்',
       'stat_tons': 'டன் விநியோகிக்கப்பட்டது',
-      'stat_partners': 'மொத்த கூட்டாளர்கள்'
+      'stat_partners': 'மொத்த கூட்டாளர்கள்',
+      'why_biz_label': 'ஏன் எங்களைத் தேர்வு செய்ய வேண்டும்',
+      'why_biz_title': 'நிறுவனங்களால் நம்பப்படுகிறது. <br><span style="color: #4eb270;">தரத்தின்</span> அடிப்படையில் கட்டமைக்கப்பட்டது.',
+      'why_biz_subheading': 'லிஷா டிரேடர்ஸ் நிலையான தரம், வெளிப்படையான வணிக நடைமுறைகள் மற்றும் நீண்ட கால வாடிக்கையாளர் உறவுகளுக்கான அர்ப்பணிப்புடன் பிரீமியம் இந்திய ஏலக்காயை வழங்குகிறது.',
+      'why_feat_1_title': 'பிரீமியம் தரம்',
+      'why_feat_1_desc': 'ஒவ்வொரு தொகுதியும் நிலையான தரத் தரங்களைப் பேண கவனமாக பெறப்பட்டு தரம் பிரிக்கப்படுகிறது.',
+      'why_feat_2_title': 'நம்பகமான கொள்முதல்',
+      'why_feat_2_desc': 'நம்பகமான ஏலச் சந்தைகள் மற்றும் சரிபார்க்கப்பட்ட சப்ளையர்களிடமிருந்து பிரீமியம் ஏலக்காயை நாங்கள் வாங்குகிறோம்.',
+      'why_feat_3_title': 'வெளிப்படையான வணிகம்',
+      'why_feat_3_desc': 'தெளிவான விலைப்புள்ளிகள், நேர்மையான தொடர்பு மற்றும் நேரடி விலை நிர்ணயம்.',
+      'why_feat_4_title': 'பாதுகாப்பான பேக்கேஜிங்',
+      'why_feat_4_desc': 'போக்குவரத்தின் போது புத்துணர்ச்சியைப் பாதுகாக்க தயாரிப்புகள் கவனமாக பேக் செய்யப்படுகின்றன.',
+      'why_feat_5_title': 'நம்பகமான விநியோகம்',
+      'why_feat_5_desc': 'இந்தியா முழுவதும் சரியான நேரத்தில் அனுப்பப்பட்டு ஆர்டர்கள் திறமையாக செயலாக்கப்படுகின்றன.',
+      'why_feat_6_title': 'வாடிக்கையாளரே முதன்மை',
+      'why_feat_6_desc': 'நம்பகமான சேவை மற்றும் ஆதரவின் மூலம் நீண்ட கால உறவுகளை உருவாக்குவதில் நாங்கள் கவனம் செலுத்துகிறோம்.',
+      'why_stat_1_lbl': 'பல்க் ஆர்டர்கள் விநியோகிக்கப்பட்டது',
+      'why_stat_2_lbl': 'தரம் சரிபார்க்கப்பட்டது',
+      'why_stat_3_lbl': 'வாடிக்கையாளர் ஆதரவு',
+      'why_trust_title': 'நம்பகமான வணிக நடைமுறைகள்',
+      'why_badge_gst': '✓ ஜிஎஸ்டி இன்வாய்ஸ் உண்டு',
+      'why_badge_wholesale': '✓ மொத்த விற்பனை ஆர்டர்கள்',
+      'why_badge_bulk': '✓ பல்க் சப்ளை',
+      'why_badge_quality': '✓ தரம் சரிபார்க்கப்பட்டது',
+      'why_badge_packaging': '✓ பாதுகாப்பான பேக்கேஜிங்',
+      'why_badge_support': '✓ விரைவான ஆதரவு',
+      'why_cta_title': 'ஒரு நீண்ட கால வணிக உறவை உருவாக்குவோம்.',
+      'why_cta_desc': 'நீங்கள் ஒரு மொத்த வியாபாரி, விநியோகஸ்தர், சில்லறை விற்பனையாளர் அல்லது ஏற்றுமதியாளராக இருந்தாலும், லிஷா டிரேடர்ஸ் நம்பகமான சேவை மற்றும் வெளிப்படையான தகவல்தொடுகளுடன் பிரீமியம் தரமான ஏலக்காயை வழங்க உறுதிபூண்டுள்ளது.',
+      'why_cta_btn_quote': 'பல்க் விலைப்புள்ளி கோரவும்',
+      'why_cta_btn_contact': 'எங்களைத் தொடர்பு கொள்ளவும்'
     }
   };
 
@@ -2064,6 +2151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el.classList.contains('counted')) return;
     el.classList.add('counted');
     const target = parseInt(el.getAttribute('data-target')) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
     const duration = 2000; // 2 seconds
     const startTime = performance.now();
 
@@ -2072,12 +2160,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const progress = Math.min(elapsed / duration, 1);
       const easeProgress = progress * (2 - progress); // easeOutQuad
       const currentValue = Math.floor(easeProgress * target);
-      el.innerText = currentValue.toLocaleString();
+      el.innerText = currentValue.toLocaleString() + suffix;
 
       if (progress < 1) {
         requestAnimationFrame(updateCount);
       } else {
-        el.innerText = target.toLocaleString();
+        el.innerText = target.toLocaleString() + suffix;
       }
     };
     requestAnimationFrame(updateCount);
@@ -2184,42 +2272,10 @@ document.addEventListener('DOMContentLoaded', () => {
       el.classList.add('reveal-fade-up');
       motionObserver.observe(el);
     });
-    document.querySelectorAll('.why-card, .why-stat-card, .why-trust-bar').forEach(el => {
+    document.querySelectorAll('.why-card, .why-stat-card, .why-trust-bar, .why-choose-business .counter-stat').forEach(el => {
       el.classList.add('stagger-reveal');
       motionObserver.observe(el);
     });
   }
-
-  // Real-time statistics count-up animation
-  const initCountUpStats = () => {
-    const countElements = document.querySelectorAll('.why-stats-row .count-up');
-    const countObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const targetVal = parseInt(el.getAttribute('data-target'), 10);
-          const suffix = el.getAttribute('data-suffix') || '';
-          let currentVal = 0;
-          const duration = 1200; // Total animation ms
-          const steps = 30;
-          const increment = Math.ceil(targetVal / steps);
-          const stepTime = duration / steps;
-          const timer = setInterval(() => {
-            currentVal += increment;
-            if (currentVal >= targetVal) {
-              currentVal = targetVal;
-              clearInterval(timer);
-            }
-            el.innerText = currentVal + suffix;
-          }, stepTime);
-          countObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    countElements.forEach(el => countObserver.observe(el));
-  };
-
-  initCountUpStats();
 
 });
