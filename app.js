@@ -2042,23 +2042,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Lock page scrolling initially
   document.body.style.overflow = 'hidden';
 
-  // Cardamom loader animation sequence
-  const cardamomLoader = document.getElementById('cardamom-loader');
-  if (cardamomLoader) {
-    // 1. Hide language modal initially
-    langModal.classList.add('pre-hide');
-    
-    // 2. Start cardamom pod breaking animation after a short delay (e.g. 600ms)
-    setTimeout(() => {
-      cardamomLoader.classList.add('animate-break');
-    }, 600);
 
-    // 3. Fade out the cardamom loader after 2.8 seconds and reveal the language modal!
-    setTimeout(() => {
-      cardamomLoader.classList.add('fade-out');
-      langModal.classList.remove('pre-hide');
-    }, 2800);
-  }
 
   // E. Intersection Observer for Scroll-Triggered Motion Graphics
   const animateCounter = (el) => {
