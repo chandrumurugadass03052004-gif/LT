@@ -1803,12 +1803,26 @@ document.addEventListener('DOMContentLoaded', () => {
     return `Hello Lisha Traders,\n\nI would like to request a formal wholesale quotation for the following bulk cardamom requirements:\n\n- Inquiry ID: ${invoiceId}\n\nItems Requested:\n${itemsDetails}\nPlease share availability, daily auction rate index, and delivery schedule to our dispatch.\n\nThank you!`;
   };
 
+  const validateCompliance = () => {
+    const terms = document.getElementById('agree-terms');
+    const privacy = document.getElementById('agree-privacy');
+    const accuracy = document.getElementById('agree-accuracy');
+    if (terms && privacy && accuracy) {
+      if (!terms.checked || !privacy.checked || !accuracy.checked) {
+        alert('Please check all three compliance checkboxes to confirm you agree to our Terms, Privacy Policy, and accuracy statement.');
+        return false;
+      }
+    }
+    return true;
+  };
+
   whatsappBtn.addEventListener('click', () => {
     if (estimateItems.length === 0) {
       const alertMsg = translations[currentLang]['calc_alert_empty_submit'] || 'Please add at least one cardamom grade sizing to your estimate list first.';
       alert(alertMsg);
       return;
     }
+    if (!validateCompliance()) return;
     const msg = encodeURIComponent(buildInquiryText());
     const whatsappUrl = `https://wa.me/917904612672?text=${msg}`;
     window.open(whatsappUrl, '_blank');
@@ -1821,6 +1835,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(alertMsg);
       return;
     }
+    if (!validateCompliance()) return;
     const subject = encodeURIComponent(`Bulk Cardamom Quotation Request - ${document.getElementById('invoice-id').innerText}`);
     const body = encodeURIComponent(buildInquiryText());
     const mailtoUrl = `mailto:info@lishatraders.com?subject=${subject}&body=${body}`;
