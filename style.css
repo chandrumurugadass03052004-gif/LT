@@ -3220,6 +3220,7 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   }
 }
 
+<<<<<<< HEAD
 /* ---------- FAQ ACCORDION SECTION ---------- */
 .faq-section {
   background: var(--white);
@@ -3410,6 +3411,105 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   .faq-cta-btns {
     flex-direction: column;
     gap: 12px;
+  }
+}
+
+/* ---------- REDESIGNED PREMIUM RESPONSIVE FOOTER OVERRIDES ---------- */
+.premium-footer {
+  background: var(--white) !important;
+  color: var(--ink) !important;
+  padding: 80px 0 40px;
+  border-top: 1px solid #EAEAEA !important;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-grid-redesign {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* Enforce Green Accents on Links and Headings */
+.footer-col h5 {
+  color: #1B5E20 !important;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.footer-links-list a:hover {
+  color: #1B5E20 !important;
+}
+
+.footer-links-list a::after {
+  background-color: #1B5E20 !important;
+}
+
+.footer-contact-list a:hover {
+  color: #1B5E20 !important;
+}
+
+/* SVG outline icon transitions & hover effects */
+.footer-contact-list svg {
+  color: #1B5E20;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.footer-contact-list li:hover svg {
+  transform: scale(1.2);
+}
+
+.footer-bottom-redesign .designer {
+  color: #1B5E20 !important;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Footer Responsive Media Queries */
+@media (max-width: 992px) {
+  .footer-grid-redesign {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 40px 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid-redesign {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    gap: 35px;
+  }
+  .foot-logo-redesign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .foot-description {
+    margin: 0 auto !important;
+  }
+  .footer-contact-list li {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer-bottom-redesign {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
   }
 }
 

@@ -4,105 +4,384 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Disclaimer | Lisha Traders</title>
+  <meta name="description" content="Read the Disclaimer of Lisha Traders regarding wholesalegreen cardamom estimates and external resource links.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Inherit Main Website Structure Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
   <style>
+    /* Override variables to enforce the strict white/black/green policy theme */
     :root {
-      --green-900: #123524;
-      --gold-500: #C9A227;
-      --cream: #FAF8F6;
+      --cream: #FFFFFF;
       --white: #FFFFFF;
-      --line: #E2E8F0;
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --ink: #000000;
+      --muted: #000000;
+      --green-900: #1B5E20;
+      --green-800: #1B5E20;
+      --green-700: #1B5E20;
+      --green-600: #1B5E20;
+      --green-500: #1B5E20;
+      --gold: #1B5E20;
+      --gold-dark: #1B5E20;
+      --line: #EAEAEA;
+      --line-light: #EAEAEA;
+      --green-accent: #1B5E20;
+      --text-black: #000000;
+      --border-color: #EAEAEA;
+      --radius-card: 16px;
     }
+
     body {
-      background-color: var(--cream);
-      color: #334155;
+      background: var(--white) !important;
+      color: var(--text-black) !important;
       font-family: var(--font-sans);
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
+      line-height: 1.75;
+      font-size: 16px;
     }
-    .header {
-      background-color: var(--white);
-      border-bottom: 1px solid var(--line);
-      padding: 20px 0;
-    }
-    .container {
-      max-width: 800px;
+
+    .wrap {
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
     }
+
+    /* Logo & Back Btn Alignment */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
     .logo {
       font-family: var(--font-serif);
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
-      color: var(--green-900);
+      color: var(--green-accent) !important;
       text-decoration: none;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
+      line-height: 0.95;
+      display: flex;
+      flex-direction: column;
     }
+
     .logo span {
-      color: var(--gold-500);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--green-accent) !important;
+      letter-spacing: 0.35em;
+      margin-top: 2px;
     }
-    .main {
-      padding: 60px 0;
-    }
-    h1 {
-      font-family: var(--font-serif);
-      font-size: 36px;
-      color: var(--green-900);
-      margin-bottom: 10px;
-    }
-    .last-updated {
-      font-size: 14px;
-      color: #64748B;
-      margin-bottom: 40px;
-    }
-    h2 {
-      font-family: var(--font-serif);
-      font-size: 22px;
-      color: var(--green-900);
-      margin-top: 35px;
-      margin-bottom: 15px;
-    }
-    p {
-      margin-bottom: 20px;
-      font-size: 15.5px;
-    }
-    .btn {
-      display: inline-block;
-      background-color: var(--green-900);
-      color: var(--white);
-      padding: 10px 24px;
-      border-radius: 4px;
+
+    .back-btn {
+      color: var(--green-accent);
       text-decoration: none;
       font-weight: 600;
-      font-size: 14px;
-      margin-top: 30px;
-      transition: background-color 0.3s;
+      font-size: 14.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.3s;
     }
-    .btn:hover {
-      background-color: #0c2619;
+
+    .back-btn:hover {
+      opacity: 0.8;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 90px 0 60px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--white);
+    }
+
+    .hero-label {
+      color: var(--green-accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      color: var(--green-accent);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .meta-info {
+      display: flex;
+      gap: 30px;
+      font-size: 14.5px;
+      color: var(--text-black);
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      display: inline-flex;
+    }
+
+    .meta-info strong {
+      font-weight: 700;
+      color: var(--green-accent);
+    }
+
+    /* Main Container layout */
+    .main-content-wrap {
+      max-width: 900px;
+      margin: 80px auto 100px;
+    }
+
+    .policy-section {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 50px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .policy-section:hover {
+      border-color: var(--green-accent);
+      box-shadow: 0 4px 24px rgba(27, 94, 32, 0.02);
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--green-accent);
+      margin-top: 35px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h2:first-of-type {
+      margin-top: 10px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: var(--text-black);
+      font-size: 16px;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* Highlight Active Footer Link */
+    .footer-links-list a.active-footer-link {
+      color: var(--green-accent) !important;
+      font-weight: 600;
+    }
+
+    .footer-links-list a.active-footer-link::after {
+      width: 100% !important;
+      background-color: var(--green-accent) !important;
+    }
+
+    /* Scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+      
+      .main-content-wrap {
+        margin: 50px auto 80px;
+      }
+
+      .policy-section {
+        padding: 30px 24px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+
+      h2 {
+        font-size: 21px;
+        margin-bottom: 14px;
+      }
+
+      .meta-info {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 16px;
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="container">
-      <a href="index.html" class="logo">LISHA <span>TRADERS</span></a>
+
+  <!-- HEADER -->
+  <header>
+    <div class="wrap header-container">
+      <a href="index.html" class="logo">
+        LISHA <span>TRADERS</span>
+      </a>
+      <a href="index.html" class="back-btn">
+        ← Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="hero-section">
+    <div class="wrap">
+      <span class="hero-label">LEGAL</span>
+      <h1>Disclaimer</h1>
+      <div class="meta-info">
+        <span><strong>Last Updated:</strong> July 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN SECTION -->
+  <div class="wrap">
+    <div class="main-content-wrap">
+      <section class="policy-section fade-up">
+        <p>The information provided by Lisha Traders on our website is for general informational purposes only. All information is provided in good faith, however, we make no representation or warranty of any kind regarding accuracy, validity, reliability, or availability.</p>
+        
+        <h2>1. Indicative Estimates</h2>
+        <p>Price calculations and estimations generated on this website are purely indicative and based on general auction price ranges. They do not constitute an offer to sell or bind Lisha Traders to contract at specified price rates. Final pricing lists depend on auction indexes at the time of supply order placement.</p>
+        
+        <h2>2. External Resource Links</h2>
+        <p>Our website may contain external links to other websites or resources (such as the Spices Board of India or agricultural auction portals). We do not warrant, endorse, or assume responsibility for the accuracy or reliability of any third-party information.</p>
+      </section>
     </div>
   </div>
-  <div class="container main">
-    <h1>Disclaimer</h1>
-    <div class="last-updated">Last updated: July 2026</div>
-    <p>The information provided by Lisha Traders on our website is for general informational purposes only. All information is provided in good faith, however, we make no representation or warranty of any kind regarding accuracy, validity, reliability, or availability.</p>
-    <h2>1. Indicative Estimates</h2>
-    <p>Price calculations and estimations generated on this website are purely indicative and based on general auction price ranges. They do not constitute an offer to sell or bind Lisha Traders to contract at specified price rates. Final pricing lists depend on auction indexes at the time of supply order placement.</p>
-    <h2>2. External Resource Links</h2>
-    <p>Our website may contain external links to other websites or resources (such as the Spices Board of India or agricultural auction portals). We do not warrant, endorse, or assume responsibility for the accuracy or reliability of any third-party information.</p>
-    <a href="index.html" class="btn">← Back to Homepage</a>
-  </div>
+
+  <!-- FOOTER -->
+  <footer class="premium-footer">
+    <div class="wrap">
+      <div class="footer-grid-redesign">
+        <!-- Column 1: Company -->
+        <div class="footer-col company-col">
+          <div class="foot-logo-redesign">
+            LISHA <span>TRADERS</span>
+          </div>
+          <p class="foot-description">
+            Lisha Traders is a trusted supplier of premium Indian green cardamom, serving wholesalers, retailers, distributors, and exporters with quality-focused sourcing and reliable service.
+          </p>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col links-col">
+          <h5>Quick Links</h5>
+          <ul class="footer-links-list">
+            <li><a href="index.html#hero">Home</a></li>
+            <li><a href="index.html#why">About Us</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="index.html#process">Our Process</a></li>
+            <li><a href="index.html#pack">Packaging</a></li>
+            <li><a href="index.html#gallery">Gallery</a></li>
+            <li><a href="index.html#calculator">Quote Calculator</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Legal -->
+        <div class="footer-col links-col">
+          <h5>Legal</h5>
+          <ul class="footer-links-list">
+            <li><a href="terms-and-conditions.html" target="_blank">Terms &amp; Conditions</a></li>
+            <li><a href="privacy-policy.html" target="_blank">Privacy Policy</a></li>
+            <li><a href="disclaimer.html" class="active-footer-link">Disclaimer</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="footer-col contact-col">
+          <h5>Contact</h5>
+          <ul class="footer-contact-list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+917904612672">+91 79046 12672</a>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              <a href="https://wa.me/917904612672" target="_blank">WhatsApp Chat</a>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:info@lishatraders.com">info@lishatraders.com</a>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Bodinayakanur, Theni District, Tamil Nadu - 625513, India</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Divider line -->
+      <hr class="footer-divider">
+
+      <!-- Bottom Row -->
+      <div class="footer-bottom-redesign">
+        <span class="copyright">© 2026 Lisha Traders. All Rights Reserved.</span>
+        <span class="designer">Designed with Excellence.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Smooth entrance fade-up animation via IntersectionObserver
+      const animateElements = document.querySelectorAll('.fade-up');
+      
+      const observerOptions = {
+        root: null,
+        threshold: 0.05,
+        rootMargin: '0px 0px -40px 0px'
+      };
+
+      const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      animateElements.forEach(el => {
+        scrollObserver.observe(el);
+      });
+    });
+  </script>
+
 </body>
 </html>
