@@ -1676,7 +1676,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastUpdatedEl = document.getElementById('calc-last-updated-val');
     if (lastUpdatedEl) {
       if (pricesLastUpdated && !apiFetchFailed) {
-        lastUpdatedEl.innerText = `Last Updated: ${pricesLastUpdated}`;
+        let displayDate = pricesLastUpdated;
+        // Clean up India Standard Time or GMT date strings if present
+        if (pricesLastUpdated.includes('GMT') || pricesLastUpdated.includes('Standard Time')) {
+          try {
+            const d = new Date(pricesLastUpdated);
+            if (!isNaN(d.getTime())) {
+              const day = String(d.getDate()).padStart(2, '0');
+              const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+              const month = months[d.getMonth()];
+              const year = d.getFullYear();
+              displayDate = `${day}-${month}-${year}`;
+            }
+          } catch (e) {
+            console.warn('Date formatting error:', e);
+          }
+        }
+        lastUpdatedEl.innerText = `Last Updated: ${displayDate}`;
         lastUpdatedEl.style.display = 'block';
       } else {
         lastUpdatedEl.style.display = 'none';
