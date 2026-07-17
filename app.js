@@ -179,7 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'table_th_price': 'Price',
       'calc_summary_items': 'Total Items:',
       'btn_calc_add_item': 'Add to Inquiry List +',
-      'calc_alert_empty_submit': 'Please add at least one cardamom grade sizing to your estimate list first.'
+      'calc_alert_empty_submit': 'Please add at least one cardamom grade sizing to your estimate list first.',
+      'stat_years': 'Years Legacy',
+      'stat_tons': 'Tons Distributed',
+      'stat_partners': 'Wholesale Partners'
     },
     'hi': {
       'nav_home': 'होम',
@@ -356,7 +359,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'table_th_price': 'मूल्य',
       'calc_summary_items': 'कुल आइटम:',
       'btn_calc_add_item': 'पूछताछ सूची में जोड़ें +',
-      'calc_alert_empty_submit': 'कृपया पहले अपनी अनुमान सूची में कम से कम एक इलायची ग्रेड आकार जोड़ें।'
+      'calc_alert_empty_submit': 'कृपया पहले अपनी अनुमान सूची में कम से कम एक इलायची ग्रेड आकार जोड़ें.',
+      'stat_years': 'वर्षों की विरासत',
+      'stat_tons': 'टन वितरित',
+      'stat_partners': 'थोक भागीदार'
     },
     'ta': {
       'nav_home': 'முகப்பு',
@@ -533,7 +539,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'table_th_price': 'விலை',
       'calc_summary_items': 'மொத்த பொருட்கள்:',
       'btn_calc_add_item': 'விசாரணைப் பட்டியலில் சேர் +',
-      'calc_alert_empty_submit': 'தயவுசெய்து முதலில் உங்கள் மதிப்பீட்டுப் பட்டியலில் ஏதேனும் ஒரு ஏலக்காய் அளவைச் சேர்க்கவும்.'
+      'calc_alert_empty_submit': 'தயவுசெய்து முதலில் உங்கள் மதிப்பீட்டுப் பட்டியலில் ஏதேனும் ஒரு ஏலக்காய் அளவைச் சேர்க்கவும்.',
+      'stat_years': 'ஆண்டுகள் பாரம்பரியம்',
+      'stat_tons': 'டன் விநியோகிக்கப்பட்டது',
+      'stat_partners': 'மொத்த கூட்டாளர்கள்'
     }
   };
 
@@ -1997,6 +2006,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Hide modal overlay with transition
       langModal.classList.add('hide');
       document.body.style.overflow = ''; // Unlock scroll
+
+      // Trigger cinematic staggered hero entrance animation
+      setTimeout(() => {
+        document.body.classList.add('hero-animate');
+      }, 300);
     });
   });
 
@@ -2045,5 +2059,57 @@ document.addEventListener('DOMContentLoaded', () => {
       langModal.classList.remove('pre-hide');
     }, 2800);
   }
+
+  // E. Intersection Observer for Scroll-Triggered Motion Graphics
+  const animateCounter = (el) => {
+    if (el.classList.contains('counted')) return;
+    el.classList.add('counted');
+    const target = parseInt(el.getAttribute('data-target')) || 0;
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+
+    const updateCount = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeProgress = progress * (2 - progress); // easeOutQuad
+      const currentValue = Math.floor(easeProgress * target);
+      el.innerText = currentValue.toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        el.innerText = target.toLocaleString();
+      }
+    };
+    requestAnimationFrame(updateCount);
+  };
+
+  const motionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        if (entry.target.classList.contains('counter-stat')) {
+          animateCounter(entry.target);
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  // Add reveal-fade-up class dynamically to section layout wrappers
+  document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section').forEach(el => {
+    el.classList.add('reveal-fade-up');
+    motionObserver.observe(el);
+  });
+
+  // Add stagger-reveal class dynamically to grid cards and columns
+  document.querySelectorAll('.p-card, .why-photo, .feature, .t-card, .pack-card, .calc-form, .cta-info-item, .footer-grid > div').forEach(el => {
+    el.classList.add('stagger-reveal');
+    motionObserver.observe(el);
+  });
+
+  // Watch stats counter elements
+  document.querySelectorAll('.counter-stat').forEach(el => {
+    motionObserver.observe(el);
+  });
 
 });
