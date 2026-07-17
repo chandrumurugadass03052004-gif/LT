@@ -1874,6 +1874,25 @@ footer {
     margin-right: 0;
   }
   
+  .nav-actions .btn {
+    display: none;
+  }
+  
+  .mobile-cta-btn {
+    display: block !important;
+    text-align: center;
+    background: var(--green-900);
+    color: var(--white) !important;
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin-top: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    box-shadow: var(--shadow-sm);
+  }
+  
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
