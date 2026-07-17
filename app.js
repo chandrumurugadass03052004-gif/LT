@@ -1527,8 +1527,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatsappBtn = document.getElementById('calc-whatsapp-btn');
   const emailBtn = document.getElementById('calc-email-btn');
 
-  // Google Sheets JSON API Endpoint
-  const GOOGLE_SHEET_JSON_URL = 'https://docs.google.com/spreadsheets/d/1PVU_f2-5WpBw84nYviiDAuOk7BC_kL043u9Icxv1X8c/gviz/tq?tqx=out:json';
+  // Google Sheets APIs (Apps Script Web App primary, Gviz query secondary fallback)
+  const PRIMARY_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwACoR0zmSAqRTA9S5ZIaXIiRKnH06d5bwIpYojjZnOQLGTsyWVpjPCkTL2oQ_YvD5s/exec';
+  const FALLBACK_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1PVU_f2-5WpBw84nYviiDAuOk7BC_kL043u9Icxv1X8c/gviz/tq?tqx=out:json';
+
   let livePrices = null; // Parsed override prices fetched from the cloud
   let pricesLastUpdated = '';
   let apiFetchFailed = false;
@@ -1547,7 +1549,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const estimatorTotalsSection = document.getElementById('estimator-totals-section');
   const summaryItemsCount = document.getElementById('summary-items-count');
 
-  // Fetch prices dynamically from Google Sheets JSON API
+  // Fetch prices dynamically from Google Sheets APIs
   const fetchGoogleSheetPrices = async () => {
     const CACHE_KEY = 'lisha-prices-cache';
     const CACHE_TIME_KEY = 'lisha-prices-cache-time';
@@ -1569,37 +1571,80 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      console.log('Fetching live cardamom prices from Google Sheets API...');
-      const response = await fetch(GOOGLE_SHEET_JSON_URL);
-      if (!response.ok) throw new Error('Response error');
-      const text = await response.text();
-      
-      const start = text.indexOf('{');
-      const end = text.lastIndexOf('}');
-      if (start === -1 || end === -1) throw new Error('Invalid JSON format');
-      const jsonStr = text.substring(start, end + 1);
-      const data = JSON.parse(jsonStr);
+      console.log('Fetching live cardamom prices from Google Sheets sources...');
+      let response;
+      let text;
+      let isAppsScript = false;
+
+      // Try fetching from the primary Apps Script Web App first
+      try {
+        response = await fetch(PRIMARY_WEB_APP_URL);
+        if (!response.ok) throw new Error('Primary Apps Script failed');
+        text = await response.text();
+        
+        // Validate if it is a JSON object and not an HTML error page
+        if (text.trim().startsWith('{') && !text.includes('<!DOCTYPE html>')) {
+          isAppsScript = true;
+        } else {
+          throw new Error('Apps Script returned an HTML error/page');
+        }
+      } catch (primaryErr) {
+        console.warn('Apps Script failed or returned error. Falling back to direct Google Sheets Gviz Query API...', primaryErr);
+        response = await fetch(FALLBACK_SHEET_URL);
+        if (!response.ok) throw new Error('Fallback direct Sheet query failed');
+        text = await response.text();
+        isAppsScript = false;
+      }
 
       const parsedPrices = {};
       let lastDate = '';
 
-      if (data.table && data.table.rows) {
-        data.table.rows.forEach(row => {
-          if (row.c && row.c.length >= 8) {
-            const gradeId = row.c[0] ? row.c[0].v : null; // e.g. "6mm" or "Y6mm"
-            const minPrice = row.c[3] ? row.c[3].v : null;
-            const maxPrice = row.c[4] ? row.c[4].v : null;
-            const updatedDate = row.c[6] ? row.c[6].f : ''; // formatted date string e.g. "18-Jul-2026"
-            const status = row.c[7] ? row.c[7].v : '';
+      if (isAppsScript) {
+        // Parse custom Apps Script JSON format
+        const resJson = JSON.parse(text);
+        if (resJson.status === 'success' && Array.isArray(resJson.data)) {
+          resJson.data.forEach(item => {
+            const gradeId = item.gradeId;
+            const minPrice = parseFloat(item.minPrice);
+            const maxPrice = parseFloat(item.maxPrice);
+            const updatedDate = item.updatedDate;
 
-            if (gradeId && minPrice !== null && maxPrice !== null && status === 'Active') {
+            if (gradeId && !isNaN(minPrice) && !isNaN(maxPrice)) {
               parsedPrices[gradeId] = { min: minPrice, max: maxPrice };
               if (updatedDate) {
                 lastDate = updatedDate;
               }
             }
-          }
-        });
+          });
+        } else {
+          throw new Error('Apps Script response structure invalid');
+        }
+      } else {
+        // Parse Google Visualization format
+        const start = text.indexOf('{');
+        const end = text.lastIndexOf('}');
+        if (start === -1 || end === -1) throw new Error('Invalid JSON format');
+        const jsonStr = text.substring(start, end + 1);
+        const data = JSON.parse(jsonStr);
+
+        if (data.table && data.table.rows) {
+          data.table.rows.forEach(row => {
+            if (row.c && row.c.length >= 8) {
+              const gradeId = row.c[0] ? row.c[0].v : null; // e.g. "6mm" or "Y6mm"
+              const minPrice = row.c[3] ? row.c[3].v : null;
+              const maxPrice = row.c[4] ? row.c[4].v : null;
+              const updatedDate = row.c[6] ? row.c[6].f : ''; // formatted date string
+              const status = row.c[7] ? row.c[7].v : '';
+
+              if (gradeId && minPrice !== null && maxPrice !== null && status === 'Active') {
+                parsedPrices[gradeId] = { min: minPrice, max: maxPrice };
+                if (updatedDate) {
+                  lastDate = updatedDate;
+                }
+              }
+            }
+          });
+        }
       }
 
       if (Object.keys(parsedPrices).length > 0) {
@@ -1612,11 +1657,11 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
         localStorage.setItem(CACHE_DATE_KEY, pricesLastUpdated);
         
-        console.log('Successfully loaded cardamom prices from Google Sheets:', livePrices);
+        console.log('Successfully loaded cardamom prices:', livePrices);
         updateQuote();
         showLastUpdated();
       } else {
-        throw new Error('No active pricing rows found in sheet');
+        throw new Error('No active pricing rows found in data source');
       }
     } catch (err) {
       console.error('Error fetching cardamom prices from Google Sheets:', err);
