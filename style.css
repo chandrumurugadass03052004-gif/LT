@@ -3513,3 +3513,321 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   }
 }
 
+/* ---------- BUSINESS INFORMATION & CONTACT HUB SECTION ---------- */
+.business-hub-section {
+  background: var(--white);
+  padding: 100px 0 80px;
+  border-top: 1px solid #EAEAEA;
+  position: relative;
+  z-index: 5;
+}
+
+.business-hub-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  align-items: stretch;
+  margin-top: 50px;
+}
+
+.hub-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Make address card full width in the left grid */
+.hub-cards-container .hub-card-item:nth-child(5) {
+  grid-column: span 2;
+}
+
+.hub-card-item {
+  background: var(--white);
+  border: 1px solid #EAEAEA;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s;
+  box-shadow: 0 4px 12px rgba(10, 24, 14, 0.02);
+}
+
+.hub-card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(10, 24, 14, 0.06);
+  border-color: #1B5E20;
+}
+
+.hub-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(27, 94, 32, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1B5E20;
+  transition: transform 0.3s ease;
+}
+
+.hub-card-item:hover .hub-card-icon {
+  transform: scale(1.1);
+}
+
+.hub-card-content h4 {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1B5E20;
+  margin-bottom: 6px;
+}
+
+.hub-card-content p, 
+.hub-card-content a {
+  margin: 0;
+  font-size: 15.5px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.hub-card-content a:hover {
+  color: #1B5E20;
+}
+
+/* Map placeholder card */
+.maps-placeholder-card {
+  background: var(--white);
+  border: 1px solid #EAEAEA;
+  border-radius: 16px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(10, 24, 14, 0.02);
+  min-height: 380px;
+  position: relative;
+  overflow: hidden;
+  background-image: radial-gradient(rgba(27, 94, 32, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.maps-placeholder-card:hover {
+  border-color: #1B5E20;
+  box-shadow: 0 16px 30px rgba(10, 24, 14, 0.04);
+}
+
+.maps-placeholder-card h3 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: #1B5E20;
+  font-weight: 600;
+  margin: 0;
+}
+
+.maps-placeholder-card p {
+  color: var(--muted);
+  font-size: 14.5px;
+  max-width: 320px;
+  margin: 0;
+}
+
+.maps-placeholder-icon {
+  color: #1B5E20;
+  background: rgba(27, 94, 32, 0.05);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.maps-placeholder-card:hover .maps-placeholder-icon {
+  transform: translateY(-4px);
+}
+
+/* Credentials Section */
+.hub-credentials-title {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: #1B5E20;
+  font-weight: 600;
+  margin: 80px 0 35px;
+}
+
+.hub-credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.hub-credential-badge {
+  background: var(--white);
+  border: 1px solid #EAEAEA;
+  border-radius: 12px;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(10, 24, 14, 0.01);
+}
+
+.hub-credential-badge:hover {
+  transform: translateY(-4px);
+  border-color: #1B5E20;
+  box-shadow: 0 8px 20px rgba(10, 24, 14, 0.04);
+}
+
+.hub-credential-badge svg {
+  color: #1B5E20;
+  transition: transform 0.3s ease;
+}
+
+.hub-credential-badge:hover svg {
+  transform: scale(1.15);
+}
+
+.hub-credential-badge span {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+/* Call to Action Banner */
+.hub-cta-banner-container {
+  margin-top: 80px;
+}
+
+.hub-cta-banner-card {
+  background: var(--white);
+  border: 1px solid #EAEAEA;
+  border-radius: 20px;
+  padding: 60px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(10, 24, 14, 0.03);
+  position: relative;
+  overflow: hidden;
+  border-left: 6px solid #1B5E20;
+}
+
+.hub-cta-banner-card h3 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  color: #1B5E20;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.hub-cta-banner-card p {
+  font-size: 16.5px;
+  color: var(--ink);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+.hub-cta-banner-btns {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.hub-cta-banner-btns .btn-primary {
+  background: #1B5E20;
+  color: var(--white);
+  border: 1px solid #1B5E20;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.hub-cta-banner-btns .btn-primary:hover {
+  background: #0d3611;
+  border-color: #0d3611;
+  transform: translateY(-2px);
+}
+
+.hub-cta-banner-btns .btn-secondary {
+  background: var(--white);
+  color: #1B5E20;
+  border: 1px solid #1B5E20;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+.hub-cta-banner-btns .btn-secondary:hover {
+  background: #1B5E20;
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Responsiveness media queries */
+@media (max-width: 1024px) {
+  .hub-credentials-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 992px) {
+  .business-hub-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .maps-placeholder-card {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hub-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .hub-cards-container .hub-card-item:nth-child(5) {
+    grid-column: span 1;
+  }
+  
+  .hub-credentials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hub-cta-banner-card {
+    padding: 40px 20px;
+  }
+  
+  .hub-cta-banner-card h3 {
+    font-size: 26px;
+  }
+  
+  .hub-cta-banner-btns {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+
