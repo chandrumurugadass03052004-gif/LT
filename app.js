@@ -1549,14 +1549,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const estimatorTotalsSection = document.getElementById('estimator-totals-section');
   const summaryItemsCount = document.getElementById('summary-items-count');
 
-  // Fetch prices dynamically from Google Sheets APIs
+  // Fetch prices from Google Apps Script API with 10-minute cache
   const fetchGoogleSheetPrices = async () => {
-    const CACHE_KEY = 'lisha-prices-cache';
+    const CACHE_KEY      = 'lisha-prices-cache';
     const CACHE_TIME_KEY = 'lisha-prices-cache-time';
     const CACHE_DATE_KEY = 'lisha-prices-cache-date';
-    const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes cache
+    const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
     try {
+      // ── 1. SERVE FROM CACHE if still fresh ────────────────────────────────
       const cachedData = localStorage.getItem(CACHE_KEY);
       const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
       const cachedDate = localStorage.getItem(CACHE_DATE_KEY);
@@ -1565,106 +1566,99 @@ document.addEventListener('DOMContentLoaded', () => {
         livePrices = JSON.parse(cachedData);
         pricesLastUpdated = cachedDate || '';
         apiFetchFailed = false;
-        console.log('Loaded cardamom prices from 10-minute cache. Last Updated:', pricesLastUpdated);
+        console.log('✅ Loaded prices from 10-min cache. Last Updated:', pricesLastUpdated);
         updateQuote();
         showLastUpdated();
         return;
       }
 
-      console.log('Fetching live cardamom prices from Google Sheets sources...');
-      let response;
+      // ── 2. FRESH FETCH — cache-bust to prevent stale browser response ──────
+      console.log('🔄 Fetching live prices from Google Apps Script API...');
+      const bust = '?t=' + Date.now();
       let text;
       let isAppsScript = false;
 
-      // Try fetching from the primary Apps Script Web App first
       try {
-        response = await fetch(PRIMARY_WEB_APP_URL);
-        if (!response.ok) throw new Error('Primary Apps Script failed');
-        text = await response.text();
-        
-        // Validate if it is a JSON object and not an HTML error page
-        if (text.trim().startsWith('{') && !text.includes('<!DOCTYPE html>')) {
+        const res = await fetch(PRIMARY_WEB_APP_URL + bust);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        text = await res.text();
+        if (text.trim().startsWith('{') && !text.includes('<!DOCTYPE')) {
           isAppsScript = true;
         } else {
-          throw new Error('Apps Script returned an HTML error/page');
+          throw new Error('Apps Script returned HTML error page');
         }
       } catch (primaryErr) {
-        console.warn('Apps Script failed or returned error. Falling back to direct Google Sheets Gviz Query API...', primaryErr);
-        response = await fetch(FALLBACK_SHEET_URL);
-        if (!response.ok) throw new Error('Fallback direct Sheet query failed');
-        text = await response.text();
+        console.warn('⚠️ Primary Apps Script failed — using Gviz fallback:', primaryErr.message);
+        const res2 = await fetch(FALLBACK_SHEET_URL + '&t=' + Date.now());
+        if (!res2.ok) throw new Error('Both data sources failed');
+        text = await res2.text();
         isAppsScript = false;
       }
 
+      // ── 3. PARSE RESPONSE ──────────────────────────────────────────────────
       const parsedPrices = {};
       let lastDate = '';
 
       if (isAppsScript) {
-        // Parse custom Apps Script JSON format
-        const resJson = JSON.parse(text);
-        if (resJson.status === 'success' && Array.isArray(resJson.data)) {
-          resJson.data.forEach(item => {
-            const gradeId = item.gradeId;
-            const minPrice = parseFloat(item.minPrice);
-            const maxPrice = parseFloat(item.maxPrice);
-            const updatedDate = item.updatedDate;
-
-            if (gradeId && !isNaN(minPrice) && !isNaN(maxPrice)) {
-              parsedPrices[gradeId] = { min: minPrice, max: maxPrice };
-              if (updatedDate) {
-                lastDate = updatedDate;
-              }
-            }
-          });
-        } else {
-          throw new Error('Apps Script response structure invalid');
+        // Apps Script JSON: { status, data: [{ gradeId, minPrice, maxPrice, avgPrice, updatedDate }] }
+        const json = JSON.parse(text);
+        if (json.status !== 'success' || !Array.isArray(json.data)) {
+          throw new Error('Apps Script response invalid: ' + (json.message || 'unknown'));
         }
+        json.data.forEach(item => {
+          const min = parseFloat(item.minPrice);
+          const max = parseFloat(item.maxPrice);
+          const avg = item.avgPrice !== undefined
+            ? parseFloat(item.avgPrice)
+            : Math.round((min + max) / 2);
+          if (item.gradeId && !isNaN(min) && !isNaN(max)) {
+            parsedPrices[item.gradeId] = { min, max, avg };
+            if (item.updatedDate) lastDate = item.updatedDate;
+          }
+        });
       } else {
-        // Parse Google Visualization format
+        // Gviz JSON: cols 0=gradeId 3=min 4=max 5=avg 6=date 7=status
         const start = text.indexOf('{');
-        const end = text.lastIndexOf('}');
-        if (start === -1 || end === -1) throw new Error('Invalid JSON format');
-        const jsonStr = text.substring(start, end + 1);
-        const data = JSON.parse(jsonStr);
-
-        if (data.table && data.table.rows) {
-          data.table.rows.forEach(row => {
-            if (row.c && row.c.length >= 8) {
-              const gradeId = row.c[0] ? row.c[0].v : null; // e.g. "6mm" or "Y6mm"
-              const minPrice = row.c[3] ? row.c[3].v : null;
-              const maxPrice = row.c[4] ? row.c[4].v : null;
-              const updatedDate = row.c[6] ? row.c[6].f : ''; // formatted date string
-              const status = row.c[7] ? row.c[7].v : '';
-
-              if (gradeId && minPrice !== null && maxPrice !== null && status === 'Active') {
-                parsedPrices[gradeId] = { min: minPrice, max: maxPrice };
-                if (updatedDate) {
-                  lastDate = updatedDate;
-                }
-              }
-            }
-          });
-        }
+        const end   = text.lastIndexOf('}');
+        if (start === -1 || end === -1) throw new Error('Invalid Gviz response');
+        const data = JSON.parse(text.substring(start, end + 1));
+        (data.table?.rows || []).forEach(row => {
+          if (!row.c || row.c.length < 8) return;
+          const gradeId = row.c[0]?.v;
+          const min     = row.c[3]?.v;
+          const max     = row.c[4]?.v;
+          const avgRaw  = row.c[5]?.v;
+          const date    = row.c[6]?.f || '';
+          const status  = row.c[7]?.v;
+          if (gradeId && min !== null && max !== null && status === 'Active') {
+            const avg = avgRaw !== null && avgRaw !== undefined
+              ? avgRaw
+              : Math.round((min + max) / 2);
+            parsedPrices[gradeId] = { min, max, avg };
+            if (date) lastDate = date;
+          }
+        });
       }
 
-      if (Object.keys(parsedPrices).length > 0) {
-        livePrices = parsedPrices;
-        pricesLastUpdated = lastDate;
-        apiFetchFailed = false;
-        
-        // Cache response
-        localStorage.setItem(CACHE_KEY, JSON.stringify(livePrices));
-        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
-        localStorage.setItem(CACHE_DATE_KEY, pricesLastUpdated);
-        
-        console.log('Successfully loaded cardamom prices:', livePrices);
-        updateQuote();
-        showLastUpdated();
-      } else {
-        throw new Error('No active pricing rows found in data source');
+      if (Object.keys(parsedPrices).length === 0) {
+        throw new Error('No active grade rows returned from data source');
       }
+
+      // ── 4. STORE IN CACHE & APPLY ──────────────────────────────────────────
+      livePrices = parsedPrices;
+      pricesLastUpdated = lastDate;
+      apiFetchFailed = false;
+
+      localStorage.setItem(CACHE_KEY,      JSON.stringify(livePrices));
+      localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+      localStorage.setItem(CACHE_DATE_KEY, pricesLastUpdated);
+
+      console.log('✅ Live prices loaded and cached (10 min):', livePrices);
+      updateQuote();
+      showLastUpdated();
+
     } catch (err) {
-      console.error('Error fetching cardamom prices from Google Sheets:', err);
+      console.error('❌ Price fetch failed:', err.message);
       apiFetchFailed = true;
       livePrices = null;
       updateQuote();
@@ -1700,13 +1694,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Helper to retrieve daily adjusted price range dynamically based on date index and variety
+  // Helper to retrieve price range — uses live Google Sheets data (min, max, avg)
   const getDailyPriceRange = (grade, variety = 'green') => {
     const specKey = variety === 'yellow' ? `Y${grade}` : grade;
     if (livePrices && livePrices[specKey]) {
-      return livePrices[specKey];
+      return livePrices[specKey]; // Returns { min, max, avg }
     }
-    
+
     // If API failed to load, return null to signify unavailability
     if (apiFetchFailed) {
       return null;
@@ -1800,6 +1794,8 @@ document.addEventListener('DOMContentLoaded', () => {
       totalBags,
       priceMin: priceInfo ? priceInfo.min * qty : 0,
       priceMax: priceInfo ? priceInfo.max * qty : 0,
+      priceAvg: priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) * qty : 0,
+      pricePerKg: priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 0,
       isUnavailable: !priceInfo
     };
   };
@@ -1840,6 +1836,8 @@ document.addEventListener('DOMContentLoaded', () => {
       existing.bags = totalBags;
       existing.priceMin = priceInfo ? priceInfo.min * mergedQty : 0;
       existing.priceMax = priceInfo ? priceInfo.max * mergedQty : 0;
+      existing.priceAvg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) * mergedQty : 0;
+      existing.pricePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 0;
       existing.isUnavailable = !priceInfo;
     } else {
       estimateItems.push({
@@ -1851,6 +1849,8 @@ document.addEventListener('DOMContentLoaded', () => {
         bags: details.totalBags,
         priceMin: details.priceMin,
         priceMax: details.priceMax,
+        priceAvg: details.priceAvg,
+        pricePerKg: details.pricePerKg,
         isUnavailable: details.isUnavailable
       });
     }
@@ -1878,6 +1878,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalBags = 0;
     let totalPriceMin = 0;
     let totalPriceMax = 0;
+    let totalPriceAvg = 0;
     let sizeCodes = [];
     let anyUnavailable = apiFetchFailed;
 
@@ -1886,15 +1887,12 @@ document.addEventListener('DOMContentLoaded', () => {
       totalBags += item.bags;
       totalPriceMin += item.priceMin;
       totalPriceMax += item.priceMax;
+      totalPriceAvg += (item.priceAvg || 0);
       
-      if (item.isUnavailable) {
-        anyUnavailable = true;
-      }
+      if (item.isUnavailable) anyUnavailable = true;
       
       const cleanSize = item.grade.replace('.','');
-      if (!sizeCodes.includes(cleanSize)) {
-        sizeCodes.push(cleanSize);
-      }
+      if (!sizeCodes.includes(cleanSize)) sizeCodes.push(cleanSize);
 
       const tr = document.createElement('tr');
       const varLabel = item.variety === 'yellow' ? 
@@ -1904,9 +1902,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const sizeLabel = currentGradeNames[item.grade] || item.grade;
       const unitsLabel = translations[currentLang]['calc_units_label'] || 'units';
 
-      const priceText = (item.isUnavailable || apiFetchFailed) ? 
-        'Unavailable' : 
-        `₹${item.priceMin.toLocaleString()} - ₹${item.priceMax.toLocaleString()}`;
+      let priceText;
+      if (item.isUnavailable || apiFetchFailed) {
+        priceText = '<span style="color:var(--muted);font-size:12px;">Unavailable</span>';
+      } else {
+        const avg = item.pricePerKg || 0;
+        const minKg = item.qty > 0 ? Math.round(item.priceMin / item.qty) : 0;
+        const maxKg = item.qty > 0 ? Math.round(item.priceMax / item.qty) : 0;
+        priceText = `
+          <div style="font-weight:800;color:var(--green-900);font-size:13.5px;">₹${(item.priceAvg||0).toLocaleString()}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Avg @ ₹${avg.toLocaleString()}/kg</div>
+          <div style="font-size:9.5px;color:var(--muted);">Min ₹${item.priceMin.toLocaleString()} · Max ₹${item.priceMax.toLocaleString()}</div>`;
+      }
 
       tr.innerHTML = `
         <td style="padding: 8px 6px;">
@@ -1915,7 +1922,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </td>
         <td style="padding: 8px 6px; text-align: right; font-weight: 700;">${item.qty.toLocaleString()} KG</td>
         <td style="padding: 8px 6px; text-align: right; color: var(--muted);">${item.bags} ${unitsLabel}</td>
-        <td style="padding: 8px 6px; text-align: right; font-weight: 700; color: var(--green-900);">${priceText}</td>
+        <td style="padding: 8px 6px; text-align: right;">${priceText}</td>
         <td style="padding: 8px 6px; text-align: center;">
           <button class="est-del-btn" data-id="${item.id}" type="button">🗑️</button>
         </td>
@@ -1947,13 +1954,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const sumPriceEl = document.getElementById('summary-price');
     if (sumPriceEl) {
       if (anyUnavailable) {
-        sumPriceEl.innerText = "Market price temporarily unavailable. Please contact us for today's quotation.";
-        sumPriceEl.style.fontSize = "13px";
-        sumPriceEl.style.color = "red";
+        sumPriceEl.innerHTML = `<span style="font-size:12.5px;color:#c0392b;line-height:1.5;">Today's market estimate is temporarily unavailable. Please contact us for the latest quotation.</span>`;
+        sumPriceEl.style.fontSize = '';
+        sumPriceEl.style.color = '';
       } else {
-        sumPriceEl.innerText = `₹${totalPriceMin.toLocaleString()} - ₹${totalPriceMax.toLocaleString()}*`;
-        sumPriceEl.style.fontSize = "22px";
-        sumPriceEl.style.color = "var(--green-900)";
+        // Primary: Avg Price Total — Secondary: Min–Max range
+        sumPriceEl.innerHTML = `
+          <span style="font-size:22px;font-weight:800;color:var(--green-900);">₹${totalPriceAvg.toLocaleString()}</span>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:5px;">Estimated Avg Value (based on today's market)</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: ₹${totalPriceMin.toLocaleString()} – ₹${totalPriceMax.toLocaleString()}</div>
+        `;
+        sumPriceEl.style.fontSize = '';
+        sumPriceEl.style.color = '';
       }
     }
 
