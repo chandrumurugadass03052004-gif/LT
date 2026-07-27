@@ -1527,218 +1527,317 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatsappBtn = document.getElementById('calc-whatsapp-btn');
   const emailBtn = document.getElementById('calc-email-btn');
 
-  // Google Sheets APIs (Apps Script Web App primary, Gviz query secondary fallback)
-  const PRIMARY_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwACoR0zmSAqRTA9S5ZIaXIiRKnH06d5bwIpYojjZnOQLGTsyWVpjPCkTL2oQ_YvD5s/exec';
-  const FALLBACK_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1PVU_f2-5WpBw84nYviiDAuOk7BC_kL043u9Icxv1X8c/gviz/tq?tqx=out:json';
+  /* ============================================================
+     LIVE PRICING ENGINE — Google Apps Script API
+     ● Fetches on page load + every 30 seconds automatically
+     ● fetch() with cache:'no-store' + timestamp bust
+     ● On failure: keeps previous prices, shows 🔴 Offline
+     ● On success: updates all UI sections instantly
+     ● Validates JSON before applying any prices
+     ============================================================ */
 
-  let livePrices = null; // Parsed override prices fetched from the cloud
-  let pricesLastUpdated = '';
-  let apiFetchFailed = false;
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwACoR0zmSAqRTA9S5ZIaXIiRKnH06d5bwIpYojjZnOQLGTsyWVpjPCkTL2oQ_YvD5s/exec';
+  const GVIZ_FALLBACK_URL = 'https://docs.google.com/spreadsheets/d/1PVU_f2-5WpBw84nYviiDAuOk7BC_kL043u9Icxv1X8c/gviz/tq?tqx=out:json';
 
-  // Multi-item estimator state variables
-  let calcVariety = 'green';
+  // Sheet column mapping (0-indexed):
+  // 0=Grade ID | 1=Product | 2=Variety | 3=Min Price/KG | 4=Max Price/KG | 5=Avg Price | 6=Updated Date | 7=Status
+
+  let livePrices          = null;  // { gradeId: { min, max, avg } } — kept on failure
+  let pricesLastUpdated   = '';
+  let apiFetchFailed      = false;
+  let pricePollInterval   = null;  // setInterval handle for 30-sec auto-refresh
+
+  // ── Estimator state ──────────────────────────────────────────
+  let calcVariety   = 'green';
   let estimateItems = [];
 
-  // DOM elements for variety selector and multi-item list
-  const varietyGreenBtn = document.getElementById('variety-green');
-  const varietyYellowBtn = document.getElementById('variety-yellow');
-  const calcAddItemBtn = document.getElementById('calc-add-item-btn');
-  const estimatorEmptyMsg = document.getElementById('estimator-empty-msg');
-  const estimatorTable = document.getElementById('estimator-table');
-  const estimatorTableBody = document.getElementById('estimator-table-body');
-  const estimatorTotalsSection = document.getElementById('estimator-totals-section');
-  const summaryItemsCount = document.getElementById('summary-items-count');
+  // ── DOM references ───────────────────────────────────────────
+  const varietyGreenBtn       = document.getElementById('variety-green');
+  const varietyYellowBtn      = document.getElementById('variety-yellow');
+  const calcAddItemBtn        = document.getElementById('calc-add-item-btn');
+  const estimatorEmptyMsg     = document.getElementById('estimator-empty-msg');
+  const estimatorTable        = document.getElementById('estimator-table');
+  const estimatorTableBody    = document.getElementById('estimator-table-body');
+  const estimatorTotalsSection= document.getElementById('estimator-totals-section');
+  const summaryItemsCount     = document.getElementById('summary-items-count');
 
-  // Fetch prices from Google Apps Script API with 10-minute cache
-  const fetchGoogleSheetPrices = async () => {
-    const CACHE_KEY      = 'lisha-prices-cache';
-    const CACHE_TIME_KEY = 'lisha-prices-cache-time';
-    const CACHE_DATE_KEY = 'lisha-prices-cache-date';
-    const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
-
+  /* ----------------------------------------------------------
+     formatPriceDate — converts any date string to dd-MMM-yyyy
+  ---------------------------------------------------------- */
+  const formatPriceDate = (raw) => {
+    if (!raw) return '';
     try {
-      // ── 1. SERVE FROM CACHE if still fresh ────────────────────────────────
-      const cachedData = localStorage.getItem(CACHE_KEY);
-      const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
-      const cachedDate = localStorage.getItem(CACHE_DATE_KEY);
+      // Already formatted (e.g. "18-Jul-2026")
+      if (/^\d{2}-[A-Za-z]{3}-\d{4}$/.test(raw)) return raw;
+      const d = new Date(raw);
+      if (isNaN(d.getTime())) return raw;
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${String(d.getDate()).padStart(2,'0')}-${months[d.getMonth()]}-${d.getFullYear()}`;
+    } catch {
+      return raw;
+    }
+  };
 
-      if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime) < CACHE_DURATION)) {
-        livePrices = JSON.parse(cachedData);
-        pricesLastUpdated = cachedDate || '';
-        apiFetchFailed = false;
-        console.log('✅ Loaded prices from 10-min cache. Last Updated:', pricesLastUpdated);
-        updateQuote();
-        showLastUpdated();
-        return;
+  /* ----------------------------------------------------------
+     parseAppsScriptJSON — reads Apps Script response
+     Expected shape:
+     { "status": "success", "data": [
+         { "gradeId": "6mm", "minPrice": 1650, "maxPrice": 1720,
+           "avgPrice": 1685, "updatedDate": "18-Jul-2026" }, ...
+     ]}
+  ---------------------------------------------------------- */
+  const parseAppsScriptJSON = (text) => {
+    let json;
+    try { json = JSON.parse(text); }
+    catch (e) { throw new Error('Apps Script response is not valid JSON: ' + e.message); }
+
+    if (typeof json !== 'object' || json === null)
+      throw new Error('Apps Script JSON root is not an object');
+    if (json.status !== 'success')
+      throw new Error('Apps Script returned status="' + json.status + '": ' + (json.message || 'no message'));
+    if (!Array.isArray(json.data) || json.data.length === 0)
+      throw new Error('Apps Script data array is missing or empty');
+
+    const prices = {};
+    let lastDate  = '';
+
+    json.data.forEach((item, idx) => {
+      // Validate each row
+      const gradeId = typeof item.gradeId === 'string' ? item.gradeId.trim() : null;
+      const min     = parseFloat(item.minPrice);
+      const max     = parseFloat(item.maxPrice);
+      const avg     = item.avgPrice !== undefined && item.avgPrice !== null
+        ? parseFloat(item.avgPrice)
+        : Math.round((min + max) / 2);
+      const date    = item.updatedDate || '';
+
+      if (!gradeId) { console.warn(`[Pricing] Row ${idx}: missing gradeId, skipping`); return; }
+      if (isNaN(min))  { console.warn(`[Pricing] ${gradeId}: invalid minPrice "${item.minPrice}", skipping`); return; }
+      if (isNaN(max))  { console.warn(`[Pricing] ${gradeId}: invalid maxPrice "${item.maxPrice}", skipping`); return; }
+      if (isNaN(avg))  { console.warn(`[Pricing] ${gradeId}: invalid avgPrice "${item.avgPrice}", using computed`); }
+
+      prices[gradeId] = { min, max, avg: isNaN(avg) ? Math.round((min + max) / 2) : avg };
+      if (date) lastDate = date;
+      console.log(`[Pricing] ✓ ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
+    });
+
+    return { prices, lastDate };
+  };
+
+  /* ----------------------------------------------------------
+     parseGvizJSON — reads Gviz fallback response
+     Columns: 0=GradeID 3=Min 4=Max 5=Avg 6=Date 7=Status
+  ---------------------------------------------------------- */
+  const parseGvizJSON = (text) => {
+    const start = text.indexOf('{');
+    const end   = text.lastIndexOf('}');
+    if (start === -1 || end === -1) throw new Error('Gviz response contains no JSON object');
+
+    let data;
+    try { data = JSON.parse(text.substring(start, end + 1)); }
+    catch (e) { throw new Error('Gviz JSON parse error: ' + e.message); }
+
+    if (!data.table || !Array.isArray(data.table.rows))
+      throw new Error('Gviz table.rows is missing');
+
+    const prices = {};
+    let lastDate  = '';
+
+    data.table.rows.forEach((row, idx) => {
+      if (!row.c || row.c.length < 8) { console.warn(`[Pricing/Gviz] Row ${idx} has <8 columns, skipping`); return; }
+      const gradeId = row.c[0]?.v;
+      const min     = row.c[3]?.v;
+      const max     = row.c[4]?.v;
+      const avgRaw  = row.c[5]?.v;
+      const date    = row.c[6]?.f || '';
+      const status  = row.c[7]?.v;
+
+      if (!gradeId) return;
+      if (status !== 'Active') { console.info(`[Pricing/Gviz] ${gradeId} status="${status}", skipping`); return; }
+      if (min === null || min === undefined || max === null || max === undefined) {
+        console.warn(`[Pricing/Gviz] ${gradeId}: missing min/max, skipping`); return;
       }
 
-      // ── 2. FRESH FETCH — cache-bust to prevent stale browser response ──────
-      console.log('🔄 Fetching live prices from Google Apps Script API...');
-      const bust = '?t=' + Date.now();
-      let text;
-      let isAppsScript = false;
+      const avg = (avgRaw !== null && avgRaw !== undefined) ? avgRaw : Math.round((min + max) / 2);
+      prices[gradeId] = { min, max, avg };
+      if (date) lastDate = date;
+      console.log(`[Pricing/Gviz] ✓ ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
+    });
 
+    return { prices, lastDate };
+  };
+
+  /* ----------------------------------------------------------
+     showStatusBadge — shows 🟢 Live or 🔴 Offline indicator
+  ---------------------------------------------------------- */
+  const showStatusBadge = (isLive) => {
+    const badge = document.getElementById('price-status-badge');
+    if (!badge) return;
+    badge.style.display = 'inline';
+    if (isLive) {
+      badge.textContent  = '🟢 Live Market Data';
+      badge.style.color  = '#2d7a4f';
+    } else {
+      badge.textContent  = '🔴 Offline — Retrying...';
+      badge.style.color  = '#c0392b';
+    }
+  };
+
+  /* ----------------------------------------------------------
+     fetchGoogleSheetPrices — PRODUCTION FETCH
+     ● cache:'no-store' + ?t=timestamp on every call
+     ● On success  → apply new prices, update all UI, show 🟢
+     ● On failure  → keep previous prices, show 🔴, retry in 30s
+  ---------------------------------------------------------- */
+  const fetchGoogleSheetPrices = async () => {
+
+    // Clear any old localStorage cache left from previous version
+    ['lisha-prices-cache','lisha-prices-cache-time','lisha-prices-cache-date'].forEach(k => localStorage.removeItem(k));
+
+    console.log('[Pricing] 🔄 Fetching fresh prices...');
+    const ts = '?t=' + Date.now();
+    let parsedResult = null;
+
+    // ── Attempt 1: Apps Script ─────────────────────────────
+    try {
+      const res = await fetch(APPS_SCRIPT_URL + ts, { cache: 'no-store' });
+      console.log('[Pricing] Apps Script HTTP:', res.status);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      console.log('[Pricing] Response preview:', text.substring(0, 200));
+      if (!text.trim().startsWith('{')) throw new Error('Not JSON — likely HTML error page');
+      parsedResult = parseAppsScriptJSON(text);
+      console.log('[Pricing] ✅ Apps Script OK. Grades:', Object.keys(parsedResult.prices).length);
+
+    } catch (primaryErr) {
+      console.warn('[Pricing] ⚠️ Apps Script failed:', primaryErr.message);
+      console.warn('[Pricing] Trying Gviz fallback...');
+
+      // ── Attempt 2: Gviz direct sheet query ────────────
       try {
-        const res = await fetch(PRIMARY_WEB_APP_URL + bust);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        text = await res.text();
-        if (text.trim().startsWith('{') && !text.includes('<!DOCTYPE')) {
-          isAppsScript = true;
+        const res2 = await fetch(GVIZ_FALLBACK_URL + '&t=' + Date.now(), { cache: 'no-store' });
+        console.log('[Pricing] Gviz HTTP:', res2.status);
+        if (!res2.ok) throw new Error('HTTP ' + res2.status);
+        const text2 = await res2.text();
+        parsedResult = parseGvizJSON(text2);
+        console.log('[Pricing] ✅ Gviz OK. Grades:', Object.keys(parsedResult.prices).length);
+
+      } catch (fallbackErr) {
+        // ── BOTH FAILED: keep previous prices, show Offline ──
+        console.error('[Pricing] ❌ Both sources failed.');
+        console.error('  Apps Script:', primaryErr.message);
+        console.error('  Gviz:', fallbackErr.message);
+
+        // Only mark as failed if we have NO previous prices at all
+        if (!livePrices) {
+          apiFetchFailed = true;
+          console.warn('[Pricing] No previous prices available — showing unavailable message');
         } else {
-          throw new Error('Apps Script returned HTML error page');
+          console.warn('[Pricing] Keeping previous prices until next retry.');
         }
-      } catch (primaryErr) {
-        console.warn('⚠️ Primary Apps Script failed — using Gviz fallback:', primaryErr.message);
-        const res2 = await fetch(FALLBACK_SHEET_URL + '&t=' + Date.now());
-        if (!res2.ok) throw new Error('Both data sources failed');
-        text = await res2.text();
-        isAppsScript = false;
+
+        showStatusBadge(false);
+        showLastUpdated();
+        updateQuote();
+        return;  // Exit — retry happens automatically via setInterval
       }
-
-      // ── 3. PARSE RESPONSE ──────────────────────────────────────────────────
-      const parsedPrices = {};
-      let lastDate = '';
-
-      if (isAppsScript) {
-        // Apps Script JSON: { status, data: [{ gradeId, minPrice, maxPrice, avgPrice, updatedDate }] }
-        const json = JSON.parse(text);
-        if (json.status !== 'success' || !Array.isArray(json.data)) {
-          throw new Error('Apps Script response invalid: ' + (json.message || 'unknown'));
-        }
-        json.data.forEach(item => {
-          const min = parseFloat(item.minPrice);
-          const max = parseFloat(item.maxPrice);
-          const avg = item.avgPrice !== undefined
-            ? parseFloat(item.avgPrice)
-            : Math.round((min + max) / 2);
-          if (item.gradeId && !isNaN(min) && !isNaN(max)) {
-            parsedPrices[item.gradeId] = { min, max, avg };
-            if (item.updatedDate) lastDate = item.updatedDate;
-          }
-        });
-      } else {
-        // Gviz JSON: cols 0=gradeId 3=min 4=max 5=avg 6=date 7=status
-        const start = text.indexOf('{');
-        const end   = text.lastIndexOf('}');
-        if (start === -1 || end === -1) throw new Error('Invalid Gviz response');
-        const data = JSON.parse(text.substring(start, end + 1));
-        (data.table?.rows || []).forEach(row => {
-          if (!row.c || row.c.length < 8) return;
-          const gradeId = row.c[0]?.v;
-          const min     = row.c[3]?.v;
-          const max     = row.c[4]?.v;
-          const avgRaw  = row.c[5]?.v;
-          const date    = row.c[6]?.f || '';
-          const status  = row.c[7]?.v;
-          if (gradeId && min !== null && max !== null && status === 'Active') {
-            const avg = avgRaw !== null && avgRaw !== undefined
-              ? avgRaw
-              : Math.round((min + max) / 2);
-            parsedPrices[gradeId] = { min, max, avg };
-            if (date) lastDate = date;
-          }
-        });
-      }
-
-      if (Object.keys(parsedPrices).length === 0) {
-        throw new Error('No active grade rows returned from data source');
-      }
-
-      // ── 4. STORE IN CACHE & APPLY ──────────────────────────────────────────
-      livePrices = parsedPrices;
-      pricesLastUpdated = lastDate;
-      apiFetchFailed = false;
-
-      localStorage.setItem(CACHE_KEY,      JSON.stringify(livePrices));
-      localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
-      localStorage.setItem(CACHE_DATE_KEY, pricesLastUpdated);
-
-      console.log('✅ Live prices loaded and cached (10 min):', livePrices);
-      updateQuote();
-      showLastUpdated();
-
-    } catch (err) {
-      console.error('❌ Price fetch failed:', err.message);
-      apiFetchFailed = true;
-      livePrices = null;
-      updateQuote();
-      showLastUpdated();
     }
+
+    // ── Validate parsed data ────────────────────────────────
+    if (!parsedResult || Object.keys(parsedResult.prices).length === 0) {
+      console.error('[Pricing] ❌ No Active grades in response');
+      if (!livePrices) apiFetchFailed = true;
+      showStatusBadge(false);
+      showLastUpdated();
+      updateQuote();
+      return;
+    }
+
+    // ── Apply prices & update ALL UI sections ──────────────
+    // IMPORTANT: Set state variables BEFORE calling refresh functions
+    livePrices        = parsedResult.prices;
+    pricesLastUpdated = formatPriceDate(parsedResult.lastDate);
+    apiFetchFailed    = false;  // Must be false BEFORE getDailyPriceRange is called
+
+    console.log('[Pricing] ✅ Prices applied:', livePrices);
+    console.log('[Pricing] Last Updated:', pricesLastUpdated);
+
+    // Now refresh all existing items with the new prices (safe: apiFetchFailed=false)
+    refreshEstimateItemPrices();
+
+    showStatusBadge(true);
+    showLastUpdated();
+    updateQuote();  // Re-render table with updated pricePerKg and totals
   };
 
+  /* ----------------------------------------------------------
+     showLastUpdated — renders "Last Updated: dd-MMM-yyyy"
+  ---------------------------------------------------------- */
   const showLastUpdated = () => {
-    const lastUpdatedEl = document.getElementById('calc-last-updated-val');
-    if (lastUpdatedEl) {
-      if (pricesLastUpdated && !apiFetchFailed) {
-        let displayDate = pricesLastUpdated;
-        // Clean up India Standard Time or GMT date strings if present
-        if (pricesLastUpdated.includes('GMT') || pricesLastUpdated.includes('Standard Time')) {
-          try {
-            const d = new Date(pricesLastUpdated);
-            if (!isNaN(d.getTime())) {
-              const day = String(d.getDate()).padStart(2, '0');
-              const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-              const month = months[d.getMonth()];
-              const year = d.getFullYear();
-              displayDate = `${day}-${month}-${year}`;
-            }
-          } catch (e) {
-            console.warn('Date formatting error:', e);
-          }
-        }
-        lastUpdatedEl.innerText = `Last Updated: ${displayDate}`;
-        lastUpdatedEl.style.display = 'block';
-      } else {
-        lastUpdatedEl.style.display = 'none';
-      }
+    const el = document.getElementById('calc-last-updated-val');
+    if (!el) return;
+    if (pricesLastUpdated && !apiFetchFailed) {
+      el.innerText   = 'Last Updated: ' + pricesLastUpdated;
+      el.style.display = 'inline';
+    } else if (apiFetchFailed && !livePrices) {
+      el.innerText   = '';
+      el.style.display = 'none';
     }
+    // If apiFetchFailed but livePrices still exist (offline fallback) — keep showing last known date
   };
 
-  // Helper to retrieve price range — uses live Google Sheets data (min, max, avg)
-  const getDailyPriceRange = (grade, variety = 'green') => {
-    const specKey = variety === 'yellow' ? `Y${grade}` : grade;
-    if (livePrices && livePrices[specKey]) {
-      return livePrices[specKey]; // Returns { min, max, avg }
+  /* ----------------------------------------------------------
+     refreshEstimateItemPrices — re-calculates prices for all
+     items already in the inquiry list using latest livePrices.
+     Called after every successful price fetch.
+  ---------------------------------------------------------- */
+  const refreshEstimateItemPrices = () => {
+    if (!livePrices || Object.keys(livePrices).length === 0) {
+      console.warn('[Pricing] refreshEstimateItemPrices called but livePrices is empty — skipping');
+      return;
     }
+    estimateItems.forEach(item => {
+      // getDailyPriceRange is safe here because livePrices is set and apiFetchFailed=false
+      const priceInfo = getDailyPriceRange(item.grade, item.variety);
+      if (priceInfo && !isNaN(priceInfo.min) && !isNaN(priceInfo.max)) {
+        const avgPerKg = priceInfo.avg && priceInfo.avg > 0
+          ? priceInfo.avg
+          : Math.round((priceInfo.min + priceInfo.max) / 2);
+        item.priceMin      = Math.round(priceInfo.min * item.qty);
+        item.priceMax      = Math.round(priceInfo.max * item.qty);
+        item.priceAvg      = Math.round(avgPerKg * item.qty);
+        item.pricePerKg    = avgPerKg;  // ← Avg @ ₹X/kg display
+        item.isUnavailable = false;
+        console.log(`[Pricing] Updated ${item.variety} ${item.grade}: avgPerKg=₹${avgPerKg}, totalAvg=₹${item.priceAvg}`);
+      } else {
+        console.warn(`[Pricing] No price found for ${item.variety} ${item.grade} during refresh`);
+        item.isUnavailable = true;
+      }
+    });
+  };
 
-    // If API failed to load, return null to signify unavailability
-    if (apiFetchFailed) {
+  /* ----------------------------------------------------------
+     getLivePrice — looks up grade price from fetched data
+     Returns { min, max, avg } or null if unavailable
+  ---------------------------------------------------------- */
+  const getLivePrice = (grade, variety) => {
+    if (!livePrices) return null;
+    // Green: key = "6mm" | Yellow: key = "Y6mm"
+    const key = variety === 'yellow' ? 'Y' + grade : grade;
+    const entry = livePrices[key];
+    if (!entry) {
+      console.warn('[Pricing] No price found for key:', key, '| Available keys:', Object.keys(livePrices));
       return null;
     }
-    
-    // Legacy calculation fallback (retaining original ranges if API is loading or not yet failed)
-    const today = new Date();
-    const start = new Date(today.getFullYear(), 0, 0);
-    const diff = today - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    const dailyFluctuation = Math.round(Math.sin(dayOfYear * 0.15) * 50 + Math.cos(dayOfYear * 0.05) * 20);
-    
-    const baseRangesGreen = {
-      '6mm': { min: 2050, max: 2200 },
-      '7mm': { min: 2350, max: 2550 },
-      '7.5mm': { min: 2600, max: 2800 },
-      '7.5-8mm': { min: 2750, max: 2950 },
-      '8mm': { min: 2950, max: 3200 },
-      '8.5mm': { min: 3250, max: 3500 },
-      '9mm': { min: 3600, max: 3950 }
-    };
+    return entry;
+  };
 
-    const baseRangesYellow = {
-      '6mm': { min: 1800, max: 1950 },
-      '7mm': { min: 2050, max: 2250 },
-      '7.5mm': { min: 2250, max: 2450 },
-      '7.5-8mm': { min: 2400, max: 2600 },
-      '8mm': { min: 2600, max: 2850 },
-      '8.5mm': { min: 2900, max: 3150 },
-      '9mm': { min: 3200, max: 3550 }
-    };
-    
-    const base = (variety === 'yellow' ? baseRangesYellow[grade] : baseRangesGreen[grade]) || { min: 2700, max: 2950 };
-    return {
-      min: base.min + dailyFluctuation,
-      max: base.max + dailyFluctuation
-    };
+  /* ----------------------------------------------------------
+     getDailyPriceRange — wrapper used throughout the calc
+  ---------------------------------------------------------- */
+  const getDailyPriceRange = (grade, variety = 'green') => {
+    if (apiFetchFailed) return null;   // API down — show error
+    return getLivePrice(grade, variety); // null if loading/not found
   };
 
   const getSelectedGrade = () => {
@@ -1954,7 +2053,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sumPriceEl = document.getElementById('summary-price');
     if (sumPriceEl) {
       if (anyUnavailable) {
-        sumPriceEl.innerHTML = `<span style="font-size:12.5px;color:#c0392b;line-height:1.5;">Today's market estimate is temporarily unavailable. Please contact us for the latest quotation.</span>`;
+        sumPriceEl.innerHTML = `<span style="font-size:12.5px;color:#c0392b;line-height:1.6;">Today's estimated market prices are temporarily unavailable.<br>Please contact us for the latest quotation.</span>`;
         sumPriceEl.style.fontSize = '';
         sumPriceEl.style.color = '';
       } else {
@@ -2019,9 +2118,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Trigger initial calculation and sync live prices from Google Sheets
+  // Trigger initial calculation and start live price polling from Google Sheets
   updateQuote();
-  fetchGoogleSheetPrices();
+  fetchGoogleSheetPrices(); // Immediate fetch on page load
+
+  // Auto-refresh prices every 5 seconds — updates instantly when sheet changes
+  pricePollInterval = setInterval(() => {
+    console.log('[Pricing] ⏱ 5-second auto-refresh triggered');
+    fetchGoogleSheetPrices();
+  }, 5000);
+
+  // Clean up polling when tab is hidden (battery/network friendly)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (pricePollInterval) { clearInterval(pricePollInterval); pricePollInterval = null; }
+      console.log('[Pricing] Tab hidden — polling paused');
+    } else {
+      fetchGoogleSheetPrices(); // Fetch immediately on tab re-focus
+      if (!pricePollInterval) {
+        pricePollInterval = setInterval(() => {
+          console.log('[Pricing] ⏱ Auto-refresh (resumed, 5s)');
+          fetchGoogleSheetPrices();
+        }, 5000);
+      }
+      console.log('[Pricing] Tab visible — polling resumed');
+    }
+  });
 
   /* ==========================================================================
      8. DISPATCH ACTION HANDLERS (WHATSAPP / EMAIL)
