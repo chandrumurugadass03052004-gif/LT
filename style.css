@@ -253,16 +253,16 @@ section {
 
 /* ---------- HEADER & NAV ---------- */
 body {
-  padding-top: 108px; /* Space for fixed header on desktop (72px logo + 32px nav padding + 4px offset) */
+  padding-top: 98px; /* Space for fixed header on desktop */
 }
 @media (max-width: 992px) {
   body {
-    padding-top: 84px; /* Space for fixed header on tablet (56px logo + 24px nav padding + 4px offset) */
+    padding-top: 78px; /* Space for fixed header on tablet */
   }
 }
 @media (max-width: 576px) {
   body {
-    padding-top: 68px; /* Space for fixed header on mobile (48px logo + 16px nav padding + 4px offset) */
+    padding-top: 64px; /* Space for fixed header on mobile */
   }
 }
 
@@ -2186,21 +2186,24 @@ input[type="number"]:focus {
 }
 
 .loader-spinner-img {
-  width: 200px;
+  width: 480px; /* Visible leaf ~192px wide (fits 180-220px range) */
   height: auto;
   object-fit: contain;
+  margin: -100px auto -80px;
   animation: pulseLogo 1.6s ease-in-out infinite;
 }
 
 @media (max-width: 992px) {
   .loader-spinner-img {
-    width: 160px;
+    width: 380px;
+    margin: -80px auto -60px;
   }
 }
 
 @media (max-width: 576px) {
   .loader-spinner-img {
-    width: 140px;
+    width: 340px; /* Visible leaf ~136px wide (fits 120-160px range) */
+    margin: -70px auto -50px;
   }
 }
 
@@ -4082,10 +4085,11 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 }
 
 .logo-img {
-  height: 64px; /* Desktop/Laptop view - large and readable */
+  height: 130px; /* Actual asset height to offset transparent borders */
   width: auto;
   display: block;
-  transition: height 0.3s ease, opacity 0.2s ease;
+  margin: -34px -10px -34px -10px;
+  transition: height 0.3s ease, margin 0.3s ease, opacity 0.2s ease;
 }
 
 .logo:hover .logo-img {
@@ -4094,7 +4098,8 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 /* Scrolled compression */
 header.scrolled .logo-img {
-  height: 48px; /* Compress slightly on scroll */
+  height: 90px;
+  margin: -22px -6px -22px -6px;
 }
 header.scrolled .brand-title {
   font-size: 16px;
@@ -4105,7 +4110,8 @@ header.scrolled .brand-subtitle {
 
 @media (max-width: 992px) {
   .logo-img {
-    height: 52px; /* Tablet view */
+    height: 110px;
+    margin: -28px -8px -28px -8px;
   }
   .brand-title {
     font-size: 17px;
@@ -4114,7 +4120,8 @@ header.scrolled .brand-subtitle {
     font-size: 8px;
   }
   header.scrolled .logo-img {
-    height: 40px;
+    height: 80px;
+    margin: -20px -6px -20px -6px;
   }
   header.scrolled .brand-title {
     font-size: 14.5px;
@@ -4126,7 +4133,8 @@ header.scrolled .brand-subtitle {
 
 @media (max-width: 576px) {
   .logo-img {
-    height: 48px; /* Mobile Phone view */
+    height: 100px;
+    margin: -26px -8px -26px -8px;
   }
   .brand-title {
     font-size: 15px;
@@ -4135,7 +4143,8 @@ header.scrolled .brand-subtitle {
     font-size: 7.5px;
   }
   header.scrolled .logo-img {
-    height: 36px;
+    height: 74px;
+    margin: -18px -6px -18px -6px;
   }
   header.scrolled .brand-title {
     font-size: 13.5px;
@@ -4146,25 +4155,27 @@ header.scrolled .brand-subtitle {
 }
 
 .modal-logo-img {
-  width: 140px; /* Big and prominent on front modal */
+  width: 330px; /* Visible leaf will be ~132px wide */
   height: auto;
   display: block;
-  margin: 0 auto 15px;
+  margin: -80px auto -65px;
 }
 @media (max-width: 576px) {
   .modal-logo-img {
-    width: 100px;
-    margin-bottom: 10px;
+    width: 240px; /* Visible leaf will be ~96px wide */
+    margin: -60px auto -45px;
   }
 }
 
 .foot-logo-img {
-  height: 56px; /* Big and properly visible in footer */
+  height: 120px;
   width: auto;
   display: block;
+  margin: -30px -10px -30px -10px;
 }
 @media (max-width: 576px) {
   .foot-logo-img {
-    height: 46px;
+    height: 90px;
+    margin: -22px -8px -22px -8px;
   }
 }
