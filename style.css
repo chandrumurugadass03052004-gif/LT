@@ -3978,7 +3978,7 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 /* ---------- LOGO IMAGE STYLING ---------- */
 .logo-img {
-  height: clamp(34px, 5vw, 44px);
+  height: 38px; /* Desktop/Laptop view */
   width: auto;
   display: block;
   transition: opacity 0.2s ease;
@@ -3987,18 +3987,48 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   opacity: 0.95;
 }
 
+@media (max-width: 992px) {
+  .logo-img {
+    height: 30px; /* Tablet view */
+  }
+}
+
+@media (max-width: 576px) {
+  .logo-img {
+    height: 24px; /* Mobile Phone view */
+  }
+}
+
 .modal-logo-img {
-  height: clamp(40px, 6vw, 54px);
+  height: 44px;
   width: auto;
   display: block;
   margin: 0 auto 15px;
 }
+@media (max-width: 576px) {
+  .modal-logo-img {
+    height: 34px;
+    margin-bottom: 10px;
+  }
+}
 
 .foot-logo-img {
-  height: clamp(38px, 6vw, 48px);
+  height: 40px;
   width: auto;
   display: block;
   margin-bottom: 20px;
 }
+@media (max-width: 992px) {
+  .foot-logo-img {
+    height: 34px;
+  }
+}
+@media (max-width: 576px) {
+  .foot-logo-img {
+    height: 28px;
+    margin-bottom: 15px;
+  }
+}
+
 
 
