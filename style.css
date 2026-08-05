@@ -253,16 +253,16 @@ section {
 
 /* ---------- HEADER & NAV ---------- */
 body {
-  padding-top: 76px; /* Space for fixed header on desktop */
+  padding-top: 100px; /* Space for fixed header on desktop */
 }
 @media (max-width: 992px) {
   body {
-    padding-top: 68px; /* Space for fixed header on tablet */
+    padding-top: 80px; /* Space for fixed header on tablet */
   }
 }
 @media (max-width: 576px) {
   body {
-    padding-top: 60px; /* Space for fixed header on mobile */
+    padding-top: 64px; /* Space for fixed header on mobile */
   }
 }
 
@@ -2180,8 +2180,8 @@ input[type="number"]:focus {
 }
 
 .loader-spinner-img {
-  width: 60px;
-  height: 60px;
+  width: 130px;
+  height: 130px;
   object-fit: contain;
   animation: pulseLogo 1.6s ease-in-out infinite;
 }
@@ -4030,57 +4030,65 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 /* ---------- LOGO IMAGE STYLING ---------- */
 .logo-img {
-  height: 38px; /* Desktop/Laptop view */
+  height: 68px; /* Desktop/Laptop view - large and readable */
   width: auto;
   display: block;
-  transition: opacity 0.2s ease;
+  transition: height 0.3s ease, opacity 0.2s ease;
 }
+
 .logo:hover .logo-img {
   opacity: 0.95;
 }
 
+header.scrolled .logo-img {
+  height: 50px; /* Compress slightly on scroll */
+}
+
 @media (max-width: 992px) {
   .logo-img {
-    height: 30px; /* Tablet view */
+    height: 54px; /* Tablet view */
+  }
+  header.scrolled .logo-img {
+    height: 40px;
   }
 }
 
 @media (max-width: 576px) {
   .logo-img {
-    height: 24px; /* Mobile Phone view */
+    height: 44px; /* Mobile Phone view */
+  }
+  header.scrolled .logo-img {
+    height: 34px;
   }
 }
 
 .modal-logo-img {
-  height: 44px;
+  height: 100px; /* Big and properly visible on front modal */
   width: auto;
   display: block;
   margin: 0 auto 15px;
 }
 @media (max-width: 576px) {
   .modal-logo-img {
-    height: 34px;
+    height: 70px;
     margin-bottom: 10px;
   }
 }
 
 .foot-logo-img {
-  height: 40px;
+  height: 80px; /* Big and properly visible in footer */
   width: auto;
   display: block;
   margin-bottom: 20px;
 }
 @media (max-width: 992px) {
   .foot-logo-img {
-    height: 34px;
+    height: 60px;
   }
 }
 @media (max-width: 576px) {
   .foot-logo-img {
-    height: 28px;
+    height: 50px;
     margin-bottom: 15px;
   }
 }
-
-
-
