@@ -253,16 +253,16 @@ section {
 
 /* ---------- HEADER & NAV ---------- */
 body {
-  padding-top: 100px; /* Space for fixed header on desktop */
+  padding-top: 108px; /* Space for fixed header on desktop (72px logo + 32px nav padding + 4px offset) */
 }
 @media (max-width: 992px) {
   body {
-    padding-top: 80px; /* Space for fixed header on tablet */
+    padding-top: 84px; /* Space for fixed header on tablet (56px logo + 24px nav padding + 4px offset) */
   }
 }
 @media (max-width: 576px) {
   body {
-    padding-top: 64px; /* Space for fixed header on mobile */
+    padding-top: 68px; /* Space for fixed header on mobile (48px logo + 16px nav padding + 4px offset) */
   }
 }
 
@@ -287,6 +287,12 @@ header.scrolled {
 header.scrolled .nav {
   padding-top: 8px;
   padding-bottom: 8px;
+}
+@media (max-width: 576px) {
+  header.scrolled .nav {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
 }
 
 .nav {
@@ -1950,7 +1956,7 @@ input[type="number"]:focus {
   }
   
   .nav {
-    padding: 16px 15px;
+    padding: 12px 15px;
   }
   
   .burger-menu {
@@ -2180,10 +2186,22 @@ input[type="number"]:focus {
 }
 
 .loader-spinner-img {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: auto;
   object-fit: contain;
   animation: pulseLogo 1.6s ease-in-out infinite;
+}
+
+@media (max-width: 992px) {
+  .loader-spinner-img {
+    width: 160px;
+  }
+}
+
+@media (max-width: 576px) {
+  .loader-spinner-img {
+    width: 140px;
+  }
 }
 
 @keyframes pulseLogo {
