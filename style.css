@@ -4046,9 +4046,43 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   }
 }
 
-/* ---------- LOGO IMAGE STYLING ---------- */
+/* ---------- LOGO IMAGE & BRAND STYLING ---------- */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  color: var(--green-900);
+  line-height: 1.1;
+  transition: font-size 0.3s ease;
+}
+
+.brand-subtitle {
+  font-family: var(--font-sans);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #3E2723; /* Dark warm brown tone */
+  margin-top: 2px;
+  line-height: 1;
+  transition: font-size 0.3s ease;
+}
+
 .logo-img {
-  height: 68px; /* Desktop/Laptop view - large and readable */
+  height: 64px; /* Desktop/Laptop view - large and readable */
   width: auto;
   display: block;
   transition: height 0.3s ease, opacity 0.2s ease;
@@ -4058,55 +4092,79 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   opacity: 0.95;
 }
 
+/* Scrolled compression */
 header.scrolled .logo-img {
-  height: 50px; /* Compress slightly on scroll */
+  height: 48px; /* Compress slightly on scroll */
+}
+header.scrolled .brand-title {
+  font-size: 16px;
+}
+header.scrolled .brand-subtitle {
+  font-size: 7.5px;
 }
 
 @media (max-width: 992px) {
   .logo-img {
-    height: 54px; /* Tablet view */
+    height: 52px; /* Tablet view */
+  }
+  .brand-title {
+    font-size: 17px;
+  }
+  .brand-subtitle {
+    font-size: 8px;
   }
   header.scrolled .logo-img {
     height: 40px;
+  }
+  header.scrolled .brand-title {
+    font-size: 14.5px;
+  }
+  header.scrolled .brand-subtitle {
+    font-size: 7px;
   }
 }
 
 @media (max-width: 576px) {
   .logo-img {
-    height: 44px; /* Mobile Phone view */
+    height: 48px; /* Mobile Phone view */
+  }
+  .brand-title {
+    font-size: 15px;
+  }
+  .brand-subtitle {
+    font-size: 7.5px;
   }
   header.scrolled .logo-img {
-    height: 34px;
+    height: 36px;
+  }
+  header.scrolled .brand-title {
+    font-size: 13.5px;
+  }
+  header.scrolled .brand-subtitle {
+    font-size: 6.5px;
   }
 }
 
 .modal-logo-img {
-  height: 100px; /* Big and properly visible on front modal */
-  width: auto;
+  width: 140px; /* Big and prominent on front modal */
+  height: auto;
   display: block;
   margin: 0 auto 15px;
 }
 @media (max-width: 576px) {
   .modal-logo-img {
-    height: 70px;
+    width: 100px;
     margin-bottom: 10px;
   }
 }
 
 .foot-logo-img {
-  height: 80px; /* Big and properly visible in footer */
+  height: 56px; /* Big and properly visible in footer */
   width: auto;
   display: block;
-  margin-bottom: 20px;
-}
-@media (max-width: 992px) {
-  .foot-logo-img {
-    height: 60px;
-  }
 }
 @media (max-width: 576px) {
   .foot-logo-img {
-    height: 50px;
-    margin-bottom: 15px;
+    height: 46px;
   }
 }
