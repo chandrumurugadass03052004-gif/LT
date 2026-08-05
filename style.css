@@ -282,7 +282,11 @@ header {
 header.scrolled {
   background: rgba(250, 248, 246, 0.95);
   box-shadow: var(--shadow-sm);
-  padding: 10px 0;
+}
+
+header.scrolled .nav {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .nav {
@@ -2173,6 +2177,24 @@ input[type="number"]:focus {
   border-top-color: var(--white);
   border-radius: 50%;
   animation: spin3D 1s linear infinite;
+}
+
+.loader-spinner-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  animation: pulseLogo 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseLogo {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
 
 #loader-status {
