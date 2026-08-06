@@ -2186,24 +2186,24 @@ input[type="number"]:focus {
 }
 
 .loader-spinner-img {
-  width: 480px; /* Visible leaf ~192px wide (fits 180-220px range) */
+  width: 200px; /* Exact recommended desktop size: 180-220px */
   height: auto;
   object-fit: contain;
-  margin: -100px auto -80px;
+  margin: 0 auto 10px;
   animation: pulseLogo 1.6s ease-in-out infinite;
 }
 
 @media (max-width: 992px) {
   .loader-spinner-img {
-    width: 380px;
-    margin: -80px auto -60px;
+    width: 160px;
+    margin: 0 auto 10px;
   }
 }
 
 @media (max-width: 576px) {
   .loader-spinner-img {
-    width: 340px; /* Visible leaf ~136px wide (fits 120-160px range) */
-    margin: -70px auto -50px;
+    width: 140px; /* Exact recommended mobile size: 120-160px */
+    margin: 0 auto 10px;
   }
 }
 
@@ -2301,7 +2301,8 @@ input[type="number"]:focus {
   color: var(--green-900);
   letter-spacing: 0.08em;
   line-height: 0.9;
-  margin-bottom: 5px;
+  margin-bottom: -15px; /* Pull Choose Your Language text closer */
+  margin-top: -10px; /* Crop any small top spacing */
 }
 
 .lang-modal-logo span {
@@ -4064,10 +4065,10 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 }
 
 .brand-title {
-  font-family: var(--font-serif);
+  font-family: 'Cinzel Decorative', cursive, var(--font-serif);
   font-weight: 700;
   font-size: 19px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--green-900);
   line-height: 1.1;
   transition: font-size 0.3s ease;
@@ -4075,7 +4076,7 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 .brand-subtitle {
   font-family: var(--font-sans);
-  font-size: 8.5px;
+  font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.1em;
   color: #3E2723; /* Dark warm brown tone */
@@ -4085,11 +4086,10 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 }
 
 .logo-img {
-  height: 130px; /* Actual asset height to offset transparent borders */
+  height: 64px; /* Default desktop height: 64-80px */
   width: auto;
   display: block;
-  margin: -34px -10px -34px -10px;
-  transition: height 0.3s ease, margin 0.3s ease, opacity 0.2s ease;
+  transition: height 0.3s ease, opacity 0.2s ease;
 }
 
 .logo:hover .logo-img {
@@ -4098,84 +4098,76 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 /* Scrolled compression */
 header.scrolled .logo-img {
-  height: 90px;
-  margin: -22px -6px -22px -6px;
+  height: 48px; /* Desktop scrolled height */
 }
 header.scrolled .brand-title {
   font-size: 16px;
 }
 header.scrolled .brand-subtitle {
-  font-size: 7.5px;
+  font-size: 7px;
 }
 
 @media (max-width: 992px) {
   .logo-img {
-    height: 110px;
-    margin: -28px -8px -28px -8px;
+    height: 56px; /* Tablet default height */
   }
   .brand-title {
     font-size: 17px;
   }
   .brand-subtitle {
-    font-size: 8px;
-  }
-  header.scrolled .logo-img {
-    height: 80px;
-    margin: -20px -6px -20px -6px;
-  }
-  header.scrolled .brand-title {
-    font-size: 14.5px;
-  }
-  header.scrolled .brand-subtitle {
-    font-size: 7px;
-  }
-}
-
-@media (max-width: 576px) {
-  .logo-img {
-    height: 100px;
-    margin: -26px -8px -26px -8px;
-  }
-  .brand-title {
-    font-size: 15px;
-  }
-  .brand-subtitle {
     font-size: 7.5px;
   }
   header.scrolled .logo-img {
-    height: 74px;
-    margin: -18px -6px -18px -6px;
+    height: 42px; /* Tablet scrolled height */
   }
   header.scrolled .brand-title {
-    font-size: 13.5px;
+    font-size: 14.5px;
   }
   header.scrolled .brand-subtitle {
     font-size: 6.5px;
   }
 }
 
+@media (max-width: 576px) {
+  .logo-img {
+    height: 48px; /* Mobile default height: 48-64px */
+  }
+  .brand-title {
+    font-size: 15px;
+  }
+  .brand-subtitle {
+    font-size: 7px;
+  }
+  header.scrolled .logo-img {
+    height: 36px; /* Mobile scrolled height */
+  }
+  header.scrolled .brand-title {
+    font-size: 13px;
+  }
+  header.scrolled .brand-subtitle {
+    font-size: 6px;
+  }
+}
+
 .modal-logo-img {
-  width: 330px; /* Visible leaf will be ~132px wide */
+  width: 140px; /* Recommended desktop modal width: 120-150px */
   height: auto;
   display: block;
-  margin: -80px auto -65px;
+  margin: 0 auto;
 }
 @media (max-width: 576px) {
   .modal-logo-img {
-    width: 240px; /* Visible leaf will be ~96px wide */
-    margin: -60px auto -45px;
+    width: 100px; /* Recommended mobile modal width: 90-110px */
   }
 }
 
 .foot-logo-img {
-  height: 120px;
+  height: 64px; /* Match header height for unified brand footprint */
   width: auto;
   display: block;
-  margin: -30px -10px -30px -10px;
 }
 @media (max-width: 576px) {
   .foot-logo-img {
-    height: 90px;
-    margin: -22px -8px -22px -8px;
+    height: 48px;
   }
 }
