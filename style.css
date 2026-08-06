@@ -262,7 +262,7 @@ body {
 }
 @media (max-width: 576px) {
   body {
-    padding-top: 64px; /* Space for fixed header on mobile */
+    padding-top: 68px; /* Space for fixed header on mobile */
   }
 }
 
@@ -290,8 +290,8 @@ header.scrolled .nav {
 }
 @media (max-width: 576px) {
   header.scrolled .nav {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 }
 
@@ -1956,19 +1956,66 @@ input[type="number"]:focus {
   }
   
   .nav {
-    padding: 12px 15px;
+    padding: 10px 18px; /* Luxury 18px horizontal padding */
   }
   
   .burger-menu {
     display: block;
+    width: 22px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  
+  .burger-menu span {
+    height: 1.5px; /* Thinner, more elegant lines */
+  }
+
+  .burger-menu span:nth-child(1) { top: 0; }
+  .burger-menu span:nth-child(2) { top: 8px; }
+  .burger-menu span:nth-child(3) { top: 16px; }
+
+  .burger-menu.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .burger-menu.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
   
   .nav-actions {
     margin-right: 0;
+    gap: 12px;
   }
   
   .nav-actions .btn {
     display: none;
+  }
+
+  /* --- LUXURY MOBILE BRAND AREA --- */
+  .brand-logo {
+    gap: 10px;
+  }
+
+  /* Hide tagline from sticky mobile header — keep clean like Rolex/Aesop */
+  .brand-subtitle {
+    display: none;
+  }
+
+  .brand-title {
+    font-family: 'Praise', cursive, var(--font-serif);
+    font-size: 24px;
+    letter-spacing: 0.005em; /* Reduced 50% from desktop 0.01em */
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .logo-img {
+    height: 42px; /* 15-20% increase from previous 36px base */
+  }
+
+  /* Language switcher compact styling */
+  .lang-dropdown-btn {
+    font-size: 12px;
+    padding: 4px 8px;
   }
   
   .mobile-cta-btn {
@@ -4160,32 +4207,43 @@ header.scrolled .brand-subtitle::after {
 
 @media (max-width: 576px) {
   .logo-img {
-    height: 48px; /* Mobile default height: 48-64px */
+    height: 42px; /* Mobile default — 15-20% larger, luxury brand proportion */
   }
   .brand-title {
-    font-size: 22px;
+    font-size: 24px;
+    letter-spacing: 0.005em; /* 50% reduced tracking for mobile balance */
   }
+  /* Tagline hidden on mobile header for clean luxury look */
   .brand-subtitle {
-    font-size: 6.5px;
-    letter-spacing: 0.16em;
-  }
-  .brand-subtitle::before,
-  .brand-subtitle::after {
-    width: 12px;
+    display: none;
   }
   header.scrolled .logo-img {
-    height: 36px; /* Mobile scrolled height */
+    height: 36px; /* Mobile scrolled height — compact but visible */
   }
   header.scrolled .brand-title {
-    font-size: 18px;
+    font-size: 20px;
+    letter-spacing: 0.005em;
   }
-  header.scrolled .brand-subtitle {
-    font-size: 5.5px;
-    letter-spacing: 0.14em;
+}
+
+/* Mobile header — luxury vertical alignment */
+@media (max-width: 768px) {
+  .brand-logo {
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 1;
+    min-width: 0;
   }
-  header.scrolled .brand-subtitle::before,
-  header.scrolled .brand-subtitle::after {
-    width: 8px;
+  .logo-text {
+    justify-content: center;
+    gap: 0;
+  }
+  .nav {
+    align-items: center;
+  }
+  .nav-actions {
+    flex-shrink: 0;
+    align-items: center;
   }
 }
 
