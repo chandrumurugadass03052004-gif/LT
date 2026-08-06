@@ -305,6 +305,19 @@ header.scrolled .nav {
   margin: 0 auto;
 }
 
+/* Desktop/Laptop: logo far-left, actions far-right, edge-to-edge */
+@media (min-width: 993px) {
+  .nav {
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 16px 40px;
+  }
+  .nav-links {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
 .logo {
   font-family: var(--font-serif);
   font-weight: 700;
