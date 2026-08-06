@@ -4062,27 +4062,42 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 2px;
 }
 
 .brand-title {
   font-family: 'Praise', cursive, var(--font-serif);
   font-weight: 400;
-  font-size: 32px; /* Praise font size scaled up for script readability */
-  letter-spacing: 0.02em;
-  color: var(--green-900); /* Forest Green color */
-  line-height: 0.95;
+  font-size: 30px; /* Praise calligraphy script — rich forest green */
+  letter-spacing: 0.01em;
+  color: #1a4028; /* Deep forest green matching reference */
+  line-height: 1;
   transition: font-size 0.3s ease;
 }
 
 .brand-subtitle {
-  font-family: 'Praise', cursive, var(--font-sans);
-  font-size: 16px; /* Praise font size scaled up for script readability */
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--green-900); /* Forest Green color */
-  margin-top: 1px;
-  line-height: 0.95;
+  font-family: var(--font-sans);
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7a6040; /* Warm gold-olive matching reference subtitle */
+  margin-top: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   transition: font-size 0.3s ease;
+}
+
+.brand-subtitle::before,
+.brand-subtitle::after {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background-color: #7a6040;
+  flex-shrink: 0;
 }
 
 .logo-img {
@@ -4101,10 +4116,15 @@ header.scrolled .logo-img {
   height: 48px; /* Desktop scrolled height */
 }
 header.scrolled .brand-title {
-  font-size: 24px;
+  font-size: 23px;
 }
 header.scrolled .brand-subtitle {
-  font-size: 13px;
+  font-size: 6.5px;
+  letter-spacing: 0.2em;
+}
+header.scrolled .brand-subtitle::before,
+header.scrolled .brand-subtitle::after {
+  width: 14px;
 }
 
 @media (max-width: 992px) {
@@ -4112,19 +4132,29 @@ header.scrolled .brand-subtitle {
     height: 56px; /* Tablet default height */
   }
   .brand-title {
-    font-size: 28px;
+    font-size: 26px;
   }
   .brand-subtitle {
-    font-size: 14px;
+    font-size: 7px;
+    letter-spacing: 0.18em;
+  }
+  .brand-subtitle::before,
+  .brand-subtitle::after {
+    width: 14px;
   }
   header.scrolled .logo-img {
     height: 42px; /* Tablet scrolled height */
   }
   header.scrolled .brand-title {
-    font-size: 22px;
+    font-size: 20px;
   }
   header.scrolled .brand-subtitle {
-    font-size: 12px;
+    font-size: 6px;
+    letter-spacing: 0.16em;
+  }
+  header.scrolled .brand-subtitle::before,
+  header.scrolled .brand-subtitle::after {
+    width: 10px;
   }
 }
 
@@ -4133,19 +4163,29 @@ header.scrolled .brand-subtitle {
     height: 48px; /* Mobile default height: 48-64px */
   }
   .brand-title {
-    font-size: 24px;
+    font-size: 22px;
   }
   .brand-subtitle {
-    font-size: 13px;
+    font-size: 6.5px;
+    letter-spacing: 0.16em;
+  }
+  .brand-subtitle::before,
+  .brand-subtitle::after {
+    width: 12px;
   }
   header.scrolled .logo-img {
     height: 36px; /* Mobile scrolled height */
   }
   header.scrolled .brand-title {
-    font-size: 20px;
+    font-size: 18px;
   }
   header.scrolled .brand-subtitle {
-    font-size: 11px;
+    font-size: 5.5px;
+    letter-spacing: 0.14em;
+  }
+  header.scrolled .brand-subtitle::before,
+  header.scrolled .brand-subtitle::after {
+    width: 8px;
   }
 }
 
