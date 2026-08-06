@@ -4065,23 +4065,23 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 }
 
 .brand-title {
-  font-family: 'Cinzel Decorative', cursive, var(--font-serif);
-  font-weight: 700;
-  font-size: 19px;
-  letter-spacing: 0.04em;
-  color: var(--green-900);
-  line-height: 1.1;
+  font-family: 'Praise', cursive, var(--font-serif);
+  font-weight: 400;
+  font-size: 32px; /* Praise font size scaled up for script readability */
+  letter-spacing: 0.02em;
+  color: var(--green-900); /* Forest Green color */
+  line-height: 0.95;
   transition: font-size 0.3s ease;
 }
 
 .brand-subtitle {
-  font-family: var(--font-sans);
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #3E2723; /* Dark warm brown tone */
-  margin-top: 2px;
-  line-height: 1;
+  font-family: 'Praise', cursive, var(--font-sans);
+  font-size: 16px; /* Praise font size scaled up for script readability */
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--green-900); /* Forest Green color */
+  margin-top: 1px;
+  line-height: 0.95;
   transition: font-size 0.3s ease;
 }
 
@@ -4101,10 +4101,10 @@ header.scrolled .logo-img {
   height: 48px; /* Desktop scrolled height */
 }
 header.scrolled .brand-title {
-  font-size: 16px;
+  font-size: 24px;
 }
 header.scrolled .brand-subtitle {
-  font-size: 7px;
+  font-size: 13px;
 }
 
 @media (max-width: 992px) {
@@ -4112,19 +4112,19 @@ header.scrolled .brand-subtitle {
     height: 56px; /* Tablet default height */
   }
   .brand-title {
-    font-size: 17px;
+    font-size: 28px;
   }
   .brand-subtitle {
-    font-size: 7.5px;
+    font-size: 14px;
   }
   header.scrolled .logo-img {
     height: 42px; /* Tablet scrolled height */
   }
   header.scrolled .brand-title {
-    font-size: 14.5px;
+    font-size: 22px;
   }
   header.scrolled .brand-subtitle {
-    font-size: 6.5px;
+    font-size: 12px;
   }
 }
 
@@ -4133,19 +4133,19 @@ header.scrolled .brand-subtitle {
     height: 48px; /* Mobile default height: 48-64px */
   }
   .brand-title {
-    font-size: 15px;
+    font-size: 24px;
   }
   .brand-subtitle {
-    font-size: 7px;
+    font-size: 13px;
   }
   header.scrolled .logo-img {
     height: 36px; /* Mobile scrolled height */
   }
   header.scrolled .brand-title {
-    font-size: 13px;
+    font-size: 20px;
   }
   header.scrolled .brand-subtitle {
-    font-size: 6px;
+    font-size: 11px;
   }
 }
 
