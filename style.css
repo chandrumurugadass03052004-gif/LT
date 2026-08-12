@@ -4128,10 +4128,10 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 .brand-title {
   font-family: 'Praise', cursive, var(--font-serif);
   font-weight: 400;
-  font-size: 30px; /* Praise calligraphy script — rich forest green */
-  letter-spacing: 0.01em;
+  font-size: 46px; /* Increased for laptop view to match reference */
+  letter-spacing: 0.02em;
   color: #1a4028; /* Deep forest green matching reference */
-  line-height: 1;
+  line-height: 0.9;
   transition: font-size 0.3s ease;
 }
 
@@ -4144,12 +4144,12 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 .brand-subtitle {
   font-family: var(--font-sans);
-  font-size: 7.5px;
+  font-size: 8px;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: #7a6040; /* Warm gold-olive matching reference subtitle */
-  margin-top: 0;
+  margin-top: 2px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -4161,14 +4161,14 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 .brand-subtitle::after {
   content: '';
   display: inline-block;
-  width: 18px;
+  width: 24px;
   height: 1px;
   background-color: #7a6040;
   flex-shrink: 0;
 }
 
 .logo-img {
-  height: 64px; /* Default desktop height: 64-80px */
+  height: 85px; /* Increased to balance larger text */
   width: auto;
   display: block;
   transition: height 0.3s ease, opacity 0.2s ease;
