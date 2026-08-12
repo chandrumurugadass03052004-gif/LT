@@ -4171,21 +4171,7 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   opacity: 0.95;
 }
 
-/* Scrolled compression */
-header.scrolled .logo-img {
-  height: 48px; /* Desktop scrolled height */
-}
-header.scrolled .brand-title {
-  font-size: 23px;
-}
-header.scrolled .brand-subtitle {
-  font-size: 6.5px;
-  letter-spacing: 0.2em;
-}
-header.scrolled .brand-subtitle::before,
-header.scrolled .brand-subtitle::after {
-  width: 14px;
-}
+
 
 @media (max-width: 992px) {
   .logo-img {
