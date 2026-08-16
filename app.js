@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================================
      TRANSLATIONS DICTIONARY (EN, HI, TA)
@@ -2341,7 +2341,7 @@
     }
 
     // 4. Update language indicator text
-    langDropdownBtn.innerText = '≡ƒîÉ ' + lang.toUpperCase();
+    langDropdownBtn.innerText = '🌐 ' + lang.toUpperCase();
 
     // 5. Update static DOM elements with translation mapping
     document.querySelectorAll('[data-translate]').forEach(el => {
