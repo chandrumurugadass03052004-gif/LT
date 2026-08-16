@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'nav_calc': 'Quote Calculator',
       'nav_gallery': 'Gallery',
       'nav_contact': 'Contact',
-      'btn_get_quote': 'Get a Quote ΓåÆ',
+      'btn_get_quote': 'Get a Quote →',
       'hero_eyebrow': 'Premium Indian Cardamom',
       'hero_title': 'Pure Scent. <br><span>Perfect Grade.</span> Trusted Globally.',
       'hero_desc': 'Lisha Traders delivers premium quality green cardamom sourced directly from authentic auction houses and high-altitude plantations in Bodinayakanur, India.',
-      'hero_btn_explore': 'Explore Grades ΓåÆ',
-      'hero_btn_calc': 'Calculate Price ΓåÆ',
+      'hero_btn_explore': 'Explore Grades →',
+      'hero_btn_calc': 'Calculate Price →',
       'hero_badge_title': '100% Export Quality',
       'hero_badge_desc': 'Handpicked sorting & grade verification',
       'products_eyebrow': 'Product Offerings',
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'specs_detail': 'Specs & Detail',
       'tag_popular': 'Popular',
       'tag_royal': 'Royal Selection',
-      'btn_calc_bulk': 'Calculate Bulk Quote ΓåÆ',
+      'btn_calc_bulk': 'Calculate Bulk Quote →',
       'grade_6_lbl': '6.0 mm',
       'grade_7_lbl': '7.0 mm',
       'grade_75_lbl': '7.5 mm',
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_summary_bags': 'Total Shipping Bags:',
       'calc_summary_range': 'Indicative Value Range:',
       'calc_disclaimer': '*Note: Cardamom prices fluctuate daily according to Bodinayakanur auction indexes. This is an estimated volume breakdown for supply planning. Actual price ranges will be locked in upon direct inquiry.',
-      'btn_calc_whatsapp': 'Send Quote Request via WhatsApp ΓåÆ',
+      'btn_calc_whatsapp': 'Send Quote Request via WhatsApp →',
       'btn_calc_email': 'Send Quote Request via Email',
       'gallery_eyebrow': 'Visual Tour',
       'gallery_title': 'Premium Quality Gallery',
@@ -222,12 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'nav_calc': 'αñàαñ¿αÑüαñ«αñ╛αñ¿ αñòαÑêαñ▓αñòαÑüαñ▓αÑçαñƒαñ░',
       'nav_gallery': 'αñùαÑêαñ▓αñ░αÑÇ',
       'nav_contact': 'αñ╕αñéαñ¬αñ░αÑìαñò',
-      'btn_get_quote': 'αñòαÑïαñƒαÑçαñ╢αñ¿ αñ▓αÑçαñé ΓåÆ',
+      'btn_get_quote': 'αñòαÑïαñƒαÑçαñ╢αñ¿ αñ▓αÑçαñé →',
       'hero_eyebrow': 'αñ¬αÑìαñ░αÑÇαñ«αñ┐αñ»αñ« αñ¡αñ╛αñ░αññαÑÇαñ» αñçαñ▓αñ╛αñ»αñÜαÑÇ',
       'hero_title': 'αñ╢αÑüαñªαÑìαñº αñ╕αÑüαñùαñéαñºαÑñ <br><span>αñëαññαÑìαñòαÑâαñ╖αÑìαñƒ αñùαÑìαñ░αÑçαñíαÑñ</span> αñ╡αÑêαñ╢αÑìαñ╡αñ┐αñò αñ╡αñ┐αñ╢αÑìαñ╡αñ╕αñ¿αÑÇαñ»αÑñ',
       'hero_desc': 'αñ▓αÑÇαñ╢αñ╛ αñƒαÑìαñ░αÑçαñíαñ░αÑìαñ╕ αñ╕αÑÇαñºαÑç αñ¼αÑïαñíαñ┐αñ¿αñ╛αñ»αñ╛αñòαñ¿αÑéαñ░, αñ¡αñ╛αñ░αññ αñ«αÑçαñé αñ¬αÑìαñ░αñ╛αñ«αñ╛αñúαñ┐αñò αñ¿αÑÇαñ▓αñ╛αñ«αÑÇ αñÿαñ░αÑïαñé αñöαñ░ αñëαñÜαÑìαñÜ αñèαñéαñÜαñ╛αñê αñ╡αñ╛αñ▓αÑç αñ¼αñ╛αñùαñ╛αñ¿αÑïαñé αñ╕αÑç αñ¬αÑìαñ░αñ╛αñ¬αÑìαññ αñ╣αñ░αÑÇ αñçαñ▓αñ╛αñ»αñÜαÑÇ αñ¬αÑìαñ░αñªαñ╛αñ¿ αñòαñ░αññαñ╛ αñ╣αÑêαÑñ',
-      'hero_btn_explore': 'αñùαÑìαñ░αÑçαñí αñªαÑçαñûαÑçαñé ΓåÆ',
-      'hero_btn_calc': 'αñ«αÑéαñ▓αÑìαñ» αñùαñúαñ¿αñ╛ ΓåÆ',
+      'hero_btn_explore': 'αñùαÑìαñ░αÑçαñí αñªαÑçαñûαÑçαñé →',
+      'hero_btn_calc': 'αñ«αÑéαñ▓αÑìαñ» αñùαñúαñ¿αñ╛ →',
       'hero_badge_title': '100% αñ¿αñ┐αñ░αÑìαñ»αñ╛αññ αñùαÑüαñúαñ╡αññαÑìαññαñ╛',
       'hero_badge_desc': 'αñÜαÑüαñ¿αñ┐αñéαñªαñ╛ αñ¢αñéαñƒαñ╛αñê αñöαñ░ αñùαÑìαñ░αÑçαñí αñ╕αññαÑìαñ»αñ╛αñ¬αñ¿',
       'products_eyebrow': 'αñëαññαÑìαñ¬αñ╛αñª αñ¬αÑïαñ░αÑìαñƒαñ½αÑïαñ▓αñ┐αñ»αÑï',
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'specs_detail': 'αñ╡αñ┐αñ╡αñ░αñú αñöαñ░ αñ╕αÑìαñ¬αÑçαñòαÑìαñ╕',
       'tag_popular': 'αñ▓αÑïαñòαñ¬αÑìαñ░αñ┐αñ»',
       'tag_royal': 'αñ╢αñ╛αñ╣αÑÇ αñÜαñ»αñ¿',
-      'btn_calc_bulk': 'αñÑαÑïαñò αñòαÑïαñƒαÑçαñ╢αñ¿ αñòαÑÇ αñùαñúαñ¿αñ╛ αñòαñ░αÑçαñé ΓåÆ',
+      'btn_calc_bulk': 'αñÑαÑïαñò αñòαÑïαñƒαÑçαñ╢αñ¿ αñòαÑÇ αñùαñúαñ¿αñ╛ αñòαñ░αÑçαñé →',
       'grade_6_lbl': '6.0 αñ«αñ┐αñ«αÑÇ',
       'grade_7_lbl': '7.0 αñ«αñ┐αñ«αÑÇ',
       'grade_75_lbl': '7.5 αñ«αñ┐αñ«αÑÇ',
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_summary_bags': 'αñòαÑüαñ▓ αñ╢αñ┐αñ¬αñ┐αñéαñù αñ¼αÑêαñù:',
       'calc_summary_range': 'αñ╕αñ╛αñéαñòαÑçαññαñ┐αñò αñ«αÑéαñ▓αÑìαñ» αñ╕αÑÇαñ«αñ╛:',
       'calc_disclaimer': '*αñ¿αÑïαñƒ: αñ¼αÑïαñíαñ┐αñ¿αñ╛αñ»αñ╛αñòαñ¿αÑéαñ░ αñ¿αÑÇαñ▓αñ╛αñ«αÑÇ αñ╕αÑéαñÜαñòαñ╛αñéαñòαÑïαñé αñòαÑç αñàαñ¿αÑüαñ╕αñ╛αñ░ αñçαñ▓αñ╛αñ»αñÜαÑÇ αñòαÑÇ αñòαÑÇαñ«αññαÑçαñé αñªαÑêαñ¿αñ┐αñò αñ░αÑéαñ¬ αñ╕αÑç αñÿαñƒαññαÑÇ-αñ¼αñóαñ╝αññαÑÇ αñ░αñ╣αññαÑÇ αñ╣αÑêαñéαÑñ αñ»αñ╣ αñåαñ¬αÑéαñ░αÑìαññαñ┐ αñ»αÑïαñ£αñ¿αñ╛ αñòαÑç αñ▓αñ┐αñÅ αñÅαñò αñàαñ¿αÑüαñ«αñ╛αñ¿αñ┐αññ αñ«αñ╛αññαÑìαñ░αñ╛ αñ╡αñ┐αñ╡αñ░αñú αñ╣αÑêαÑñ αñ╡αñ╛αñ╕αÑìαññαñ╡αñ┐αñò αñ«αÑéαñ▓αÑìαñ» αñ╕αÑÇαñ«αñ╛ αñ¬αÑìαñ░αññαÑìαñ»αñòαÑìαñ╖ αñ¬αÑéαñ¢αññαñ╛αñ¢ αñ¬αñ░ αññαñ» αñòαÑÇ αñ£αñ╛αñÅαñùαÑÇαÑñ',
-      'btn_calc_whatsapp': 'αñ╡αÑìαñ╣αñ╛αñƒαÑìαñ╕αñÅαñ¬ αñòαÑç αñ«αñ╛αñºαÑìαñ»αñ« αñ╕αÑç αñòαÑïαñƒαÑçαñ╢αñ¿ αñàαñ¿αÑüαñ░αÑïαñº αñ¡αÑçαñ£αÑçαñé ΓåÆ',
+      'btn_calc_whatsapp': 'αñ╡αÑìαñ╣αñ╛αñƒαÑìαñ╕αñÅαñ¬ αñòαÑç αñ«αñ╛αñºαÑìαñ»αñ« αñ╕αÑç αñòαÑïαñƒαÑçαñ╢αñ¿ αñàαñ¿αÑüαñ░αÑïαñº αñ¡αÑçαñ£αÑçαñé →',
       'btn_calc_email': 'αñêαñ«αÑçαñ▓ αñòαÑç αñ«αñ╛αñºαÑìαñ»αñ« αñ╕αÑç αñòαÑïαñƒαÑçαñ╢αñ¿ αñàαñ¿αÑüαñ░αÑïαñº αñ¡αÑçαñ£αÑçαñé',
       'gallery_eyebrow': 'αñ╡αñ┐αñ£αÑüαñàαñ▓ αñƒαÑéαñ░',
       'gallery_title': 'αñ¬αÑìαñ░αÑÇαñ«αñ┐αñ»αñ« αñùαÑüαñúαñ╡αññαÑìαññαñ╛ αñùαÑêαñ▓αñ░αÑÇ',
@@ -431,12 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'nav_calc': 'α«╡α«┐α«▓α»ê α«òα«╛α«▓α»ìα«òα»üα«▓α»çα«ƒα»ìα«ƒα«░α»ì',
       'nav_gallery': 'α«òα»çα«▓α«░α«┐',
       'nav_contact': 'α«ñα»èα«ƒα«░α»ìα«¬α»ü',
-      'btn_get_quote': 'α«╡α«┐α«╡α«░α««α»ì α«¬α»åα«▒ ΓåÆ',
+      'btn_get_quote': 'α«╡α«┐α«╡α«░α««α»ì α«¬α»åα«▒ →',
       'hero_eyebrow': 'α«¬α«┐α«░α»Çα««α«┐α«»α««α»ì α«çα«¿α»ìα«ñα«┐α«» α«Åα«▓α«òα»ìα«òα«╛α«»α»ì',
       'hero_title': 'α«çα«úα»êα«»α«▒α»ìα«▒ α«¿α«▒α»üα««α«úα««α»ì. <br><span>α«Üα«░α«┐α«»α«╛α«⌐ α«ñα«░α««α»ì.</span> α«ëα«▓α«òα«│α«╡α«┐α«▓α»ì α«¿α««α»ìα«¬α«òα««α«╛α«⌐α«ñα»ü.',
       'hero_desc': 'α«▓α»Çα«╖α«╛ α«ƒα«┐α«░α»çα«ƒα«░α»ìα«╕α»ì α«çα«¿α»ìα«ñα«┐α«»α«╛α«╡α«┐α«⌐α»ì α«¬α»ïα«ƒα«┐α«¿α«╛α«»α«òα»ìα«òα«⌐α»éα«░α«┐α«▓α»ì α«ëα«│α»ìα«│ α«Åα«▓ α««α»êα«»α«Öα»ìα«òα«│α»ì α««α«▒α»ìα«▒α»üα««α»ì α«ñα»ïα«ƒα»ìα«ƒα«Öα»ìα«òα«│α«┐α«▓α»ì α«çα«░α»üα«¿α»ìα«ñα»ü α«¿α»çα«░α«ƒα«┐α«»α«╛α«ò α«¬α»åα«▒α«¬α»ìα«¬α«ƒα»ìα«ƒ α«ëα«»α«░α»ìα«ñα«░ α«¬α«Üα»ìα«Üα»ê α«Åα«▓α«òα»ìα«òα«╛α«»α»ê α«╡α«┤α«Öα»ìα«òα»üα«òα«┐α«▒α«ñα»ü.',
-      'hero_btn_explore': 'α«░α«òα«Öα»ìα«òα«│α»ê α«åα«░α«╛α«»α»üα«Öα»ìα«òα«│α»ì ΓåÆ',
-      'hero_btn_calc': 'α«╡α«┐α«▓α»êα«»α»ê α«òα«úα«òα»ìα«òα«┐α«ƒα»üα«Öα»ìα«òα«│α»ì ΓåÆ',
+      'hero_btn_explore': 'α«░α«òα«Öα»ìα«òα«│α»ê α«åα«░α«╛α«»α»üα«Öα»ìα«òα«│α»ì →',
+      'hero_btn_calc': 'α«╡α«┐α«▓α»êα«»α»ê α«òα«úα«òα»ìα«òα«┐α«ƒα»üα«Öα»ìα«òα«│α»ì →',
       'hero_badge_title': '100% α«Åα«▒α»ìα«▒α»üα««α«ñα«┐ α«ñα«░α««α»ì',
       'hero_badge_desc': 'α«òα»êα««α»üα«▒α»êα«»α«╛α«ò α«ñα«░α««α»ì α«¬α«┐α«░α«┐α«òα»ìα«òα«¬α»ìα«¬α«ƒα»ìα«ƒα«ñα»ü',
       'products_eyebrow': 'α«ñα«»α«╛α«░α«┐α«¬α»ìα«¬α»üα«òα«│α»ì',
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'specs_detail': 'α«╡α«┐α«╡α«░α««α»ì & α«àα«│α«╡α»Çα«ƒα»ü',
       'tag_popular': 'α«¬α«┐α«░α«¬α«▓α««α«╛α«⌐α«ñα»ü',
       'tag_royal': 'α«àα«░α«Ü α«ñα»çα«░α»ìα«╡α»ü',
-      'btn_calc_bulk': 'α««α»èα«ñα»ìα«ñ α«╡α«┐α«▓α»ê α«òα«úα«òα»ìα«òα«┐α«ƒ ΓåÆ',
+      'btn_calc_bulk': 'α««α»èα«ñα»ìα«ñ α«╡α«┐α«▓α»ê α«òα«úα«òα»ìα«òα«┐α«ƒ →',
       'grade_6_lbl': '6.0 α««α«┐α««α»Ç',
       'grade_7_lbl': '7.0 α««α«┐α««α»Ç',
       'grade_75_lbl': '7.5 α««α«┐α««α»Ç',
@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_summary_bags': 'α««α»èα«ñα»ìα«ñ α«¬α»ïα«òα»ìα«òα»üα«╡α«░α«ñα»ìα«ñα»ü α«¬α»êα«òα«│α»ì:',
       'calc_summary_range': 'α««α«ñα«┐α«¬α»ìα«¬α«┐α«ƒα«¬α»ìα«¬α«ƒα»ìα«ƒ α«╡α«┐α«▓α»ê α«╡α«░α««α»ìα«¬α»ü:',
       'calc_disclaimer': '*α«òα»üα«▒α«┐α«¬α»ìα«¬α»ü: α«¬α»ïα«ƒα«┐α«¿α«╛α«»α«òα»ìα«òα«⌐α»éα«░α»ì α«Åα«▓ α«╡α«┐α«▓α»êα«òα«│α«┐α«⌐α»ì α«àα«ƒα«┐α«¬α»ìα«¬α«ƒα»êα«»α«┐α«▓α»ì α«Åα«▓α«òα»ìα«òα«╛α«»α»ì α«╡α«┐α«▓α»êα«òα«│α»ì α«ñα«┐α«⌐α««α»üα««α»ì α««α«╛α«▒α»üα«¬α«ƒα»üα««α»ì. α«çα«ñα»ü α«ñα«┐α«ƒα»ìα«ƒα««α«┐α«ƒα«▓α»üα«òα»ìα«òα«╛α«⌐ α««α«ñα«┐α«¬α»ìα«¬α»Çα«ƒα«╛α«òα»üα««α»ì. α«çα«▒α»üα«ñα«┐ α«╡α«┐α«▓α»ê α«¿α»çα«░α«ƒα«┐α«»α«╛α«ò α«ñα»èα«ƒα«░α»ìα«¬α»ü α«òα»èα«│α»ìα«│α»üα««α»ìα«¬α»ïα«ñα»ü α«ëα«▒α»üα«ñα«┐ α«Üα»åα«»α»ìα«»α«¬α»ìα«¬α«ƒα»üα««α»ì.',
-      'btn_calc_whatsapp': 'α«╡α«╛α«ƒα»ìα«╕α»ìα«àα«¬α»ì α««α»éα«▓α««α»ì α«╡α«┐α«╡α«░α««α»ì α«¬α»åα«▒ ΓåÆ',
+      'btn_calc_whatsapp': 'α«╡α«╛α«ƒα»ìα«╕α»ìα«àα«¬α»ì α««α»éα«▓α««α»ì α«╡α«┐α«╡α«░α««α»ì α«¬α»åα«▒ →',
       'btn_calc_email': 'α««α«┐α«⌐α»ìα«⌐α«₧α»ìα«Üα«▓α»ì α««α»éα«▓α««α»ì α«╡α«┐α«╡α«░α««α»ì α«¬α»åα«▒',
       'gallery_eyebrow': 'α«òα«╛α«ƒα»ìα«Üα«┐α«¬α»ì α«¬α«»α«úα««α»ì',
       'gallery_title': 'α«ëα«»α«░α»ìα«ñα«░ α«¬α»üα«òα»êα«¬α»ìα«¬α«ƒ α«ñα»èα«òα»üα«¬α»ìα«¬α»ü',
@@ -1686,8 +1686,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ----------------------------------------------------------
      fetchGoogleSheetPrices ΓÇö PRODUCTION FETCH
      ΓùÅ cache:'no-store' + ?t=timestamp on every call
-     ΓùÅ On success  ΓåÆ apply new prices, update all UI, show ≡ƒƒó
-     ΓùÅ On failure  ΓåÆ keep previous prices, show ≡ƒö┤, retry in 30s
+     ΓùÅ On success  → apply new prices, update all UI, show ≡ƒƒó
+     ΓùÅ On failure  → keep previous prices, show ≡ƒö┤, retry in 30s
   ---------------------------------------------------------- */
   const fetchGoogleSheetPrices = async () => {
 
@@ -2253,7 +2253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       
       // Determine friendly section name
-      let sectionName = link.innerText.trim().replace('ΓåÆ', '').trim();
+      let sectionName = link.innerText.trim().replace('→', '').trim();
       if (!sectionName) {
         sectionName = targetId.substring(1).charAt(0).toUpperCase() + targetId.substring(2);
       }
