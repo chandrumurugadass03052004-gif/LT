@@ -2341,7 +2341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Update language indicator text
-    langDropdownBtn.innerText = '🌐 ' + lang.toUpperCase();
+    langDropdownBtn.innerText = lang.toUpperCase();
 
     // 5. Update static DOM elements with translation mapping
     document.querySelectorAll('[data-translate]').forEach(el => {
