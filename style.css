@@ -3048,7 +3048,7 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
    ========================================================================== */
 .why-choose-business {
   background: var(--white);
-  padding: 100px 0;
+  padding: 60px 0 70px;
   border-top: 1px solid rgba(18, 53, 36, 0.05);
   font-family: var(--font-sans);
 }
@@ -3056,7 +3056,7 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 .why-header {
   text-align: center;
   max-width: 700px;
-  margin: 0 auto 60px;
+  margin: 0 auto 36px;
 }
 
 .why-label {
@@ -3088,11 +3088,8 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 }
 
 .why-content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 60px;
-  align-items: center;
-  margin-bottom: 70px;
+  display: block; /* Remove two-column layout since image is gone */
+  margin-bottom: 0;
 }
 
 .why-image-wrapper {
@@ -3130,13 +3127,13 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 
 .why-cards-col {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .why-card {
   background: var(--cream);
-  padding: 28px 24px;
+  padding: 24px 20px;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(18, 53, 36, 0.04);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
