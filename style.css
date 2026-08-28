@@ -2014,9 +2014,10 @@ input[type="number"]:focus {
   }
 
   .brand-title {
-    font-family: 'Praise', cursive, var(--font-serif);
-    font-size: 24px;
-    letter-spacing: 0.005em; /* Reduced 50% from desktop 0.01em */
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.06em;
     line-height: 1.1;
     white-space: nowrap;
   }
@@ -4123,12 +4124,13 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
 }
 
 .brand-title {
-  font-family: 'Praise', cursive, var(--font-serif);
-  font-weight: 400;
-  font-size: 46px; /* Increased for laptop view to match reference */
-  letter-spacing: 0.02em;
-  color: #1a4028; /* Deep forest green matching reference */
-  line-height: 0.9;
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  color: #1a4028;
+  line-height: 1.1;
+  text-transform: uppercase;
   transition: font-size 0.3s ease;
 }
 
@@ -4188,7 +4190,8 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
     height: 56px; /* Tablet default height */
   }
   .brand-title {
-    font-size: 26px;
+    font-size: 18px;
+    letter-spacing: 0.1em;
   }
   .brand-subtitle {
     font-size: 7px;
@@ -4202,7 +4205,8 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
     height: 42px; /* Tablet scrolled height */
   }
   header.scrolled .brand-title {
-    font-size: 20px;
+    font-size: 15px;
+    letter-spacing: 0.08em;
   }
   header.scrolled .brand-subtitle {
     font-size: 6px;
@@ -4219,8 +4223,8 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
     height: 42px; /* Mobile default — 15-20% larger, luxury brand proportion */
   }
   .brand-title {
-    font-size: 24px;
-    letter-spacing: 0.005em; /* 50% reduced tracking for mobile balance */
+    font-size: 17px;
+    letter-spacing: 0.06em;
   }
   /* Tagline hidden on mobile header for clean luxury look */
   .brand-subtitle {
@@ -4230,8 +4234,8 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
     height: 36px; /* Mobile scrolled height — compact but visible */
   }
   header.scrolled .brand-title {
-    font-size: 20px;
-    letter-spacing: 0.005em;
+    font-size: 15px;
+    letter-spacing: 0.06em;
   }
 }
 
