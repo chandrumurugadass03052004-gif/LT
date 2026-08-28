@@ -2250,20 +2250,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Handling Calculator Sample Button
-  const btnOrderSample = document.getElementById('btn-order-sample');
-  if (btnOrderSample) {
-    btnOrderSample.addEventListener('click', (e) => {
-      e.preventDefault();
-      const variety = document.getElementById('sample-variety').value;
-      const size = document.getElementById('sample-qty').value;
-      
-      const msg = `Hello Lisha Traders, I would like to order and pay for a ${size} sample of ${variety}. Please send me the payment details and shipping cost.`;
-      const encodedText = encodeURIComponent(msg);
-      window.open(`https://wa.me/919342153357?text=${encodedText}`, '_blank');
-    });
-  }
-
   /* ==========================================================================
      10. 3D TRANSITION LOADER & MOUSE-TILT ANIMATIONS
      ========================================================================== */
