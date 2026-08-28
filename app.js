@@ -2658,4 +2658,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ==========================================================================
+     HERO BUTTON ANIMATION
+     ========================================================================== */
+  const heroExploreBtn = document.getElementById('btn-hero-explore');
+  const heroSampleBtn = document.getElementById('btn-hero-sample');
+  const heroCalcBtn = document.getElementById('btn-hero-calc');
+
+  if (heroExploreBtn && heroSampleBtn && heroCalcBtn) {
+    let currentHeroBtnIndex = 0;
+    
+    const resetHeroButtons = () => {
+      heroExploreBtn.className = 'btn btn-outline';
+      heroExploreBtn.style.backgroundColor = '';
+      heroExploreBtn.style.color = '';
+      
+      heroSampleBtn.className = 'btn btn-outline';
+      heroSampleBtn.style.backgroundColor = '';
+      heroSampleBtn.style.color = 'var(--gold)';
+      heroSampleBtn.style.borderColor = 'var(--gold)';
+
+      heroCalcBtn.className = 'btn btn-outline';
+      heroCalcBtn.style.backgroundColor = '';
+      heroCalcBtn.style.color = '';
+    };
+
+    setInterval(() => {
+      resetHeroButtons();
+      
+      if (currentHeroBtnIndex === 0) {
+        heroExploreBtn.className = 'btn btn-dark'; 
+      } else if (currentHeroBtnIndex === 1) {
+        heroSampleBtn.style.backgroundColor = 'var(--gold)';
+        heroSampleBtn.style.color = 'white';
+      } else if (currentHeroBtnIndex === 2) {
+        heroCalcBtn.className = 'btn btn-dark';
+      }
+      
+      currentHeroBtnIndex = (currentHeroBtnIndex + 1) % 3;
+    }, 1000);
+  }
+
 });
