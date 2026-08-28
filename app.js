@@ -277,7 +277,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'fc_hours': 'Mon - Sat: 9:00 AM - 6:00 PM',
       'footer_copy': '© 2026 Lisha Traders. All Rights Reserved.',
       'footer_design': 'Designed with Excellence.',
-      'modal_grade_type': 'Premium Medium Bold Grade'
+      'modal_grade_type': 'Premium Medium Bold Grade',
+      'wa_msg_empty': 'Hello Lisha Traders,\n\nI would like to request information about bulk cardamom grade availability and custom quotation feeds.',
+      'wa_msg_hello': 'Hello Lisha Traders,\n\nI would like to request a formal wholesale quotation for the following bulk cardamom requirements:',
+      'wa_msg_id': 'Inquiry ID',
+      'wa_msg_items': 'Items Requested',
+      'wa_msg_end': 'Please share availability, daily auction rate index, and delivery schedule to our dispatch.\n\nThank you!',
+      'wa_packed_in': 'packed in',
+      'wa_bags': 'bags'
     },
     'hi': {
       'nav_home': 'होम',
@@ -522,7 +529,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'fc_hours': 'सोम - शनि: सुबह 9:00 बजे - शाम 6:00 बजे',
       'footer_copy': '© 2026 लीशा ट्रेडर्स। सर्वाधिकार सुरक्षित।',
       'footer_design': 'उत्कृष्टता के साथ डिज़ाइन किया गया।',
-      'modal_grade_type': 'प्रीमियम मध्यम बोल्ड ग्रेड'
+      'modal_grade_type': 'प्रीमियम मध्यम बोल्ड ग्रेड',
+      'why_trust_title': 'विश्वसनीय व्यावसायिक व्यवहार',
+      'wa_msg_empty': 'नमस्ते लीशा ट्रेडर्स,\n\nमैं थोक इलायची ग्रेड उपलब्धता और कस्टम कोटेशन के बारे में जानकारी का अनुरोध करना चाहूंगा।',
+      'wa_msg_hello': 'नमस्ते लीशा ट्रेडर्स,\n\nमैं निम्नलिखित थोक इलायची आवश्यकताओं के लिए औपचारिक थोक कोटेशन का अनुरोध करना चाहूंगा:',
+      'wa_msg_id': 'पूछताछ आईडी',
+      'wa_msg_items': 'अनुरोधित आइटम',
+      'wa_msg_end': 'कृपया उपलब्धता, दैनिक नीलामी दर सूचकांक और हमारे प्रेषण के लिए वितरण कार्यक्रम साझा करें।\n\nधन्यवाद!',
+      'wa_packed_in': 'पैकेजिंग',
+      'wa_bags': 'बैग'
     },
     'ta': {
       'nav_home': 'முகப்பு',
@@ -767,7 +782,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'fc_hours': 'திங்கள் - சனி: காலை 9:00 மணி - மாலை 6:00 மணி',
       'footer_copy': '© 2026 லீஷா டிரேடர்ஸ். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
       'footer_design': 'சிறப்பாக வடிவமைக்கப்பட்டுள்ளது.',
-      'modal_grade_type': 'பிரீமியம் நடுத்தர தடித்த தரம்'
+      'modal_grade_type': 'பிரீமியம் நடுத்தர தடித்த தரம்',
+      'why_trust_title': 'நம்பகமான வணிக நடைமுறைகள்',
+      'wa_msg_empty': 'வணக்கம் லீஷா டிரேடர்ஸ்,\n\nமொத்த ஏலக்காய் தரங்கள் கிடைக்கும் தன்மை மற்றும் தனிப்பயன் விலைப்பட்டியல்கள் பற்றிய தகவலை நான் கோர விரும்புகிறேன்.',
+      'wa_msg_hello': 'வணக்கம் லீஷா டிரேடர்ஸ்,\n\nபின்வரும் மொத்த ஏலக்காய் தேவைகளுக்கான முறையான மொத்த விலைப்பட்டியலை நான் கோர விரும்புகிறேன்:',
+      'wa_msg_id': 'விசாரணை ஐடி',
+      'wa_msg_items': 'கோரப்பட்ட பொருட்கள்',
+      'wa_msg_end': 'கையிருப்பு, தினசரி ஏல விலை குறியீடு மற்றும் விநியோக அட்டவணையை எங்களிடம் பகிரவும்.\n\nநன்றி!',
+      'wa_packed_in': 'பேக்கிங்',
+      'wa_bags': 'பைகள்'
     }
   };
 
@@ -2288,19 +2311,27 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
   const buildInquiryText = () => {
     const invoiceId = document.getElementById('invoice-id').innerText;
+    const t = translations[currentLang] || translations['en'];
     
     if (estimateItems.length === 0) {
-      return `Hello Lisha Traders,\n\nI would like to request information about bulk cardamom grade availability and custom quotation feeds.`;
+      return t['wa_msg_empty'];
     }
 
     let itemsDetails = '';
     estimateItems.forEach((item, index) => {
-      const varName = item.variety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
+      const varName = item.variety === 'yellow' ? (t['prod_tab_yellow'] || 'Fruit Cardamom') : (t['prod_tab_green'] || 'Green Cardamom');
       const gradeName = currentGradeNames[item.grade] || item.grade;
-      itemsDetails += `${index + 1}. ${varName} (${gradeName}) - ${item.qty} KG (${item.bags} bags, packed in ${item.packaging})\n`;
+      itemsDetails += `${index + 1}. ${varName} (${gradeName}) - ${item.qty} KG (${item.bags} ${t['wa_bags']}, ${t['wa_packed_in']} ${item.packaging})
+`;
     });
 
-    return `Hello Lisha Traders,\n\nI would like to request a formal wholesale quotation for the following bulk cardamom requirements:\n\n- Inquiry ID: ${invoiceId}\n\nItems Requested:\n${itemsDetails}\nPlease share availability, daily auction rate index, and delivery schedule to our dispatch.\n\nThank you!`;
+    return `${t['wa_msg_hello']}
+
+- ${t['wa_msg_id']}: ${invoiceId}
+
+${t['wa_msg_items']}:
+${itemsDetails}
+${t['wa_msg_end']}`;
   };
 
   const validateCompliance = () => {
