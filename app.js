@@ -2186,7 +2186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (!validateCompliance()) return;
     const msg = encodeURIComponent(buildInquiryText());
-    const whatsappUrl = `https://wa.me/917904612672?text=${msg}`;
+    const whatsappUrl = `https://wa.me/919342153357?text=${msg}`;
     window.open(whatsappUrl, '_blank');
     incrementCustomerNumber();
   });
@@ -2226,7 +2226,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Let's redirect to WhatsApp or open it as standard flow
       const successMsg = translations[currentLang]['contact_alert_success'] || 'Thank you for submitting your bulk inquiry! Opening WhatsApp desk for immediate catalog locks.';
       alert(successMsg);
-      window.open(`https://wa.me/917904612672?text=${encodedText}`, '_blank');
+      window.open(`https://wa.me/919342153357?text=${encodedText}`, '_blank');
       
       contactForm.reset();
       incrementCustomerNumber();
