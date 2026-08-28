@@ -2234,6 +2234,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
+     9.5 SAMPLE REQUEST LOGIC
+     ========================================================================== */
+  
+  // Handling Product Grid Sample Buttons
+  const sampleReqBtns = document.querySelectorAll('.sample-req-btn');
+  sampleReqBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sampleType = btn.getAttribute('data-type');
+      const msg = `Hello Lisha Traders, I would like to order a sample of ${sampleType}. Please provide pricing and shipping details.`;
+      const encodedText = encodeURIComponent(msg);
+      window.open(`https://wa.me/919342153357?text=${encodedText}`, '_blank');
+    });
+  });
+
+  // Handling Calculator Sample Button
+  const btnOrderSample = document.getElementById('btn-order-sample');
+  if (btnOrderSample) {
+    btnOrderSample.addEventListener('click', (e) => {
+      e.preventDefault();
+      const variety = document.getElementById('sample-variety').value;
+      const size = document.getElementById('sample-qty').value;
+      
+      const msg = `Hello Lisha Traders, I would like to order and pay for a ${size} sample of ${variety}. Please send me the payment details and shipping cost.`;
+      const encodedText = encodeURIComponent(msg);
+      window.open(`https://wa.me/919342153357?text=${encodedText}`, '_blank');
+    });
+  }
+
+  /* ==========================================================================
      10. 3D TRANSITION LOADER & MOUSE-TILT ANIMATIONS
      ========================================================================== */
   

@@ -153,6 +153,7 @@
           authentic auction houses and high-altitude plantations in Bodinayakanur, India.</p>
         <div class="hero-buttons">
           <a href="#products" class="btn btn-dark" data-translate="hero_btn_explore">Explore Grades →</a>
+          <a href="#products" class="btn btn-outline" style="border-color: var(--gold); color: var(--gold);" data-translate="hero_btn_sample">Request Sample →</a>
           <a href="#calculator" class="btn btn-outline" data-translate="hero_btn_calc">Calculate Price →</a>
         </div>
       </div>
@@ -457,10 +458,47 @@
             <div class="p-arrow">→</div>
           </div>
         </div>
-        <div class="center-btn reveal">
-          <a href="#calculator" class="btn btn-dark" data-translate="btn_calc_bulk">Calculate Bulk Quote →</a>
+      </div>
+
+      <div class="center-btn reveal" style="margin-top: 40px;">
+        <a href="#calculator" class="btn btn-dark" data-translate="btn_calc_bulk">Calculate Bulk Quote →</a>
+      </div>
+
+      <!-- Sample Request Feature Block -->
+      <div class="sample-feature-block reveal" id="sample-request-section" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--line);">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <div class="eyebrow">Try Before You Buy</div>
+          <h2>Request A Sample</h2>
+          <p style="color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Experience the premium quality and aroma of Lisha Traders cardamom firsthand. Order a sample pack today.</p>
+        </div>
+
+        <div class="sample-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+          <!-- Green Cardamom Sample -->
+          <div class="sample-card">
+            <div class="sample-icon">🌿</div>
+            <h4>Green Cardamom</h4>
+            <p>Premium Bodinayakanur green cardamom samples.</p>
+            <button class="btn btn-outline sample-req-btn" data-type="Green Cardamom">Request Green Sample →</button>
+          </div>
+          
+          <!-- Yellow Cardamom Sample -->
+          <div class="sample-card">
+            <div class="sample-icon">🍋</div>
+            <h4>Fruit Cardamom (Yellow)</h4>
+            <p>Perfectly pale/yellow cardamom samples.</p>
+            <button class="btn btn-outline sample-req-btn" data-type="Fruit Cardamom (Yellow/Pale)">Request Yellow Sample →</button>
+          </div>
+
+          <!-- Other Types Sample -->
+          <div class="sample-card">
+            <div class="sample-icon">🌱</div>
+            <h4>Other Types & Seeds</h4>
+            <p>Cardamom seeds, splits, and other varieties.</p>
+            <button class="btn btn-outline sample-req-btn" data-type="Other Types/Seeds">Request Other Samples →</button>
+          </div>
         </div>
       </div>
+    </div>
   </section>
 
   <!-- WHY CHOOSE US -->
@@ -809,6 +847,39 @@
             </p>
           </div>
         </div>
+
+        <!-- Sample Request Calculator Add-on -->
+        <div class="sample-calc-block reveal" id="calc-sample-section" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line);">
+          <div style="text-align: center; margin-bottom: 25px;">
+            <div class="eyebrow">Try Before You Buy</div>
+            <h4>Order a Cardamom Sample</h4>
+            <p style="color: var(--muted); font-size: 13.5px;">Select your variety and sample size. Payment details will be sent via WhatsApp.</p>
+          </div>
+          
+          <div class="sample-calc-form" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center; max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.4); padding: 20px; border-radius: var(--radius-md); border: 1px dashed var(--line);">
+            <div class="form-group" style="margin: 0;">
+              <label class="calc-label" style="font-size: 12px; margin-bottom: 6px;">Variety</label>
+              <select id="sample-variety" style="padding: 10px; border: 1px solid var(--line); border-radius: 4px; font-family: inherit; font-size: 14px; background: white; outline: none;">
+                <option value="Green Cardamom">Green Cardamom</option>
+                <option value="Fruit Cardamom (Yellow)">Fruit Cardamom (Yellow/Pale)</option>
+              </select>
+            </div>
+            
+            <div class="form-group" style="margin: 0;">
+              <label class="calc-label" style="font-size: 12px; margin-bottom: 6px;">Sample Size</label>
+              <select id="sample-qty" style="padding: 10px; border: 1px solid var(--line); border-radius: 4px; font-family: inherit; font-size: 14px; background: white; outline: none;">
+                <option value="100g">100g Pack</option>
+                <option value="250g">250g Pack</option>
+                <option value="500g">500g Pack</option>
+              </select>
+            </div>
+            
+            <div class="form-group" style="margin: 0; display: flex; align-items: flex-end;">
+              <button type="button" id="btn-order-sample" class="btn btn-outline" style="border-color: var(--gold); color: var(--gold); height: 40px; padding: 0 20px; display: flex; align-items: center;">Order & Pay via WhatsApp →</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
