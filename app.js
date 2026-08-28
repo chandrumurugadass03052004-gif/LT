@@ -2237,17 +2237,18 @@ document.addEventListener('DOMContentLoaded', () => {
      9.5 SAMPLE REQUEST LOGIC
      ========================================================================== */
   
-  // Handling Product Grid Sample Buttons
-  const sampleReqBtns = document.querySelectorAll('.sample-req-btn');
-  sampleReqBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  // Handling Modal Sample Button
+  const modalSampleBtn = document.getElementById('modal-action-sample-btn');
+  if (modalSampleBtn) {
+    modalSampleBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const sampleType = btn.getAttribute('data-type');
-      const msg = `Hello Lisha Traders, I would like to order a sample of ${sampleType}. Please provide pricing and shipping details.`;
+      const gradeTitle = document.getElementById('modal-grade-title').innerText;
+      const gradeType = document.getElementById('modal-grade-type').innerText;
+      const msg = `Hello Lisha Traders, I would like to order a sample of ${gradeTitle} - ${gradeType}. Please provide pricing and shipping details.`;
       const encodedText = encodeURIComponent(msg);
       window.open(`https://wa.me/919342153357?text=${encodedText}`, '_blank');
     });
-  });
+  }
 
   // Handling Calculator Sample Button
   const btnOrderSample = document.getElementById('btn-order-sample');
