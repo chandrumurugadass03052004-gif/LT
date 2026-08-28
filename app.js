@@ -1323,7 +1323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'U';
     
     const starsHtml = generateStarsHTML(rating);
-    const deleteBtnHtml = canDelete ? `<button class="delete-review-btn" title="Delete Review">≡ƒùæ∩╕Å</button>` : '';
+    const deleteBtnHtml = canDelete ? `<button class="delete-review-btn" title="Delete Review">🗑️</button>` : '';
 
     card.innerHTML = `
       ${deleteBtnHtml}
@@ -1528,7 +1528,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailBtn = document.getElementById('calc-email-btn');
 
   /* ============================================================
-     LIVE PRICING ENGINE ΓÇö Google Apps Script API
+     LIVE PRICING ENGINE — Google Apps Script API
      ΓùÅ Fetches on page load + every 30 seconds automatically
      ΓùÅ fetch() with cache:'no-store' + timestamp bust
      ΓùÅ On failure: keeps previous prices, shows ≡ƒö┤ Offline
@@ -1542,16 +1542,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Sheet column mapping (0-indexed):
   // 0=Grade ID | 1=Product | 2=Variety | 3=Min Price/KG | 4=Max Price/KG | 5=Avg Price | 6=Updated Date | 7=Status
 
-  let livePrices          = null;  // { gradeId: { min, max, avg } } ΓÇö kept on failure
+  let livePrices          = null;  // { gradeId: { min, max, avg } } — kept on failure
   let pricesLastUpdated   = '';
   let apiFetchFailed      = false;
   let pricePollInterval   = null;  // setInterval handle for 30-sec auto-refresh
 
-  // ΓöÇΓöÇ Estimator state ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  // ── Estimator state ──────────────────────────────────────────
   let calcVariety   = 'green';
   let estimateItems = [];
 
-  // ΓöÇΓöÇ DOM references ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  // ── DOM references ───────────────────────────────────────────
   const varietyGreenBtn       = document.getElementById('variety-green');
   const varietyYellowBtn      = document.getElementById('variety-yellow');
   const calcAddItemBtn        = document.getElementById('calc-add-item-btn');
@@ -1562,7 +1562,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const summaryItemsCount     = document.getElementById('summary-items-count');
 
   /* ----------------------------------------------------------
-     formatPriceDate ΓÇö converts any date string to dd-MMM-yyyy
+     formatPriceDate — converts any date string to dd-MMM-yyyy
   ---------------------------------------------------------- */
   const formatPriceDate = (raw) => {
     if (!raw) return '';
@@ -1579,7 +1579,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /* ----------------------------------------------------------
-     parseAppsScriptJSON ΓÇö reads Apps Script response
+     parseAppsScriptJSON — reads Apps Script response
      Expected shape:
      { "status": "success", "data": [
          { "gradeId": "6mm", "minPrice": 1650, "maxPrice": 1720,
@@ -1618,14 +1618,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       prices[gradeId] = { min, max, avg: isNaN(avg) ? Math.round((min + max) / 2) : avg };
       if (date) lastDate = date;
-      console.log(`[Pricing] Γ£ô ${gradeId}: min=Γé╣${min} avg=Γé╣${avg} max=Γé╣${max}`);
+      console.log(`[Pricing] Γ£ô ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
     });
 
     return { prices, lastDate };
   };
 
   /* ----------------------------------------------------------
-     parseGvizJSON ΓÇö reads Gviz fallback response
+     parseGvizJSON — reads Gviz fallback response
      Columns: 0=GradeID 3=Min 4=Max 5=Avg 6=Date 7=Status
   ---------------------------------------------------------- */
   const parseGvizJSON = (text) => {
@@ -1661,14 +1661,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const avg = (avgRaw !== null && avgRaw !== undefined) ? avgRaw : Math.round((min + max) / 2);
       prices[gradeId] = { min, max, avg };
       if (date) lastDate = date;
-      console.log(`[Pricing/Gviz] Γ£ô ${gradeId}: min=Γé╣${min} avg=Γé╣${avg} max=Γé╣${max}`);
+      console.log(`[Pricing/Gviz] Γ£ô ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
     });
 
     return { prices, lastDate };
   };
 
   /* ----------------------------------------------------------
-     showStatusBadge ΓÇö shows ≡ƒƒó Live or ≡ƒö┤ Offline indicator
+     showStatusBadge — shows ≡ƒƒó Live or ≡ƒö┤ Offline indicator
   ---------------------------------------------------------- */
   const showStatusBadge = (isLive) => {
     const badge = document.getElementById('price-status-badge');
@@ -1678,13 +1678,13 @@ document.addEventListener('DOMContentLoaded', () => {
       badge.textContent  = '≡ƒƒó Live Market Data';
       badge.style.color  = '#2d7a4f';
     } else {
-      badge.textContent  = '≡ƒö┤ Offline ΓÇö Retrying...';
+      badge.textContent  = '≡ƒö┤ Offline — Retrying...';
       badge.style.color  = '#c0392b';
     }
   };
 
   /* ----------------------------------------------------------
-     fetchGoogleSheetPrices ΓÇö PRODUCTION FETCH
+     fetchGoogleSheetPrices — PRODUCTION FETCH
      ΓùÅ cache:'no-store' + ?t=timestamp on every call
      ΓùÅ On success  → apply new prices, update all UI, show ≡ƒƒó
      ΓùÅ On failure  → keep previous prices, show ≡ƒö┤, retry in 30s
@@ -1698,14 +1698,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const ts = '?t=' + Date.now();
     let parsedResult = null;
 
-    // ΓöÇΓöÇ Attempt 1: Apps Script ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    // ── Attempt 1: Apps Script ─────────────────────────────
     try {
       const res = await fetch(APPS_SCRIPT_URL + ts, { cache: 'no-store' });
       console.log('[Pricing] Apps Script HTTP:', res.status);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const text = await res.text();
       console.log('[Pricing] Response preview:', text.substring(0, 200));
-      if (!text.trim().startsWith('{')) throw new Error('Not JSON ΓÇö likely HTML error page');
+      if (!text.trim().startsWith('{')) throw new Error('Not JSON — likely HTML error page');
       parsedResult = parseAppsScriptJSON(text);
       console.log('[Pricing] Γ£à Apps Script OK. Grades:', Object.keys(parsedResult.prices).length);
 
@@ -1713,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('[Pricing] ΓÜá∩╕Å Apps Script failed:', primaryErr.message);
       console.warn('[Pricing] Trying Gviz fallback...');
 
-      // ΓöÇΓöÇ Attempt 2: Gviz direct sheet query ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+      // ── Attempt 2: Gviz direct sheet query ────────────
       try {
         const res2 = await fetch(GVIZ_FALLBACK_URL + '&t=' + Date.now(), { cache: 'no-store' });
         console.log('[Pricing] Gviz HTTP:', res2.status);
@@ -1723,7 +1723,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('[Pricing] Γ£à Gviz OK. Grades:', Object.keys(parsedResult.prices).length);
 
       } catch (fallbackErr) {
-        // ΓöÇΓöÇ BOTH FAILED: keep previous prices, show Offline ΓöÇΓöÇ
+        // ── BOTH FAILED: keep previous prices, show Offline ──
         console.error('[Pricing] Γ¥î Both sources failed.');
         console.error('  Apps Script:', primaryErr.message);
         console.error('  Gviz:', fallbackErr.message);
@@ -1731,7 +1731,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Only mark as failed if we have NO previous prices at all
         if (!livePrices) {
           apiFetchFailed = true;
-          console.warn('[Pricing] No previous prices available ΓÇö showing unavailable message');
+          console.warn('[Pricing] No previous prices available — showing unavailable message');
         } else {
           console.warn('[Pricing] Keeping previous prices until next retry.');
         }
@@ -1739,11 +1739,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatusBadge(false);
         showLastUpdated();
         updateQuote();
-        return;  // Exit ΓÇö retry happens automatically via setInterval
+        return;  // Exit — retry happens automatically via setInterval
       }
     }
 
-    // ΓöÇΓöÇ Validate parsed data ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    // ── Validate parsed data ────────────────────────────────
     if (!parsedResult || Object.keys(parsedResult.prices).length === 0) {
       console.error('[Pricing] Γ¥î No Active grades in response');
       if (!livePrices) apiFetchFailed = true;
@@ -1753,7 +1753,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // ΓöÇΓöÇ Apply prices & update ALL UI sections ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    // ── Apply prices & update ALL UI sections ──────────────
     // IMPORTANT: Set state variables BEFORE calling refresh functions
     livePrices        = parsedResult.prices;
     pricesLastUpdated = formatPriceDate(parsedResult.lastDate);
@@ -1771,7 +1771,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /* ----------------------------------------------------------
-     showLastUpdated ΓÇö renders "Last Updated: dd-MMM-yyyy"
+     showLastUpdated — renders "Last Updated: dd-MMM-yyyy"
   ---------------------------------------------------------- */
   const showLastUpdated = () => {
     const el = document.getElementById('calc-last-updated-val');
@@ -1783,17 +1783,17 @@ document.addEventListener('DOMContentLoaded', () => {
       el.innerText   = '';
       el.style.display = 'none';
     }
-    // If apiFetchFailed but livePrices still exist (offline fallback) ΓÇö keep showing last known date
+    // If apiFetchFailed but livePrices still exist (offline fallback) — keep showing last known date
   };
 
   /* ----------------------------------------------------------
-     refreshEstimateItemPrices ΓÇö re-calculates prices for all
+     refreshEstimateItemPrices — re-calculates prices for all
      items already in the inquiry list using latest livePrices.
      Called after every successful price fetch.
   ---------------------------------------------------------- */
   const refreshEstimateItemPrices = () => {
     if (!livePrices || Object.keys(livePrices).length === 0) {
-      console.warn('[Pricing] refreshEstimateItemPrices called but livePrices is empty ΓÇö skipping');
+      console.warn('[Pricing] refreshEstimateItemPrices called but livePrices is empty — skipping');
       return;
     }
     estimateItems.forEach(item => {
@@ -1806,9 +1806,9 @@ document.addEventListener('DOMContentLoaded', () => {
         item.priceMin      = Math.round(priceInfo.min * item.qty);
         item.priceMax      = Math.round(priceInfo.max * item.qty);
         item.priceAvg      = Math.round(avgPerKg * item.qty);
-        item.pricePerKg    = avgPerKg;  // ΓåÉ Avg @ Γé╣X/kg display
+        item.pricePerKg    = avgPerKg;  // ΓåÉ Avg @ ₹X/kg display
         item.isUnavailable = false;
-        console.log(`[Pricing] Updated ${item.variety} ${item.grade}: avgPerKg=Γé╣${avgPerKg}, totalAvg=Γé╣${item.priceAvg}`);
+        console.log(`[Pricing] Updated ${item.variety} ${item.grade}: avgPerKg=₹${avgPerKg}, totalAvg=₹${item.priceAvg}`);
       } else {
         console.warn(`[Pricing] No price found for ${item.variety} ${item.grade} during refresh`);
         item.isUnavailable = true;
@@ -1817,7 +1817,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /* ----------------------------------------------------------
-     getLivePrice ΓÇö looks up grade price from fetched data
+     getLivePrice — looks up grade price from fetched data
      Returns { min, max, avg } or null if unavailable
   ---------------------------------------------------------- */
   const getLivePrice = (grade, variety) => {
@@ -1833,10 +1833,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /* ----------------------------------------------------------
-     getDailyPriceRange ΓÇö wrapper used throughout the calc
+     getDailyPriceRange — wrapper used throughout the calc
   ---------------------------------------------------------- */
   const getDailyPriceRange = (grade, variety = 'green') => {
-    if (apiFetchFailed) return null;   // API down ΓÇö show error
+    if (apiFetchFailed) return null;   // API down — show error
     return getLivePrice(grade, variety); // null if loading/not found
   };
 
@@ -2009,9 +2009,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const minKg = item.qty > 0 ? Math.round(item.priceMin / item.qty) : 0;
         const maxKg = item.qty > 0 ? Math.round(item.priceMax / item.qty) : 0;
         priceText = `
-          <div style="font-weight:800;color:var(--green-900);font-size:13.5px;">Γé╣${(item.priceAvg||0).toLocaleString()}</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Avg @ Γé╣${avg.toLocaleString()}/kg</div>
-          <div style="font-size:9.5px;color:var(--muted);">Min Γé╣${item.priceMin.toLocaleString()} ┬╖ Max Γé╣${item.priceMax.toLocaleString()}</div>`;
+          <div style="font-weight:800;color:var(--green-900);font-size:13.5px;">₹${(item.priceAvg||0).toLocaleString()}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Avg @ ₹${avg.toLocaleString()}/kg</div>
+          <div style="font-size:9.5px;color:var(--muted);">Min ₹${item.priceMin.toLocaleString()} · Max ₹${item.priceMax.toLocaleString()}</div>`;
       }
 
       tr.innerHTML = `
@@ -2023,7 +2023,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td style="padding: 8px 6px; text-align: right; color: var(--muted);">${item.bags} ${unitsLabel}</td>
         <td style="padding: 8px 6px; text-align: right;">${priceText}</td>
         <td style="padding: 8px 6px; text-align: center;">
-          <button class="est-del-btn" data-id="${item.id}" type="button">≡ƒùæ∩╕Å</button>
+          <button class="est-del-btn" data-id="${item.id}" type="button">🗑️</button>
         </td>
       `;
 
@@ -2057,11 +2057,11 @@ document.addEventListener('DOMContentLoaded', () => {
         sumPriceEl.style.fontSize = '';
         sumPriceEl.style.color = '';
       } else {
-        // Primary: Avg Price Total ΓÇö Secondary: MinΓÇôMax range
+        // Primary: Avg Price Total — Secondary: Min–Max range
         sumPriceEl.innerHTML = `
-          <span style="font-size:22px;font-weight:800;color:var(--green-900);">Γé╣${totalPriceAvg.toLocaleString()}</span>
+          <span style="font-size:22px;font-weight:800;color:var(--green-900);">₹${totalPriceAvg.toLocaleString()}</span>
           <div style="font-size:11.5px;color:var(--muted);margin-top:5px;">Estimated Avg Value (based on today's market)</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: Γé╣${totalPriceMin.toLocaleString()} ΓÇô Γé╣${totalPriceMax.toLocaleString()}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: ₹${totalPriceMin.toLocaleString()} – ₹${totalPriceMax.toLocaleString()}</div>
         `;
         sumPriceEl.style.fontSize = '';
         sumPriceEl.style.color = '';
@@ -2122,7 +2122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateQuote();
   fetchGoogleSheetPrices(); // Immediate fetch on page load
 
-  // Auto-refresh prices every 5 seconds ΓÇö updates instantly when sheet changes
+  // Auto-refresh prices every 5 seconds — updates instantly when sheet changes
   pricePollInterval = setInterval(() => {
     console.log('[Pricing] ΓÅ▒ 5-second auto-refresh triggered');
     fetchGoogleSheetPrices();
@@ -2132,7 +2132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (pricePollInterval) { clearInterval(pricePollInterval); pricePollInterval = null; }
-      console.log('[Pricing] Tab hidden ΓÇö polling paused');
+      console.log('[Pricing] Tab hidden — polling paused');
     } else {
       fetchGoogleSheetPrices(); // Fetch immediately on tab re-focus
       if (!pricePollInterval) {
@@ -2141,7 +2141,7 @@ document.addEventListener('DOMContentLoaded', () => {
           fetchGoogleSheetPrices();
         }, 5000);
       }
-      console.log('[Pricing] Tab visible ΓÇö polling resumed');
+      console.log('[Pricing] Tab visible — polling resumed');
     }
   });
 
