@@ -205,22 +205,22 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_stat_2_lbl': 'Quality Checked',
       'why_stat_3_lbl': 'Customer Support',
       'why_trust_title': 'Trusted Business Practices',
-      'why_badge_gst': 'Γ£ô GST Invoice Available',
-      'why_badge_wholesale': 'Γ£ô Wholesale Orders',
-      'why_badge_bulk': 'Γ£ô Bulk Supply',
-      'why_badge_quality': 'Γ£ô Quality Checked',
-      'why_badge_packaging': 'Γ£ô Secure Packaging',
-      'why_badge_support': 'Γ£ô Responsive Support',
+      'why_badge_gst': '&#10003; GST Invoice Available',
+      'why_badge_wholesale': '&#10003; Wholesale Orders',
+      'why_badge_bulk': '&#10003; Bulk Supply',
+      'why_badge_quality': '&#10003; Quality Checked',
+      'why_badge_packaging': '&#10003; Secure Packaging',
+      'why_badge_support': '&#10003; Responsive Support',
       'why_cta_title': 'Let\'s Build a Long-Term Business Relationship.',
       'why_cta_desc': 'Whether you are a wholesaler, distributor, retailer, or exporter, Lisha Traders is committed to supplying premium-quality cardamom with reliable service and transparent communication.',
       'why_cta_btn_quote': 'Request Bulk Quote',
       'why_cta_btn_contact': 'Contact Us',
-      'cred_1': '✓ GST Registered',
-      'cred_2': '✓ Wholesale Supplier',
-      'cred_3': '✓ Bulk Orders Welcome',
-      'cred_4': '✓ Secure Packaging',
-      'cred_5': '✓ Quality Checked',
-      'cred_6': '✓ Reliable Support',
+      'cred_1': '&#10003; GST Registered',
+      'cred_2': '&#10003; Wholesale Supplier',
+      'cred_3': '&#10003; Bulk Orders Welcome',
+      'cred_4': '&#10003; Secure Packaging',
+      'cred_5': '&#10003; Quality Checked',
+      'cred_6': '&#10003; Reliable Support',
       'faq_eyebrow': 'FAQ',
       'faq_title_p1': 'Frequently Asked',
       'faq_title_p2': 'Questions',
@@ -467,12 +467,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'about_founder_desc': '2012 में <strong>मुरुगादास बी</strong> द्वारा स्थापित, लीशा ट्रेडर्स बोडिनायाकनूर इलायची बेल्ट की समृद्ध मिट्टी में निहित है। <strong>12 से अधिक प्रतिष्ठित स्पाइसेस बोर्ड नीलामी अनुमतियों</strong> और हमारे अपने हरे-भरे <strong>निजी इलायची बागानों</strong> के समर्थन के साथ, हम आपको सीधे स्रोत से बेहतरीन हरी, पीली, स्प्लिट और बीज प्रदान करते हैं।',
       'why_biz_subheading': 'एक प्रमुख बागान मालिक और खरीदार के रूप में, लीशा ट्रेडर्स प्रीमियम भारतीय इलायची की एक पूरी श्रृंखला प्रदान करता है—जिसमें हरी, पीली, स्प्लिट और बीज शामिल हैं—जिन्हें सीधे हमारे अपने खेतों और नीलामी केंद्रों से प्राप्त किया जाता है।',
       'why_cta_desc': 'चाहे आप थोक व्यापारी, वितरक, खुदरा विक्रेता या निर्यातक हों, लीशा ट्रेडर्स विश्वसनीय सेवा और पारदर्शी संचार के साथ प्रीमियम-गुणवत्ता वाली इलायची की आपूर्ति करने के लिए प्रतिबद्ध है।',
-      'cred_1': '✓ GST पंजीकृत',
-      'cred_2': '✓ थोक आपूर्तिकर्ता',
-      'cred_3': '✓ थोक ऑर्डर का स्वागत है',
-      'cred_4': '✓ सुरक्षित पैकेजिंग',
-      'cred_5': '✓ गुणवत्ता जांची गई',
-      'cred_6': '✓ विश्वसनीय समर्थन',
+      'cred_1': '&#10003; GST पंजीकृत',
+      'cred_2': '&#10003; थोक आपूर्तिकर्ता',
+      'cred_3': '&#10003; थोक ऑर्डर का स्वागत है',
+      'cred_4': '&#10003; सुरक्षित पैकेजिंग',
+      'cred_5': '&#10003; गुणवत्ता जांची गई',
+      'cred_6': '&#10003; विश्वसनीय समर्थन',
       'faq_eyebrow': 'सामान्य प्रश्न',
       'faq_title_p1': 'अक्सर पूछे जाने वाले',
       'faq_title_p2': 'प्रश्न',
@@ -720,12 +720,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'modal_spec_btn_sample': 'மாதிரி கோருக',
       'why_biz_subheading': 'ஒரு முன்னணி தோட்ட உரிமையாளர் மற்றும் வாங்குபவராக, லீஷா டிரேடர்ஸ் பச்சை, மஞ்சள், உடைந்த ஏலக்காய் மற்றும் விதைகளை உள்ளடக்கிய முழுமையான ஏலக்காய் வகைகளை வழங்குகிறது. இவை நேரடியாக எங்களின் சொந்த பண்ணைகள் மற்றும் ஏல மையங்களிலிருந்து பெறப்படுகின்றன.',
       'why_cta_desc': 'நீங்கள் மொத்த வியாபாரி, விநியோகஸ்தர், சில்லறை வியாபாரி அல்லது ஏற்றுமதியாளராக இருந்தாலும், லீஷா டிரேடர்ஸ் நம்பகமான சேவை மற்றும் வெளிப்படையான தகவல்தொடர்புகளுடன் தரமான ஏலக்காயை வழங்குவதில் உறுதியாக உள்ளது.',
-      'cred_1': '✓ GST பதிவு செய்யப்பட்டுள்ளது',
-      'cred_2': '✓ மொத்த விநியோகஸ்தர்',
-      'cred_3': '✓ மொத்த ஆர்டர்கள் வரவேற்கப்படுகின்றன',
-      'cred_4': '✓ பாதுகாப்பான பேக்கேஜிங்',
-      'cred_5': '✓ தரம் சரிபார்க்கப்பட்டது',
-      'cred_6': '✓ நம்பகமான ஆதரவு',
+      'cred_1': '&#10003; GST பதிவு செய்யப்பட்டுள்ளது',
+      'cred_2': '&#10003; மொத்த விநியோகஸ்தர்',
+      'cred_3': '&#10003; மொத்த ஆர்டர்கள் வரவேற்கப்படுகின்றன',
+      'cred_4': '&#10003; பாதுகாப்பான பேக்கேஜிங்',
+      'cred_5': '&#10003; தரம் சரிபார்க்கப்பட்டது',
+      'cred_6': '&#10003; நம்பகமான ஆதரவு',
       'faq_eyebrow': 'அடிக்கடி கேட்கப்படும் கேள்விகள்',
       'faq_title_p1': 'அடிக்கடி கேட்கப்படும்',
       'faq_title_p2': 'கேள்விகள்',
@@ -1779,7 +1779,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       prices[gradeId] = { min, max, avg: isNaN(avg) ? Math.round((min + max) / 2) : avg };
       if (date) lastDate = date;
-      console.log(`[Pricing] Γ£ô ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
+      console.log(`[Pricing] &#10003; ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
     });
 
     return { prices, lastDate };
@@ -1822,7 +1822,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const avg = (avgRaw !== null && avgRaw !== undefined) ? avgRaw : Math.round((min + max) / 2);
       prices[gradeId] = { min, max, avg };
       if (date) lastDate = date;
-      console.log(`[Pricing/Gviz] Γ£ô ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
+      console.log(`[Pricing/Gviz] &#10003; ${gradeId}: min=₹${min} avg=₹${avg} max=₹${max}`);
     });
 
     return { prices, lastDate };
