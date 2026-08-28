@@ -4367,3 +4367,15 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   letter-spacing: 0.08em;
 }
 
+
+/* Hero Highlight Animation Classes */
+.btn-hero-highlight-green {
+  background: var(--green-900) !important;
+  color: white !important;
+  border-color: var(--green-900) !important;
+}
+.btn-hero-highlight-gold {
+  background: var(--gold) !important;
+  color: white !important;
+  border-color: var(--gold) !important;
+}

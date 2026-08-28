@@ -2666,37 +2666,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroCalcBtn = document.getElementById('btn-hero-calc');
 
   if (heroExploreBtn && heroSampleBtn && heroCalcBtn) {
+    // Normalize base classes
+    heroExploreBtn.className = 'btn btn-outline';
+    heroSampleBtn.className = 'btn btn-outline';
+    heroCalcBtn.className = 'btn btn-outline';
+    
+    // Ensure Sample button retains its base inline gold color when not highlighted
+    heroSampleBtn.style.borderColor = 'var(--gold)';
+    heroSampleBtn.style.color = 'var(--gold)';
+
     let currentHeroBtnIndex = 0;
     
-    const resetHeroButtons = () => {
-      heroExploreBtn.className = 'btn btn-outline';
-      heroExploreBtn.style.backgroundColor = '';
-      heroExploreBtn.style.color = '';
+    const cycleHeroButtons = () => {
+      // Remove all highlight classes
+      heroExploreBtn.classList.remove('btn-hero-highlight-green');
+      heroSampleBtn.classList.remove('btn-hero-highlight-gold');
+      heroCalcBtn.classList.remove('btn-hero-highlight-green');
       
-      heroSampleBtn.className = 'btn btn-outline';
-      heroSampleBtn.style.backgroundColor = '';
-      heroSampleBtn.style.color = 'var(--gold)';
-      heroSampleBtn.style.borderColor = 'var(--gold)';
-
-      heroCalcBtn.className = 'btn btn-outline';
-      heroCalcBtn.style.backgroundColor = '';
-      heroCalcBtn.style.color = '';
-    };
-
-    setInterval(() => {
-      resetHeroButtons();
-      
+      // Apply the highlight to the current button
       if (currentHeroBtnIndex === 0) {
-        heroExploreBtn.className = 'btn btn-dark'; 
+        heroExploreBtn.classList.add('btn-hero-highlight-green');
       } else if (currentHeroBtnIndex === 1) {
-        heroSampleBtn.style.backgroundColor = 'var(--gold)';
-        heroSampleBtn.style.color = 'white';
+        heroSampleBtn.classList.add('btn-hero-highlight-gold');
       } else if (currentHeroBtnIndex === 2) {
-        heroCalcBtn.className = 'btn btn-dark';
+        heroCalcBtn.classList.add('btn-hero-highlight-green');
       }
       
       currentHeroBtnIndex = (currentHeroBtnIndex + 1) % 3;
-    }, 1000);
+    };
+
+    // Apply the first highlight immediately, then start the interval
+    cycleHeroButtons();
+    setInterval(cycleHeroButtons, 1000);
   }
 
 });
