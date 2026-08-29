@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
   const translations = {
     'en': {
+      'footer_about_desc': 'Lisha Traders is a trusted supplier of premium Indian green cardamom, serving wholesalers, retailers, distributors, and exporters with quality-focused sourcing and reliable service.',
+
       'nav_home': 'Home',
       'nav_products': 'Products',
       'nav_about': 'About Us',
