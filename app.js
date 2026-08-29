@@ -2675,19 +2675,19 @@ ${t['wa_msg_end']}`;
     }
 
     // 5c. Update legal links routing
-    const suffix = lang === 'en' ? '' : \-\;
+    const suffix = lang === 'en' ? '' : `-${lang}`;
     
     const linkContactTerms = document.getElementById('link-contact-terms');
-    if (linkContactTerms) linkContactTerms.href = \	erms-and-conditions\.html\;
+    if (linkContactTerms) linkContactTerms.href = `terms-and-conditions${suffix}.html`;
     
     const linkFooterTerms = document.getElementById('link-footer-terms');
-    if (linkFooterTerms) linkFooterTerms.href = \	erms-and-conditions\.html\;
+    if (linkFooterTerms) linkFooterTerms.href = `terms-and-conditions${suffix}.html`;
     
     const linkFooterPrivacy = document.getElementById('link-footer-privacy');
-    if (linkFooterPrivacy) linkFooterPrivacy.href = \privacy-policy\.html\;
+    if (linkFooterPrivacy) linkFooterPrivacy.href = `privacy-policy${suffix}.html`;
     
     const linkFooterDisc = document.getElementById('link-footer-disc');
-    if (linkFooterDisc) linkFooterDisc.href = \disclaimer\.html\;
+    if (linkFooterDisc) linkFooterDisc.href = `disclaimer${suffix}.html`;
 
     // 6. Refresh packaging tab display label
     const activeSelector = document.querySelector('.weight-selector.active');
