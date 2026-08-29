@@ -2674,6 +2674,21 @@ ${t['wa_msg_end']}`;
       }
     }
 
+    // 5c. Update legal links routing
+    const suffix = lang === 'en' ? '' : \-\;
+    
+    const linkContactTerms = document.getElementById('link-contact-terms');
+    if (linkContactTerms) linkContactTerms.href = \	erms-and-conditions\.html\;
+    
+    const linkFooterTerms = document.getElementById('link-footer-terms');
+    if (linkFooterTerms) linkFooterTerms.href = \	erms-and-conditions\.html\;
+    
+    const linkFooterPrivacy = document.getElementById('link-footer-privacy');
+    if (linkFooterPrivacy) linkFooterPrivacy.href = \privacy-policy\.html\;
+    
+    const linkFooterDisc = document.getElementById('link-footer-disc');
+    if (linkFooterDisc) linkFooterDisc.href = \disclaimer\.html\;
+
     // 6. Refresh packaging tab display label
     const activeSelector = document.querySelector('.weight-selector.active');
     if (activeSelector && pouchLabel) {
