@@ -1896,9 +1896,20 @@
       <h3>Add Bulk Requirement</h3>
       <p id="bulk-modal-product" style="font-weight:600; color:var(--green-900); margin-bottom:15px;"></p>
       
-      <div class="form-group" style="display:flex; gap:10px;">
-        <input type="number" id="bulk-qty-input" value="500" min="1" style="flex:2; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:16px;">
-        <select id="bulk-unit-select" style="flex:1; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:16px; background:#fff;">
+      <style>
+        #bulk-qty-input::-webkit-outer-spin-button,
+        #bulk-qty-input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      </style>
+      <div class="form-group" style="display:flex; gap:10px; align-items:center;">
+        <div style="display:flex; align-items:stretch; border:1px solid #ccc; border-radius:6px; overflow:hidden; flex:2;">
+          <button type="button" onclick="changeBulkQty(-1)" style="width:40px; background:#f0f0f0; border:none; border-right:1px solid #ccc; font-size:24px; cursor:pointer; color:#333; display:flex; align-items:center; justify-content:center;">−</button>
+          <input type="number" id="bulk-qty-input" value="500" min="1" style="flex:1; padding:12px; border:none; text-align:center; font-size:18px; font-weight:600; min-width:0; outline:none; -moz-appearance: textfield;">
+          <button type="button" onclick="changeBulkQty(1)" style="width:40px; background:#f0f0f0; border:none; border-left:1px solid #ccc; font-size:24px; cursor:pointer; color:#333; display:flex; align-items:center; justify-content:center;">+</button>
+        </div>
+        <select id="bulk-unit-select" style="flex:1; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:16px; background:#fff; height:49px;">
           <option value="kg">KG</option>
           <option value="ton">TON</option>
           <option value="gram">GRAM</option>

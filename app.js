@@ -3119,6 +3119,21 @@ window.closeSampleModal = function() {
 };
 
 // Add to Quote
+window.changeBulkQty = function(delta) {
+  const input = document.getElementById('bulk-qty-input');
+  const unit = document.getElementById('bulk-unit-select').value;
+  let val = parseFloat(input.value) || 0;
+  
+  let step = 1;
+  if (unit === 'kg') step = 50;
+  if (unit === 'gram') step = 100;
+  if (unit === 'ton') step = 1;
+  
+  val += (delta * step);
+  if (val < 1) val = 1;
+  input.value = val;
+};
+
 window.confirmAddBulk = function() {
   if (!currentActiveProduct) return;
   let qty = parseFloat(bulkQtyInput.value) || 0;
