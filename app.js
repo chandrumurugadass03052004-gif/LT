@@ -1486,9 +1486,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   };
 
-  productCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const grade = card.getAttribute('data-grade');
+  viewSpecsBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const grade = btn.getAttribute('data-grade');
       openModal(grade);
     });
   });
@@ -1740,7 +1740,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepContents = document.querySelectorAll('.step-desc-content');
 
   stepCards.forEach(card => {
-    card.addEventListener('click', () => {
+    btn.addEventListener('click', () => {
       const stepNum = card.getAttribute('data-step');
       
       // Toggle card state
