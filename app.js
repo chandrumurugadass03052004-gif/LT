@@ -1740,7 +1740,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepContents = document.querySelectorAll('.step-desc-content');
 
   stepCards.forEach(card => {
-    btn.addEventListener('click', () => {
+    card.addEventListener('click', () => {
       const stepNum = card.getAttribute('data-step');
       
       // Toggle card state
