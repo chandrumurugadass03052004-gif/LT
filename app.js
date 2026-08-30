@@ -3044,4 +3044,15 @@ ${t['wa_msg_end']}`;
       }
     });
   });
+
+  // Attach modal opening to clickable images and titles
+  const clickableSpecs = document.querySelectorAll('.clickable-spec');
+  clickableSpecs.forEach(el => {
+    el.addEventListener('click', () => {
+      const grade = el.getAttribute('data-grade');
+      if (grade) {
+        openModal(grade);
+      }
+    });
+  });
 });

@@ -4645,7 +4645,51 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
     gap: 8px;
   }
   
-  .btn-quote-full::before {
-    content: "📄"; /* Document icon */
+  
+}
+
+@media (max-width: 767px) {
+
+  .m-action-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
   }
+  
+  .btn-quote-half, .btn-sample-half {
+    flex: 1;
+    border: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .btn-quote-half {
+    background: #0f2c19;
+    color: #fff;
+  }
+  
+  .btn-sample-half {
+    background: var(--surface-cream);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+
+  .clickable-spec {
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  
+  .clickable-spec:hover {
+    opacity: 0.8;
+  }
+  
+  img.clickable-spec:hover {
+    transform: scale(1.05);
+  }
+
 }
