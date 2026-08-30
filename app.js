@@ -3012,4 +3012,36 @@ ${t['wa_msg_end']}`;
     setInterval(cycleHeroButtons, 1000);
   }
 
+
+  /* ==========================================================================
+     MOBILE CATALOG MOCKUP ACCORDION & MODALS
+     ========================================================================== */
+  const mobileCards = document.querySelectorAll('.m-card-header');
+  mobileCards.forEach(header => {
+    header.addEventListener('click', () => {
+      const parentCard = header.closest('.m-card');
+      const isExpanded = parentCard.classList.contains('expanded');
+      
+      // Close all other cards
+      document.querySelectorAll('.m-card.expanded').forEach(card => {
+        card.classList.remove('expanded');
+      });
+
+      // Expand the clicked one if it wasn't already expanded
+      if (!isExpanded) {
+        parentCard.classList.add('expanded');
+      }
+    });
+  });
+
+  // Attach modal opening to the new mobile buttons
+  const mobileSpecButtons = document.querySelectorAll('.btn-m-specs');
+  mobileSpecButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const grade = btn.getAttribute('data-grade');
+      if (grade) {
+        openModal(grade);
+      }
+    });
+  });
 });
