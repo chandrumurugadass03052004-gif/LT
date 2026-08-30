@@ -4674,9 +4674,9 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   }
   
   .btn-sample-half {
-    background: var(--surface-cream);
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    background: #0f2c19;
+    color: #fff;
+    border: none;
   }
 
   .clickable-spec {
