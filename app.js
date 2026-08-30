@@ -2271,97 +2271,108 @@ document.addEventListener('DOMContentLoaded', () => {
     let anyUnavailable = apiFetchFailed;
 
     estimateItems.forEach((item) => {
-      totalQty += item.qty;
-      totalBags += item.bags;
-      totalPriceMin += item.priceMin;
-      totalPriceMax += item.priceMax;
-      totalPriceAvg += (item.priceAvg || 0);
-      
-      if (item.isUnavailable) anyUnavailable = true;
-      
-      const cleanSize = item.grade.replace('.','');
-      if (!sizeCodes.includes(cleanSize)) sizeCodes.push(cleanSize);
+      if (!item.isSample) {
+        totalQty += item.qty;
+        totalBags += item.bags;
+        totalPriceMin += item.priceMin;
+        totalPriceMax += item.priceMax;
+        totalPriceAvg += (item.priceAvg || 0);
+        
+        if (item.isUnavailable) anyUnavailable = true;
+        
+        const cleanSize = item.grade.replace('.','');
+        if (!sizeCodes.includes(cleanSize)) sizeCodes.push(cleanSize);
+      }
 
       const tr = document.createElement('tr');
       const varLabel = item.variety === 'yellow' ? 
-        (translations[currentLang]['prod_tab_yellow'] || 'Fruit Cardamom (Yellow/Pale)') : 
-        (translations[currentLang]['prod_tab_green'] || 'Green');
+        (translations[currentLang]['prod_tab_yellow'] || 'Fruit Cardamom') : 
+        (translations[currentLang]['prod_tab_green'] || 'Green Cardamom');
 
       const sizeLabel = currentGradeNames[item.grade] || item.grade;
-      const unitsLabel = translations[currentLang]['calc_units_label'] || 'units';
 
-      let priceText;
-      if (item.isUnavailable || apiFetchFailed) {
-        priceText = '<span style="color:var(--muted);font-size:12px;">Unavailable</span>';
+      if (item.isSample) {
+        tr.innerHTML = `
+          <td>
+            <strong>${sizeLabel} ${varLabel}</strong><br>
+            <span style="font-size: 13px; color: var(--green-900); font-weight:600;">Sample Request &mdash; ${item.sampleSize}</span>
+          </td>
+          <td>Sample</td>
+          <td>-</td>
+          <td>-</td>
+          <td style="text-align:center;">
+            <button class="btn btn-sm btn-outline remove-item-btn" style="padding:4px 8px;font-size:12px;color:red;border-color:red;" data-id="${item.id}">Remove</button>
+          </td>
+        `;
       } else {
-        const avg = item.pricePerKg || 0;
-        const minKg = item.qty > 0 ? Math.round(item.priceMin / item.qty) : 0;
-        const maxKg = item.qty > 0 ? Math.round(item.priceMax / item.qty) : 0;
-        priceText = `
-          <div style="font-weight:800;color:var(--green-900);font-size:13.5px;">₹${(item.priceAvg||0).toLocaleString()}</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Avg @ ₹${avg.toLocaleString()}/kg</div>
-          <div style="font-size:9.5px;color:var(--muted);">Min ₹${item.priceMin.toLocaleString()} · Max ₹${item.priceMax.toLocaleString()}</div>`;
+        let priceText;
+        if (item.isUnavailable || apiFetchFailed) {
+          priceText = '<span style="color:var(--muted);font-size:12px;">Unavailable</span>';
+        } else {
+          const avg = item.pricePerKg || 0;
+          const minKg = item.qty > 0 ? Math.round(item.priceMin / item.qty) : 0;
+          const maxKg = item.qty > 0 ? Math.round(item.priceMax / item.qty) : 0;
+          priceText = `
+            <div style="font-weight:700; color:var(--text-main); font-size:15px;">₹${avg.toLocaleString()} / kg</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">Range: ₹${minKg}-₹${maxKg}</div>
+          `;
+        }
+
+        tr.innerHTML = `
+          <td>
+            <strong>${sizeLabel} ${varLabel}</strong><br>
+            <span style="font-size: 12.5px; color: var(--muted);">${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType})</span>
+          </td>
+          <td>${item.displayQty || item.qty + ' KG'}</td>
+          <td>${priceText}</td>
+          <td>
+            <div style="font-weight:700; color:var(--green-900); font-size:15px;">₹${(item.priceAvg || 0).toLocaleString()}</div>
+          </td>
+          <td style="text-align:center;">
+            <button class="btn btn-sm btn-outline remove-item-btn" style="padding:4px 8px;font-size:12px;color:red;border-color:red;" data-id="${item.id}">Remove</button>
+          </td>
+        `;
       }
-
-      tr.innerHTML = `
-        <td style="padding: 8px 6px;">
-          <div style="font-weight:700; color:var(--green-900);">${sizeLabel}</div>
-          <div style="font-size:11.5px; color:var(--muted);">${varLabel}</div>
-        </td>
-        <td style="padding: 8px 6px; text-align: right; font-weight: 700;">${item.qty.toLocaleString()} KG</td>
-        <td style="padding: 8px 6px; text-align: right; color: var(--muted);">${item.bags} ${unitsLabel}</td>
-        <td style="padding: 8px 6px; text-align: right;">${priceText}</td>
-        <td style="padding: 8px 6px; text-align: center;">
-          <button class="est-del-btn" data-id="${item.id}" type="button">🗑️</button>
-        </td>
-      `;
-
       estimatorTableBody.appendChild(tr);
     });
 
-    estimatorTableBody.querySelectorAll('.est-del-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const itemId = parseFloat(btn.getAttribute('data-id'));
-        deleteEstimateItem(itemId);
+    const removeBtns = estimatorTableBody.querySelectorAll('.remove-item-btn');
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        deleteEstimateItem(id);
+        
+        // Also remove from myQuoteItems to keep sync
+        myQuoteItems = myQuoteItems.filter(i => i.id !== id);
+        updateQuoteBadge();
+        renderQuotePanel();
       });
     });
 
-    if (summaryItemsCount) {
-      summaryItemsCount.innerText = estimateItems.length;
-    }
+    document.getElementById('summary-qty').innerText = totalQty + ' kg';
+    document.getElementById('summary-bags').innerText = totalBags + ' units';
     
-    const sumQtyEl = document.getElementById('summary-qty');
-    if (sumQtyEl) sumQtyEl.innerText = `${totalQty.toLocaleString()} KG`;
-
-    const sumBagsEl = document.getElementById('summary-bags');
-    if (sumBagsEl) {
-      const unitsStr = translations[currentLang]['calc_units_label'] || 'units';
-      sumBagsEl.innerText = `${totalBags} ${unitsStr}`;
-    }
-
+    // ... [pricing logic stays mostly same]
     const sumPriceEl = document.getElementById('summary-price');
-    if (sumPriceEl) {
-      if (anyUnavailable) {
-        sumPriceEl.innerHTML = `<span style="font-size:12.5px;color:#c0392b;line-height:1.6;">Today's estimated market prices are temporarily unavailable.<br>Please contact us for the latest quotation.</span>`;
-        sumPriceEl.style.fontSize = '';
-        sumPriceEl.style.color = '';
-      } else {
-        // Primary: Avg Price Total — Secondary: Min–Max range
-        sumPriceEl.innerHTML = `
-          <span style="font-size:22px;font-weight:800;color:var(--green-900);">₹${totalPriceAvg.toLocaleString()}</span>
-          <div style="font-size:11.5px;color:var(--muted);margin-top:5px;">Estimated Avg Value (based on today's market)</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: ₹${totalPriceMin.toLocaleString()} – ₹${totalPriceMax.toLocaleString()}</div>
-        `;
-        sumPriceEl.style.fontSize = '';
-        sumPriceEl.style.color = '';
-      }
+    if (anyUnavailable) {
+      sumPriceEl.innerHTML = 'Pending Inquiry';
+      sumPriceEl.style.fontSize = '18px';
+      sumPriceEl.style.color = 'var(--muted)';
+    } else {
+      sumPriceEl.innerHTML = `
+        <span style="font-size:22px;font-weight:800;color:var(--green-900);">₹${totalPriceAvg.toLocaleString()}</span>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:5px;">Estimated Avg Value (based on today's market)</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: ₹${totalPriceMin.toLocaleString()} – ₹${totalPriceMax.toLocaleString()}</div>
+      `;
+      sumPriceEl.style.fontSize = '';
+      sumPriceEl.style.color = '';
     }
 
-    const sizesJoined = sizeCodes.join('-');
+    const sizesJoined = sizeCodes.length > 0 ? sizeCodes.join('-') : 'SAMPLES';
     const formattedId = `LT-${sizesJoined}-${totalBags}-${custNum}`;
     document.getElementById('invoice-id').innerText = formattedId;
   };
-
+  
   // Variety Button selection actions
   if (varietyGreenBtn && varietyYellowBtn) {
     varietyGreenBtn.addEventListener('click', (e) => {
@@ -2441,27 +2452,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const invoiceId = document.getElementById('invoice-id').innerText;
     const t = translations[currentLang] || translations['en'];
     
-    if (estimateItems.length === 0) {
-      return t['wa_msg_empty'];
-    }
+    const cName = document.getElementById('cust-name').value;
+    const cComp = document.getElementById('cust-company').value;
+    const cPhone = document.getElementById('cust-phone').value;
+    const cEmail = document.getElementById('cust-email').value;
+    const cLoc = document.getElementById('cust-location').value;
+    const cNotes = document.getElementById('cust-notes').value;
 
     let itemsDetails = '';
-    estimateItems.forEach((item, index) => {
-      const varName = item.variety === 'yellow' ? (t['prod_tab_yellow'] || 'Fruit Cardamom') : (t['prod_tab_green'] || 'Green Cardamom');
+    let sampleDetails = '';
+    
+    let bulkCount = 1;
+    let sampleCount = 1;
+
+    estimateItems.forEach((item) => {
+      const varName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
       const gradeName = currentGradeNames[item.grade] || item.grade;
-      itemsDetails += `${index + 1}. ${varName} (${gradeName}) - ${item.qty} KG (${item.bags} ${t['wa_bags']}, ${t['wa_packed_in']} ${item.packaging})
-`;
+      
+      if (item.isSample) {
+        sampleDetails += `  ${sampleCount}. ${varName} (${gradeName}) - Sample: ${item.sampleSize}\n`;
+        sampleCount++;
+      } else {
+        itemsDetails += `  ${bulkCount}. ${varName} (${gradeName}) - ${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType})\n`;
+        bulkCount++;
+      }
     });
 
-    return `${t['wa_msg_hello']}
-
-- ${t['wa_msg_id']}: ${invoiceId}
-
-${t['wa_msg_items']}:
-${itemsDetails}
-${t['wa_msg_end']}`;
+    let msg = `Hello Lisha Traders,\n\nI would like to request a quotation.\n\n`;
+    msg += `INQUIRY ID: ${invoiceId}\n\n`;
+    msg += `--- CUSTOMER DETAILS ---\n`;
+    msg += `Name: ${cName}\n`;
+    msg += `Company: ${cComp}\n`;
+    msg += `Phone: ${cPhone}\n`;
+    msg += `Email: ${cEmail}\n`;
+    msg += `Location: ${cLoc}\n`;
+    if (cNotes) msg += `Notes: ${cNotes}\n`;
+    msg += `\n--- REQUIREMENTS ---\n`;
+    if (itemsDetails) {
+      msg += `\nBULK:\n${itemsDetails}`;
+    }
+    if (sampleDetails) {
+      msg += `\nSAMPLES:\n${sampleDetails}`;
+    }
+    
+    msg += `\nPlease let me know the final pricing and availability.\nThank you!`;
+    return msg;
   };
-
+  
   const validateCompliance = () => {
     const terms = document.getElementById('agree-terms');
     const privacy = document.getElementById('agree-privacy');
@@ -2477,11 +2514,18 @@ ${t['wa_msg_end']}`;
 
   whatsappBtn.addEventListener('click', () => {
     if (estimateItems.length === 0) {
-      const alertMsg = translations[currentLang]['calc_alert_empty_submit'] || 'Please add at least one cardamom grade sizing to your estimate list first.';
-      alert(alertMsg);
+      alert('Please add at least one product to your quote first.');
       return;
     }
+    
+    const cName = document.getElementById('cust-name');
+    if (cName && !cName.checkValidity()) {
+       cName.reportValidity();
+       return;
+    }
+    
     if (!validateCompliance()) return;
+    
     const msg = encodeURIComponent(buildInquiryText());
     const whatsappUrl = `https://wa.me/919342153357?text=${msg}`;
     window.open(whatsappUrl, '_blank');
@@ -2490,12 +2534,19 @@ ${t['wa_msg_end']}`;
 
   emailBtn.addEventListener('click', () => {
     if (estimateItems.length === 0) {
-      const alertMsg = translations[currentLang]['calc_alert_empty_submit'] || 'Please add at least one cardamom grade sizing to your estimate list first.';
-      alert(alertMsg);
+      alert('Please add at least one product to your quote first.');
       return;
     }
+    
+    const cName = document.getElementById('cust-name');
+    if (cName && !cName.checkValidity()) {
+       cName.reportValidity();
+       return;
+    }
+
     if (!validateCompliance()) return;
-    const subject = encodeURIComponent(`Bulk Cardamom Quotation Request - ${document.getElementById('invoice-id').innerText}`);
+    
+    const subject = encodeURIComponent(`Bulk Quotation Request - ${document.getElementById('invoice-id').innerText}`);
     const body = encodeURIComponent(buildInquiryText());
     const mailtoUrl = `mailto:info@lishatraders.com?subject=${subject}&body=${body}`;
     window.location.href = mailtoUrl;
@@ -3055,4 +3106,344 @@ ${t['wa_msg_end']}`;
       }
     });
   });
+});
+
+
+/* ==========================================================================
+   MY QUOTE SYSTEM LOGIC
+   ========================================================================== */
+
+let myQuoteItems = [];
+
+// DOM Elements
+const quotePanel = document.getElementById('my-quote-panel');
+const quoteBadge = document.getElementById('floating-quote-badge');
+const quoteCountText = document.getElementById('my-quote-count-text');
+const quoteBulkItems = document.getElementById('quote-bulk-items');
+const quoteSampleItems = document.getElementById('quote-sample-items');
+const quoteEmptyMsg = document.getElementById('quote-empty-msg');
+const quoteBulkList = document.getElementById('quote-bulk-list');
+const quoteSampleList = document.getElementById('quote-sample-list');
+
+const modalBulkAdd = document.getElementById('modal-bulk-add');
+const modalReqSample = document.getElementById('modal-req-sample');
+const bulkModalProduct = document.getElementById('bulk-modal-product');
+const sampleModalProduct = document.getElementById('sample-modal-product');
+const bulkQtyInput = document.getElementById('bulk-qty-input');
+const bulkUnitSelect = document.getElementById('bulk-unit-select');
+const sampleCustomInput = document.getElementById('sample-custom-input');
+
+let currentActiveProduct = null;
+
+// Generate unique ID
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Panel Toggles
+function openQuotePanel() {
+  quotePanel.classList.add('open');
+  renderQuotePanel();
+}
+function closeQuotePanel() {
+  quotePanel.classList.remove('open');
+}
+
+// Bulk Modal Toggles
+window.openBulkModal = function(grade, variety) {
+  currentActiveProduct = { grade, variety };
+  const gradeName = currentGradeNames[grade] || grade;
+  const varietyName = variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+  bulkModalProduct.innerText = `${gradeName} - ${varietyName}`;
+  modalBulkAdd.classList.add('active');
+};
+window.closeBulkModal = function() {
+  modalBulkAdd.classList.remove('active');
+  currentActiveProduct = null;
+};
+
+// Sample Modal Toggles
+window.openSampleModal = function(grade, variety) {
+  currentActiveProduct = { grade, variety };
+  const gradeName = currentGradeNames[grade] || grade;
+  const varietyName = variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+  sampleModalProduct.innerText = `${gradeName} - ${varietyName}`;
+  modalReqSample.classList.add('active');
+};
+window.closeSampleModal = function() {
+  modalReqSample.classList.remove('active');
+  currentActiveProduct = null;
+};
+
+// Add to Quote
+window.confirmAddBulk = function() {
+  if (!currentActiveProduct) return;
+  let qty = parseFloat(bulkQtyInput.value) || 0;
+  const unit = bulkUnitSelect.value;
+  
+  if (qty <= 0) return;
+  
+  // Normalize to KG for internal logic if needed, but we'll store exactly what they typed
+  let qtyKg = qty;
+  if (unit === 'ton') qtyKg = qty * 1000;
+  if (unit === 'gram') qtyKg = qty / 1000;
+  
+  // Check if exists, update it, else add
+  const existing = myQuoteItems.find(i => !i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety);
+  if (existing) {
+    // If unit matches, just add. Else overwrite.
+    if (existing.unit === unit) {
+      existing.qty += qty;
+    } else {
+      existing.qty = qty;
+      existing.unit = unit;
+    }
+  } else {
+    myQuoteItems.push({
+      id: generateId(),
+      isSample: false,
+      grade: currentActiveProduct.grade,
+      variety: currentActiveProduct.variety,
+      qty: qty,
+      unit: unit,
+      qtyKg: qtyKg
+    });
+  }
+  
+  closeBulkModal();
+  updateQuoteBadge();
+  animateBadge();
+  openQuotePanel();
+};
+
+window.confirmAddSample = function() {
+  if (!currentActiveProduct) return;
+  
+  let sampleSize = '';
+  const radios = document.getElementsByName('sample-qty');
+  for (let r of radios) {
+    if (r.checked) {
+      if (r.value === 'custom') {
+        sampleSize = sampleCustomInput.value || 'Custom';
+      } else {
+        sampleSize = r.value;
+      }
+      break;
+    }
+  }
+  
+  myQuoteItems.push({
+    id: generateId(),
+    isSample: true,
+    grade: currentActiveProduct.grade,
+    variety: currentActiveProduct.variety,
+    sampleSize: sampleSize
+  });
+  
+  closeSampleModal();
+  updateQuoteBadge();
+  animateBadge();
+  openQuotePanel();
+};
+
+window.removeQuoteItem = function(id) {
+  myQuoteItems = myQuoteItems.filter(i => i.id !== id);
+  updateQuoteBadge();
+  renderQuotePanel();
+};
+
+// UI Updates
+function updateQuoteBadge() {
+  if (myQuoteItems.length > 0) {
+    quoteBadge.style.display = 'flex';
+    quoteBadge.innerText = myQuoteItems.length;
+  } else {
+    quoteBadge.style.display = 'none';
+  }
+}
+
+function animateBadge() {
+  quoteBadge.style.transform = 'scale(1.5)';
+  const floatBtn = document.getElementById('floating-quote-btn');
+  if (floatBtn) {
+    floatBtn.classList.remove('jiggle');
+    void floatBtn.offsetWidth; // trigger reflow
+    floatBtn.classList.add('jiggle');
+  }
+  
+  setTimeout(() => {
+    quoteBadge.style.transform = 'scale(1)';
+    if (floatBtn) floatBtn.classList.remove('jiggle');
+  }, 500);
+}
+
+function renderQuotePanel() {
+  quoteBulkItems.innerHTML = '';
+  quoteSampleItems.innerHTML = '';
+  
+  const bulks = myQuoteItems.filter(i => !i.isSample);
+  const samples = myQuoteItems.filter(i => i.isSample);
+  
+  if (myQuoteItems.length === 0) {
+    quoteEmptyMsg.style.display = 'block';
+    quoteBulkList.style.display = 'none';
+    quoteSampleList.style.display = 'none';
+    quoteCountText.innerText = '0 items selected';
+    return;
+  }
+  
+  quoteEmptyMsg.style.display = 'none';
+  quoteCountText.innerText = `${myQuoteItems.length} items selected`;
+  
+  if (bulks.length > 0) {
+    quoteBulkList.style.display = 'block';
+    bulks.forEach(item => {
+      const gradeName = currentGradeNames[item.grade] || item.grade;
+      const varietyName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+      const imgPath = item.variety === 'yellow' ? 'assets/images/yellow-cardamom-thumb.jpg' : 'assets/images/green-cardamom-thumb.jpg';
+      
+      const el = document.createElement('div');
+      el.className = 'quote-item';
+      el.innerHTML = `
+        <img src="${imgPath}">
+        <div class="quote-item-info">
+          <h5>${item.grade} ${varietyName}</h5>
+          <p>${gradeName}</p>
+          <div class="quote-item-qty">${item.qty} ${item.unit.toUpperCase()}</div>
+        </div>
+        <div class="quote-item-actions">
+          <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        </div>
+      `;
+      quoteBulkItems.appendChild(el);
+    });
+  } else {
+    quoteBulkList.style.display = 'none';
+  }
+  
+  if (samples.length > 0) {
+    quoteSampleList.style.display = 'block';
+    samples.forEach(item => {
+      const varietyName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+      const imgPath = item.variety === 'yellow' ? 'assets/images/yellow-cardamom-thumb.jpg' : 'assets/images/green-cardamom-thumb.jpg';
+      
+      const el = document.createElement('div');
+      el.className = 'quote-item';
+      el.innerHTML = `
+        <img src="${imgPath}">
+        <div class="quote-item-info">
+          <h5>${item.grade} ${varietyName}</h5>
+          <p>Sample — ${item.sampleSize}</p>
+        </div>
+        <div class="quote-item-actions">
+          <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        </div>
+      `;
+      quoteSampleItems.appendChild(el);
+    });
+  } else {
+    quoteSampleList.style.display = 'none';
+  }
+  
+  // Update Panel Total Price
+  let panelTotal = 0;
+  bulks.forEach(item => {
+    let qtyKg = item.qtyKg || item.qty;
+    if (item.unit === 'ton') qtyKg = item.qty * 1000;
+    if (item.unit === 'gram') qtyKg = item.qty / 1000;
+    
+    // We assume getDailyPriceRange is globally available as it's defined elsewhere
+    if (typeof getDailyPriceRange === 'function') {
+      const priceInfo = getDailyPriceRange(item.grade, item.variety);
+      if (priceInfo && priceInfo.avg) {
+        panelTotal += (priceInfo.avg * qtyKg);
+      } else if (priceInfo && priceInfo.min && priceInfo.max) {
+        panelTotal += (Math.round((priceInfo.min + priceInfo.max) / 2) * qtyKg);
+      }
+    }
+  });
+  
+  const panelTotalVal = document.getElementById('panel-total-val');
+  if (panelTotalVal) {
+    if (panelTotal > 0) {
+      panelTotalVal.innerText = '₹' + panelTotal.toLocaleString();
+    } else {
+      panelTotalVal.innerText = 'Pending Inquiry';
+    }
+  }
+}
+
+// Transfer to Calculator
+window.continueToCalculator = function() {
+  closeQuotePanel();
+  
+  // Map myQuoteItems to estimateItems
+  estimateItems = [];
+  
+  myQuoteItems.forEach(qItem => {
+    if (!qItem.isSample) {
+      // It's a bulk item
+      let qtyKg = qItem.qtyKg;
+      
+      // Calculate packaging
+      let packagingType = '';
+      let totalBags = 0;
+      if (qtyKg < 100) {
+        packagingType = '1 kg Pouches';
+        totalBags = Math.ceil(qtyKg);
+      } else if (qtyKg < 500) {
+        packagingType = '5 kg Bags';
+        totalBags = Math.ceil(qtyKg / 5);
+      } else if (qtyKg < 2000) {
+        packagingType = '10 kg Boxes';
+        totalBags = Math.ceil(qtyKg / 10);
+      } else {
+        packagingType = '25 kg Bags';
+        totalBags = Math.ceil(qtyKg / 25);
+      }
+      
+      const priceInfo = getDailyPriceRange(qItem.grade, qItem.variety);
+      
+      estimateItems.push({
+        id: qItem.id,
+        isSample: false,
+        grade: qItem.grade,
+        variety: qItem.variety,
+        qty: qtyKg, // Note: estimator uses kg internally
+        displayQty: `${qItem.qty} ${qItem.unit.toUpperCase()}`,
+        packagingType: packagingType,
+        bags: totalBags,
+        priceMin: priceInfo ? priceInfo.min * qtyKg : 0,
+        priceMax: priceInfo ? priceInfo.max * qtyKg : 0,
+        priceAvg: priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) * qtyKg : 0,
+        pricePerKg: priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 0,
+        isUnavailable: !priceInfo
+      });
+    } else {
+      // It's a sample item
+      estimateItems.push({
+        id: qItem.id,
+        isSample: true,
+        grade: qItem.grade,
+        variety: qItem.variety,
+        sampleSize: qItem.sampleSize,
+        qty: 0,
+        bags: 0,
+        priceMin: 0,
+        priceMax: 0,
+        priceAvg: 0
+      });
+    }
+  });
+  
+  updateQuote();
+  
+  // Scroll to calculator
+  document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+};
+
+// Ensure modal closing when clicking outside
+window.addEventListener('click', (e) => {
+  if (e.target === modalBulkAdd) closeBulkModal();
+  if (e.target === modalReqSample) closeSampleModal();
 });
