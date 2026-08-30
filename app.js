@@ -1687,50 +1687,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Trigger initial reviews load
   loadLocalReviews();
 
-  // Modal "Estimate Quantity" click: update calculator selection and scroll down
+  // Modal "Add to Cart" click: open Bulk Add modal for current grade
   modalQuote.addEventListener('click', (e) => {
     e.preventDefault();
-    const titleVal = mTitle.innerText;
-    let gradeKey = '7.5mm';
-    if (titleVal.includes('6.0') || titleVal.includes('6mm')) gradeKey = '6mm';
-    else if (titleVal.includes('7.0') || titleVal.includes('7mm')) gradeKey = '7mm';
-    else if (titleVal.includes('7.5-8')) gradeKey = '7.5-8mm';
-    else if (titleVal.includes('7.5')) gradeKey = '7.5mm';
-    else if (titleVal.includes('8.5')) gradeKey = '8.5mm';
-    else if (titleVal.includes('8.0') || titleVal.includes('8mm')) gradeKey = '8mm';
-    else if (titleVal.includes('9.0') || titleVal.includes('9mm')) gradeKey = '9mm';
-
-    // Set variety based on active specifications modal key
-    if (activeModalGradeKey && activeModalGradeKey.includes('-yellow')) {
-      calcVariety = 'yellow';
-      if (varietyYellowBtn) {
-        varietyYellowBtn.classList.add('active');
-        varietyGreenBtn.classList.remove('active');
-      }
-    } else {
-      calcVariety = 'green';
-      if (varietyGreenBtn) {
-        varietyGreenBtn.classList.add('active');
-        varietyYellowBtn.classList.remove('active');
-      }
-    }
-
-    // Update calculator UI
-    const calcGradeBtns = document.querySelectorAll('#calc-grade-selector .grade-radio-btn');
-    calcGradeBtns.forEach(btn => {
-      if (btn.getAttribute('data-val') === gradeKey) {
-        btn.classList.add('selected');
-      } else {
-        btn.classList.remove('selected');
-      }
-    });
-
     closeModal();
-    // Add item to cart automatically on click of specs modal estimate button!
-    addEstimateItem();
-
-    // Scroll smoothly to calculator
-    document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+    const isYellow = activeModalGradeKey && activeModalGradeKey.includes('-yellow');
+    const variety = isYellow ? 'yellow' : 'green';
+    
+    // openBulkModal comes from HTML injection previously
+    if (typeof window.openBulkModal === 'function') {
+      window.openBulkModal(activeModalGradeKey, variety);
+    }
   });
 
   /* ==========================================================================
@@ -2564,11 +2531,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalSampleBtn) {
     modalSampleBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const gradeTitle = document.getElementById('modal-grade-title').innerText;
-      const gradeType = document.getElementById('modal-grade-type').innerText;
-      const msg = `Hello Lisha Traders, I would like to order a sample of ${gradeTitle} - ${gradeType}. Please provide pricing and shipping details.`;
-      const encodedText = encodeURIComponent(msg);
-      window.open(`https://wa.me/919342153357?text=${encodedText}`, '_blank');
+      closeModal();
+      const isYellow = activeModalGradeKey && activeModalGradeKey.includes('-yellow');
+      const variety = isYellow ? 'yellow' : 'green';
+      
+      if (typeof window.openSampleModal === 'function') {
+        window.openSampleModal(activeModalGradeKey, variety);
+      }
     });
   }
 
