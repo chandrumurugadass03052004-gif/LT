@@ -1419,7 +1419,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentGradeNames = gradeNamesEn;
   let currentLang = 'en';
 
-  const productCards = document.querySelectorAll('.p-card');
+  const viewSpecsBtns = document.querySelectorAll('.btn-view-specs');
   const modal = document.getElementById('product-modal');
   const modalClose = document.getElementById('modal-close-btn');
   const modalBack = document.getElementById('modal-action-back-btn');
