@@ -2451,13 +2451,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const buildInquiryText = () => {
     const invoiceId = document.getElementById('invoice-id').innerText;
     const t = translations[currentLang] || translations['en'];
-    
-    const cName = document.getElementById('cust-name').value;
-    const cComp = document.getElementById('cust-company').value;
-    const cPhone = document.getElementById('cust-phone').value;
-    const cEmail = document.getElementById('cust-email').value;
-    const cLoc = document.getElementById('cust-location').value;
-    const cNotes = document.getElementById('cust-notes').value;
 
     let itemsDetails = '';
     let sampleDetails = '';
@@ -2480,14 +2473,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let msg = `Hello Lisha Traders,\n\nI would like to request a quotation.\n\n`;
     msg += `INQUIRY ID: ${invoiceId}\n\n`;
-    msg += `--- CUSTOMER DETAILS ---\n`;
-    msg += `Name: ${cName}\n`;
-    msg += `Company: ${cComp}\n`;
-    msg += `Phone: ${cPhone}\n`;
-    msg += `Email: ${cEmail}\n`;
-    msg += `Location: ${cLoc}\n`;
-    if (cNotes) msg += `Notes: ${cNotes}\n`;
-    msg += `\n--- REQUIREMENTS ---\n`;
+    msg += `--- REQUIREMENTS ---\n`;
     if (itemsDetails) {
       msg += `\nBULK:\n${itemsDetails}`;
     }
@@ -2518,12 +2504,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    const cName = document.getElementById('cust-name');
-    if (cName && !cName.checkValidity()) {
-       cName.reportValidity();
-       return;
-    }
-    
     if (!validateCompliance()) return;
     
     const msg = encodeURIComponent(buildInquiryText());
@@ -2536,12 +2516,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (estimateItems.length === 0) {
       alert('Please add at least one product to your quote first.');
       return;
-    }
-    
-    const cName = document.getElementById('cust-name');
-    if (cName && !cName.checkValidity()) {
-       cName.reportValidity();
-       return;
     }
 
     if (!validateCompliance()) return;
