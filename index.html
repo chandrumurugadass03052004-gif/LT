@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2.1">
+  <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 
 <body>
@@ -166,8 +166,10 @@
           <div>
             <strong data-translate="hero_badge_title">100% Export Quality</strong>
             <span data-translate="hero_badge_desc">Handpicked sorting & grade verification</span>
-          </div>
-        </div>
+          </div>
+
+        </div>
+
 
       </div>
     </div>
@@ -197,56 +199,168 @@
                 <span data-translate="grade_6_lbl">6.0 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_6">Standard / Medium</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="6mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="6mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="6mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('6mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="6mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('6mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
                 <span data-translate="grade_7_lbl">7.0 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_7">Premium Bold (AGEB)</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="7mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="7mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="7mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('7mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="7mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('7mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
                 <span data-translate="grade_75_lbl">7.5 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_75">Elite Premium Bold</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="7.5mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="7.5mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="7.5mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('7.5mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="7.5mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('7.5mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
                 <span data-translate="grade_75_8_lbl">7.5 - 8.0 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_75_8">Super Bold Export Mix</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="7.5-8mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="7.5-8mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="7.5-8mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('7.5-8mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="7.5-8mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('7.5-8mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
                 <span data-translate="grade_8_lbl">8.0 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_8">Super Extra Bold (Super Jumbo)</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="8mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="8mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="8mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('8mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="8mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('8mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
                 <span data-translate="grade_85_lbl">8.5 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_85">Imperial Jumbo Bold</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="8.5mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="8.5mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="8.5mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('8.5mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="8.5mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('8.5mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
                 <span data-translate="grade_9_lbl">9.0 mm</span>
                 <span class="grade-subtitle" data-translate="table_sub_9">Supreme Royal Jumbo</span>
               </td>
-              <td><button class="btn-view-specs" data-grade="9mm" data-translate="specs_detail">View Specs</button></td>
-              <td><button class="btn-view-specs" data-grade="9mm-yellow" data-translate="specs_detail">View Specs</button></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="9mm" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('9mm', 'green')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="btn-view-specs" data-grade="9mm-yellow" data-translate="specs_detail">View Specs</button>
+                  <button class="btn-table-estimate" onclick="openBulkModal('9mm-yellow', 'yellow')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Estimate Quantity</span>
+                  </button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -1887,35 +2001,95 @@
     </div>
   </div>
 
-  <script src="app.js?v=3.0"></script>
-
-  <!-- BULK ADD MODAL -->
+  <!-- BULK ADD / ESTIMATE QUANTITY MODAL -->
   <div id="modal-bulk-add" class="modal-overlay">
-    <div class="modal-container">
+    <div class="modal-container bulk-modal-container">
       <span class="modal-close" onclick="closeBulkModal()">&times;</span>
-      <h3>Add Bulk Requirement</h3>
-      <p id="bulk-modal-product" style="font-weight:600; color:var(--green-900); margin-bottom:15px;"></p>
       
-      <style>
-        #bulk-qty-input::-webkit-outer-spin-button,
-        #bulk-qty-input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-      </style>
-      <div class="form-group" style="display:flex; gap:10px; align-items:center;">
-        <div style="display:flex; align-items:stretch; border:1px solid #ccc; border-radius:6px; overflow:hidden; flex:2;">
-          <button type="button" onclick="changeBulkQty(-1)" style="width:40px; background:#f0f0f0; border:none; border-right:1px solid #ccc; font-size:24px; cursor:pointer; color:#333; display:flex; align-items:center; justify-content:center;">−</button>
-          <input type="number" id="bulk-qty-input" value="500" min="1" style="flex:1; padding:12px; border:none; text-align:center; font-size:18px; font-weight:600; min-width:0; outline:none; -moz-appearance: textfield;">
-          <button type="button" onclick="changeBulkQty(1)" style="width:40px; background:#f0f0f0; border:none; border-left:1px solid #ccc; font-size:24px; cursor:pointer; color:#333; display:flex; align-items:center; justify-content:center;">+</button>
+      <div class="bulk-modal-header">
+        <div class="bulk-header-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         </div>
-        <select id="bulk-unit-select" style="flex:1; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:16px; background:#fff; height:49px;">
-          <option value="kg">KG</option>
-          <option value="ton">TON</option>
-          <option value="gram">GRAM</option>
+        <div>
+          <h3 style="margin:0; font-size:1.22rem; color:var(--green-900);">Estimate Quantity & Rate</h3>
+          <p id="bulk-modal-product" style="font-weight:600; color:var(--primary); margin:4px 0 0 0; font-size:0.92rem;"></p>
+        </div>
+      </div>
+
+      <!-- LIVE RATE BANNER -->
+      <div class="bulk-rate-banner">
+        <div class="rate-banner-info">
+          <span class="rate-label">Market Rate:</span>
+          <span class="rate-value" id="bulk-rate-per-kg">₹2,200 / kg</span>
+          <span class="rate-range" id="bulk-rate-range">(₹2,150 – ₹2,300)</span>
+        </div>
+        <div class="rate-badge" id="bulk-rate-badge">
+          <span class="live-dot"></span> Live Auction Rate
+        </div>
+      </div>
+
+      <!-- QUANTITY CONTROLS -->
+      <div class="bulk-field-group">
+        <label class="bulk-field-label">How Many KG / Quantity Needed:</label>
+        <div class="bulk-stepper-wrap">
+          <button type="button" class="bulk-step-btn" onclick="changeBulkQty(-1)" aria-label="Decrease quantity">−</button>
+          <input type="number" id="bulk-qty-input" value="500" min="1" step="any" class="bulk-qty-field" oninput="updateBulkModalCalculations()">
+          <button type="button" class="bulk-step-btn" onclick="changeBulkQty(1)" aria-label="Increase quantity">+</button>
+          <select id="bulk-unit-select" class="bulk-unit-dropdown" onchange="onBulkUnitChange()">
+            <option value="kg" selected>KG</option>
+            <option value="ton">TON</option>
+            <option value="gram">GRAM</option>
+          </select>
+        </div>
+        
+        <!-- QUICK INCREMENTS -->
+        <div class="bulk-quick-pills">
+          <button type="button" class="quick-pill" onclick="setBulkPreset(100)">100 kg</button>
+          <button type="button" class="quick-pill" onclick="setBulkPreset(250)">250 kg</button>
+          <button type="button" class="quick-pill" onclick="setBulkPreset(500)">500 kg</button>
+          <button type="button" class="quick-pill" onclick="setBulkPreset(1000)">1 Ton (1000 kg)</button>
+        </div>
+      </div>
+
+      <!-- PACKAGING SELECTION -->
+      <div class="bulk-field-group">
+        <label class="bulk-field-label">Which Package You Need:</label>
+        <select id="bulk-packaging-select" class="bulk-packaging-dropdown" onchange="updateBulkModalCalculations()">
+          <option value="25" selected>25 kg Heavy-Duty Gunny Bags (Wholesale Standard)</option>
+          <option value="10">10 kg Multi-Barrier Boxes (Export Standard)</option>
+          <option value="5">5 kg Vacuum Sealed Bags (Aroma Lock)</option>
+          <option value="1">1 kg Food-Grade Pouches (Retail Ready)</option>
+          <option value="50">50 kg Master Jute Sacks (Bulk Container Cargo)</option>
         </select>
       </div>
-      <button class="btn btn-dark" style="width:100%; margin-top:20px;" onclick="confirmAddBulk()">Add to Quote</button>
+
+      <!-- REAL-TIME CALCULATION SUMMARY CARD -->
+      <div class="bulk-summary-card">
+        <div class="summary-card-title">Live Order Calculation</div>
+        <div class="summary-line">
+          <span>Total Weight:</span>
+          <strong id="bulk-calc-weight">500 kg</strong>
+        </div>
+        <div class="summary-line">
+          <span>Required Packaging:</span>
+          <strong id="bulk-calc-bags" style="color:var(--primary);">20 Bags (25 kg each)</strong>
+        </div>
+        <div class="summary-line">
+          <span>Rate per KG:</span>
+          <strong id="bulk-calc-rate">₹2,200 / kg</strong>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-line total-line">
+          <span>Estimated Total:</span>
+          <strong id="bulk-calc-total">₹11,00,000</strong>
+        </div>
+      </div>
+
+      <!-- ADD TO QUOTE BUTTON -->
+      <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddBulk()" id="btn-add-bulk-quote">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span>Add to Build Your Quote &rarr;</span>
+      </button>
     </div>
   </div>
 
@@ -1969,6 +2143,10 @@
     </div>
     
     <div class="panel-footer">
+      <div class="panel-meta-summary" style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:12.5px; color:var(--muted); border-bottom:1px dashed #e0e0e0; padding-bottom:8px;">
+        <span>Total Volume: <strong id="panel-total-vol" style="color:var(--green-900);">0 kg</strong></span>
+        <span>Total Bags: <strong id="panel-total-bags" style="color:var(--green-900);">0 Units</strong></span>
+      </div>
       <div id="panel-total-price" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; font-weight:700; font-size:16px; color:var(--green-900);">
         <span>Estimated Total:</span>
         <span id="panel-total-val">₹0</span>
@@ -1985,6 +2163,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
+  <script src="app.js?v=4.0"></script>
 </body>
 
 </html>

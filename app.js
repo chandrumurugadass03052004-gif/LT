@@ -1417,6 +1417,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let currentGradeNames = gradeNamesEn;
+  window.currentGradeNames = currentGradeNames;
   let currentLang = 'en';
 
   const viewSpecsBtns = document.querySelectorAll('.btn-view-specs');
@@ -2012,6 +2013,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Apply prices & update ALL UI sections ──────────────
     // IMPORTANT: Set state variables BEFORE calling refresh functions
     livePrices        = parsedResult.prices;
+    window.livePrices = livePrices;
     pricesLastUpdated = formatPriceDate(parsedResult.lastDate);
     apiFetchFailed    = false;  // Must be false BEFORE getDailyPriceRange is called
 
@@ -2095,6 +2097,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (apiFetchFailed) return null;   // API down — show error
     return getLivePrice(grade, variety); // null if loading/not found
   };
+  window.getDailyPriceRange = getDailyPriceRange;
 
   const getSelectedGrade = () => {
     const activeGradeBtn = calcGradeSelector.querySelector('.grade-radio-btn.selected');
@@ -2339,6 +2342,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const formattedId = `LT-${sizesJoined}-${totalBags}-${custNum}`;
     document.getElementById('invoice-id').innerText = formattedId;
   };
+  window.updateQuote = updateQuote;
+  window.estimateItems = estimateItems;
+  window.setEstimateItems = (items) => { estimateItems = items; };
   
   // Variety Button selection actions
   if (varietyGreenBtn && varietyYellowBtn) {
@@ -2647,6 +2653,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentGradeNames = gradeNamesEn;
       currentPackingLabels = packingLabelsEn;
     }
+    window.currentGradeNames = currentGradeNames;
 
     // 4. Update language indicator text
     langDropdownBtn.innerText = lang.toUpperCase();
@@ -3053,8 +3060,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ==========================================================================
-   MY QUOTE SYSTEM LOGIC
+   MY QUOTE SYSTEM & ESTIMATE QUANTITY LOGIC
    ========================================================================== */
+
+const defaultGradeNames = {
+  '6mm': '6.0 mm Standard Medium',
+  '7mm': '7.0 mm Premium Bold (AGEB)',
+  '7.5mm': '7.5 mm Elite Premium Bold',
+  '7.5-8mm': '7.5 - 8.0 mm Super Bold Export Mix',
+  '8mm': '8.0 mm Super Extra Bold (Jumbo)',
+  '8.5mm': '8.5 mm Imperial Jumbo Bold',
+  '9mm': '9.0 mm Supreme Royal Jumbo'
+};
+
+const defaultGradePrices = {
+  '6mm': { min: 1600, max: 1720, avg: 1660 },
+  '7mm': { min: 1850, max: 2000, avg: 1925 },
+  '7.5mm': { min: 2100, max: 2300, avg: 2200 },
+  '7.5-8mm': { min: 2300, max: 2500, avg: 2400 },
+  '8mm': { min: 2500, max: 2750, avg: 2625 },
+  '8.5mm': { min: 2750, max: 3000, avg: 2875 },
+  '9mm': { min: 3000, max: 3350, avg: 3175 },
+  'Y6mm': { min: 1400, max: 1550, avg: 1475 },
+  'Y7mm': { min: 1650, max: 1800, avg: 1725 },
+  'Y7.5mm': { min: 1900, max: 2050, avg: 1975 },
+  'Y7.5-8mm': { min: 2100, max: 2250, avg: 2175 },
+  'Y8mm': { min: 2300, max: 2500, avg: 2400 },
+  'Y8.5mm': { min: 2500, max: 2700, avg: 2600 },
+  'Y9mm': { min: 2700, max: 2950, avg: 2825 }
+};
+
+window.getDailyPriceRange = function(grade, variety = 'green') {
+  if (!grade) return { min: 2000, max: 2400, avg: 2200 };
+  let cleanGrade = grade.replace('-yellow', '').trim();
+  let cleanVariety = (variety === 'yellow' || grade.includes('-yellow')) ? 'yellow' : 'green';
+  const key = cleanVariety === 'yellow' ? 'Y' + cleanGrade : cleanGrade;
+  
+  if (window.livePrices && window.livePrices[key]) {
+    return window.livePrices[key];
+  }
+  if (defaultGradePrices[key]) {
+    return defaultGradePrices[key];
+  }
+  return { min: 2000, max: 2400, avg: 2200 };
+};
 
 let myQuoteItems = [];
 
@@ -3074,6 +3123,7 @@ const bulkModalProduct = document.getElementById('bulk-modal-product');
 const sampleModalProduct = document.getElementById('sample-modal-product');
 const bulkQtyInput = document.getElementById('bulk-qty-input');
 const bulkUnitSelect = document.getElementById('bulk-unit-select');
+const bulkPackagingSelect = document.getElementById('bulk-packaging-select');
 const sampleCustomInput = document.getElementById('sample-custom-input');
 
 let currentActiveProduct = null;
@@ -3085,77 +3135,226 @@ function generateId() {
 
 // Panel Toggles
 function openQuotePanel() {
-  quotePanel.classList.add('open');
-  renderQuotePanel();
+  if (quotePanel) {
+    quotePanel.classList.add('open');
+    renderQuotePanel();
+  }
 }
+window.openQuotePanel = openQuotePanel;
+
 function closeQuotePanel() {
-  quotePanel.classList.remove('open');
+  if (quotePanel) {
+    quotePanel.classList.remove('open');
+  }
 }
+window.closeQuotePanel = closeQuotePanel;
+
+// Real-time calculation inside the Estimate Quantity Modal
+function updateBulkModalCalculations() {
+  if (!currentActiveProduct) return;
+  const input = document.getElementById('bulk-qty-input');
+  const unitSelect = document.getElementById('bulk-unit-select');
+  const packSelect = document.getElementById('bulk-packaging-select');
+  
+  let qty = parseFloat(input ? input.value : 500) || 0;
+  if (qty < 0) qty = 0;
+  const unit = unitSelect ? unitSelect.value : 'kg';
+  
+  // Normalize to KG
+  let qtyKg = qty;
+  if (unit === 'ton') qtyKg = qty * 1000;
+  if (unit === 'gram') qtyKg = qty / 1000;
+  
+  // Package size in KG
+  let packKg = 25;
+  let packName = '25 kg Heavy-Duty Gunny Bags';
+  if (packSelect) {
+    packKg = parseFloat(packSelect.value) || 25;
+    packName = packSelect.options[packSelect.selectedIndex].text;
+  }
+  
+  // Calculate total bags/boxes/pouches
+  let totalBags = 0;
+  if (qtyKg > 0) {
+    totalBags = Math.ceil(qtyKg / packKg);
+  }
+  
+  let unitText = 'Bags';
+  if (packKg === 1) unitText = 'Pouches';
+  else if (packKg === 10) unitText = 'Boxes';
+  
+  // Fetch price per kg
+  const priceInfo = (typeof window.getDailyPriceRange === 'function') 
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) 
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+  const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
+  const totalPrice = Math.round(qtyKg * ratePerKg);
+  
+  // Update UI in the modal
+  const elRate = document.getElementById('bulk-rate-per-kg');
+  const elRange = document.getElementById('bulk-rate-range');
+  const elWeight = document.getElementById('bulk-calc-weight');
+  const elBags = document.getElementById('bulk-calc-bags');
+  const elCalcRate = document.getElementById('bulk-calc-rate');
+  const elTotal = document.getElementById('bulk-calc-total');
+  
+  if (elRate) elRate.innerText = '₹' + ratePerKg.toLocaleString('en-IN') + ' / kg';
+  if (elRange && priceInfo) {
+    elRange.innerText = `(₹${priceInfo.min.toLocaleString('en-IN')} – ₹${priceInfo.max.toLocaleString('en-IN')})`;
+  }
+  if (elWeight) elWeight.innerText = `${qtyKg.toLocaleString('en-IN')} kg (${qty} ${unit.toUpperCase()})`;
+  if (elBags) elBags.innerText = `${totalBags.toLocaleString('en-IN')} ${unitText} (${packKg} kg each)`;
+  if (elCalcRate) elCalcRate.innerText = '₹' + ratePerKg.toLocaleString('en-IN') + ' / kg';
+  if (elTotal) elTotal.innerText = '₹' + totalPrice.toLocaleString('en-IN');
+}
+window.updateBulkModalCalculations = updateBulkModalCalculations;
 
 // Bulk Modal Toggles
-window.openBulkModal = function(grade, variety) {
-  currentActiveProduct = { grade, variety };
-  const gradeName = currentGradeNames[grade] || grade;
-  const varietyName = variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
-  bulkModalProduct.innerText = `${gradeName} - ${varietyName}`;
-  modalBulkAdd.classList.add('active');
-};
-window.closeBulkModal = function() {
-  modalBulkAdd.classList.remove('active');
-  currentActiveProduct = null;
-};
-
-// Sample Modal Toggles
-window.openSampleModal = function(grade, variety) {
-  currentActiveProduct = { grade, variety };
-  const gradeName = currentGradeNames[grade] || grade;
-  const varietyName = variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
-  sampleModalProduct.innerText = `${gradeName} - ${varietyName}`;
-  modalReqSample.classList.add('active');
-};
-window.closeSampleModal = function() {
-  modalReqSample.classList.remove('active');
-  currentActiveProduct = null;
-};
-
-// Add to Quote
-window.changeBulkQty = function(delta) {
-  const input = document.getElementById('bulk-qty-input');
-  const unit = document.getElementById('bulk-unit-select').value;
-  let val = parseFloat(input.value) || 0;
+function openBulkModal(grade, variety) {
+  let isYellow = (variety === 'yellow' || (grade && grade.includes('-yellow')));
+  let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
+  let cleanVariety = isYellow ? 'yellow' : 'green';
   
-  let step = 1;
+  currentActiveProduct = { grade: cleanGrade, rawGrade: grade, variety: cleanVariety };
+  
+  const gradeNamesObj = window.currentGradeNames || (typeof currentGradeNames !== 'undefined' ? currentGradeNames : defaultGradeNames);
+  const gradeName = (gradeNamesObj && gradeNamesObj[cleanGrade]) || defaultGradeNames[cleanGrade] || cleanGrade;
+  const varietyName = cleanVariety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
+  
+  const prodTitleEl = document.getElementById('bulk-modal-product');
+  if (prodTitleEl) {
+    prodTitleEl.innerText = `${cleanGrade} ${varietyName} · ${gradeName}`;
+  }
+  
+  // Reset initial inputs if needed
+  const input = document.getElementById('bulk-qty-input');
+  const unitSelect = document.getElementById('bulk-unit-select');
+  const packSelect = document.getElementById('bulk-packaging-select');
+  
+  if (input && (!input.value || parseFloat(input.value) <= 0)) {
+    input.value = 500;
+  }
+  if (unitSelect) unitSelect.value = 'kg';
+  if (packSelect) packSelect.value = '25';
+  
+  updateBulkModalCalculations();
+  
+  const modal = document.getElementById('modal-bulk-add');
+  if (modal) modal.classList.add('open', 'active');
+}
+window.openBulkModal = openBulkModal;
+
+function closeBulkModal() {
+  const modal = document.getElementById('modal-bulk-add');
+  if (modal) modal.classList.remove('open', 'active');
+  currentActiveProduct = null;
+}
+window.closeBulkModal = closeBulkModal;
+
+// Stepper adjustment
+function changeBulkQty(delta) {
+  const input = document.getElementById('bulk-qty-input');
+  const unitSelect = document.getElementById('bulk-unit-select');
+  const unit = unitSelect ? unitSelect.value : 'kg';
+  let val = parseFloat(input ? input.value : 0) || 0;
+  
+  let step = 50;
   if (unit === 'kg') step = 50;
   if (unit === 'gram') step = 100;
   if (unit === 'ton') step = 1;
   
   val += (delta * step);
   if (val < 1) val = 1;
-  input.value = val;
-};
+  if (input) input.value = val;
+  updateBulkModalCalculations();
+}
+window.changeBulkQty = changeBulkQty;
 
-window.confirmAddBulk = function() {
+function setBulkPreset(amount) {
+  const input = document.getElementById('bulk-qty-input');
+  const unitSelect = document.getElementById('bulk-unit-select');
+  if (input) input.value = amount;
+  if (unitSelect) unitSelect.value = 'kg';
+  updateBulkModalCalculations();
+}
+window.setBulkPreset = setBulkPreset;
+
+function onBulkUnitChange() {
+  updateBulkModalCalculations();
+}
+window.onBulkUnitChange = onBulkUnitChange;
+
+// Sample Modal Toggles
+function openSampleModal(grade, variety) {
+  let isYellow = (variety === 'yellow' || (grade && grade.includes('-yellow')));
+  let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
+  let cleanVariety = isYellow ? 'yellow' : 'green';
+  
+  currentActiveProduct = { grade: cleanGrade, rawGrade: grade, variety: cleanVariety };
+  const gradeNamesObj = window.currentGradeNames || (typeof currentGradeNames !== 'undefined' ? currentGradeNames : defaultGradeNames);
+  const gradeName = (gradeNamesObj && gradeNamesObj[cleanGrade]) || defaultGradeNames[cleanGrade] || cleanGrade;
+  const varietyName = cleanVariety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+  
+  const sampleProdEl = document.getElementById('sample-modal-product');
+  if (sampleProdEl) {
+    sampleProdEl.innerText = `${cleanGrade} ${varietyName} · ${gradeName}`;
+  }
+  const modal = document.getElementById('modal-req-sample');
+  if (modal) modal.classList.add('open', 'active');
+}
+window.openSampleModal = openSampleModal;
+
+function closeSampleModal() {
+  const modal = document.getElementById('modal-req-sample');
+  if (modal) modal.classList.remove('open', 'active');
+  currentActiveProduct = null;
+}
+window.closeSampleModal = closeSampleModal;
+
+// Confirm Add to Quote
+function confirmAddBulk() {
   if (!currentActiveProduct) return;
-  let qty = parseFloat(bulkQtyInput.value) || 0;
-  const unit = bulkUnitSelect.value;
+  const input = document.getElementById('bulk-qty-input');
+  const unitSelect = document.getElementById('bulk-unit-select');
+  const packSelect = document.getElementById('bulk-packaging-select');
   
+  let qty = parseFloat(input ? input.value : 0) || 0;
   if (qty <= 0) return;
+  const unit = unitSelect ? unitSelect.value : 'kg';
   
-  // Normalize to KG for internal logic if needed, but we'll store exactly what they typed
   let qtyKg = qty;
   if (unit === 'ton') qtyKg = qty * 1000;
   if (unit === 'gram') qtyKg = qty / 1000;
   
-  // Check if exists, update it, else add
+  let packKg = 25;
+  let packName = '25 kg Heavy-Duty Gunny Bags';
+  if (packSelect) {
+    packKg = parseFloat(packSelect.value) || 25;
+    packName = packSelect.options[packSelect.selectedIndex].text;
+  }
+  
+  const totalBags = Math.ceil(qtyKg / packKg);
+  const priceInfo = (typeof window.getDailyPriceRange === 'function')
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety)
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+  const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
+  const totalPrice = Math.round(qtyKg * ratePerKg);
+  const priceMin = priceInfo ? Math.round(priceInfo.min * qtyKg) : 0;
+  const priceMax = priceInfo ? Math.round(priceInfo.max * qtyKg) : 0;
+  
+  // Check if item already exists in quote
   const existing = myQuoteItems.find(i => !i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety);
   if (existing) {
-    // If unit matches, just add. Else overwrite.
-    if (existing.unit === unit) {
-      existing.qty += qty;
-    } else {
-      existing.qty = qty;
-      existing.unit = unit;
-    }
+    existing.qty = qty;
+    existing.unit = unit;
+    existing.qtyKg = qtyKg;
+    existing.packagingName = packName;
+    existing.packKg = packKg;
+    existing.bags = totalBags;
+    existing.pricePerKg = ratePerKg;
+    existing.totalPrice = totalPrice;
+    existing.priceMin = priceMin;
+    existing.priceMax = priceMax;
   } else {
     myQuoteItems.push({
       id: generateId(),
@@ -3164,7 +3363,14 @@ window.confirmAddBulk = function() {
       variety: currentActiveProduct.variety,
       qty: qty,
       unit: unit,
-      qtyKg: qtyKg
+      qtyKg: qtyKg,
+      packagingName: packName,
+      packKg: packKg,
+      bags: totalBags,
+      pricePerKg: ratePerKg,
+      totalPrice: totalPrice,
+      priceMin: priceMin,
+      priceMax: priceMax
     });
   }
   
@@ -3172,9 +3378,10 @@ window.confirmAddBulk = function() {
   updateQuoteBadge();
   animateBadge();
   openQuotePanel();
-};
+}
+window.confirmAddBulk = confirmAddBulk;
 
-window.confirmAddSample = function() {
+function confirmAddSample() {
   if (!currentActiveProduct) return;
   
   let sampleSize = '';
@@ -3182,7 +3389,8 @@ window.confirmAddSample = function() {
   for (let r of radios) {
     if (r.checked) {
       if (r.value === 'custom') {
-        sampleSize = sampleCustomInput.value || 'Custom';
+        const customIn = document.getElementById('sample-custom-input');
+        sampleSize = (customIn && customIn.value) ? customIn.value : 'Custom';
       } else {
         sampleSize = r.value;
       }
@@ -3202,27 +3410,33 @@ window.confirmAddSample = function() {
   updateQuoteBadge();
   animateBadge();
   openQuotePanel();
-};
+}
+window.confirmAddSample = confirmAddSample;
 
-window.removeQuoteItem = function(id) {
+function removeQuoteItem(id) {
   myQuoteItems = myQuoteItems.filter(i => i.id !== id);
   updateQuoteBadge();
   renderQuotePanel();
-};
+}
+window.removeQuoteItem = removeQuoteItem;
 
-// UI Updates
+// UI Badge Updates
 function updateQuoteBadge() {
+  const badge = document.getElementById('floating-quote-badge');
+  if (!badge) return;
   if (myQuoteItems.length > 0) {
-    quoteBadge.style.display = 'flex';
-    quoteBadge.innerText = myQuoteItems.length;
+    badge.style.display = 'flex';
+    badge.innerText = myQuoteItems.length;
   } else {
-    quoteBadge.style.display = 'none';
+    badge.style.display = 'none';
   }
 }
+window.updateQuoteBadge = updateQuoteBadge;
 
 function animateBadge() {
-  quoteBadge.style.transform = 'scale(1.5)';
+  const badge = document.getElementById('floating-quote-badge');
   const floatBtn = document.getElementById('floating-quote-btn');
+  if (badge) badge.style.transform = 'scale(1.5)';
   if (floatBtn) {
     floatBtn.classList.remove('jiggle');
     void floatBtn.offsetWidth; // trigger reflow
@@ -3230,57 +3444,93 @@ function animateBadge() {
   }
   
   setTimeout(() => {
-    quoteBadge.style.transform = 'scale(1)';
+    if (badge) badge.style.transform = 'scale(1)';
     if (floatBtn) floatBtn.classList.remove('jiggle');
   }, 500);
 }
+window.animateBadge = animateBadge;
 
+// Render "Build Your Quote" Side Panel
 function renderQuotePanel() {
-  quoteBulkItems.innerHTML = '';
-  quoteSampleItems.innerHTML = '';
+  const bulkItemsEl = document.getElementById('quote-bulk-items');
+  const sampleItemsEl = document.getElementById('quote-sample-items');
+  const emptyMsgEl = document.getElementById('quote-empty-msg');
+  const bulkListEl = document.getElementById('quote-bulk-list');
+  const sampleListEl = document.getElementById('quote-sample-list');
+  const countTextEl = document.getElementById('my-quote-count-text');
+  
+  if (bulkItemsEl) bulkItemsEl.innerHTML = '';
+  if (sampleItemsEl) sampleItemsEl.innerHTML = '';
   
   const bulks = myQuoteItems.filter(i => !i.isSample);
   const samples = myQuoteItems.filter(i => i.isSample);
   
   if (myQuoteItems.length === 0) {
-    quoteEmptyMsg.style.display = 'block';
-    quoteBulkList.style.display = 'none';
-    quoteSampleList.style.display = 'none';
-    quoteCountText.innerText = '0 items selected';
+    if (emptyMsgEl) emptyMsgEl.style.display = 'block';
+    if (bulkListEl) bulkListEl.style.display = 'none';
+    if (sampleListEl) sampleListEl.style.display = 'none';
+    if (countTextEl) countTextEl.innerText = '0 items selected';
+    const panelTotalVal = document.getElementById('panel-total-val');
+    if (panelTotalVal) panelTotalVal.innerText = '₹0';
+    const panelVol = document.getElementById('panel-total-vol');
+    if (panelVol) panelVol.innerText = '0 kg';
+    const panelBags = document.getElementById('panel-total-bags');
+    if (panelBags) panelBags.innerText = '0 Units';
     return;
   }
   
-  quoteEmptyMsg.style.display = 'none';
-  quoteCountText.innerText = `${myQuoteItems.length} items selected`;
+  if (emptyMsgEl) emptyMsgEl.style.display = 'none';
   
-  if (bulks.length > 0) {
-    quoteBulkList.style.display = 'block';
+  let panelTotal = 0;
+  let panelTotalVol = 0;
+  let panelTotalBags = 0;
+  
+  const gradeNamesObj = window.currentGradeNames || (typeof currentGradeNames !== 'undefined' ? currentGradeNames : defaultGradeNames);
+  
+  if (bulks.length > 0 && bulkListEl && bulkItemsEl) {
+    bulkListEl.style.display = 'block';
     bulks.forEach(item => {
-      const gradeName = currentGradeNames[item.grade] || item.grade;
+      const gradeName = (gradeNamesObj && gradeNamesObj[item.grade]) || defaultGradeNames[item.grade] || item.grade;
       const varietyName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
       const imgPath = item.variety === 'yellow' ? 'assets/images/yellow-cardamom-thumb.jpg' : 'assets/images/green-cardamom-thumb.jpg';
+      
+      let unitText = 'Bags';
+      if (item.packKg === 1) unitText = 'Pouches';
+      else if (item.packKg === 10) unitText = 'Boxes';
+      
+      panelTotal += (item.totalPrice || 0);
+      panelTotalVol += (item.qtyKg || item.qty);
+      panelTotalBags += (item.bags || 0);
       
       const el = document.createElement('div');
       el.className = 'quote-item';
       el.innerHTML = `
-        <img src="${imgPath}">
+        <img src="${imgPath}" alt="${gradeName}">
         <div class="quote-item-info">
           <h5>${item.grade} ${varietyName}</h5>
-          <p>${gradeName}</p>
-          <div class="quote-item-qty">${item.qty} ${item.unit.toUpperCase()}</div>
+          <p class="quote-item-sub">${gradeName}</p>
+          <div class="quote-item-details-grid">
+            <span class="quote-detail-pill"><strong>Qty:</strong> ${item.qty} ${item.unit.toUpperCase()}</span>
+            <span class="quote-detail-pill"><strong>Bags:</strong> ${item.bags} ${unitText} (${item.packKg || 25}kg)</span>
+            <span class="quote-detail-pill"><strong>Rate:</strong> ₹${(item.pricePerKg || 0).toLocaleString('en-IN')}/kg</span>
+          </div>
+          <div class="quote-item-price">
+            <span class="quote-price-label">Estimated:</span>
+            <span class="quote-price-val">₹${(item.totalPrice || 0).toLocaleString('en-IN')}</span>
+          </div>
         </div>
         <div class="quote-item-actions">
-          <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" title="Remove Item"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
         </div>
       `;
-      quoteBulkItems.appendChild(el);
+      bulkItemsEl.appendChild(el);
     });
-  } else {
-    quoteBulkList.style.display = 'none';
+  } else if (bulkListEl) {
+    bulkListEl.style.display = 'none';
   }
   
-  if (samples.length > 0) {
-    quoteSampleList.style.display = 'block';
+  if (samples.length > 0 && sampleListEl && sampleItemsEl) {
+    sampleListEl.style.display = 'block';
     samples.forEach(item => {
       const varietyName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
       const imgPath = item.variety === 'yellow' ? 'assets/images/yellow-cardamom-thumb.jpg' : 'assets/images/green-cardamom-thumb.jpg';
@@ -3291,95 +3541,57 @@ function renderQuotePanel() {
         <img src="${imgPath}">
         <div class="quote-item-info">
           <h5>${item.grade} ${varietyName}</h5>
-          <p>Sample — ${item.sampleSize}</p>
+          <p class="quote-item-sub">Sample Request — ${item.sampleSize}</p>
         </div>
         <div class="quote-item-actions">
-          <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" title="Remove Item"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
         </div>
       `;
-      quoteSampleItems.appendChild(el);
+      sampleItemsEl.appendChild(el);
     });
-  } else {
-    quoteSampleList.style.display = 'none';
+  } else if (sampleListEl) {
+    sampleListEl.style.display = 'none';
   }
   
-  // Update Panel Total Price
-  let panelTotal = 0;
-  bulks.forEach(item => {
-    let qtyKg = item.qtyKg || item.qty;
-    if (item.unit === 'ton') qtyKg = item.qty * 1000;
-    if (item.unit === 'gram') qtyKg = item.qty / 1000;
-    
-    // We assume getDailyPriceRange is globally available as it's defined elsewhere
-    if (typeof getDailyPriceRange === 'function') {
-      const priceInfo = getDailyPriceRange(item.grade, item.variety);
-      if (priceInfo && priceInfo.avg) {
-        panelTotal += (priceInfo.avg * qtyKg);
-      } else if (priceInfo && priceInfo.min && priceInfo.max) {
-        panelTotal += (Math.round((priceInfo.min + priceInfo.max) / 2) * qtyKg);
-      }
-    }
-  });
+  if (countTextEl) {
+    countTextEl.innerText = `${myQuoteItems.length} items · ${panelTotalVol.toLocaleString('en-IN')} kg (${panelTotalBags} Bags)`;
+  }
   
   const panelTotalVal = document.getElementById('panel-total-val');
   if (panelTotalVal) {
-    if (panelTotal > 0) {
-      panelTotalVal.innerText = '₹' + panelTotal.toLocaleString();
-    } else {
-      panelTotalVal.innerText = 'Pending Inquiry';
-    }
+    panelTotalVal.innerText = panelTotal > 0 ? ('₹' + panelTotal.toLocaleString('en-IN')) : 'Pending Inquiry';
   }
+  const panelVol = document.getElementById('panel-total-vol');
+  if (panelVol) panelVol.innerText = `${panelTotalVol.toLocaleString('en-IN')} kg`;
+  const panelBags = document.getElementById('panel-total-bags');
+  if (panelBags) panelBags.innerText = `${panelTotalBags.toLocaleString('en-IN')} Units`;
 }
+window.renderQuotePanel = renderQuotePanel;
 
-// Transfer to Calculator
-window.continueToCalculator = function() {
+// Transfer to On-Page Quote Calculator
+function continueToCalculator() {
   closeQuotePanel();
   
-  // Map myQuoteItems to estimateItems
-  estimateItems = [];
-  
+  const newItems = [];
   myQuoteItems.forEach(qItem => {
     if (!qItem.isSample) {
-      // It's a bulk item
-      let qtyKg = qItem.qtyKg;
-      
-      // Calculate packaging
-      let packagingType = '';
-      let totalBags = 0;
-      if (qtyKg < 100) {
-        packagingType = '1 kg Pouches';
-        totalBags = Math.ceil(qtyKg);
-      } else if (qtyKg < 500) {
-        packagingType = '5 kg Bags';
-        totalBags = Math.ceil(qtyKg / 5);
-      } else if (qtyKg < 2000) {
-        packagingType = '10 kg Boxes';
-        totalBags = Math.ceil(qtyKg / 10);
-      } else {
-        packagingType = '25 kg Bags';
-        totalBags = Math.ceil(qtyKg / 25);
-      }
-      
-      const priceInfo = getDailyPriceRange(qItem.grade, qItem.variety);
-      
-      estimateItems.push({
+      newItems.push({
         id: qItem.id,
         isSample: false,
         grade: qItem.grade,
         variety: qItem.variety,
-        qty: qtyKg, // Note: estimator uses kg internally
+        qty: qItem.qtyKg,
         displayQty: `${qItem.qty} ${qItem.unit.toUpperCase()}`,
-        packagingType: packagingType,
-        bags: totalBags,
-        priceMin: priceInfo ? priceInfo.min * qtyKg : 0,
-        priceMax: priceInfo ? priceInfo.max * qtyKg : 0,
-        priceAvg: priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) * qtyKg : 0,
-        pricePerKg: priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 0,
-        isUnavailable: !priceInfo
+        packagingType: qItem.packagingName || '25 kg Heavy-Duty Gunny Bags',
+        bags: qItem.bags,
+        priceMin: qItem.priceMin || 0,
+        priceMax: qItem.priceMax || 0,
+        priceAvg: qItem.totalPrice || 0,
+        pricePerKg: qItem.pricePerKg || 0,
+        isUnavailable: false
       });
     } else {
-      // It's a sample item
-      estimateItems.push({
+      newItems.push({
         id: qItem.id,
         isSample: true,
         grade: qItem.grade,
@@ -3394,14 +3606,30 @@ window.continueToCalculator = function() {
     }
   });
   
-  updateQuote();
+  if (typeof window.setEstimateItems === 'function') {
+    window.setEstimateItems(newItems);
+  } else if (typeof estimateItems !== 'undefined') {
+    estimateItems = newItems;
+  }
   
-  // Scroll to calculator
-  document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
-};
+  if (typeof window.updateQuote === 'function') {
+    window.updateQuote();
+  } else if (typeof updateQuote === 'function') {
+    updateQuote();
+  }
+  
+  const calcEl = document.getElementById('calculator');
+  if (calcEl) {
+    calcEl.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+window.continueToCalculator = continueToCalculator;
 
 // Ensure modal closing when clicking outside
 window.addEventListener('click', (e) => {
-  if (e.target === modalBulkAdd) closeBulkModal();
-  if (e.target === modalReqSample) closeSampleModal();
+  const modalBulk = document.getElementById('modal-bulk-add');
+  const modalSample = document.getElementById('modal-req-sample');
+  if (e.target === modalBulk) closeBulkModal();
+  if (e.target === modalSample) closeSampleModal();
 });
+
