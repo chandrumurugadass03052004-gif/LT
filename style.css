@@ -2517,25 +2517,309 @@ input[type="number"]:focus {
 }
 
 /* Estimator Table styles */
+.estimator-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
 .estimator-table th, .estimator-table td {
-  padding: 8px 6px;
+  padding: 10px 8px;
   border-bottom: 1px solid var(--line-light);
+}
+
+.estimator-table th {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--green-900);
+}
+
+.estimator-table td.est-cell-item strong {
+  font-size: 14px;
+  color: var(--green-900);
+  display: block;
+}
+
+.estimator-table td.est-cell-item .est-item-pack {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.estimator-table td.est-cell-qty,
+.estimator-table td.est-cell-bags,
+.estimator-table td.est-cell-price {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.estimator-table td.est-cell-price .est-total-val {
+  font-weight: 700;
+  color: var(--green-900);
+  font-size: 14.5px;
+}
+
+.est-mobile-stats {
+  display: none;
 }
 
 .est-del-btn {
   background: none;
-  border: none;
-  color: var(--red);
+  border: 1px solid #dc3545;
+  color: #dc3545;
   cursor: pointer;
-  font-size: 14px;
-  padding: 2px 6px;
+  font-size: 12px;
+  padding: 4px 8px;
   transition: var(--transition);
   border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .est-del-btn:hover {
   background: rgba(220, 53, 69, 0.1);
-  transform: scale(1.15);
+  color: #c82333;
+}
+
+/* ============================================================
+   RESPONSIVE MOBILE STYLES FOR BULK CALCULATOR (<= 640px)
+   ============================================================ */
+@media (max-width: 640px) {
+  .calculator-box {
+    padding: 18px 14px !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+  
+  .calc-grid {
+    gap: 22px !important;
+  }
+  
+  /* Variety Selector - Clean vertical stacked full-width buttons */
+  .calc-variety-selector {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 8px !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .variety-btn {
+    width: 100% !important;
+    padding: 12px 14px !important;
+    font-size: 13.5px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Grade Selector - 2 balanced columns, no clipping or overflowing */
+  .grade-radios {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .grade-radio-btn {
+    padding: 11px 8px !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  .grade-radio-btn:nth-child(7) {
+    grid-column: span 2 !important;
+  }
+  
+  /* Range slider and input */
+  .range-container {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  #calc-qty-range {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  #calc-qty-input {
+    width: 110px !important;
+    max-width: 120px !important;
+  }
+  
+  /* Invoice Header */
+  .invoice-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+  }
+  
+  .invoice-header > div {
+    text-align: left !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+  
+  /* Estimator list container */
+  .estimator-list-container {
+    padding: 8px !important;
+    max-height: 400px !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Responsive card transformation for estimator items on mobile */
+  .estimator-table {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .estimator-table[style*="display: none"],
+  .estimator-table.hide-table {
+    display: none !important;
+  }
+  
+  .estimator-table tbody,
+  .estimator-table tr,
+  .estimator-table td {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .estimator-table thead {
+    display: none !important; /* Hide cramped table header on mobile */
+  }
+  
+  .estimator-table tr.est-item-card {
+    background: #ffffff !important;
+    border: 1px solid var(--line-light) !important;
+    border-radius: 10px !important;
+    padding: 14px 12px !important;
+    margin-bottom: 10px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    position: relative !important;
+  }
+  
+  .estimator-table td {
+    padding: 2px 0 !important;
+    border: none !important;
+    text-align: left !important;
+  }
+  
+  .estimator-table td.est-cell-item {
+    padding-right: 76px !important; /* Space for remove button */
+    margin-bottom: 6px !important;
+  }
+  
+  .estimator-table td.est-cell-item strong {
+    font-size: 14px !important;
+    color: var(--green-900) !important;
+    display: block !important;
+    line-height: 1.35 !important;
+  }
+  
+  .estimator-table td.est-cell-item .est-item-pack {
+    font-size: 12px !important;
+    color: var(--muted) !important;
+    margin-top: 3px !important;
+    display: block !important;
+  }
+  
+  /* Hide the separate table-column cells on mobile */
+  .estimator-table td.est-cell-qty,
+  .estimator-table td.est-cell-bags {
+    display: none !important;
+  }
+  
+  /* 3-column Mobile Stat Pill Grid */
+  .estimator-table .est-mobile-stats {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 6px !important;
+    background: var(--cream-2) !important;
+    border-radius: 8px !important;
+    padding: 8px 8px !important;
+    margin: 8px 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  .estimator-table .est-stat-pill {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  
+  .estimator-table .est-stat-pill span {
+    font-size: 9.5px !important;
+    color: var(--muted) !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+  }
+  
+  .estimator-table .est-stat-pill strong {
+    font-size: 12.5px !important;
+    color: var(--green-900) !important;
+    margin-top: 2px !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Mobile Total Price Line */
+  .estimator-table td.est-cell-price {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-top: 1px dashed var(--line) !important;
+    padding-top: 8px !important;
+    margin-top: 4px !important;
+  }
+  
+  .estimator-table td.est-cell-price::before {
+    content: "Estimated Total:" !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--muted) !important;
+  }
+  
+  .estimator-table td.est-cell-price .est-total-val {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: var(--green-900) !important;
+  }
+  
+  .estimator-table td.est-cell-price .est-desktop-rate {
+    display: none !important;
+  }
+  
+  /* Position Remove button at top right of the card */
+  .estimator-table td.est-cell-action {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    padding: 0 !important;
+  }
+  
+  .estimator-table td.est-cell-action .remove-item-btn {
+    padding: 4px 8px !important;
+    font-size: 11.5px !important;
+  }
 }
 
 /* --- DYNAMIC CARDAMOM-BREAKING LOADER --- */

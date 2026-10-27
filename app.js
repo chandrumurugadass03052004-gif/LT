@@ -1930,12 +1930,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const showStatusBadge = (isLive) => {
     const badge = document.getElementById('price-status-badge');
     if (!badge) return;
-    badge.style.display = 'inline';
+    badge.style.display = 'inline-flex';
+    badge.style.alignItems = 'center';
+    badge.style.gap = '5px';
     if (isLive) {
-      badge.textContent  = '≡ƒƒó Live Market Data';
+      badge.innerHTML = '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#2d7a4f;"></span> Live Market Data';
       badge.style.color  = '#2d7a4f';
     } else {
-      badge.textContent  = '≡ƒö┤ Offline — Retrying...';
+      badge.innerHTML = '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#c0392b;"></span> Offline — Retrying...';
       badge.style.color  = '#c0392b';
     }
   };
@@ -2275,6 +2277,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (estimateItems.length === 0) {
       estimatorEmptyMsg.style.display = 'block';
       estimatorTable.style.display = 'none';
+      estimatorTable.classList.add('hide-table');
+      estimatorTableBody.innerHTML = '';
       estimatorTotalsSection.style.display = 'none';
       const summaryItemsCountEl = document.getElementById('summary-items-count');
       if (summaryItemsCountEl) summaryItemsCountEl.innerText = '0';
@@ -2284,6 +2288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     estimatorEmptyMsg.style.display = 'none';
     estimatorTable.style.display = 'table';
+    estimatorTable.classList.remove('hide-table');
     estimatorTotalsSection.style.display = 'block';
     estimatorTableBody.innerHTML = '';
 
@@ -2310,53 +2315,87 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const tr = document.createElement('tr');
+      tr.className = 'est-item-card';
       const varLabel = item.variety === 'yellow' ? 
-        (translations[currentLang]['prod_tab_yellow'] || 'Fruit Cardamom') : 
+        (translations[currentLang]['prod_tab_yellow'] || 'Fruit Cardamom (Yellow/Pale)') : 
         (translations[currentLang]['prod_tab_green'] || 'Green Cardamom');
 
       const sizeLabel = currentGradeNames[item.grade] || item.grade;
 
       if (item.isSample) {
         tr.innerHTML = `
-          <td>
-            <strong>${sizeLabel} ${varLabel}</strong><br>
-            <span style="font-size: 13px; color: var(--green-900); font-weight:600;">Sample Request &mdash; ${item.sampleSize}</span>
+          <td class="est-cell-item">
+            <strong>${sizeLabel} ${varLabel}</strong>
+            <span class="est-item-pack">Sample Request &mdash; ${item.sampleSize}</span>
+            <div class="est-mobile-stats">
+              <div class="est-stat-pill">
+                <span>Size</span>
+                <strong>${item.sampleSize}</strong>
+              </div>
+              <div class="est-stat-pill">
+                <span>Type</span>
+                <strong>Sample</strong>
+              </div>
+              <div class="est-stat-pill">
+                <span>Cost</span>
+                <strong style="color:var(--muted);">Free</strong>
+              </div>
+            </div>
           </td>
-          <td>Sample</td>
-          <td>-</td>
-          <td>-</td>
-          <td style="text-align:center;">
-            <button type="button" class="btn btn-sm btn-outline remove-item-btn est-del-btn" style="padding:4px 8px;font-size:12px;color:#dc3545;border:1px solid #dc3545;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;background:none;transition:all 0.2s ease;" data-id="${item.id}" onclick="window.deleteEstimateItem('${item.id}')" title="Remove grade from inquiry list">
+          <td class="est-cell-qty" style="text-align:right;">${item.sampleSize}</td>
+          <td class="est-cell-bags" style="text-align:right;">1 Pkt</td>
+          <td class="est-cell-price" style="text-align:right;">
+            <span class="est-total-val" style="font-size:13px; font-weight:600; color:var(--muted);">Free Sample</span>
+          </td>
+          <td class="est-cell-action" style="text-align:center;">
+            <button type="button" class="btn btn-sm btn-outline remove-item-btn est-del-btn" style="padding:4px 8px;font-size:12px;color:#dc3545;border:1px solid #dc3545;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;background:none;transition:all 0.2s ease;" data-id="${item.id}" onclick="window.deleteEstimateItem('${item.id}')" title="Remove sample from inquiry list">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none;"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
               <span>Remove</span>
             </button>
           </td>
         `;
       } else {
-        let priceText;
-        if (item.isUnavailable || apiFetchFailed) {
-          priceText = '<span style="color:var(--muted);font-size:12px;">Unavailable</span>';
-        } else {
-          const avg = item.pricePerKg || 0;
-          const minKg = item.qty > 0 ? Math.round(item.priceMin / item.qty) : 0;
-          const maxKg = item.qty > 0 ? Math.round(item.priceMax / item.qty) : 0;
-          priceText = `
-            <div style="font-weight:700; color:var(--text-main); font-size:15px;">₹${avg.toLocaleString()} / kg</div>
-            <div style="font-size:11px; color:var(--muted); margin-top:2px;">Range: ₹${minKg}-₹${maxKg}</div>
-          `;
-        }
+        const avg = item.pricePerKg || 0;
+        const packName = item.packagingType || item.packaging || '25 kg Heavy-Duty Gunny Bags';
+        const displayQty = item.displayQty || `${item.qty} KG`;
+        const totalBagsText = `${item.bags} ${item.bags === 1 ? 'Bag' : 'Bags'}`;
+        const priceValText = '₹' + (item.priceAvg || 0).toLocaleString('en-IN');
+        const rateText = '₹' + avg.toLocaleString('en-IN') + '/kg';
 
         tr.innerHTML = `
-          <td>
-            <strong>${sizeLabel} ${varLabel}</strong><br>
-            <span style="font-size: 12.5px; color: var(--muted);">${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType || item.packaging || 'Standard Packaging'})</span>
+          <td class="est-cell-item">
+            <strong>${sizeLabel} ${varLabel}</strong>
+            <span class="est-item-pack">${packName}</span>
+            <div class="est-mobile-stats">
+              <div class="est-stat-pill">
+                <span>Quantity</span>
+                <strong>${displayQty}</strong>
+              </div>
+              <div class="est-stat-pill">
+                <span>Packaging</span>
+                <strong>${totalBagsText}</strong>
+              </div>
+              <div class="est-stat-pill">
+                <span>Rate / KG</span>
+                <strong>${rateText}</strong>
+              </div>
+            </div>
           </td>
-          <td>${item.displayQty || item.qty + ' KG'}</td>
-          <td>${priceText}</td>
-          <td>
-            <div style="font-weight:700; color:var(--green-900); font-size:15px;">₹${(item.priceAvg || 0).toLocaleString()}</div>
+          
+          <td class="est-cell-qty" style="text-align:right;">
+            <strong>${displayQty}</strong>
           </td>
-          <td style="text-align:center;">
+          
+          <td class="est-cell-bags" style="text-align:right;">
+            <span>${totalBagsText}</span>
+          </td>
+          
+          <td class="est-cell-price" style="text-align:right;">
+            <span class="est-total-val">${priceValText}</span>
+            <div style="font-size:11px; color:var(--muted); font-weight:normal;" class="est-desktop-rate">(${rateText})</div>
+          </td>
+          
+          <td class="est-cell-action" style="text-align:center;">
             <button type="button" class="btn btn-sm btn-outline remove-item-btn est-del-btn" style="padding:4px 8px;font-size:12px;color:#dc3545;border:1px solid #dc3545;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;background:none;transition:all 0.2s ease;" data-id="${item.id}" onclick="window.deleteEstimateItem('${item.id}')" title="Remove grade from inquiry list">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none;"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
               <span>Remove</span>
