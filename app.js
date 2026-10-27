@@ -2159,12 +2159,25 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const deleteEstimateItem = (id) => {
-    estimateItems = estimateItems.filter(item => item.id !== id);
+    if (!id) return;
+    const targetId = String(id);
+    estimateItems = estimateItems.filter(item => String(item.id) !== targetId);
+    window.estimateItems = estimateItems;
+    
+    // Also remove from myQuoteItems to keep sync
+    if (typeof myQuoteItems !== 'undefined') {
+      myQuoteItems = myQuoteItems.filter(i => String(i.id) !== targetId);
+      if (typeof updateQuoteBadge === 'function') updateQuoteBadge();
+      if (typeof renderQuotePanel === 'function') renderQuotePanel();
+    }
+    
     updateQuote();
   };
+  window.deleteEstimateItem = deleteEstimateItem;
 
   const addEstimateItem = () => {
     const details = getActiveSelectionDetails();
+    const newItemId = 'est_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
     
     // Check if item of same variety and grade already exists in cart, if so, merge them
     const existing = estimateItems.find(item => item.variety === calcVariety && item.grade === details.grade);
@@ -2191,19 +2204,36 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const priceInfo = getDailyPriceRange(existing.grade, existing.variety);
       existing.packaging = packagingType;
+      existing.packagingType = packagingType;
       existing.bags = totalBags;
       existing.priceMin = priceInfo ? priceInfo.min * mergedQty : 0;
       existing.priceMax = priceInfo ? priceInfo.max * mergedQty : 0;
       existing.priceAvg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) * mergedQty : 0;
       existing.pricePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 0;
       existing.isUnavailable = !priceInfo;
+
+      // Also sync existing item in myQuoteItems
+      if (typeof myQuoteItems !== 'undefined') {
+        const existingQuote = myQuoteItems.find(i => !i.isSample && i.variety === calcVariety && i.grade === details.grade);
+        if (existingQuote) {
+          existingQuote.qty = existing.qty;
+          existingQuote.qtyKg = existing.qty;
+          existingQuote.packagingName = existing.packaging;
+          existingQuote.bags = existing.bags;
+          existingQuote.pricePerKg = existing.pricePerKg;
+          existingQuote.totalPrice = existing.priceAvg;
+          existingQuote.priceMin = existing.priceMin;
+          existingQuote.priceMax = existing.priceMax;
+        }
+      }
     } else {
       estimateItems.push({
-        id: Date.now() + Math.random(),
+        id: newItemId,
         variety: calcVariety,
         grade: details.grade,
         qty: details.qty,
         packaging: details.packagingType,
+        packagingType: details.packagingType,
         bags: details.totalBags,
         priceMin: details.priceMin,
         priceMax: details.priceMax,
@@ -2211,8 +2241,31 @@ document.addEventListener('DOMContentLoaded', () => {
         pricePerKg: details.pricePerKg,
         isUnavailable: details.isUnavailable
       });
+
+      // Keep myQuoteItems in sync
+      if (typeof myQuoteItems !== 'undefined') {
+        myQuoteItems.push({
+          id: newItemId,
+          isSample: false,
+          grade: details.grade,
+          variety: calcVariety,
+          qty: details.qty,
+          unit: 'kg',
+          qtyKg: details.qty,
+          packagingName: details.packagingType,
+          packKg: 25,
+          bags: details.totalBags,
+          pricePerKg: details.pricePerKg,
+          totalPrice: details.priceAvg,
+          priceMin: details.priceMin,
+          priceMax: details.priceMax
+        });
+      }
     }
 
+    window.estimateItems = estimateItems;
+    if (typeof updateQuoteBadge === 'function') updateQuoteBadge();
+    if (typeof renderQuotePanel === 'function') renderQuotePanel();
     updateQuote();
   };
 
@@ -2223,6 +2276,8 @@ document.addEventListener('DOMContentLoaded', () => {
       estimatorEmptyMsg.style.display = 'block';
       estimatorTable.style.display = 'none';
       estimatorTotalsSection.style.display = 'none';
+      const summaryItemsCountEl = document.getElementById('summary-items-count');
+      if (summaryItemsCountEl) summaryItemsCountEl.innerText = '0';
       document.getElementById('invoice-id').innerText = `LT-EMPTY-${custNum}`;
       return;
     }
@@ -2271,7 +2326,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>-</td>
           <td>-</td>
           <td style="text-align:center;">
-            <button class="btn btn-sm btn-outline remove-item-btn" style="padding:4px 8px;font-size:12px;color:red;border-color:red;" data-id="${item.id}">Remove</button>
+            <button type="button" class="btn btn-sm btn-outline remove-item-btn est-del-btn" style="padding:4px 8px;font-size:12px;color:#dc3545;border:1px solid #dc3545;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;background:none;transition:all 0.2s ease;" data-id="${item.id}" onclick="window.deleteEstimateItem('${item.id}')" title="Remove grade from inquiry list">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none;"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Remove</span>
+            </button>
           </td>
         `;
       } else {
@@ -2291,7 +2349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tr.innerHTML = `
           <td>
             <strong>${sizeLabel} ${varLabel}</strong><br>
-            <span style="font-size: 12.5px; color: var(--muted);">${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType})</span>
+            <span style="font-size: 12.5px; color: var(--muted);">${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType || item.packaging || 'Standard Packaging'})</span>
           </td>
           <td>${item.displayQty || item.qty + ' KG'}</td>
           <td>${priceText}</td>
@@ -2299,7 +2357,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="font-weight:700; color:var(--green-900); font-size:15px;">₹${(item.priceAvg || 0).toLocaleString()}</div>
           </td>
           <td style="text-align:center;">
-            <button class="btn btn-sm btn-outline remove-item-btn" style="padding:4px 8px;font-size:12px;color:red;border-color:red;" data-id="${item.id}">Remove</button>
+            <button type="button" class="btn btn-sm btn-outline remove-item-btn est-del-btn" style="padding:4px 8px;font-size:12px;color:#dc3545;border:1px solid #dc3545;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;background:none;transition:all 0.2s ease;" data-id="${item.id}" onclick="window.deleteEstimateItem('${item.id}')" title="Remove grade from inquiry list">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none;"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Remove</span>
+            </button>
           </td>
         `;
       }
@@ -2309,20 +2370,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const removeBtns = estimatorTableBody.querySelectorAll('.remove-item-btn');
     removeBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const id = e.target.getAttribute('data-id');
-        deleteEstimateItem(id);
-        
-        // Also remove from myQuoteItems to keep sync
-        myQuoteItems = myQuoteItems.filter(i => i.id !== id);
-        updateQuoteBadge();
-        renderQuotePanel();
+        e.preventDefault();
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id') || (e.currentTarget && e.currentTarget.getAttribute('data-id'));
+        if (id) {
+          deleteEstimateItem(id);
+        }
       });
     });
 
+    const summaryItemsCountEl = document.getElementById('summary-items-count');
+    if (summaryItemsCountEl) summaryItemsCountEl.innerText = String(estimateItems.length);
     document.getElementById('summary-qty').innerText = totalQty + ' kg';
     document.getElementById('summary-bags').innerText = totalBags + ' units';
     
-    // ... [pricing logic stays mostly same]
     const sumPriceEl = document.getElementById('summary-price');
     if (anyUnavailable) {
       sumPriceEl.innerHTML = 'Pending Inquiry';
@@ -2344,7 +2405,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.updateQuote = updateQuote;
   window.estimateItems = estimateItems;
-  window.setEstimateItems = (items) => { estimateItems = items; };
+  window.setEstimateItems = (items) => {
+    estimateItems = items;
+    window.estimateItems = items;
+  };
   
   // Variety Button selection actions
   if (varietyGreenBtn && varietyYellowBtn) {
@@ -3414,7 +3478,14 @@ function confirmAddSample() {
 window.confirmAddSample = confirmAddSample;
 
 function removeQuoteItem(id) {
-  myQuoteItems = myQuoteItems.filter(i => i.id !== id);
+  const targetId = String(id);
+  myQuoteItems = myQuoteItems.filter(i => String(i.id) !== targetId);
+  if (typeof window.deleteEstimateItem === 'function') {
+    window.deleteEstimateItem(targetId);
+  } else if (typeof estimateItems !== 'undefined') {
+    estimateItems = estimateItems.filter(i => String(i.id) !== targetId);
+    if (typeof updateQuote === 'function') updateQuote();
+  }
   updateQuoteBadge();
   renderQuotePanel();
 }
