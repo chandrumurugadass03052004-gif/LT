@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4.4">
+  <link rel="stylesheet" href="style.css?v=4.5">
 </head>
 
 <body>
@@ -962,7 +962,7 @@
               </div>
 
               <p class="calc-disclaimer" data-translate="calc_disclaimer">*Note: Cardamom prices fluctuate daily
-                according to Bodinayakanur auction indexes. This is an estimated volume breakdown for supply planning.
+                according to Bodinayakanur auction indexes. Commercial policy: No free samples are supplied; all sample requests are charged at daily pro-rata market rates.
                 Actual price ranges will be locked in upon direct inquiry.</p>
 
               <!-- Compliance Checkboxes -->
@@ -2095,21 +2095,116 @@
 
   <!-- REQUEST SAMPLE MODAL -->
   <div id="modal-req-sample" class="modal-overlay">
-    <div class="modal-container">
+    <div class="modal-container sample-modal-container">
       <span class="modal-close" onclick="closeSampleModal()">&times;</span>
-      <h3>Request Sample</h3>
-      <p id="sample-modal-product" style="font-weight:600; color:var(--green-900); margin-bottom:15px;"></p>
       
-      <div class="sample-radios" style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
-        <label><input type="radio" name="sample-qty" value="50g" checked> 50 g</label>
-        <label><input type="radio" name="sample-qty" value="100g"> 100 g</label>
-        <label><input type="radio" name="sample-qty" value="250g"> 250 g</label>
-        <label style="display:flex; gap:10px; align-items:center;">
-          <input type="radio" name="sample-qty" value="custom"> Custom: 
-          <input type="text" id="sample-custom-input" placeholder="e.g. 500g" style="padding:5px; border:1px solid #ccc; border-radius:4px; width:100px;">
+      <!-- Modal Header -->
+      <div class="bulk-modal-header">
+        <div class="bulk-header-icon" style="background: rgba(180, 83, 9, 0.1); color: #b45309;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2v6h12V2"></path>
+            <path d="M6 8l-2 12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2L18 8"></path>
+            <circle cx="12" cy="14" r="2"></circle>
+          </svg>
+        </div>
+        <div>
+          <h3 style="margin:0; font-size:18px; color:var(--green-900);">Request Product Sample</h3>
+          <p id="sample-modal-product" style="margin:2px 0 0; font-size:13px; font-weight:600; color:#555;"></p>
+        </div>
+      </div>
+
+      <!-- Commercial Policy Banner (No Free Samples) -->
+      <div class="sample-policy-banner">
+        <div class="sample-policy-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <div class="sample-policy-text">
+          <strong>Commercial Policy: No Free Samples</strong>
+          <span>Cardamom samples are charged pro-rata based on prevailing Bodinayakanur daily auction rates. Courier/dispatch costs are confirmed prior to shipping.</span>
+        </div>
+      </div>
+
+      <!-- Live Auction Rate Banner -->
+      <div class="bulk-rate-banner" style="margin-bottom:14px;">
+        <div class="rate-banner-info">
+          <span class="rate-label">Daily Market Rate:</span>
+          <span class="rate-value" id="sample-rate-per-kg">₹2,200 / kg</span>
+          <span class="rate-range" id="sample-rate-range">(₹2,100 – ₹2,300)</span>
+        </div>
+        <span class="rate-badge">
+          <span class="live-dot"></span> Live Auction
+        </span>
+      </div>
+
+      <!-- Sample Size Selection -->
+      <div class="sample-radios-group">
+        <label class="sample-radio-card active" id="sample-opt-50g">
+          <input type="radio" name="sample-qty" value="50g" checked onchange="updateSampleModalCalculations()">
+          <div class="sample-opt-info">
+            <span class="sample-opt-weight">50 grams</span>
+            <span class="sample-opt-sub">Standard Aroma &amp; Pod Evaluation</span>
+          </div>
+          <strong class="sample-opt-price" id="sample-price-50g">₹110</strong>
+        </label>
+        
+        <label class="sample-radio-card" id="sample-opt-100g">
+          <input type="radio" name="sample-qty" value="100g" onchange="updateSampleModalCalculations()">
+          <div class="sample-opt-info">
+            <span class="sample-opt-weight">100 grams</span>
+            <span class="sample-opt-sub">Roasting, Cracking &amp; Grinding Trial</span>
+          </div>
+          <strong class="sample-opt-price" id="sample-price-100g">₹220</strong>
+        </label>
+        
+        <label class="sample-radio-card" id="sample-opt-250g">
+          <input type="radio" name="sample-qty" value="250g" onchange="updateSampleModalCalculations()">
+          <div class="sample-opt-info">
+            <span class="sample-opt-weight">250 grams</span>
+            <span class="sample-opt-sub">Commercial Lab Quality Batch</span>
+          </div>
+          <strong class="sample-opt-price" id="sample-price-250g">₹550</strong>
+        </label>
+        
+        <label class="sample-radio-card" id="sample-opt-custom">
+          <input type="radio" name="sample-qty" value="custom" onchange="updateSampleModalCalculations()">
+          <div class="sample-opt-info">
+            <span class="sample-opt-weight">Custom Sample Weight:</span>
+            <div style="display:flex; align-items:center; gap:6px; margin-top:5px;">
+              <input type="number" id="sample-custom-input" placeholder="e.g. 500" min="10" max="5000" step="10" oninput="onSampleCustomInput()" style="width:100px; padding:6px 10px; border:1px solid #c9d4ce; border-radius:6px; font-weight:700; font-size:14px; color:var(--green-900);">
+              <span style="font-size:12.5px; font-weight:600; color:#555;">grams</span>
+            </div>
+          </div>
+          <strong class="sample-opt-price" id="sample-price-custom">--</strong>
         </label>
       </div>
-      <button class="btn btn-dark" style="width:100%;" onclick="confirmAddSample()">Add Sample to Quote</button>
+
+      <!-- Real-Time Calculation Card -->
+      <div class="bulk-summary-card" style="margin-top:12px; margin-bottom:16px;">
+        <div class="summary-card-title">Live Sample Estimation</div>
+        <div class="summary-line">
+          <span>Sample Quantity:</span>
+          <strong id="sample-calc-qty">50 grams (0.05 kg)</strong>
+        </div>
+        <div class="summary-line">
+          <span>Market Rate:</span>
+          <strong id="sample-calc-rate">₹2,200 / kg</strong>
+        </div>
+        <div class="summary-line">
+          <span>Sample Packaging:</span>
+          <strong style="color:var(--primary);">Aroma-Lock Heat-Sealed Pouch</strong>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-line total-line">
+          <span>Estimated Sample Cost:</span>
+          <strong id="sample-calc-total" style="color:var(--green-900);">₹110</strong>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddSample()" id="btn-add-sample-quote" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span id="sample-submit-btn-text">Add Paid Sample to Quote (₹110) &rarr;</span>
+      </button>
     </div>
   </div>
 
@@ -2135,6 +2230,9 @@
       <div id="quote-sample-list">
         <h4 style="font-size:12px; color:#888; letter-spacing:1px; margin-bottom:10px;">SAMPLE REQUESTS</h4>
         <div id="quote-sample-items"></div>
+        <div class="sample-policy-note">
+          <strong>Commercial Policy:</strong> Paid samples only. No free samples provided. Samples charged pro-rata at daily auction rates.
+        </div>
       </div>
       
       <div id="quote-empty-msg" style="text-align:center; padding:40px 20px; color:#888;">
@@ -2163,7 +2261,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=4.4"></script>
+  <script src="app.js?v=4.5"></script>
 </body>
 
 </html>

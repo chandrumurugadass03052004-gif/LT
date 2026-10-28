@@ -2820,6 +2820,22 @@ input[type="number"]:focus {
     padding: 4px 8px !important;
     font-size: 11.5px !important;
   }
+
+  /* Sample Request Modal Mobile Optimization */
+  #modal-req-sample .modal-container.sample-modal-container {
+    width: 95% !important;
+    padding: 20px 16px !important;
+    max-height: 92vh !important;
+  }
+  .sample-radio-card {
+    padding: 9px 12px !important;
+  }
+  .sample-opt-weight {
+    font-size: 13px !important;
+  }
+  .sample-opt-price {
+    font-size: 14px !important;
+  }
 }
 
 /* --- DYNAMIC CARDAMOM-BREAKING LOADER --- */
@@ -5222,10 +5238,128 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
   background: #ffffff;
 }
-#modal-req-sample .modal-container {
-  max-width: 420px;
-  padding: 30px;
+#modal-req-sample .modal-container.sample-modal-container {
+  max-width: 480px;
+  width: 92%;
+  padding: 24px 26px;
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  max-height: 90vh;
+  overflow-y: auto;
 }
+
+/* Sample Request Modal Commercial Policy Banner */
+.sample-policy-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+.sample-policy-icon {
+  color: #b45309;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.sample-policy-text {
+  font-size: 12px;
+  color: #92400e;
+  line-height: 1.45;
+}
+.sample-policy-text strong {
+  display: block;
+  font-weight: 700;
+  color: #78350f;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Sample Radio Group & Cards */
+.sample-radios-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.sample-radio-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1.5px solid #e1ece5;
+  border-radius: 10px;
+  background: #fbfdfc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.sample-radio-card:hover {
+  background: #f4faf6;
+  border-color: #b9d7c6;
+}
+.sample-radio-card.active {
+  background: #eef7f2;
+  border-color: var(--green-900);
+  box-shadow: 0 2px 8px rgba(15, 44, 25, 0.08);
+}
+.sample-radio-card input[type="radio"] {
+  accent-color: var(--green-900);
+  margin-right: 10px;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.sample-opt-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.sample-opt-weight {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--green-900);
+}
+.sample-opt-sub {
+  font-size: 11px;
+  color: #666;
+  margin-top: 1px;
+}
+.sample-opt-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--green-900);
+  letter-spacing: -0.3px;
+}
+
+/* Sample Paid Tag & Notice */
+.sample-paid-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  padding: 2px 8px;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+}
+.sample-policy-note {
+  font-size: 11px;
+  color: #92400e;
+  background: #fffbeb;
+  border: 1px dashed #fcd34d;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
 
 .bulk-modal-header {
   display: flex;

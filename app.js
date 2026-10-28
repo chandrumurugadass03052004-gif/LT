@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_summary_pack': 'Recommended Packing:',
       'calc_summary_bags': 'Total Shipping Bags:',
       'calc_summary_range': 'Indicative Value Range:',
-      'calc_disclaimer': '*Note: Cardamom prices fluctuate daily according to Bodinayakanur auction indexes. This is an estimated volume breakdown for supply planning. Actual price ranges will be locked in upon direct inquiry.',
+      'calc_disclaimer': '*Note: Cardamom prices fluctuate daily according to Bodinayakanur auction indexes. Commercial policy: No free samples are supplied; sample requests are charged at daily pro-rata market rates. Actual price ranges will be locked in upon direct inquiry.',
       'btn_calc_whatsapp': 'Send Quote Request via WhatsApp →',
       'btn_calc_email': 'Send Quote Request via Email',
       'gallery_eyebrow': 'Visual Tour',
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_summary_pack': 'अनुशंसित पैकिंग:',
       'calc_summary_bags': 'कुल शिपिंग बैग:',
       'calc_summary_range': 'सांकेतिक मूल्य सीमा:',
-      'calc_disclaimer': '*नोट: बोडिनायाकनूर नीलामी सूचकांकों के अनुसार इलायची की कीमतें दैनिक रूप से घटती-बढ़ती रहती हैं। यह आपूर्ति योजना के लिए एक अनुमानित मात्रा विवरण है। वास्तविक मूल्य सीमा प्रत्यक्ष पूछताछ पर तय की जाएगी।',
+      'calc_disclaimer': '*नोट: बोडिनायाकनूर नीलामी सूचकांकों के अनुसार इलायची की कीमतें दैनिक रूप से बदलती हैं। व्यापारिक नीति: कोई निःशुल्क नमूना नहीं दिया जाता; सभी नमूना अनुरोध दैनिक बाजार दरों पर सशुल्क हैं। वास्तविक मूल्य प्रत्यक्ष पूछताछ पर तय होगा।',
       'btn_calc_whatsapp': 'व्हाट्सएप के माध्यम से कोटेशन अनुरोध भेजें →',
       'btn_calc_email': 'ईमेल के माध्यम से कोटेशन अनुरोध भेजें',
       'gallery_eyebrow': 'विजुअल टूर',
@@ -737,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'calc_summary_pack': 'பரிந்துரைக்கப்பட்ட பேக்கேஜிங்:',
       'calc_summary_bags': 'மொத்த போக்குவரத்து பைகள்:',
       'calc_summary_range': 'மதிப்பிடப்பட்ட விலை வரம்பு:',
-      'calc_disclaimer': '*குறிப்பு: போடிநாயக்கனூர் ஏல விலைகளின் அடிப்படையில் ஏலக்காய் விலைகள் தினமும் மாறுபடும். இது திட்டமிடலுக்கான மதிப்பீடாகும். இறுதி விலை நேரடியாக தொடர்பு கொள்ளும்போது உறுதி செய்யப்படும்.',
+      'calc_disclaimer': '*குறிப்பு: போடிநாயக்கனூர் ஏல விலைகளின் அடிப்படையில் ஏலக்காய் விலைகள் தினமும் மாறுபடும். வணிகக் கொள்கை: இலவச மாதிரிகள் வழங்கப்படாது; அனைத்து மாதிரிகளும் தினசரி சந்தை விலையின்படி கட்டண அடிப்படையிலேயே வழங்கப்படும்.',
       'btn_calc_whatsapp': 'வாட்ஸ்அப் மூலம் விவரம் பெற →',
       'btn_calc_email': 'மின்னஞ்சல் மூலம் விவரம் பெற',
       'gallery_eyebrow': 'காட்சிப் பயணம்',
@@ -2312,6 +2312,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const cleanSize = item.grade.replace('.','');
         if (!sizeCodes.includes(cleanSize)) sizeCodes.push(cleanSize);
+      } else {
+        totalPriceMin += (item.priceMin || item.priceAvg || 0);
+        totalPriceMax += (item.priceMax || item.priceAvg || 0);
+        totalPriceAvg += (item.priceAvg || 0);
+        
+        const cleanSize = item.grade ? item.grade.replace('.','') : 'SAMPLE';
+        if (!sizeCodes.includes(cleanSize)) sizeCodes.push(cleanSize);
       }
 
       const tr = document.createElement('tr');
@@ -2323,30 +2330,47 @@ document.addEventListener('DOMContentLoaded', () => {
       const sizeLabel = currentGradeNames[item.grade] || item.grade;
 
       if (item.isSample) {
+        const ratePerKg = item.pricePerKg || 0;
+        const sampleCost = item.priceAvg || 0;
+        const sampleCostText = '₹' + sampleCost.toLocaleString('en-IN');
+        const rateText = '₹' + ratePerKg.toLocaleString('en-IN') + '/kg';
+
         tr.innerHTML = `
           <td class="est-cell-item">
             <strong>${sizeLabel} ${varLabel}</strong>
-            <span class="est-item-pack">Sample Request &mdash; ${item.sampleSize}</span>
+            <span class="est-item-pack">Aroma-Lock Foil Sample Pouch &mdash; ${item.sampleSize}</span>
+            <div style="margin: 4px 0 6px;">
+              <span class="sample-paid-pill">Paid Sample &bull; No Free Sample</span>
+            </div>
             <div class="est-mobile-stats">
               <div class="est-stat-pill">
-                <span>Size</span>
+                <span>Sample Size</span>
                 <strong>${item.sampleSize}</strong>
               </div>
               <div class="est-stat-pill">
-                <span>Type</span>
-                <strong>Sample</strong>
+                <span>Rate / KG</span>
+                <strong>${rateText}</strong>
               </div>
               <div class="est-stat-pill">
-                <span>Cost</span>
-                <strong style="color:var(--muted);">Free</strong>
+                <span>Sample Charge</span>
+                <strong style="color:var(--green-900);">${sampleCostText}</strong>
               </div>
             </div>
           </td>
-          <td class="est-cell-qty" style="text-align:right;">${item.sampleSize}</td>
-          <td class="est-cell-bags" style="text-align:right;">1 Pkt</td>
-          <td class="est-cell-price" style="text-align:right;">
-            <span class="est-total-val" style="font-size:13px; font-weight:600; color:var(--muted);">Free Sample</span>
+          
+          <td class="est-cell-qty" style="text-align:right;">
+            <strong>${item.sampleSize}</strong>
           </td>
+          
+          <td class="est-cell-bags" style="text-align:right;">
+            <span>1 Pkt</span>
+          </td>
+          
+          <td class="est-cell-price" style="text-align:right;">
+            <span class="est-total-val">${sampleCostText}</span>
+            <div style="font-size:11px; color:var(--muted); font-weight:normal;" class="est-desktop-rate">(${rateText})</div>
+          </td>
+          
           <td class="est-cell-action" style="text-align:center;">
             <button type="button" class="btn btn-sm btn-outline remove-item-btn est-del-btn" style="padding:4px 8px;font-size:12px;color:#dc3545;border:1px solid #dc3545;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;background:none;transition:all 0.2s ease;" data-id="${item.id}" onclick="window.deleteEstimateItem('${item.id}')" title="Remove sample from inquiry list">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none;"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -2420,8 +2444,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const summaryItemsCountEl = document.getElementById('summary-items-count');
     if (summaryItemsCountEl) summaryItemsCountEl.innerText = String(estimateItems.length);
-    document.getElementById('summary-qty').innerText = totalQty + ' kg';
-    document.getElementById('summary-bags').innerText = totalBags + ' units';
+    
+    const bulks = estimateItems.filter(i => !i.isSample);
+    const samples = estimateItems.filter(i => i.isSample);
+    const bulkKg = bulks.reduce((acc, i) => acc + (i.qty || 0), 0);
+    const sampleGrams = samples.reduce((acc, i) => {
+      let g = parseFloat(i.sampleSize) || 0;
+      if (g <= 0 && i.qty) g = Math.round(i.qty * 1000);
+      return acc + (g || 50);
+    }, 0);
+
+    let summaryQtyText = '';
+    if (bulkKg > 0 && sampleGrams > 0) {
+      summaryQtyText = `${bulkKg.toLocaleString('en-IN')} kg + ${sampleGrams}g (Samples)`;
+    } else if (bulkKg > 0) {
+      summaryQtyText = `${bulkKg.toLocaleString('en-IN')} kg`;
+    } else {
+      summaryQtyText = `${sampleGrams}g (Sample Request)`;
+    }
+    const summaryQtyEl = document.getElementById('summary-qty');
+    if (summaryQtyEl) summaryQtyEl.innerText = summaryQtyText;
+
+    let summaryBagsText = '';
+    if (totalBags > 0 && samples.length > 0) {
+      summaryBagsText = `${totalBags} ${totalBags === 1 ? 'Bag' : 'Bags'} + ${samples.length} Sample Pkt${samples.length > 1 ? 's' : ''}`;
+    } else if (totalBags > 0) {
+      summaryBagsText = `${totalBags} ${totalBags === 1 ? 'unit' : 'units'}`;
+    } else {
+      summaryBagsText = `${samples.length} Sample Pouch${samples.length > 1 ? 'es' : ''}`;
+    }
+    const summaryBagsEl = document.getElementById('summary-bags');
+    if (summaryBagsEl) summaryBagsEl.innerText = summaryBagsText;
     
     const sumPriceEl = document.getElementById('summary-price');
     if (anyUnavailable) {
@@ -2430,16 +2483,16 @@ document.addEventListener('DOMContentLoaded', () => {
       sumPriceEl.style.color = 'var(--muted)';
     } else {
       sumPriceEl.innerHTML = `
-        <span style="font-size:22px;font-weight:800;color:var(--green-900);">₹${totalPriceAvg.toLocaleString()}</span>
+        <span style="font-size:22px;font-weight:800;color:var(--green-900);">₹${totalPriceAvg.toLocaleString('en-IN')}</span>
         <div style="font-size:11.5px;color:var(--muted);margin-top:5px;">Estimated Avg Value (based on today's market)</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: ₹${totalPriceMin.toLocaleString()} – ₹${totalPriceMax.toLocaleString()}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">Range: ₹${totalPriceMin.toLocaleString('en-IN')} – ₹${totalPriceMax.toLocaleString('en-IN')}</div>
       `;
       sumPriceEl.style.fontSize = '';
       sumPriceEl.style.color = '';
     }
 
     const sizesJoined = sizeCodes.length > 0 ? sizeCodes.join('-') : 'SAMPLES';
-    const formattedId = `LT-${sizesJoined}-${totalBags}-${custNum}`;
+    const formattedId = `LT-${sizesJoined}-${Math.max(1, totalBags)}-${custNum}`;
     document.getElementById('invoice-id').innerText = formattedId;
   };
   window.updateQuote = updateQuote;
@@ -2539,7 +2592,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const gradeName = currentGradeNames[item.grade] || item.grade;
       
       if (item.isSample) {
-        sampleDetails += `  ${sampleCount}. ${varName} (${gradeName}) - Sample: ${item.sampleSize}\n`;
+        const sampleCost = item.priceAvg || 0;
+        const ratePerKg = item.pricePerKg || 0;
+        sampleDetails += `  ${sampleCount}. ${varName} (${gradeName}) - Sample: ${item.sampleSize} [Paid Sample: Est. ₹${sampleCost.toLocaleString('en-IN')} @ ₹${ratePerKg.toLocaleString('en-IN')}/kg]\n`;
         sampleCount++;
       } else {
         itemsDetails += `  ${bulkCount}. ${varName} (${gradeName}) - ${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType})\n`;
@@ -2551,10 +2606,11 @@ document.addEventListener('DOMContentLoaded', () => {
     msg += `INQUIRY ID: ${invoiceId}\n\n`;
     msg += `--- REQUIREMENTS ---\n`;
     if (itemsDetails) {
-      msg += `\nBULK:\n${itemsDetails}`;
+      msg += `\nBULK REQUIREMENTS:\n${itemsDetails}`;
     }
     if (sampleDetails) {
-      msg += `\nSAMPLES:\n${sampleDetails}`;
+      msg += `\nPAID SAMPLE REQUESTS:\n${sampleDetails}`;
+      msg += `  *Commercial Policy: Samples are charged pro-rata at daily auction rates. No free samples provided.*\n`;
     }
     
     msg += `\nPlease let me know the final pricing and availability.\nThank you!`;
@@ -3209,6 +3265,7 @@ window.getDailyPriceRange = function(grade, variety = 'green') {
 };
 
 let myQuoteItems = [];
+window.myQuoteItems = myQuoteItems;
 
 // DOM Elements
 const quotePanel = document.getElementById('my-quote-panel');
@@ -3387,7 +3444,7 @@ function onBulkUnitChange() {
 }
 window.onBulkUnitChange = onBulkUnitChange;
 
-// Sample Modal Toggles
+// Sample Modal Toggles & Real-Time Calculation
 function openSampleModal(grade, variety) {
   let isYellow = (variety === 'yellow' || (grade && grade.includes('-yellow')));
   let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
@@ -3396,12 +3453,21 @@ function openSampleModal(grade, variety) {
   currentActiveProduct = { grade: cleanGrade, rawGrade: grade, variety: cleanVariety };
   const gradeNamesObj = window.currentGradeNames || (typeof currentGradeNames !== 'undefined' ? currentGradeNames : defaultGradeNames);
   const gradeName = (gradeNamesObj && gradeNamesObj[cleanGrade]) || defaultGradeNames[cleanGrade] || cleanGrade;
-  const varietyName = cleanVariety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+  const varietyName = cleanVariety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
   
   const sampleProdEl = document.getElementById('sample-modal-product');
   if (sampleProdEl) {
     sampleProdEl.innerText = `${cleanGrade} ${varietyName} · ${gradeName}`;
   }
+  
+  // Set default to 50g
+  const defaultRadio = document.querySelector('input[name="sample-qty"][value="50g"]');
+  if (defaultRadio) defaultRadio.checked = true;
+  const customIn = document.getElementById('sample-custom-input');
+  if (customIn) customIn.value = '';
+
+  updateSampleModalCalculations();
+
   const modal = document.getElementById('modal-req-sample');
   if (modal) modal.classList.add('open', 'active');
 }
@@ -3413,6 +3479,84 @@ function closeSampleModal() {
   currentActiveProduct = null;
 }
 window.closeSampleModal = closeSampleModal;
+
+function updateSampleModalCalculations() {
+  if (!currentActiveProduct) return;
+  const priceInfo = (typeof window.getDailyPriceRange === 'function')
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety)
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+  const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
+
+  // Rate banner
+  const rateEl = document.getElementById('sample-rate-per-kg');
+  const rangeEl = document.getElementById('sample-rate-range');
+  if (rateEl) rateEl.innerText = '₹' + ratePerKg.toLocaleString('en-IN') + ' / kg';
+  if (rangeEl && priceInfo) {
+    rangeEl.innerText = `(₹${priceInfo.min.toLocaleString('en-IN')} – ₹${priceInfo.max.toLocaleString('en-IN')})`;
+  }
+
+  // Update preset prices
+  const price50g = Math.round(0.05 * ratePerKg);
+  const price100g = Math.round(0.10 * ratePerKg);
+  const price250g = Math.round(0.25 * ratePerKg);
+
+  const el50 = document.getElementById('sample-price-50g');
+  const el100 = document.getElementById('sample-price-100g');
+  const el250 = document.getElementById('sample-price-250g');
+  if (el50) el50.innerText = '₹' + price50g.toLocaleString('en-IN');
+  if (el100) el100.innerText = '₹' + price100g.toLocaleString('en-IN');
+  if (el250) el250.innerText = '₹' + price250g.toLocaleString('en-IN');
+
+  // Determine active selection
+  let selectedVal = '50g';
+  let weightGrams = 50;
+  const radios = document.getElementsByName('sample-qty');
+  for (let r of radios) {
+    const parentLabel = r.closest('.sample-radio-card');
+    if (r.checked) {
+      selectedVal = r.value;
+      if (parentLabel) parentLabel.classList.add('active');
+    } else {
+      if (parentLabel) parentLabel.classList.remove('active');
+    }
+  }
+
+  if (selectedVal === '50g') weightGrams = 50;
+  else if (selectedVal === '100g') weightGrams = 100;
+  else if (selectedVal === '250g') weightGrams = 250;
+  else if (selectedVal === 'custom') {
+    const customIn = document.getElementById('sample-custom-input');
+    let parsed = parseFloat(customIn ? customIn.value : 0) || 0;
+    if (parsed <= 0) parsed = 50;
+    weightGrams = parsed;
+    const elCustom = document.getElementById('sample-price-custom');
+    if (elCustom) {
+      const customPrice = Math.round((weightGrams / 1000) * ratePerKg);
+      elCustom.innerText = '₹' + customPrice.toLocaleString('en-IN');
+    }
+  }
+
+  const weightKg = weightGrams / 1000;
+  const currentSamplePrice = Math.round(weightKg * ratePerKg);
+
+  const calcQtyEl = document.getElementById('sample-calc-qty');
+  const calcRateEl = document.getElementById('sample-calc-rate');
+  const calcTotalEl = document.getElementById('sample-calc-total');
+  const submitTextEl = document.getElementById('sample-submit-btn-text');
+
+  if (calcQtyEl) calcQtyEl.innerText = `${weightGrams} grams (${weightKg < 1 ? weightKg.toFixed(2) : weightKg} kg)`;
+  if (calcRateEl) calcRateEl.innerText = '₹' + ratePerKg.toLocaleString('en-IN') + ' / kg';
+  if (calcTotalEl) calcTotalEl.innerText = '₹' + currentSamplePrice.toLocaleString('en-IN');
+  if (submitTextEl) submitTextEl.innerText = `Add Paid Sample to Quote (₹${currentSamplePrice.toLocaleString('en-IN')}) →`;
+}
+window.updateSampleModalCalculations = updateSampleModalCalculations;
+
+function onSampleCustomInput() {
+  const customRadio = document.querySelector('input[name="sample-qty"][value="custom"]');
+  if (customRadio) customRadio.checked = true;
+  updateSampleModalCalculations();
+}
+window.onSampleCustomInput = onSampleCustomInput;
 
 // Confirm Add to Quote
 function confirmAddBulk() {
@@ -3487,27 +3631,60 @@ window.confirmAddBulk = confirmAddBulk;
 function confirmAddSample() {
   if (!currentActiveProduct) return;
   
-  let sampleSize = '';
+  let sampleSize = '50g';
+  let weightGrams = 50;
   const radios = document.getElementsByName('sample-qty');
   for (let r of radios) {
     if (r.checked) {
       if (r.value === 'custom') {
         const customIn = document.getElementById('sample-custom-input');
-        sampleSize = (customIn && customIn.value) ? customIn.value : 'Custom';
+        let parsed = parseFloat(customIn ? customIn.value : 0) || 0;
+        if (parsed <= 0) parsed = 50;
+        weightGrams = parsed;
+        sampleSize = `${parsed}g`;
       } else {
         sampleSize = r.value;
+        weightGrams = parseFloat(r.value) || 50;
       }
       break;
     }
   }
   
-  myQuoteItems.push({
-    id: generateId(),
-    isSample: true,
-    grade: currentActiveProduct.grade,
-    variety: currentActiveProduct.variety,
-    sampleSize: sampleSize
-  });
+  const weightKg = weightGrams / 1000;
+  const priceInfo = (typeof window.getDailyPriceRange === 'function')
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety)
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+  const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
+  const samplePrice = Math.round(weightKg * ratePerKg);
+  const samplePriceMin = priceInfo ? Math.round(weightKg * priceInfo.min) : samplePrice;
+  const samplePriceMax = priceInfo ? Math.round(weightKg * priceInfo.max) : samplePrice;
+
+  // Check if sample item already exists in quote
+  const existing = myQuoteItems.find(i => i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety);
+  if (existing) {
+    existing.sampleSize = sampleSize;
+    existing.weightGrams = weightGrams;
+    existing.weightKg = weightKg;
+    existing.pricePerKg = ratePerKg;
+    existing.totalPrice = samplePrice;
+    existing.priceMin = samplePriceMin;
+    existing.priceMax = samplePriceMax;
+  } else {
+    myQuoteItems.push({
+      id: generateId(),
+      isSample: true,
+      grade: currentActiveProduct.grade,
+      variety: currentActiveProduct.variety,
+      sampleSize: sampleSize,
+      weightGrams: weightGrams,
+      weightKg: weightKg,
+      pricePerKg: ratePerKg,
+      totalPrice: samplePrice,
+      priceMin: samplePriceMin,
+      priceMax: samplePriceMax,
+      packagingName: 'Aroma-Lock Foil Sample Pouch'
+    });
+  }
   
   closeSampleModal();
   updateQuoteBadge();
@@ -3519,6 +3696,7 @@ window.confirmAddSample = confirmAddSample;
 function removeQuoteItem(id) {
   const targetId = String(id);
   myQuoteItems = myQuoteItems.filter(i => String(i.id) !== targetId);
+  window.myQuoteItems = myQuoteItems;
   if (typeof window.deleteEstimateItem === 'function') {
     window.deleteEstimateItem(targetId);
   } else if (typeof estimateItems !== 'undefined') {
@@ -3642,16 +3820,33 @@ function renderQuotePanel() {
   if (samples.length > 0 && sampleListEl && sampleItemsEl) {
     sampleListEl.style.display = 'block';
     samples.forEach(item => {
+      const gradeName = (gradeNamesObj && gradeNamesObj[item.grade]) || defaultGradeNames[item.grade] || item.grade;
       const varietyName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
       const imgPath = item.variety === 'yellow' ? 'assets/images/yellow-cardamom-thumb.jpg' : 'assets/images/green-cardamom-thumb.jpg';
+      const sampleCost = item.totalPrice || Math.round((item.weightKg || 0.05) * (item.pricePerKg || 2200));
       
+      panelTotal += sampleCost;
+      panelTotalVol += (item.weightKg || 0.05);
+
       const el = document.createElement('div');
       el.className = 'quote-item';
       el.innerHTML = `
-        <img src="${imgPath}">
+        <img src="${imgPath}" alt="${gradeName}">
         <div class="quote-item-info">
           <h5>${item.grade} ${varietyName}</h5>
-          <p class="quote-item-sub">Sample Request — ${item.sampleSize}</p>
+          <p class="quote-item-sub">${gradeName}</p>
+          <div style="margin: 4px 0 6px;">
+            <span class="sample-paid-pill">Paid Sample &bull; No Free Sample</span>
+          </div>
+          <div class="quote-item-details-grid">
+            <span class="quote-detail-pill"><strong>Size:</strong> ${item.sampleSize}</span>
+            <span class="quote-detail-pill"><strong>Rate:</strong> ₹${(item.pricePerKg || 0).toLocaleString('en-IN')}/kg</span>
+            <span class="quote-detail-pill"><strong>Pack:</strong> Foil Pouch</span>
+          </div>
+          <div class="quote-item-price">
+            <span class="quote-price-label">Sample Cost:</span>
+            <span class="quote-price-val">₹${sampleCost.toLocaleString('en-IN')}</span>
+          </div>
         </div>
         <div class="quote-item-actions">
           <svg onclick="removeQuoteItem('${item.id}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" title="Remove Item"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -3663,8 +3858,17 @@ function renderQuotePanel() {
     sampleListEl.style.display = 'none';
   }
   
+  const bulkKg = bulks.reduce((acc, i) => acc + (i.qtyKg || i.qty || 0), 0);
+  const sampleGrams = samples.reduce((acc, i) => acc + (i.weightGrams || (i.weightKg ? Math.round(i.weightKg * 1000) : 50)), 0);
+
   if (countTextEl) {
-    countTextEl.innerText = `${myQuoteItems.length} items · ${panelTotalVol.toLocaleString('en-IN')} kg (${panelTotalBags} Bags)`;
+    if (bulks.length > 0 && samples.length > 0) {
+      countTextEl.innerText = `${myQuoteItems.length} items · ${bulkKg.toLocaleString('en-IN')} kg + ${sampleGrams}g (${panelTotalBags} Bags + ${samples.length} Pouches)`;
+    } else if (bulks.length > 0) {
+      countTextEl.innerText = `${myQuoteItems.length} items · ${bulkKg.toLocaleString('en-IN')} kg (${panelTotalBags} Bags)`;
+    } else {
+      countTextEl.innerText = `${samples.length} sample item${samples.length > 1 ? 's' : ''} · ${sampleGrams}g (${samples.length} Pouch${samples.length > 1 ? 'es' : ''})`;
+    }
   }
   
   const panelTotalVal = document.getElementById('panel-total-val');
@@ -3672,9 +3876,25 @@ function renderQuotePanel() {
     panelTotalVal.innerText = panelTotal > 0 ? ('₹' + panelTotal.toLocaleString('en-IN')) : 'Pending Inquiry';
   }
   const panelVol = document.getElementById('panel-total-vol');
-  if (panelVol) panelVol.innerText = `${panelTotalVol.toLocaleString('en-IN')} kg`;
+  if (panelVol) {
+    if (bulkKg > 0 && sampleGrams > 0) {
+      panelVol.innerText = `${bulkKg.toLocaleString('en-IN')} kg + ${sampleGrams}g`;
+    } else if (bulkKg > 0) {
+      panelVol.innerText = `${bulkKg.toLocaleString('en-IN')} kg`;
+    } else {
+      panelVol.innerText = `${sampleGrams}g (Sample)`;
+    }
+  }
   const panelBags = document.getElementById('panel-total-bags');
-  if (panelBags) panelBags.innerText = `${panelTotalBags.toLocaleString('en-IN')} Units`;
+  if (panelBags) {
+    if (panelTotalBags > 0 && samples.length > 0) {
+      panelBags.innerText = `${panelTotalBags} Bags + ${samples.length} Pouches`;
+    } else if (panelTotalBags > 0) {
+      panelBags.innerText = `${panelTotalBags} Units`;
+    } else {
+      panelBags.innerText = `${samples.length} Sample Pouch${samples.length > 1 ? 'es' : ''}`;
+    }
+  }
 }
 window.renderQuotePanel = renderQuotePanel;
 
@@ -3707,11 +3927,15 @@ function continueToCalculator() {
         grade: qItem.grade,
         variety: qItem.variety,
         sampleSize: qItem.sampleSize,
-        qty: 0,
-        bags: 0,
-        priceMin: 0,
-        priceMax: 0,
-        priceAvg: 0
+        qty: qItem.weightKg || 0.05,
+        displayQty: qItem.sampleSize,
+        packagingType: 'Aroma-Lock Foil Sample Pouch (Paid)',
+        bags: 1,
+        priceMin: qItem.priceMin || 0,
+        priceMax: qItem.priceMax || 0,
+        priceAvg: qItem.totalPrice || 0,
+        pricePerKg: qItem.pricePerKg || 0,
+        isUnavailable: false
       });
     }
   });
@@ -3729,7 +3953,7 @@ function continueToCalculator() {
   }
   
   const calcEl = document.getElementById('calculator');
-  if (calcEl) {
+  if (calcEl && typeof calcEl.scrollIntoView === 'function') {
     calcEl.scrollIntoView({ behavior: 'smooth' });
   }
 }
