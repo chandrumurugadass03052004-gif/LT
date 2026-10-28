@@ -5643,3 +5643,163 @@ body.hero-animate .hero-media { opacity: 1; transform: translateY(0); transition
   animation: cartBounce 0.5s ease;
 }
 
+/* ==========================================================================
+   SUBPAGE HERO & LAYOUTS (About Us, Packaging, Gallery)
+   ========================================================================== */
+.subpage-hero {
+  padding: 135px 0 65px;
+  background: radial-gradient(circle at 80% 20%, rgba(189, 160, 106, 0.12) 0%, transparent 60%),
+              linear-gradient(180deg, #F9F8F3 0%, #FFFFFF 100%);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.subpage-hero-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.subpage-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+}
+
+.subpage-breadcrumb a {
+  color: var(--green-900);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.subpage-breadcrumb a:hover {
+  color: var(--gold-dark);
+  text-decoration: underline;
+}
+
+.subpage-hero h1 {
+  font-size: 46px;
+  line-height: 1.2;
+  color: var(--green-900);
+  margin-bottom: 18px;
+  font-family: var(--font-serif);
+}
+
+.subpage-hero h1 span {
+  color: var(--gold-dark);
+}
+
+.subpage-hero p {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 680px;
+  margin: 0 auto 30px;
+}
+
+.subpage-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-links a.active {
+  color: var(--gold-dark) !important;
+  font-weight: 700;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold-dark);
+  border-radius: 2px;
+}
+
+/* Packaging specifications cards */
+.packaging-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 45px;
+}
+
+.pack-spec-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.pack-spec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(189, 160, 106, 0.4);
+}
+
+.pack-spec-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(27, 94, 32, 0.08);
+  color: var(--green-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.pack-spec-card h3 {
+  font-size: 20px;
+  color: var(--green-900);
+  margin-bottom: 10px;
+  font-family: var(--font-serif);
+}
+
+.pack-spec-card p {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.pack-spec-meta {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--green-900);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .subpage-hero {
+    padding: 105px 0 45px;
+  }
+  .subpage-hero h1 {
+    font-size: 32px;
+  }
+  .subpage-hero p {
+    font-size: 15.5px;
+  }
+}
+
+
