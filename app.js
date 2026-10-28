@@ -1,3 +1,24 @@
+// Global language selector fallback (available immediately even before DOMContentLoaded)
+window.selectSiteLanguage = function(lang) {
+  try {
+    localStorage.setItem('lisha-lang', lang);
+    if (typeof window.setLanguage === 'function') {
+      window.setLanguage(lang);
+    }
+  } catch (e) {
+    console.error('[Language] Select error:', e);
+  }
+  const modals = document.querySelectorAll('#lang-modal, #lang-modal-overlay, .lang-modal-overlay');
+  modals.forEach(modal => {
+    modal.classList.add('hide');
+    modal.style.display = 'none';
+  });
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    document.body.classList.add('hero-animate');
+  }, 200);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================================
@@ -961,38 +982,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const burgerMenu = document.getElementById('burger-menu');
   const navLinks = document.getElementById('nav-links');
 
-  burgerMenu.addEventListener('click', () => {
-    burgerMenu.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
-
-  // Auto-close menu when a link is clicked
-  const links = navLinks.querySelectorAll('a');
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      burgerMenu.classList.remove('open');
-      navLinks.classList.remove('open');
+  if (burgerMenu && navLinks) {
+    burgerMenu.addEventListener('click', () => {
+      burgerMenu.classList.toggle('open');
+      navLinks.classList.toggle('open');
     });
-  });
+
+    // Auto-close menu when a link is clicked
+    const links = navLinks.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        burgerMenu.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+  }
 
   /* ==========================================================================
      3. SCROLL REVEAL (INTERSECTION OBSERVER)
      ========================================================================== */
   const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        // Stop observing once animated
-        observer.unobserve(entry.target);
-      }
+  if (typeof IntersectionObserver !== 'undefined') {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Stop observing once animated
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
 
-  revealElements.forEach(el => revealObserver.observe(el));
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('active'));
+  }
 
   /* ==========================================================================
      4. PRODUCT SPECIFICATIONS MATRIX (MULTI-LANG)
@@ -1494,17 +1521,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  modalClose.addEventListener('click', closeModal);
-  modalBack.addEventListener('click', closeModal);
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modalBack) modalBack.addEventListener('click', closeModal);
 
   // Close when clicking overlay
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
 
   // Esc key close
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
+    if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
       closeModal();
     }
   });
@@ -1689,17 +1718,19 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLocalReviews();
 
   // Modal "Add to Cart" click: open Bulk Add modal for current grade
-  modalQuote.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeModal();
-    const isYellow = activeModalGradeKey && activeModalGradeKey.includes('-yellow');
-    const variety = isYellow ? 'yellow' : 'green';
-    
-    // openBulkModal comes from HTML injection previously
-    if (typeof window.openBulkModal === 'function') {
-      window.openBulkModal(activeModalGradeKey, variety);
-    }
-  });
+  if (modalQuote) {
+    modalQuote.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeModal();
+      const isYellow = activeModalGradeKey && activeModalGradeKey.includes('-yellow');
+      const variety = isYellow ? 'yellow' : 'green';
+      
+      // openBulkModal comes from HTML injection previously
+      if (typeof window.openBulkModal === 'function') {
+        window.openBulkModal(activeModalGradeKey, variety);
+      }
+    });
+  }
 
   /* ==========================================================================
      5. INTERACTIVE PROCESS TIMELINE
@@ -1759,12 +1790,16 @@ document.addEventListener('DOMContentLoaded', () => {
       weightSelectors.forEach(s => s.classList.remove('active'));
       selector.classList.add('active');
       const wKey = selector.getAttribute('data-weight');
-      pouchLabel.innerText = currentPackingLabels[wKey] || 'Selected Packaging';
+      if (pouchLabel) {
+        pouchLabel.innerText = currentPackingLabels[wKey] || 'Selected Packaging';
+      }
     });
   });
 
   // Initialize packaging label
-  pouchLabel.innerText = currentPackingLabels['1kg'];
+  if (pouchLabel) {
+    pouchLabel.innerText = currentPackingLabels['1kg'];
+  }
 
   /* ==========================================================================
      7. INTERACTIVE QUOTE CALCULATOR (DYNAMIC DAILY RATES & GOOGLE SHEET SYNC)
@@ -2272,6 +2307,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const updateQuote = () => {
+    if (!estimatorEmptyMsg || !estimatorTable) return;
     const custNum = getCustomerNumber();
 
     if (estimateItems.length === 0) {
@@ -2279,10 +2315,11 @@ document.addEventListener('DOMContentLoaded', () => {
       estimatorTable.style.display = 'none';
       estimatorTable.classList.add('hide-table');
       estimatorTableBody.innerHTML = '';
-      estimatorTotalsSection.style.display = 'none';
+      if (estimatorTotalsSection) estimatorTotalsSection.style.display = 'none';
       const summaryItemsCountEl = document.getElementById('summary-items-count');
       if (summaryItemsCountEl) summaryItemsCountEl.innerText = '0';
-      document.getElementById('invoice-id').innerText = `LT-EMPTY-${custNum}`;
+      const invoiceIdEl = document.getElementById('invoice-id');
+      if (invoiceIdEl) invoiceIdEl.innerText = `LT-EMPTY-${custNum}`;
       return;
     }
 
@@ -2528,24 +2565,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Bi-directional quantity inputs
-  calcQtyRange.addEventListener('input', (e) => {
-    calcQtyInput.value = e.target.value;
-  });
+  if (calcQtyRange && calcQtyInput) {
+    calcQtyRange.addEventListener('input', (e) => {
+      calcQtyInput.value = e.target.value;
+    });
 
-  calcQtyInput.addEventListener('input', (e) => {
-    const val = parseInt(e.target.value) || 5;
-    calcQtyRange.value = val > 5000 ? 5000 : val;
-  });
+    calcQtyInput.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value) || 5;
+      calcQtyRange.value = val > 5000 ? 5000 : val;
+    });
+  }
 
   // Grade selection radios click
-  const calcGradeBtns = calcGradeSelector.querySelectorAll('.grade-radio-btn');
-  calcGradeBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      calcGradeBtns.forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
+  if (calcGradeSelector) {
+    const calcGradeBtns = calcGradeSelector.querySelectorAll('.grade-radio-btn');
+    calcGradeBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        calcGradeBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
     });
-  });
+  }
 
   // Trigger initial calculation and start live price polling from Google Sheets
   updateQuote();
@@ -2630,34 +2671,40 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   };
 
-  whatsappBtn.addEventListener('click', () => {
-    if (estimateItems.length === 0) {
-      alert('Please add at least one product to your quote first.');
-      return;
-    }
-    
-    if (!validateCompliance()) return;
-    
-    const msg = encodeURIComponent(buildInquiryText());
-    const whatsappUrl = `https://wa.me/919342153357?text=${msg}`;
-    window.open(whatsappUrl, '_blank');
-    incrementCustomerNumber();
-  });
+  if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', () => {
+      if (estimateItems.length === 0) {
+        alert('Please add at least one product to your quote first.');
+        return;
+      }
+      
+      if (!validateCompliance()) return;
+      
+      const msg = encodeURIComponent(buildInquiryText());
+      const whatsappUrl = `https://wa.me/919342153357?text=${msg}`;
+      window.open(whatsappUrl, '_blank');
+      incrementCustomerNumber();
+    });
+  }
 
-  emailBtn.addEventListener('click', () => {
-    if (estimateItems.length === 0) {
-      alert('Please add at least one product to your quote first.');
-      return;
-    }
+  if (emailBtn) {
+    emailBtn.addEventListener('click', () => {
+      if (estimateItems.length === 0) {
+        alert('Please add at least one product to your quote first.');
+        return;
+      }
 
-    if (!validateCompliance()) return;
-    
-    const subject = encodeURIComponent(`Bulk Quotation Request - ${document.getElementById('invoice-id').innerText}`);
-    const body = encodeURIComponent(buildInquiryText());
-    const mailtoUrl = `mailto:info@lishatraders.com?subject=${subject}&body=${body}`;
-    window.location.href = mailtoUrl;
-    incrementCustomerNumber();
-  });
+      if (!validateCompliance()) return;
+      
+      const invoiceIdEl = document.getElementById('invoice-id');
+      const invId = invoiceIdEl ? invoiceIdEl.innerText : 'QUOTE';
+      const subject = encodeURIComponent(`Bulk Quotation Request - ${invId}`);
+      const body = encodeURIComponent(buildInquiryText());
+      const mailtoUrl = `mailto:info@lishatraders.com?subject=${subject}&body=${body}`;
+      window.location.href = mailtoUrl;
+      incrementCustomerNumber();
+    });
+  }
 
   /* ==========================================================================
      9. INQUIRY FORM SUBMISSION
@@ -2731,9 +2778,9 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionName = targetId.substring(1).charAt(0).toUpperCase() + targetId.substring(2);
       }
       
-      const loadingPrefix = translations[currentLang]['loading_text'] || 'Loading';
-      loaderStatus.innerText = `${loadingPrefix} ${sectionName}...`;
-      loader3d.classList.add('active');
+      const loadingPrefix = translations[currentLang] ? (translations[currentLang]['loading_text'] || 'Loading') : 'Loading';
+      if (loaderStatus) loaderStatus.innerText = `${loadingPrefix} ${sectionName}...`;
+      if (loader3d) loader3d.classList.add('active');
       
       // Close mobile navigation menu if open
       if (burgerMenu && navLinks) {
@@ -2747,7 +2794,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setTimeout(() => {
           // Slide open loader panels
-          loader3d.classList.remove('active');
+          if (loader3d) loader3d.classList.remove('active');
         }, 300);
       }, 500);
     });
@@ -2784,7 +2831,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      11. MULTILINGUAL TRANSLATION & LANGUAGE SELECTOR
      ========================================================================== */
-  const langModal = document.getElementById('lang-modal');
+  const langModals = document.querySelectorAll('#lang-modal, #lang-modal-overlay, .lang-modal-overlay');
+  const langModal = langModals[0] || null;
   const langDropdownBtn = document.getElementById('lang-dropdown-btn');
   const langDropdownMenu = document.getElementById('lang-dropdown-menu');
 
@@ -2815,7 +2863,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.currentGradeNames = currentGradeNames;
 
     // 4. Update language indicator text
-    langDropdownBtn.innerText = lang.toUpperCase();
+    if (langDropdownBtn) {
+      langDropdownBtn.innerText = lang.toUpperCase();
+    }
 
     // 5. Update static DOM elements with translation mapping
     document.querySelectorAll('[data-translate]').forEach(el => {
@@ -2857,56 +2907,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 7. Refresh pricing calculator totals
-    if (typeof updateQuote === 'function') {
-      updateQuote();
+    if (typeof updateQuote === 'function' && document.getElementById('calculator')) {
+      try {
+        updateQuote();
+      } catch (e) {
+        console.warn('[Calculator] updateQuote skipped:', e);
+      }
     }
   };
+  window.setLanguage = setLanguage;
 
   // B. Attach click event to language selector popup buttons
-  const langModalBtns = langModal.querySelectorAll('.lang-btn');
-  langModalBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selectedLang = btn.getAttribute('data-lang');
-      setLanguage(selectedLang);
-      
-      // Hide modal overlay with transition
-      langModal.classList.add('hide');
-      document.body.style.overflow = ''; // Unlock scroll
-
-      // Trigger cinematic staggered hero entrance animation
-      setTimeout(() => {
-        document.body.classList.add('hero-animate');
-      }, 300);
+  langModals.forEach(modal => {
+    const langModalBtns = modal.querySelectorAll('.lang-btn');
+    langModalBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const selectedLang = btn.getAttribute('data-lang');
+        if (typeof window.selectSiteLanguage === 'function') {
+          window.selectSiteLanguage(selectedLang);
+        } else {
+          try { setLanguage(selectedLang); } catch (err) {}
+          modal.classList.add('hide');
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
     });
   });
 
   // C. Header dropdown trigger toggle
-  langDropdownBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    langDropdownBtn.parentElement.classList.toggle('open');
-  });
+  if (langDropdownBtn && langDropdownMenu) {
+    langDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langDropdownBtn.parentElement.classList.toggle('open');
+    });
 
-  // Close dropdown menu if user clicks elsewhere
-  document.addEventListener('click', () => {
-    langDropdownBtn.parentElement.classList.remove('open');
-  });
-
-  // Header dropdown menu options bindings
-  const dropdownOptions = langDropdownMenu.querySelectorAll('button');
-  dropdownOptions.forEach(opt => {
-    opt.addEventListener('click', () => {
-      const selectedLang = opt.getAttribute('data-lang');
-      setLanguage(selectedLang);
+    // Close dropdown menu if user clicks elsewhere
+    document.addEventListener('click', () => {
       langDropdownBtn.parentElement.classList.remove('open');
     });
-  });
 
-  // D. Initial checks on document load (always ask on refresh)
-  const savedLang = localStorage.getItem('lisha-lang') || 'en';
-  setLanguage(savedLang);
+    // Header dropdown menu options bindings
+    const dropdownOptions = langDropdownMenu.querySelectorAll('button');
+    dropdownOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        const selectedLang = opt.getAttribute('data-lang');
+        setLanguage(selectedLang);
+        langDropdownBtn.parentElement.classList.remove('open');
+      });
+    });
+  }
+
+  // D. Initial checks on document load
+  const savedLang = localStorage.getItem('lisha-lang');
+  if (savedLang) {
+    try { setLanguage(savedLang); } catch (e) {}
+  } else {
+    try { setLanguage('en'); } catch (e) {}
+  }
   
-  // Lock page scrolling initially
-  document.body.style.overflow = 'hidden';
+  // Lock page scrolling initially only if lang modal is visible
+  let hasVisibleModal = false;
+  langModals.forEach(m => {
+    if (!m.classList.contains('hide') && m.style.display !== 'none') {
+      hasVisibleModal = true;
+    }
+  });
+  if (hasVisibleModal) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 
 
 
@@ -2935,38 +3007,44 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(updateCount);
   };
 
-  const motionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        if (entry.target.classList.contains('counter-stat')) {
-          animateCounter(entry.target);
+  if (typeof IntersectionObserver !== 'undefined') {
+    const motionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          if (entry.target.classList.contains('counter-stat')) {
+            animateCounter(entry.target);
+          }
         }
-      }
+      });
+    }, { threshold: 0.15 });
+
+    // Add reveal-fade-up class dynamically to section layout wrappers
+    document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section').forEach(el => {
+      el.classList.add('reveal-fade-up');
+      motionObserver.observe(el);
     });
-  }, { threshold: 0.15 });
 
-  // Add reveal-fade-up class dynamically to section layout wrappers
-  document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section').forEach(el => {
-    el.classList.add('reveal-fade-up');
-    motionObserver.observe(el);
-  });
+    // Add stagger-reveal class dynamically to grid cards and columns
+    document.querySelectorAll('.p-card, .why-photo, .feature, .t-card, .pack-card, .calc-form, .cta-info-item, .contact-card-item, .credential-badge').forEach(el => {
+      el.classList.add('stagger-reveal');
+      motionObserver.observe(el);
+    });
 
-  // Add stagger-reveal class dynamically to grid cards and columns
-  document.querySelectorAll('.p-card, .why-photo, .feature, .t-card, .pack-card, .calc-form, .cta-info-item, .contact-card-item, .credential-badge').forEach(el => {
-    el.classList.add('stagger-reveal');
-    motionObserver.observe(el);
-  });
+    // Ensure all manually declared reveal elements are observed
+    document.querySelectorAll('.reveal-fade-up, .stagger-reveal').forEach(el => {
+      motionObserver.observe(el);
+    });
 
-  // Ensure all manually declared reveal elements are observed
-  document.querySelectorAll('.reveal-fade-up, .stagger-reveal').forEach(el => {
-    motionObserver.observe(el);
-  });
-
-  // Watch stats counter elements
-  document.querySelectorAll('.counter-stat').forEach(el => {
-    motionObserver.observe(el);
-  });
+    // Watch stats counter elements
+    document.querySelectorAll('.counter-stat').forEach(el => {
+      motionObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section, .p-card, .why-photo, .feature, .t-card, .pack-card, .calc-form, .cta-info-item, .contact-card-item, .credential-badge, .counter-stat').forEach(el => {
+      el.classList.add('revealed');
+    });
+  }
 
   // G. GALLERY LIGHTBOX POPUP FEATURE (multi-image carousel)
   const initGalleryLightbox = () => {
