@@ -35,7 +35,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5.0">
+  <link rel="stylesheet" href="style.css?v=5.1">
   <script>
     (function() {
       try {
@@ -46,6 +46,12 @@
         }
         if (sessionStorage.getItem('lisha_transition_active') === '1') {
           document.documentElement.classList.add('transition-active');
+          setTimeout(function() {
+            document.documentElement.classList.remove('transition-active');
+            var l = document.getElementById('loader-3d');
+            if (l) l.classList.remove('active');
+            sessionStorage.removeItem('lisha_transition_active');
+          }, 800);
         }
       } catch (e) {}
     })();
@@ -387,7 +393,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=5.0"></script>
+  <script src="app.js?v=5.1"></script>
 </body>
 
 </html>

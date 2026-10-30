@@ -2693,32 +2693,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Trigger initial calculation and start live price polling from Google Sheets
-  updateQuote();
-  fetchGoogleSheetPrices(); // Immediate fetch on page load
+  // Live price polling from Google Sheets ONLY on pages with Quote Calculator (index.html)
+  if (document.getElementById('calculator')) {
+    updateQuote();
+    fetchGoogleSheetPrices(); // Immediate fetch on page load
 
-  // Auto-refresh prices every 5 seconds — updates instantly when sheet changes
-  pricePollInterval = setInterval(() => {
-    console.log('[Pricing] ΓÅ▒ 5-second auto-refresh triggered');
-    fetchGoogleSheetPrices();
-  }, 5000);
+    // Auto-refresh prices periodically (15s) — light on network and battery
+    pricePollInterval = setInterval(() => {
+      fetchGoogleSheetPrices();
+    }, 15000);
 
-  // Clean up polling when tab is hidden (battery/network friendly)
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      if (pricePollInterval) { clearInterval(pricePollInterval); pricePollInterval = null; }
-      console.log('[Pricing] Tab hidden — polling paused');
-    } else {
-      fetchGoogleSheetPrices(); // Fetch immediately on tab re-focus
-      if (!pricePollInterval) {
-        pricePollInterval = setInterval(() => {
-          console.log('[Pricing] ΓÅ▒ Auto-refresh (resumed, 5s)');
-          fetchGoogleSheetPrices();
-        }, 5000);
+    // Clean up polling when tab is hidden (battery/network friendly)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (pricePollInterval) { clearInterval(pricePollInterval); pricePollInterval = null; }
+        console.log('[Pricing] Tab hidden — polling paused');
+      } else {
+        fetchGoogleSheetPrices(); // Fetch immediately on tab re-focus
+        if (!pricePollInterval) {
+          pricePollInterval = setInterval(() => {
+            fetchGoogleSheetPrices();
+          }, 15000);
+        }
+        console.log('[Pricing] Tab visible — polling resumed');
       }
-      console.log('[Pricing] Tab visible — polling resumed');
-    }
-  });
+    });
+  }
 
   /* ==========================================================================
      8. DISPATCH ACTION HANDLERS (WHATSAPP / EMAIL)
@@ -2877,6 +2877,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loader3d.classList.add('active');
       }
 
+      // Clear immediately to prevent repeat on browser refresh / reload
+      sessionStorage.removeItem('lisha_transition_active');
+      sessionStorage.removeItem('lisha_transition_text');
+
       // If URL has a section anchor (e.g. index.html#calculator), scroll directly to it while covered
       if (window.location.hash) {
         const targetEl = document.querySelector(window.location.hash);
@@ -2885,7 +2889,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Reveal new page by sliding open panels
+      // Fast, crisp panel reveal (80ms) for under 1s load feel
       setTimeout(() => {
         if (document.documentElement) {
           document.documentElement.classList.remove('transition-active');
@@ -2893,9 +2897,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loader3d) {
           loader3d.classList.remove('active');
         }
-        sessionStorage.removeItem('lisha_transition_active');
-        sessionStorage.removeItem('lisha_transition_text');
-      }, 350);
+      }, 80);
     }
   } catch (e) {}
 
@@ -2983,8 +2985,8 @@ document.addEventListener('DOMContentLoaded', () => {
           targetSection.scrollIntoView({ behavior: 'auto' });
           setTimeout(() => {
             if (loader3d) loader3d.classList.remove('active');
-          }, 250);
-        }, 400);
+          }, 150);
+        }, 150);
         return;
       }
     }
@@ -3004,8 +3006,8 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'auto' });
         setTimeout(() => {
           if (loader3d) loader3d.classList.remove('active');
-        }, 250);
-      }, 400);
+        }, 150);
+      }, 150);
       return;
     }
 
@@ -3028,7 +3030,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setTimeout(() => {
         window.location.href = href;
-      }, 420);
+      }, 180);
     }
   });
 
@@ -3287,8 +3289,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { threshold: 0.15 });
 
-    // Add reveal-fade-up class dynamically to section layout wrappers
-    document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .gallery-grid, .cta-section').forEach(el => {
+    // Add reveal-fade-up class dynamically to section layout wrappers (exclude gallery-grid so photos render instantly)
+    document.querySelectorAll('.section-head, .why-photo-panel, .reveal-right, .process-steps, .step-desc-box, .packaging-grid, .calculator-box, .cta-section').forEach(el => {
       el.classList.add('reveal-fade-up');
       motionObserver.observe(el);
     });
