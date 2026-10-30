@@ -2,6 +2,12 @@
 window.selectSiteLanguage = function(lang) {
   try {
     localStorage.setItem('lisha-lang', lang);
+    if (document.documentElement) {
+      document.documentElement.classList.add('has-lang');
+      document.documentElement.classList.remove('lang-en', 'lang-hi', 'lang-ta');
+      document.documentElement.classList.add(`lang-${lang}`);
+      document.documentElement.setAttribute('lang', lang);
+    }
     if (typeof window.setLanguage === 'function') {
       window.setLanguage(lang);
     }
@@ -329,7 +335,40 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_ft_del': 'Reliable Delivery',
       'why_ft_del_desc': 'Orders are processed efficiently with timely dispatch across India.',
       'why_ft_cust': 'Customer First',
-      'why_ft_cust_desc': 'We focus on building long-term relationships through dependable service and support.'
+      'why_ft_cust_desc': 'We focus on building long-term relationships through dependable service and support.',
+      'table_header_grade': 'Grade & Size',
+      'table_sub_6': 'Standard / Medium',
+      'table_sub_7': 'Premium Bold (AGEB)',
+      'table_sub_75': 'Elite Premium Bold',
+      'table_sub_75_8': 'Super Bold Export Mix',
+      'table_sub_8': 'Super Extra Bold (Super Jumbo)',
+      'table_sub_85': 'Imperial Jumbo Bold',
+      'table_sub_9': 'Supreme Royal Jumbo',
+      'contact_main_title_p3': 'Together.',
+      'why_f1_title': 'Direct Auction & Farm Sourced',
+      'why_f1_desc': 'Sourced directly from certified Spices Board auctions and private plantations in Bodinayakanur, guaranteeing authentic origin and unblended batches.',
+      'why_f2_title': 'Accurate Sieve Grading',
+      'why_f2_desc': 'Every lot is machine-graded through precision sieves (6.0mm to 9.0mm) to ensure consistent size distribution, pod density, and visual appeal.',
+      'why_f3_title': 'Moisture Controlled (<12%)',
+      'why_f3_desc': 'Strict adherence to national spice standards with laboratory-verified moisture levels under 12%, preventing mould and extending storage life.',
+      'why_f4_title': 'Flexible Wholesale Supply',
+      'why_f4_desc': 'From 50 kg trial orders for regional retail chains to multi-tonne full container loads (FCL) for international spice importers, we scale smoothly.',
+      'why_f5_title': 'Protective Aroma-Lock Packaging',
+      'why_f5_desc': 'Multi-layer food-grade poly-barrier pouches and corrugated master cartons that lock in natural volatile oils throughout shipping and storage.',
+      'why_f6_title': 'Transparent Market-Linked Rates',
+      'why_f6_desc': 'Daily pricing benchmarked to real-time Bodinayakanur auction rates, giving buyers clarity, fair value, and reliable procurement cycles.',
+      'faq_q1': 'What cardamom grades do you offer?',
+      'faq_a1': 'We supply all standard Indian cardamom sizes from 6.0 mm (Medium) up to 9.0 mm (Supreme Royal Jumbo), including AGEB (7.0 mm), Elite Bold (7.5 mm), and Super Extra Bold (8.0 mm). We also offer Fruit Cardamom (Yellow/Pale), Split Cardamom, and Cardamom Seeds.',
+      'faq_q2': 'What is the minimum order quantity (MOQ)?',
+      'faq_a2': 'Our standard wholesale MOQ is 20 kg (one master carton). For trial orders or regional retail distributors, smaller quantities can be arranged. We also fulfill container loads (FCL) for export.',
+      'faq_q3': 'Can I request a sample before placing a bulk order?',
+      'faq_a3': 'Yes, sample packs (50g, 100g, 250g, 500g) are available for all grades. In line with our standard wholesale trade policy, sample costs and courier charges apply and are adjusted against your initial bulk commercial shipment.',
+      'faq_q4': 'Where is your cardamom sourced from?',
+      'faq_a4': 'All our cardamom is sourced from our private plantations in the Western Ghats and certified Spices Board auctions in Bodinayakanur and Vandanmettu — the cardamom capital of India.',
+      'faq_q5': 'How do you ensure cardamom freshness during transit?',
+      'faq_a5': 'We maintain moisture below 12% and package in high-barrier food-grade poly liners and sealed corrugated master cartons with moisture absorption strips to prevent humidity absorption.',
+      'faq_q6': 'Do you support international exports?',
+      'faq_a6': 'Yes, we handle complete documentation, phytosanitary certifications, Spices Board export clearance, and port logistics for shipments to the Middle East, Southeast Asia, Europe, and the Americas.'
     },
     'hi': {
       'stat_years': 'वर्षों की विरासत',
@@ -634,7 +673,40 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_ft_del_desc': 'पूरे भारत में समय पर प्रेषण के साथ ऑर्डर कुशलतापूर्वक संसाधित किए जाते हैं।',
       'why_ft_cust': 'ग्राहक पहले',
       'why_ft_cust_desc': 'हम भरोसेमंद सेवा और समर्थन के माध्यम से दीर्घकालिक संबंध बनाने पर ध्यान केंद्रित करते हैं।',
-      'why_cta_title': 'आइए एक दीर्घकालिक व्यावसायिक संबंध बनाएं।'
+      'why_cta_title': 'आइए एक दीर्घकालिक व्यावसायिक संबंध बनाएं।',
+      'table_header_grade': 'ग्रेड और आकार',
+      'table_sub_6': 'स्टैंडर्ड / मध्यम',
+      'table_sub_7': 'प्रीमियम बोल्ड (AGEB)',
+      'table_sub_75': 'एलीट प्रीमियम बोल्ड',
+      'table_sub_75_8': 'सुपर बोल्ड एक्सपोर्ट मिक्स',
+      'table_sub_8': 'सुपर एक्स्ट्रा बोल्ड (सुपर जंबो)',
+      'table_sub_85': 'इंपीरियल जंबो बोल्ड',
+      'table_sub_9': 'सुप्रीम रॉयल जंबो',
+      'contact_main_title_p3': 'बनाएं।',
+      'why_f1_title': 'सीधे नीलामी और बागानों से प्राप्त',
+      'why_f1_desc': 'बोदिनायक्कनूर में प्रमाणित स्पाइसेस बोर्ड नीलामियों और निजी बागानों से सीधे प्राप्त, प्रामाणिक गुणवत्ता और शुद्ध बैच की गारंटी।',
+      'why_f2_title': 'सटीक छलनी ग्रेडिंग',
+      'why_f2_desc': 'प्रत्येक लॉट को 6.0 मिमी से 9.0 मिमी तक सटीक छलनी से मशीन-ग्रेड किया जाता है ताकि समान आकार, घनत्व और रंग सुनिश्चित हो सके।',
+      'why_f3_title': 'नियंत्रित नमी (<12%)',
+      'why_f3_desc': '12% से कम प्रयोगशाला-सत्यापित नमी स्तर के साथ राष्ट्रीय मसाला मानकों का कड़ाई से पालन, फफूंद से सुरक्षा और लंबी शेल्फ-लाइफ।',
+      'why_f4_title': 'लचीली थोक आपूर्ति',
+      'why_f4_desc': 'क्षेत्रीय खुदरा विक्रेताओं के लिए 50 किग्रा ट्रायल ऑर्डर से लेकर अंतरराष्ट्रीय आयातकों के लिए बहु-टन कंटेनर लोड (FCL) तक आसान आपूर्ति।',
+      'why_f5_title': 'सुरक्षित सुगंध-सील पैकेजिंग',
+      'why_f5_desc': 'मल्टी-लेयर फूड-ग्रेड पॉली-बैरियर पाउच और मास्टर कार्टन जो परिवहन और भंडारण के दौरान प्राकृतिक सुगंधित तेलों को सुरक्षित रखते हैं।',
+      'why_f6_title': 'पारदर्शी बाजार-आधारित दरें',
+      'why_f6_desc': 'दैनिक मूल्य निर्धारण बोदिनायक्कनूर नीलामी दरों से जुड़ा है, जिससे खरीदारों को स्पष्टता, उचित मूल्य और विश्वसनीय चक्र मिलता है।',
+      'faq_q1': 'आप कौन से इलायची ग्रेड पेश करते हैं?',
+      'faq_a1': 'हम 6.0 मिमी (मीडियम) से लेकर 9.0 मिमी (सुप्रीम रॉयल जंबो) तक के सभी मानक भारतीय आकार प्रदान करते हैं, जिसमें AGEB (7.0 मिमी), एलीट बोल्ड (7.5 मिमी) और सुपर एक्स्ट्रा बोल्ड (8.0 मिमी) शामिल हैं। हम फ्रूट इलायची (पीली), स्प्लिट इलायची और बीज भी उपलब्ध कराते हैं।',
+      'faq_q2': 'न्यूनतम ऑर्डर मात्रा (MOQ) क्या है?',
+      'faq_a2': 'हमारा मानक थोक MOQ 20 किग्रा (एक मास्टर कार्टन) है। ट्रायल ऑर्डर या क्षेत्रीय खुदरा वितरकों के लिए छोटी मात्रा की व्यवस्था की जा सकती है। हम निर्यात के लिए पूर्ण कंटेनर लोड (FCL) भी पूरा करते हैं।',
+      'faq_q3': 'क्या मैं थोक ऑर्डर देने से पहले सैंपल मांग सकता हूँ?',
+      'faq_a3': 'हाँ, सभी ग्रेड के लिए सैंपल पैक (50g, 100g, 250g, 500g) उपलब्ध हैं। मानक थोक व्यापार नीति के अनुसार, सैंपल लागत और कूरियर शुल्क लागू होते हैं जिन्हें आपके शुरुआती व्यावसायिक शिपमेंट में समायोजित किया जाता है।',
+      'faq_q4': 'आपकी इलायची कहाँ से प्राप्त की जाती है?',
+      'faq_a4': 'हमारी सभी इलायची पश्चिमी घाट में हमारे निजी बागानों और बोदिनायक्कनूर तथा वंदनमेत्तु में प्रमाणित स्पाइसेस बोर्ड नीलामियों से प्राप्त की जाती है — जो भारत की इलायची राजधानी है।',
+      'faq_q5': 'परिवहन के दौरान आप इलायची की ताजगी कैसे सुनिश्चित करते हैं?',
+      'faq_a5': 'हम 12% से कम नमी बनाए रखते हैं और नमी अवशोषण रोकने के लिए हाई-बैरियर फूड-ग्रेड पॉली लाइनर्स और सीलबंद नालीदार मास्टर कार्टन में पैक करते हैं।',
+      'faq_q6': 'क्या आप अंतरराष्ट्रीय निर्यात का समर्थन करते हैं?',
+      'faq_a6': 'हाँ, हम मध्य पूर्व, दक्षिण पूर्व एशिया, यूरोप और अमेरिका में शिपमेंट के लिए पूर्ण दस्तावेज़ीकरण, फाइटोसैनिटरी प्रमाणपत्र, स्पाइसेस बोर्ड निर्यात क्लीयरेंस और पोर्ट लॉजिस्टिक्स संभालते हैं।'
     },
     'ta': {
       'stat_years': 'ஆண்டுகளின் பாரம்பரியம்',
@@ -939,7 +1011,40 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_ft_del_desc': 'இந்தியா முழுவதும் சரியான நேரத்தில் அனுப்பப்படுவதன் மூலம் ஆர்டர்கள் திறமையாக செயலாக்கப்படுகின்றன.',
       'why_ft_cust': 'வாடிக்கையாளருக்கு முன்னுரிமை',
       'why_ft_cust_desc': 'நம்பகமான சேவை மற்றும் ஆதரவின் மூலம் நீண்ட கால உறவுகளை உருவாக்குவதில் நாங்கள் கவனம் செலுத்துகிறோம்.',
-      'why_cta_title': 'நீண்ட கால வணிக உறவை உருவாக்குவோம்.'
+      'why_cta_title': 'நீண்ட கால வணிக உறவை உருவாக்குவோம்.',
+      'table_header_grade': 'தரம் & அளவு',
+      'table_sub_6': 'ஸ்டாண்டர்ட் / நடுத்தரம்',
+      'table_sub_7': 'பிரீமியம் போல்ட் (AGEB)',
+      'table_sub_75': 'எலைட் பிரீமியம் போல்ட்',
+      'table_sub_75_8': 'சூப்பர் போல்ட் எக்ஸ்போர்ட் மிக்ஸ்',
+      'table_sub_8': 'சூப்பர் எக்ஸ்ட்ரா போல்ட் (சூப்பர் ஜம்போ)',
+      'table_sub_85': 'இம்பீரியல் ஜம்போ போல்ட்',
+      'table_sub_9': 'சுப்ரீம் ராயல் ஜம்போ',
+      'contact_main_title_p3': 'இணைவோம்.',
+      'why_f1_title': 'நேரடி ஏலம் & தோட்டம் மூலம் பெறப்பட்டது',
+      'why_f1_desc': 'போடிநாயக்கனூரில் உள்ள சான்றளிக்கப்பட்ட ஸ்பைசஸ் போர்டு ஏலங்கள் மற்றும் தனியார் தோட்டங்களிலிருந்து நேரடியாகப் பெறப்பட்டு, உண்மையான தரம் உறுதி செய்யப்படுகிறது.',
+      'why_f2_title': 'துல்லியமான சல்லடை தரம் பிரித்தல்',
+      'why_f2_desc': 'ஒவ்வொரு தொகுதியும் துல்லியமான சல்லடைகள் (6.0 மிமீ முதல் 9.0 மிமீ வரை) மூலம் இயந்திரத்தால் தரம் பிரிக்கப்பட்டு சீரான அளவு மற்றும் அழகை உறுதி செய்கிறது.',
+      'why_f3_title': 'கட்டுப்படுத்தப்பட்ட ஈரப்பதம் (<12%)',
+      'why_f3_desc': 'ஆய்வகத்தால் சரிபார்க்கப்பட்ட 12% க்கும் குறைவான ஈரப்பதத்துடன் தேசிய மசாலா தரநிலைகளை கண்டிப்பாக பின்பற்றி பூஞ்சை உருவாகாமல் பாதுகாக்கிறது.',
+      'why_f4_title': 'நெகிழ்வான மொத்த விற்பனை வழங்கல்',
+      'why_f4_desc': 'சில்லறை விற்பனையாளர்களுக்கான 50 கிலோ சோதனை ஆர்டர்கள் முதல் சர்வதேச இறக்குமதியாளர்களுக்கான பல டன் முழு கொள்கலன் சரக்குகள் வரை தடையற்ற விநியோகம்.',
+      'why_f5_title': 'நறுமணம் காக்கும் பாதுகாப்பு பேக்கேஜிங்',
+      'why_f5_desc': 'போக்குவரத்து மற்றும் சேமிப்பின் போது இயற்கையான நறுமண எண்ணெய்களை தக்கவைக்கும் பல அடுக்கு உணவு தர பாலி பவுச்சுகள் மற்றும் அட்டைப் பெட்டிகள்.',
+      'why_f6_title': 'வெளிப்படையான சந்தை சார்ந்த விலை',
+      'why_f6_desc': 'தினசரி விலை போடிநாயக்கனூர் ஏல விலைகளுடன் இணைக்கப்பட்டு, வாங்குபவர்களுக்கு தெளிவு, நியாயமான மதிப்பு மற்றும் நம்பகமான கொள்முதலை வழங்குகிறது.',
+      'faq_q1': 'நீங்கள் என்னென்ன ஏலக்காய் தரங்களை வழங்குகிறீர்கள்?',
+      'faq_a1': 'நாங்கள் 6.0 மிமீ (மீடியம்) முதல் 9.0 மிமீ (சுப்ரீம் ராயல் ஜம்போ) வரையிலான அனைத்து நிலையான இந்திய ஏலக்காய் அளவுகளையும் வழங்குகிறோம், இதில் AGEB (7.0 மிமீ), எலைட் போல்ட் (7.5 மிமீ) மற்றும் சூப்பர் எக்ஸ்ட்ரா போல்ட் (8.0 மிமீ) அடங்கும். மேலும் பழ ஏலக்காய் (மஞ்சள்), பிளவு ஏலக்காய் மற்றும் ஏலக்காய் விதைகளையும் வழங்குகிறோம்.',
+      'faq_q2': 'குறைந்தபட்ச ஆர்டர் அளவு (MOQ) என்ன?',
+      'faq_a2': 'எங்கள் நிலையான மொத்த விற்பனை MOQ 20 கிலோ (ஒரு மாஸ்டர் கார்டன்). சோதனை ஆர்டர்கள் அல்லது பிராந்திய சில்லறை விநியோகஸ்தர்களுக்கு சிறிய அளவுகளும் ஏற்பாடு செய்யப்படலாம். ஏற்றுமதிக்கான கொள்கலன் ஏற்றுமதியையும் (FCL) நாங்கள் பூர்த்தி செய்கிறோம்.',
+      'faq_q3': 'மொத்த ஆர்டர் செய்வதற்கு முன் நான் மாதிரி (Sample) பெற முடியுமா?',
+      'faq_a3': 'ஆம், அனைத்து தரங்களுக்கும் மாதிரிப் பொட்டலங்கள் (50g, 100g, 250g, 500g) கிடைக்கின்றன. எங்கள் நிலையான மொத்த வர்த்தகக் கொள்கையின்படி, மாதிரி கட்டணம் மற்றும் கூரியர் கட்டணம் விதிக்கப்படும், இது உங்களின் தொடக்க மொத்த வணிக ஏற்றுமதியில் கழித்துக் கொள்ளப்படும்.',
+      'faq_q4': 'உங்கள் ஏலக்காய் எங்கிருந்து பெறப்படுகிறது?',
+      'faq_a4': 'எங்கள் ஏலக்காய் அனைத்தும் மேற்குத் தொடர்ச்சி மலையில் உள்ள எங்கள் தனியார் தோட்டங்கள் மற்றும் போடிநாயக்கனூர் மற்றும் வந்தன்மெட்டுவில் உள்ள சான்றளிக்கப்பட்ட ஸ்பைசஸ் போர்டு ஏலங்கள் மூலம் பெறப்படுகிறது — இது இந்தியாவின் ஏலக்காய் தலைநகரமாகும்.',
+      'faq_q5': 'போக்குவரத்தின் போது ஏலக்காயின் புத்துணர்ச்சியை எவ்வாறு உறுதி செய்கிறீர்கள்?',
+      'faq_a5': 'நாங்கள் ஈரப்பதத்தை 12% க்கும் குறைவாக பராமரித்து, உணவு தர பாலி லைனர்கள் மற்றும் சீல் செய்யப்பட்ட அட்டைப் பெட்டிகளில் பேக் செய்து ஈரப்பதம் உறிஞ்சப்படாமல் பாதுகாக்கிறோம்.',
+      'faq_q6': 'சர்வதேச ஏற்றுமதியை ஆதரிக்கிறீர்களா?',
+      'faq_a6': 'ஆம், மத்திய கிழக்கு, தென்கிழக்கு ஆசியா, ஐரோப்பா மற்றும் அமெரிக்க நாடுகளுக்கான முழுமையான ஆவணங்கள், தாவர சுகாதார சான்றிதழ்கள், ஸ்பைசஸ் போர்டு அனுமதி மற்றும் துறைமுக தளவாடங்களை நாங்கள் கையாளுகிறோம்.'
     }
   };
 
@@ -2837,10 +2942,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const langDropdownMenu = document.getElementById('lang-dropdown-menu');
 
   // A. Set and apply active language translations
-  const setLanguage = (lang) => {
+  const setLanguage = (lang, saveToStorage = true) => {
     // 1. Save state
-    localStorage.setItem('lisha-lang', lang);
+    if (saveToStorage) {
+      localStorage.setItem('lisha-lang', lang);
+    }
     currentLang = lang;
+    
+    // Set html element classes & lang attribute
+    if (document.documentElement) {
+      if (saveToStorage || localStorage.getItem('lisha-lang')) {
+        document.documentElement.classList.add('has-lang');
+      }
+      document.documentElement.classList.remove('lang-en', 'lang-hi', 'lang-ta');
+      document.documentElement.classList.add(`lang-${lang}`);
+      document.documentElement.setAttribute('lang', lang);
+    }
     
     // 2. Set body styling classes
     document.body.classList.remove('lang-en', 'lang-hi', 'lang-ta');
@@ -2959,25 +3076,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // D. Initial checks on document load
+  // D. Initial checks on document load (language applies across the whole website)
   const savedLang = localStorage.getItem('lisha-lang');
   if (savedLang) {
-    try { setLanguage(savedLang); } catch (e) {}
-  } else {
-    try { setLanguage('en'); } catch (e) {}
-  }
-  
-  // Lock page scrolling initially only if lang modal is visible
-  let hasVisibleModal = false;
-  langModals.forEach(m => {
-    if (!m.classList.contains('hide') && m.style.display !== 'none') {
-      hasVisibleModal = true;
+    if (document.documentElement) {
+      document.documentElement.classList.add('has-lang');
+      document.documentElement.classList.remove('lang-en', 'lang-hi', 'lang-ta');
+      document.documentElement.classList.add(`lang-${savedLang}`);
+      document.documentElement.setAttribute('lang', savedLang);
     }
-  });
-  if (hasVisibleModal) {
-    document.body.style.overflow = 'hidden';
-  } else {
+    try { setLanguage(savedLang); } catch (e) {}
+    langModals.forEach(m => {
+      m.classList.add('hide');
+      m.style.display = 'none';
+    });
     document.body.style.overflow = '';
+    document.body.classList.add('hero-animate');
+  } else {
+    // First-time visit: default English text, display Choose Your Language modal
+    if (document.documentElement) {
+      document.documentElement.classList.remove('has-lang');
+    }
+    try { setLanguage('en', false); } catch (e) {}
+    let hasVisibleModal = false;
+    langModals.forEach(m => {
+      m.classList.remove('hide');
+      m.style.display = '';
+      hasVisibleModal = true;
+    });
+    if (hasVisibleModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }
 
 

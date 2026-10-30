@@ -2332,9 +2332,11 @@ input[type="number"]:focus {
   }
 }
 
-.lang-modal-overlay.hide {
-  opacity: 0;
-  pointer-events: none;
+.lang-modal-overlay.hide,
+html.has-lang .lang-modal-overlay {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
 }
 
 .lang-modal-container {
