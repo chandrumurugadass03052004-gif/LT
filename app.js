@@ -2862,47 +2862,174 @@ document.addEventListener('DOMContentLoaded', () => {
      10. 3D TRANSITION LOADER & MOUSE-TILT ANIMATIONS
      ========================================================================== */
   
-  // A. Section transition page loader
+  // A. Section & Page transition 3D loader
   const loader3d = document.getElementById('loader-3d');
   const loaderStatus = document.getElementById('loader-status');
-  
-  const navLinksList = document.querySelectorAll('a[href^="#"]');
-  navLinksList.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const targetId = link.getAttribute('href');
-      if (targetId === '#') return; // Skip empty hash links
-      
-      const targetSection = document.querySelector(targetId);
-      if (!targetSection) return;
-      
-      e.preventDefault();
-      
-      // Determine friendly section name
-      let sectionName = link.innerText.trim().replace('→', '').trim();
-      if (!sectionName) {
-        sectionName = targetId.substring(1).charAt(0).toUpperCase() + targetId.substring(2);
+
+  // Handle smooth arrival from cross-page transition
+  try {
+    if (sessionStorage.getItem('lisha_transition_active') === '1') {
+      const savedText = sessionStorage.getItem('lisha_transition_text');
+      if (savedText && loaderStatus) {
+        loaderStatus.innerText = savedText;
       }
-      
-      const loadingPrefix = translations[currentLang] ? (translations[currentLang]['loading_text'] || 'Loading') : 'Loading';
-      if (loaderStatus) loaderStatus.innerText = `${loadingPrefix} ${sectionName}...`;
+      if (loader3d) {
+        loader3d.classList.add('active');
+      }
+
+      // If URL has a section anchor (e.g. index.html#calculator), scroll directly to it while covered
+      if (window.location.hash) {
+        const targetEl = document.querySelector(window.location.hash);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'auto' });
+        }
+      }
+
+      // Reveal new page by sliding open panels
+      setTimeout(() => {
+        if (document.documentElement) {
+          document.documentElement.classList.remove('transition-active');
+        }
+        if (loader3d) {
+          loader3d.classList.remove('active');
+        }
+        sessionStorage.removeItem('lisha_transition_active');
+        sessionStorage.removeItem('lisha_transition_text');
+      }, 350);
+    }
+  } catch (e) {}
+
+  // Helper to resolve friendly destination name in active language
+  const getNavDestinationName = (href, linkEl) => {
+    const rawHref = (href || '').trim();
+    const cleanHref = rawHref.split('#')[0].split('/').pop();
+    const hash = rawHref.includes('#') ? rawHref.split('#')[1] : '';
+
+    const t = (typeof translations !== 'undefined' && translations[currentLang]) ? translations[currentLang] : (translations ? translations['en'] : {});
+
+    if (hash === 'hero' || (cleanHref === 'index.html' && !hash) || (cleanHref === '' && hash === '')) {
+      return (t && t['nav_home']) || 'Home';
+    }
+    if (hash === 'products') {
+      return (t && t['nav_products']) || 'Products';
+    }
+    if (hash === 'calculator') {
+      return (t && t['nav_calc']) || 'Quote Calculator';
+    }
+    if (hash === 'contact') {
+      return (t && t['nav_contact']) || 'Contact';
+    }
+    if (cleanHref === 'about.html') {
+      return (t && t['nav_about']) || 'About Us';
+    }
+    if (cleanHref === 'packaging.html') {
+      return (t && t['nav_pack']) || 'Packaging';
+    }
+    if (cleanHref === 'gallery.html') {
+      return (t && t['nav_gallery']) || 'Gallery';
+    }
+
+    if (linkEl && linkEl.innerText) {
+      const txt = linkEl.innerText.replace('→', '').replace('↓', '').trim();
+      if (txt) return txt;
+    }
+    return (t && t['nav_home']) || 'Home';
+  };
+
+  // Intercept navigation for Home, Products, Quote Calculator, About Us, Packaging, Gallery, and Contact
+  const navTargets = ['hero', 'products', 'calculator', 'contact', 'about.html', 'packaging.html', 'gallery.html', 'index.html'];
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href || href === '#' || href.startsWith('javascript:') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('https://wa.me')) {
+      return;
+    }
+    if (link.getAttribute('target') === '_blank') return;
+
+    const cleanHref = href.split('#')[0].split('/').pop();
+    const hash = href.includes('#') ? href.split('#')[1] : '';
+
+    // Check if this link is a navigation link to our main 7 destinations
+    const isNavMenu = link.closest('#nav-links, .nav-links, .footer-links-list') || link.classList.contains('brand-logo') || link.closest('.brand-logo');
+    const isTargetDestination = navTargets.includes(hash) || navTargets.includes(cleanHref);
+
+    if (!isNavMenu && !isTargetDestination) return;
+
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    const isSamePage = (cleanHref === '' || cleanHref === currentFile || (cleanHref === 'index.html' && currentFile === 'index.html'));
+
+    // Destination name & translated loading text
+    const destinationName = getNavDestinationName(href, link);
+    const loadingPrefix = (translations && translations[currentLang] && translations[currentLang]['loading_text']) || 'Loading';
+    const fullLoadingText = `${loadingPrefix} ${destinationName}...`;
+
+    // 1. In-page section transition
+    if (isSamePage && hash) {
+      const targetSection = document.getElementById(hash);
+      if (targetSection) {
+        e.preventDefault();
+        if (loaderStatus) loaderStatus.innerText = fullLoadingText;
+        if (loader3d) loader3d.classList.add('active');
+
+        if (burgerMenu && navLinks) {
+          burgerMenu.classList.remove('open');
+          navLinks.classList.remove('open');
+        }
+
+        setTimeout(() => {
+          targetSection.scrollIntoView({ behavior: 'auto' });
+          setTimeout(() => {
+            if (loader3d) loader3d.classList.remove('active');
+          }, 250);
+        }, 400);
+        return;
+      }
+    }
+
+    // 2. Same page top navigation (e.g. clicking Home on index.html)
+    if (isSamePage && !hash) {
+      e.preventDefault();
+      if (loaderStatus) loaderStatus.innerText = fullLoadingText;
       if (loader3d) loader3d.classList.add('active');
-      
-      // Close mobile navigation menu if open
+
       if (burgerMenu && navLinks) {
         burgerMenu.classList.remove('open');
         navLinks.classList.remove('open');
       }
-      
+
       setTimeout(() => {
-        // Scroll instantly to section while screen is covered
-        targetSection.scrollIntoView({ behavior: 'auto' });
-        
+        window.scrollTo({ top: 0, behavior: 'auto' });
         setTimeout(() => {
-          // Slide open loader panels
           if (loader3d) loader3d.classList.remove('active');
-        }, 300);
-      }, 500);
-    });
+        }, 250);
+      }, 400);
+      return;
+    }
+
+    // 3. Cross-page navigation (e.g. index.html to about.html, about.html to index.html#products, etc.)
+    const isInternalSitePage = ['index.html', 'about.html', 'packaging.html', 'gallery.html'].includes(cleanHref) || cleanHref === '';
+    if (isInternalSitePage) {
+      e.preventDefault();
+      if (loaderStatus) loaderStatus.innerText = fullLoadingText;
+      if (loader3d) loader3d.classList.add('active');
+
+      if (burgerMenu && navLinks) {
+        burgerMenu.classList.remove('open');
+        navLinks.classList.remove('open');
+      }
+
+      try {
+        sessionStorage.setItem('lisha_transition_active', '1');
+        sessionStorage.setItem('lisha_transition_text', fullLoadingText);
+      } catch (err) {}
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 420);
+    }
   });
 
   // B. Interactive 3D mouse card tilt
