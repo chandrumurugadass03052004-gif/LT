@@ -2337,7 +2337,7 @@ html.transition-active .loader-3d .loader-content {
 }
 
 .lang-modal-overlay.hide,
-html.has-lang .lang-modal-overlay {
+html.hide-lang-modal .lang-modal-overlay {
   opacity: 0 !important;
   pointer-events: none !important;
   display: none !important;

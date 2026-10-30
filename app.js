@@ -3,7 +3,7 @@ window.selectSiteLanguage = function(lang) {
   try {
     localStorage.setItem('lisha-lang', lang);
     if (document.documentElement) {
-      document.documentElement.classList.add('has-lang');
+      document.documentElement.classList.add('has-lang', 'hide-lang-modal');
       document.documentElement.classList.remove('lang-en', 'lang-hi', 'lang-ta');
       document.documentElement.classList.add(`lang-${lang}`);
       document.documentElement.setAttribute('lang', lang);
@@ -3204,38 +3204,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // D. Initial checks on document load (language applies across the whole website)
-  const savedLang = localStorage.getItem('lisha-lang');
-  if (savedLang) {
-    if (document.documentElement) {
-      document.documentElement.classList.add('has-lang');
-      document.documentElement.classList.remove('lang-en', 'lang-hi', 'lang-ta');
-      document.documentElement.classList.add(`lang-${savedLang}`);
-      document.documentElement.setAttribute('lang', savedLang);
-    }
-    try { setLanguage(savedLang); } catch (e) {}
-    langModals.forEach(m => {
-      m.classList.add('hide');
-      m.style.display = 'none';
-    });
-    document.body.style.overflow = '';
-    document.body.classList.add('hero-animate');
-  } else {
-    // First-time visit: default English text, display Choose Your Language modal
-    if (document.documentElement) {
-      document.documentElement.classList.remove('has-lang');
-    }
-    try { setLanguage('en', false); } catch (e) {}
-    let hasVisibleModal = false;
-    langModals.forEach(m => {
-      m.classList.remove('hide');
-      m.style.display = '';
-      hasVisibleModal = true;
-    });
-    if (hasVisibleModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
+  const isInternalTransition = sessionStorage.getItem('lisha_transition_active') === '1' || (document.documentElement && document.documentElement.classList.contains('hide-lang-modal'));
+  const savedLang = localStorage.getItem('lisha-lang') || 'en';
+
+  if (document.documentElement) {
+    document.documentElement.classList.add('has-lang');
+    document.documentElement.classList.remove('lang-en', 'lang-hi', 'lang-ta');
+    document.documentElement.classList.add(`lang-${savedLang}`);
+    document.documentElement.setAttribute('lang', savedLang);
+  }
+
+  // Pre-apply translations to page elements
+  try { setLanguage(savedLang, false); } catch (e) {}
+
+  if (langModals.length > 0) {
+    // Only index.html has the language modal
+    if (isInternalTransition) {
+      // Arriving via internal navigation (Home, Products, Quote Calculator, Contact from subpages/sections):
+      // Keep modal hidden so it does not interrupt navigation
+      if (document.documentElement) {
+        document.documentElement.classList.add('hide-lang-modal');
+      }
+      langModals.forEach(m => {
+        m.classList.add('hide');
+        m.style.display = 'none';
+      });
       document.body.style.overflow = '';
+      document.body.classList.add('hero-animate');
+    } else {
+      // Direct visit / starting of the website: MUST show Choose Your Language modal
+      if (document.documentElement) {
+        document.documentElement.classList.remove('hide-lang-modal');
+      }
+      langModals.forEach(m => {
+        m.classList.remove('hide');
+        m.style.display = '';
+      });
+      // Lock scroll until user picks a language
+      document.body.style.overflow = 'hidden';
     }
+  } else {
+    // Subpages (about.html, packaging.html, gallery.html): no modal exists, ensure scroll is enabled
+    document.body.style.overflow = '';
   }
 
 
