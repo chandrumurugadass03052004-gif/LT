@@ -1196,11 +1196,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '9mm': {
       title: '9.0 mm Green Cardamom',
       subtitle: 'Supreme Royal Jumbo',
-      sieve: '> 9.0 mm (diameter mesh)',
+      sieve: '> 8.5 mm (diameter mesh)',
       moisture: '10.0% Max humidity',
-      weight: '470 - 490 g/l test weight',
-      color: 'Exquisite Royal Green',
-      desc: 'The rarest cardamom selection in the world. Exceeds 9.0 mm in pod diameter, offering ultimate seed count and supreme volatile oil content.'
+      weight: '380 - 420 g/l test weight',
+      color: 'Green',
+      desc: 'The rarest cardamom selection in the world. Exceeds 8.5 mm in pod diameter, offering ultimate seed count and supreme volatile oil content.'
     },
     '6mm-yellow': {
       title: '6.0 mm Fruit Cardamom (Yellow/Pale)',
@@ -1259,11 +1259,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '9mm-yellow': {
       title: '9.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Supreme Royal Jumbo',
-      sieve: '> 9.0 mm (diameter mesh)',
+      sieve: '> 8.5 mm (diameter mesh)',
       moisture: '10.0% Max humidity',
-      weight: '460 - 480 g/l test weight',
+      weight: '380 - 420 g/l test weight',
       color: 'Exquisite Royal Golden Yellow',
-      desc: 'The rarest cardamom selection in the world. Exceeds 9.0 mm in pod diameter, offering ultimate seed count and supreme volatile oil content.'
+      desc: 'The rarest cardamom selection in the world. Exceeds 8.5 mm in pod diameter, offering ultimate seed count and supreme volatile oil content.'
     }
   };
 
@@ -1325,11 +1325,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '9mm': {
       title: '9.0 मिमी हरी इलायची',
       subtitle: 'सुप्रीम रॉयल जंबो',
-      sieve: '> 9.0 मिमी (व्यास मेष)',
+      sieve: '> 8.5 मिमी (व्यास मेष)',
       moisture: '10.0% अधिकतम नमी',
-      weight: '470 - 490 ग्राम/लीटर परीक्षण वजन',
-      color: 'उत्कृष्ट रॉयल ग्रीन',
-      desc: 'दुनिया में सबसे दुर्लभ इलायची चयन। फली व्यास में 9.0 मिमी से अधिक, अंतिम बीज संख्या और सर्वोच्च वाष्पशील तेल सामग्री प्रदान करता है।'
+      weight: '380 - 420 ग्राम/लीटर परीक्षण वजन',
+      color: 'हरा',
+      desc: 'दुनिया में सबसे दुर्लभ इलायची चयन। फली व्यास में 8.5 मिमी से अधिक, अंतिम बीज संख्या और सर्वोच्च वाष्पशील तेल सामग्री प्रदान करता है।'
     },
     '6mm-yellow': {
       title: '6.0 मिमी फ्रूट इलायची (पीली/हल्की)',
@@ -1388,11 +1388,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '9mm-yellow': {
       title: '9.0 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'सुप्रीम रॉयल पीला जंबो',
-      sieve: '> 9.0 मिमी (व्यास मेष)',
+      sieve: '> 8.5 मिमी (व्यास मेष)',
       moisture: '10.0% अधिकतम नमी',
-      weight: '460 - 480 ग्राम/लीटर परीक्षण वजन',
-      color: 'उत्कृष्ट रॉयल पीला',
-      desc: 'दुनिया में सबसे दुर्लभ इलायची चयन। फली व्यास में 9.0 मिमी से अधिक, अंतिम बीज संख्या और सर्वोच्च वाष्पशील तेल सामग्री प्रदान करता है।'
+      weight: '380 - 420 ग्राम/लीटर परीक्षण वजन',
+      color: 'उत्कृष्ट रॉयल सुनहरा पीला',
+      desc: 'दुनिया में सबसे दुर्लभ इलायची चयन। फली व्यास में 8.5 मिमी से अधिक, अंतिम बीज संख्या और सर्वोच्च वाष्पशील तेल सामग्री प्रदान करता है।'
     }
   };
 
@@ -1454,11 +1454,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '9mm': {
       title: '9.0 மிமீ பச்சை ஏலக்காய்',
       subtitle: 'சுப்ரீம் ராயல் ஜம்போ',
-      sieve: '> 9.0 மிமீ (விட்டம் வலை)',
+      sieve: '> 8.5 மிமீ (விட்டம் வலை)',
       moisture: '10.0% அதிகபட்ச ஈரப்பதம்',
-      weight: '470 - 490 கிராம்/லிட்டர் எடை',
-      color: 'அரச பச்சை நிறம்',
-      desc: 'உலகின் மிக அரிய ஏலக்காய் ரகம். 9.0 மிமீ விட்டம் கொண்ட காய்கள், அதிக விதைகளையும் சிறந்த நறுமண எண்ணெய்களையும் கொண்டது.'
+      weight: '380 - 420 கிராம்/லிட்டர் எடை',
+      color: 'பச்சை',
+      desc: 'உலகின் மிக அரிய ஏலக்காய் ரகம். 8.5 மிமீ விட்டம் கொண்ட காய்கள், அதிக விதைகளையும் சிறந்த நறுமண எண்ணெய்களையும் கொண்டது.'
     },
     '6mm-yellow': {
       title: '6.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
@@ -1517,11 +1517,11 @@ document.addEventListener('DOMContentLoaded', () => {
     '9mm-yellow': {
       title: '9.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'சுப்ரீம் ராயல் ஜம்போ',
-      sieve: '> 9.0 மிமீ (விட்டம் வலை)',
+      sieve: '> 8.5 மிமீ (விட்டம் வலை)',
       moisture: '10.0% அதிகபட்ச ஈரப்பதம்',
-      weight: '460 - 480 கிராம்/லிட்டர் எடை',
+      weight: '380 - 420 கிராம்/லிட்டர் எடை',
       color: 'அரச பொன் மஞ்சள் நிறம்',
-      desc: 'உலகின் மிக அரிய மஞ்சள் ஏலக்காய் ரகம். 9.0 மிமீ விட்டம் கொண்ட காய்கள், அதிக விதைகளை கொண்டது.'
+      desc: 'உலகின் மிக அரிய மஞ்சள் ஏலக்காய் ரகம். 8.5 மிமீ விட்டம் கொண்ட காய்கள், அதிக விதைகளை கொண்டது.'
     }
   };
 
@@ -3177,6 +3177,14 @@ document.addEventListener('DOMContentLoaded', () => {
         collapse.style.maxHeight = collapse.scrollHeight + 'px';
       }
     });
+
+    // 9. Refresh active specs modal if open
+    if (activeModalGradeKey && typeof openModal === 'function') {
+      const specModalEl = document.getElementById('specs-modal');
+      if (specModalEl && specModalEl.classList.contains('open')) {
+        openModal(activeModalGradeKey);
+      }
+    }
   };
   window.setLanguage = setLanguage;
 
