@@ -35,7 +35,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5.2">
+  <link rel="stylesheet" href="style.css?v=5.3">
   <script>
     (function() {
       try {
@@ -336,86 +336,153 @@
           <p data-translate="why_f6_desc">Daily pricing benchmarked to real-time Bodinayakanur auction rates, giving buyers clarity, fair value, and reliable procurement cycles.</p>
         </div>
       </div>
+      <!-- Statistics Counter Row -->
+      <div class="why-stats-row reveal-fade-up">
+        <!-- Stat Card 1 -->
+        <div class="why-stat-card">
+          <div class="stat-number counter-stat" data-target="500" data-suffix="+">500+</div>
+          <span data-translate="why_stat_1_lbl">Bulk Orders Delivered</span>
+        </div>
+        <!-- Stat Card 2 -->
+        <div class="why-stat-card">
+          <div class="stat-number counter-stat" data-target="100" data-suffix="%">100%</div>
+          <span data-translate="why_stat_2_lbl">Quality Checked</span>
+        </div>
+        <!-- Stat Card 3 -->
+        <div class="why-stat-card">
+          <div class="stat-number">24/7</div>
+          <span data-translate="why_stat_3_lbl">Customer Support</span>
+        </div>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="why-trust-bar reveal-fade-up">
+        <h4 data-translate="why_trust_title">Trusted Business Practices</h4>
+        <div class="trust-badges">
+          <span class="trust-badge" data-translate="why_badge_gst">✓ GST Invoice Available</span>
+          <span class="trust-badge" data-translate="why_badge_wholesale">✓ Wholesale Orders</span>
+          <span class="trust-badge" data-translate="why_badge_bulk">✓ Bulk Supply</span>
+          <span class="trust-badge" data-translate="why_badge_quality">✓ Quality Checked</span>
+          <span class="trust-badge" data-translate="why_badge_packaging">✓ Secure Packaging</span>
+          <span class="trust-badge" data-translate="why_badge_support">✓ Responsive Support</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- FAQ SECTION -->
-  <section class="faq-section reveal" id="faq">
+  <section class="faq-section" id="faq">
     <div class="wrap">
-      <div class="section-head text-center">
+      <div class="section-head text-center reveal-fade-up">
         <span class="eyebrow" style="color: #1B5E20; text-align: center; display: block;" data-translate="faq_eyebrow">FAQ</span>
         <h2 style="font-family: var(--font-serif); font-size: 40px; color: var(--green-900); font-weight: 700; margin-top: 10px; margin-bottom: 16px;">
           <span data-translate="faq_title_p1">Frequently Asked</span> <span style="color: #1B5E20;" data-translate="faq_title_p2">Questions</span>
         </h2>
-        <p style="font-size: 16.5px; color: var(--muted); max-width: 700px; margin: 0 auto 50px; line-height: 1.6;">
+        <p style="font-size: 16.5px; color: var(--muted); max-width: 700px; margin: 0 auto 50px; line-height: 1.6;" data-translate="faq_subtitle">
           Find answers to the most common questions about our products, ordering process, delivery, and business certifications.
         </p>
       </div>
 
-      <div class="faq-accordion-container" style="max-width: 860px; margin: 0 auto;">
+      <div class="faq-accordion" style="max-width: 860px; margin: 0 auto;">
         <!-- Q1 -->
-        <div class="faq-item reveal-fade-up">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-q-text" data-translate="faq_q1">What cardamom grades do you offer?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+        <div class="faq-item active reveal-fade-up">
+          <button class="faq-header" type="button" aria-expanded="true">
+            <span class="faq-question" data-translate="faq_q1">What cardamom grades do you offer?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
           </button>
-          <div class="faq-answer">
-            <p data-translate="faq_a1">We supply all standard Indian cardamom sizes from 6.0 mm (Medium) up to 9.0 mm (Supreme Royal Jumbo), including AGEB (7.0 mm), Elite Bold (7.5 mm), and Super Extra Bold (8.0 mm). We also offer Fruit Cardamom (Yellow/Pale), Split Cardamom, and Cardamom Seeds.</p>
+          <div class="faq-collapse">
+            <div class="faq-body">
+              <p data-translate="faq_a1">We supply all standard Indian cardamom sizes from 6.0 mm (Medium) up to 9.0 mm (Supreme Royal Jumbo), including AGEB (7.0 mm), Elite Bold (7.5 mm), and Super Extra Bold (8.0 mm). We also offer Fruit Cardamom (Yellow/Pale), Split Cardamom, and Cardamom Seeds.</p>
+            </div>
           </div>
         </div>
 
         <!-- Q2 -->
         <div class="faq-item reveal-fade-up">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-q-text" data-translate="faq_q2">What is the minimum order quantity (MOQ)?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+          <button class="faq-header" type="button" aria-expanded="false">
+            <span class="faq-question" data-translate="faq_q2">What is the minimum order quantity (MOQ)?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
           </button>
-          <div class="faq-answer">
-            <p data-translate="faq_a2">Our standard wholesale MOQ is 20 kg (one master carton). For trial orders or regional retail distributors, smaller quantities can be arranged. We also fulfill container loads (FCL) for export.</p>
+          <div class="faq-collapse">
+            <div class="faq-body">
+              <p data-translate="faq_a2">Our standard wholesale MOQ is 20 kg (one master carton). For trial orders or regional retail distributors, smaller quantities can be arranged. We also fulfill container loads (FCL) for export.</p>
+            </div>
           </div>
         </div>
 
         <!-- Q3 -->
         <div class="faq-item reveal-fade-up">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-q-text" data-translate="faq_q3">Can I request a sample before placing a bulk order?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+          <button class="faq-header" type="button" aria-expanded="false">
+            <span class="faq-question" data-translate="faq_q3">Can I request a sample before placing a bulk order?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
           </button>
-          <div class="faq-answer">
-            <p data-translate="faq_a3">Yes, sample packs (50g, 100g, 250g, 500g) are available for all grades. In line with our standard wholesale trade policy, sample costs and courier charges apply and are adjusted against your initial bulk commercial shipment.</p>
+          <div class="faq-collapse">
+            <div class="faq-body">
+              <p data-translate="faq_a3">Yes, sample packs (50g, 100g, 250g, 500g) are available for all grades. In line with our standard wholesale trade policy, sample costs and courier charges apply and are adjusted against your initial bulk commercial shipment.</p>
+            </div>
           </div>
         </div>
 
         <!-- Q4 -->
         <div class="faq-item reveal-fade-up">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-q-text" data-translate="faq_q4">Where is your cardamom sourced from?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+          <button class="faq-header" type="button" aria-expanded="false">
+            <span class="faq-question" data-translate="faq_q4">Where is your cardamom sourced from?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
           </button>
-          <div class="faq-answer">
-            <p data-translate="faq_a4">All our cardamom is sourced exclusively from certified Spices Board auctions in Bodinayakanur and Vandanmettu — the cardamom capital of India.</p>
+          <div class="faq-collapse">
+            <div class="faq-body">
+              <p data-translate="faq_a4">All our cardamom is sourced exclusively from certified Spices Board auctions in Bodinayakanur and Vandanmettu — the cardamom capital of India.</p>
+            </div>
           </div>
         </div>
 
         <!-- Q5 -->
         <div class="faq-item reveal-fade-up">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-q-text" data-translate="faq_q5">How do you ensure cardamom freshness during transit?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+          <button class="faq-header" type="button" aria-expanded="false">
+            <span class="faq-question" data-translate="faq_q5">How do you ensure cardamom freshness during transit?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
           </button>
-          <div class="faq-answer">
-            <p data-translate="faq_a5">We maintain moisture below 12% and package in high-barrier food-grade poly liners and sealed corrugated master cartons with moisture absorption strips to prevent humidity absorption.</p>
+          <div class="faq-collapse">
+            <div class="faq-body">
+              <p data-translate="faq_a5">We maintain moisture below 12% and package in high-barrier food-grade poly liners and sealed corrugated master cartons with moisture absorption strips to prevent humidity absorption.</p>
+            </div>
           </div>
         </div>
 
         <!-- Q6 -->
         <div class="faq-item reveal-fade-up">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-q-text" data-translate="faq_q6">Do you support international exports?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+          <button class="faq-header" type="button" aria-expanded="false">
+            <span class="faq-question" data-translate="faq_q6">Do you support international exports?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
           </button>
-          <div class="faq-answer">
-            <p data-translate="faq_a6">Yes, we handle complete documentation, phytosanitary certifications, Spices Board export clearance, and port logistics for shipments to the Middle East, Southeast Asia, Europe, and the Americas.</p>
+          <div class="faq-collapse">
+            <div class="faq-body">
+              <p data-translate="faq_a6">Yes, we handle complete documentation, phytosanitary certifications, Spices Board export clearance, and port logistics for shipments to the Middle East, Southeast Asia, Europe, and the Americas.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -509,7 +576,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=5.2"></script>
+  <script src="app.js?v=5.3"></script>
 </body>
 
 </html>

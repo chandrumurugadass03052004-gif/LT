@@ -367,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'faq_a4': 'All our cardamom is sourced exclusively from certified Spices Board auctions in Bodinayakanur and Vandanmettu — the cardamom capital of India.',
       'faq_q5': 'How do you ensure cardamom freshness during transit?',
       'faq_a5': 'We maintain moisture below 12% and package in high-barrier food-grade poly liners and sealed corrugated master cartons with moisture absorption strips to prevent humidity absorption.',
+      'faq_subtitle': 'Find answers to the most common questions about our products, ordering process, delivery, and business certifications.',
       'faq_q6': 'Do you support international exports?',
       'faq_a6': 'Yes, we handle complete documentation, phytosanitary certifications, Spices Board export clearance, and port logistics for shipments to the Middle East, Southeast Asia, Europe, and the Americas.'
     },
@@ -705,6 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'faq_a4': 'हमारी सभी इलायची विशेष रूप से बोदिनायक्कनूर तथा वंदनमेत्तु में प्रमाणित स्पाइसेस बोर्ड नीलामियों से प्राप्त की जाती है — जो भारत की इलायची राजधानी है।',
       'faq_q5': 'परिवहन के दौरान आप इलायची की ताजगी कैसे सुनिश्चित करते हैं?',
       'faq_a5': 'हम 12% से कम नमी बनाए रखते हैं और नमी अवशोषण रोकने के लिए हाई-बैरियर फूड-ग्रेड पॉली लाइनर्स और सीलबंद नालीदार मास्टर कार्टन में पैक करते हैं।',
+      'faq_subtitle': 'हमारे उत्पादों, ऑर्डरिंग प्रक्रिया, डिलीवरी और व्यावसायिक प्रमाणपत्रों के बारे में अक्सर पूछे जाने वाले प्रश्नों के उत्तर प्राप्त करें।',
       'faq_q6': 'क्या आप अंतरराष्ट्रीय निर्यात का समर्थन करते हैं?',
       'faq_a6': 'हाँ, हम मध्य पूर्व, दक्षिण पूर्व एशिया, यूरोप और अमेरिका में शिपमेंट के लिए पूर्ण दस्तावेज़ीकरण, फाइटोसैनिटरी प्रमाणपत्र, स्पाइसेस बोर्ड निर्यात क्लीयरेंस और पोर्ट लॉजिस्टिक्स संभालते हैं।'
     },
@@ -1043,6 +1045,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'faq_a4': 'எங்கள் ஏலக்காய் அனைத்தும் போடிநாயக்கனூர் மற்றும் வந்தன்மெட்டுவில் உள்ள சான்றளிக்கப்பட்ட ஸ்பைசஸ் போர்டு ஏல மையங்களிலிருந்து மட்டுமே நேரடியாகப் பெறப்படுகிறது — இது இந்தியாவின் ஏலக்காய் தலைநகரமாகும்.',
       'faq_q5': 'போக்குவரத்தின் போது ஏலக்காயின் புத்துணர்ச்சியை எவ்வாறு உறுதி செய்கிறீர்கள்?',
       'faq_a5': 'நாங்கள் ஈரப்பதத்தை 12% க்கும் குறைவாக பராமரித்து, உணவு தர பாலி லைனர்கள் மற்றும் சீல் செய்யப்பட்ட அட்டைப் பெட்டிகளில் பேக் செய்து ஈரப்பதம் உறிஞ்சப்படாமல் பாதுகாக்கிறோம்.',
+      'faq_subtitle': 'எங்கள் தயாரிப்புகள், ஆர்டர் செய்யும் முறை, விநியோகம் மற்றும் வணிக சான்றிதழ்கள் குறித்த அடிக்கடி கேட்கப்படும் கேள்விகளுக்கான பதில்களைக் கண்டறியவும்.',
       'faq_q6': 'சர்வதேச ஏற்றுமதியை ஆதரிக்கிறீர்களா?',
       'faq_a6': 'ஆம், மத்திய கிழக்கு, தென்கிழக்கு ஆசியா, ஐரோப்பா மற்றும் அமெரிக்க நாடுகளுக்கான முழுமையான ஆவணங்கள், தாவர சுகாதார சான்றிதழ்கள், ஸ்பைசஸ் போர்டு அனுமதி மற்றும் துறைமுக தளவாடங்களை நாங்கள் கையாளுகிறோம்.'
     }
@@ -3160,6 +3163,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('[Calculator] updateQuote skipped:', e);
       }
     }
+
+    // 8. Refresh open FAQ height if language changed
+    document.querySelectorAll('.faq-item.active').forEach(item => {
+      const collapse = item.querySelector('.faq-collapse, .faq-answer');
+      if (collapse) {
+        collapse.style.maxHeight = collapse.scrollHeight + 'px';
+      }
+    });
   };
   window.setLanguage = setLanguage;
 
@@ -3466,13 +3477,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initGalleryLightbox();
 
+  /* ==========================================================================
+     FAQ ACCORDION COMPONENT
+     ========================================================================== */
+  const initFaqAccordion = () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return;
+
+    faqItems.forEach((item) => {
+      const header = item.querySelector('.faq-header, button.faq-question, button');
+      const collapse = item.querySelector('.faq-collapse, .faq-answer');
+      if (!header || !collapse) return;
+
+      const isInitiallyActive = item.classList.contains('active');
+      header.setAttribute('aria-expanded', isInitiallyActive ? 'true' : 'false');
+      if (isInitiallyActive) {
+        collapse.style.maxHeight = collapse.scrollHeight + 'px';
+        collapse.style.opacity = '1';
+      } else {
+        collapse.style.maxHeight = '0px';
+        collapse.style.opacity = '0';
+      }
+
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isActive = item.classList.contains('active');
+
+        // Close other items (classic accordion)
+        faqItems.forEach((other) => {
+          if (other !== item && other.classList.contains('active')) {
+            other.classList.remove('active');
+            const otherHeader = other.querySelector('.faq-header, button.faq-question, button');
+            const otherCollapse = other.querySelector('.faq-collapse, .faq-answer');
+            if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+            if (otherCollapse) {
+              otherCollapse.style.maxHeight = '0px';
+              otherCollapse.style.opacity = '0';
+            }
+          }
+        });
+
+        // Toggle clicked item
+        if (isActive) {
+          item.classList.remove('active');
+          header.setAttribute('aria-expanded', 'false');
+          collapse.style.maxHeight = '0px';
+          collapse.style.opacity = '0';
+        } else {
+          item.classList.add('active');
+          header.setAttribute('aria-expanded', 'true');
+          collapse.style.maxHeight = collapse.scrollHeight + 'px';
+          collapse.style.opacity = '1';
+        }
+      });
+    });
+
+    // Handle recalculation on window resize
+    window.addEventListener('resize', () => {
+      faqItems.forEach((item) => {
+        if (item.classList.contains('active')) {
+          const collapse = item.querySelector('.faq-collapse, .faq-answer');
+          if (collapse) collapse.style.maxHeight = collapse.scrollHeight + 'px';
+        }
+      });
+    }, { passive: true });
+  };
+
+  initFaqAccordion();
+
   // Register Why Choose Us section layout elements for scroll animations
   if (typeof motionObserver !== 'undefined') {
-    document.querySelectorAll('.why-choose-business, .why-image-wrapper, .why-cta-block').forEach(el => {
+    document.querySelectorAll('.why-choose-business, .why-image-wrapper, .why-cta-block, .why-features-grid').forEach(el => {
       el.classList.add('reveal-fade-up');
       motionObserver.observe(el);
     });
-    document.querySelectorAll('.why-card, .why-stat-card, .why-trust-bar, .why-choose-business .counter-stat').forEach(el => {
+    document.querySelectorAll('.why-card, .why-card-modern, .why-stat-card, .why-trust-bar, .why-choose-business .counter-stat').forEach(el => {
       el.classList.add('stagger-reveal');
       motionObserver.observe(el);
     });
