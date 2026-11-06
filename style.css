@@ -6419,7 +6419,12 @@ img.clickable-spec:hover {
     gap: 8px;
   }
 
-  .modal-specs-right,
+  .modal-specs-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .bulk-col-right,
   .sample-col-right {
     display: flex;
@@ -6438,7 +6443,7 @@ img.clickable-spec:hover {
     margin-top: 6px;
   }
   .modal-specs-right .modal-desc {
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .modal-specs-right .modal-desc h4 {
     margin-bottom: 4px;
@@ -6450,16 +6455,74 @@ img.clickable-spec:hover {
     margin: 0;
     color: #4b5563;
   }
-  .modal-specs-right .modal-action {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: auto;
+
+  /* CENTERED DOWN ACTION BUTTONS IN COMPUTER VIEW */
+  .modal-action.modal-action-bottom {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin-top: 18px !important;
+    width: 100% !important;
+    padding-top: 14px !important;
+    border-top: 1px solid var(--line-light, #e7eae7) !important;
   }
-  .modal-action-sub-row {
-    display: grid !important;
-    grid-template-columns: 1.3fr 0.7fr !important;
-    gap: 8px !important;
+
+  .modal-action.modal-action-bottom .modal-action-sub-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin: 0 !important;
+  }
+
+  .modal-action.modal-action-bottom .btn {
+    white-space: nowrap !important;
+    padding: 11px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .modal-action.modal-action-bottom #modal-action-quote-btn {
+    min-width: 210px !important;
+    font-weight: 700 !important;
+    background: var(--green-900, #1b4332) !important;
+    color: #ffffff !important;
+    border: none !important;
+  }
+  .modal-action.modal-action-bottom #modal-action-quote-btn:hover {
+    background: #133325 !important;
+    box-shadow: 0 4px 12px rgba(27, 67, 50, 0.25) !important;
+  }
+
+  .modal-action.modal-action-bottom #modal-action-sample-btn {
+    min-width: 170px !important;
+    border: 1.5px solid var(--gold, #b8860b) !important;
+    color: var(--gold, #b8860b) !important;
+    background: transparent !important;
+  }
+  .modal-action.modal-action-bottom #modal-action-sample-btn:hover {
+    background: rgba(184, 134, 11, 0.08) !important;
+  }
+
+  .modal-action.modal-action-bottom #modal-action-back-btn {
+    min-width: 120px !important;
+    border: 1.5px solid #c9d4ce !important;
+    color: #4b5563 !important;
+    background: transparent !important;
+  }
+  .modal-action.modal-action-bottom #modal-action-back-btn:hover {
+    background: #f3f5f3 !important;
+    color: #1b4332 !important;
   }
 
   /* Bulk & Sample Right Column card and submit buttons */
@@ -6495,12 +6558,29 @@ img.clickable-spec:hover {
     flex-direction: column !important;
     gap: 12px !important;
   }
-  .modal-action-sub-row {
-    display: flex;
-    gap: 8px;
-    width: 100%;
+
+  .modal-action.modal-action-bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid var(--line-light, #e7eae7) !important;
   }
-  .modal-action-sub-row .btn {
-    flex: 1;
+
+  .modal-action.modal-action-bottom #modal-action-quote-btn {
+    width: 100% !important;
+  }
+
+  .modal-action.modal-action-bottom .modal-action-sub-row {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .modal-action.modal-action-bottom .modal-action-sub-row .btn {
+    flex: 1 !important;
   }
 }
