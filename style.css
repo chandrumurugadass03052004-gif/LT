@@ -6382,3 +6382,125 @@ img.clickable-spec:hover {
     padding: 8px 12px;
   }
 }
+
+
+/* ============================================================
+   WIDER 2-COLUMN MODALS FOR COMPUTER / DESKTOP VIEW
+   (Specs & Details, Estimate Quantity / Add to Quote, Request Sample)
+   Prevents vertical scrolling so everything fits on one screen
+   ============================================================ */
+@media (min-width: 820px) {
+  /* Widen all 3 modal containers on desktop */
+  .modal-container,
+  #modal-bulk-add .modal-container.bulk-modal-container,
+  #modal-req-sample .modal-container.sample-modal-container {
+    max-width: 860px !important;
+    width: 92% !important;
+    padding: 22px 28px !important;
+    max-height: 92vh !important;
+  }
+
+  /* 2-Column Responsive Grid */
+  .modal-specs-2col,
+  .bulk-modal-2col,
+  .sample-modal-2col {
+    display: grid !important;
+    grid-template-columns: 1.15fr 0.85fr !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+  }
+
+  /* Left and Right Column flex behavior */
+  .modal-specs-left,
+  .bulk-col-left,
+  .sample-col-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-specs-right,
+  .bulk-col-right,
+  .sample-col-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  /* Compact specs adjustments */
+  .modal-specs-left .modal-specs {
+    margin: 0;
+    padding: 4px 0 8px;
+    border-bottom: none;
+  }
+  .modal-specs-left .spec-item-full {
+    margin-top: 6px;
+  }
+  .modal-specs-right .modal-desc {
+    margin-top: 4px;
+  }
+  .modal-specs-right .modal-desc h4 {
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .modal-specs-right .modal-desc p {
+    font-size: 13.5px;
+    line-height: 1.45;
+    margin: 0;
+    color: #4b5563;
+  }
+  .modal-specs-right .modal-action {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .modal-action-sub-row {
+    display: grid !important;
+    grid-template-columns: 1.3fr 0.7fr !important;
+    gap: 8px !important;
+  }
+
+  /* Bulk & Sample Right Column card and submit buttons */
+  .bulk-col-right .bulk-summary-card,
+  .sample-col-right .bulk-summary-card {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bulk-col-right .btn-bulk-submit,
+  .sample-col-right .btn-bulk-submit {
+    margin-top: 10px;
+  }
+  .sample-policy-banner {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+  .sample-radio-card {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+  }
+}
+
+/* Mobile & Tablet Fallback (< 820px) */
+@media (max-width: 819px) {
+  .modal-specs-2col,
+  .bulk-modal-2col,
+  .sample-modal-2col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .modal-action-sub-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+  .modal-action-sub-row .btn {
+    flex: 1;
+  }
+}

@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=6.1">
+  <link rel="stylesheet" href="style.css?v=6.2">
   <script>
     (function() {
       try {
@@ -1197,87 +1197,100 @@
             <p id="modal-grade-type" data-translate="modal_grade_type">Premium Medium Bold Grade</p>
           </div>
         </div>
-        <div class="modal-specs">
-          <div class="spec-item">
-            <span data-translate="modal_spec_sieve_lbl">Sieve Size Diameter</span>
-            <strong id="modal-spec-sieve">> 6.5 mm</strong>
-          </div>
-          <div class="spec-item">
-            <span data-translate="modal_spec_moisture_lbl">Moisture Content</span>
-            <strong id="modal-spec-moisture">&lt; 12.0% Max</strong>
-          </div>
-          <div class="spec-item">
-            <span data-translate="modal_spec_weight_lbl">Liter Weight (g/l)</span>
-            <strong id="modal-spec-weight">380 - 410 g/l</strong>
-          </div>
-          <div class="spec-item spec-item-full">
-            <div class="spec-color-header">
-              <span data-translate="modal_spec_color_lbl">Color Profile &amp; Variety</span>
-              <span class="color-flex-tag" data-translate="modal_rate_flexible_tag">Flexible Rate by Color Profile</span>
+
+        <div class="modal-specs-2col">
+          <!-- LEFT COLUMN: Physical Specs & Color Variety Options -->
+          <div class="modal-specs-left">
+            <div class="modal-specs">
+              <div class="spec-item">
+                <span data-translate="modal_spec_sieve_lbl">Sieve Size Diameter</span>
+                <strong id="modal-spec-sieve">> 6.5 mm</strong>
+              </div>
+              <div class="spec-item">
+                <span data-translate="modal_spec_moisture_lbl">Moisture Content</span>
+                <strong id="modal-spec-moisture">&lt; 12.0% Max</strong>
+              </div>
+              <div class="spec-item">
+                <span data-translate="modal_spec_weight_lbl">Liter Weight (g/l)</span>
+                <strong id="modal-spec-weight">380 - 410 g/l</strong>
+              </div>
+              <div class="spec-item spec-item-full">
+                <div class="spec-color-header">
+                  <span data-translate="modal_spec_color_lbl">Color Profile &amp; Variety</span>
+                  <span class="color-flex-tag" data-translate="modal_rate_flexible_tag">Flexible Rate by Color Profile</span>
+                </div>
+                
+                <div class="modal-color-selector" id="modal-color-selector">
+                  <button type="button" class="modal-color-btn" data-color="fancy">
+                    <span class="color-dot dot-fancy"></span>
+                    <span class="color-name" data-translate="color_fancy_lbl">Colour Fancy</span>
+                    <span class="color-badge" data-translate="color_fancy_badge">+5% Premium</span>
+                  </button>
+                  <button type="button" class="modal-color-btn active" data-color="colour">
+                    <span class="color-dot dot-colour"></span>
+                    <span class="color-name" data-translate="color_standard_lbl">Colour</span>
+                    <span class="color-badge" data-translate="color_standard_badge">Benchmark</span>
+                  </button>
+                  <button type="button" class="modal-color-btn" data-color="avg">
+                    <span class="color-dot dot-avg"></span>
+                    <span class="color-name" data-translate="color_avg_lbl">Avg Colour</span>
+                    <span class="color-badge" data-translate="color_avg_badge">-5% Value</span>
+                  </button>
+                </div>
+
+                <div class="color-active-detail">
+                  <strong id="modal-spec-color">Deep Sage Green (AGB)</strong>
+                </div>
+              </div>
             </div>
-            
-            <div class="modal-color-selector" id="modal-color-selector">
-              <button type="button" class="modal-color-btn" data-color="fancy">
-                <span class="color-dot dot-fancy"></span>
-                <span class="color-name" data-translate="color_fancy_lbl">Colour Fancy</span>
-                <span class="color-badge" data-translate="color_fancy_badge">+5% Premium</span>
-              </button>
-              <button type="button" class="modal-color-btn active" data-color="colour">
-                <span class="color-dot dot-colour"></span>
-                <span class="color-name" data-translate="color_standard_lbl">Colour</span>
-                <span class="color-badge" data-translate="color_standard_badge">Benchmark</span>
-              </button>
-              <button type="button" class="modal-color-btn" data-color="avg">
-                <span class="color-dot dot-avg"></span>
-                <span class="color-name" data-translate="color_avg_lbl">Avg Colour</span>
-                <span class="color-badge" data-translate="color_avg_badge">-5% Value</span>
-              </button>
+          </div>
+
+          <!-- RIGHT COLUMN: Indicative Market Rate, Summary & Actions -->
+          <div class="modal-specs-right">
+            <!-- Indicative Market Auction Rate Card -->
+            <div class="modal-rate-card" id="modal-spec-rate-card">
+              <div class="modal-rate-header">
+                <div class="modal-rate-title-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span data-translate="modal_indicative_rate_lbl">Indicative Market Auction Rate:</span>
+                </div>
+                <span class="modal-rate-status-pill" id="modal-rate-status-pill">Live Auction Rate</span>
+              </div>
+              <div class="modal-rate-body">
+                <div class="modal-rate-val-wrap">
+                  <span class="modal-rate-curr">₹</span>
+                  <span class="modal-rate-num" id="modal-spec-rate-num">3,000</span>
+                  <span class="modal-rate-per"> / kg</span>
+                </div>
+                <div class="modal-rate-range-wrap" id="modal-spec-rate-range">(Range: ₹2,850 – ₹3,150)</div>
+              </div>
+              <div class="modal-rate-footer" id="modal-spec-rate-footer">
+                <span class="rate-dot"></span>
+                <span id="modal-spec-rate-desc">Standard auction benchmark rate for selected grade</span>
+              </div>
             </div>
 
-            <div class="color-active-detail">
-              <strong id="modal-spec-color">Deep Sage Green (AGB)</strong>
+            <div class="modal-desc">
+              <h4 data-translate="modal_spec_summary_lbl">Product Summary</h4>
+              <p id="modal-spec-desc">Our premium 6.5mm grade green cardamom is ideal for standard packaging retail lines
+                and industrial spice mixtures. Sorted to ensure split pods stay below 2%, it offers a sweet, woody flavor
+                note from volatile oils.</p>
             </div>
-          </div>
-        </div>
 
-        <!-- Indicative Market Auction Rate Card -->
-        <div class="modal-rate-card" id="modal-spec-rate-card">
-          <div class="modal-rate-header">
-            <div class="modal-rate-title-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span data-translate="modal_indicative_rate_lbl">Indicative Market Auction Rate:</span>
+            <div class="modal-action">
+              <button class="btn btn-dark" id="modal-action-quote-btn" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span data-translate="modal_spec_btn_quote">Add to Cart</span>
+              </button>
+              <div class="modal-action-sub-row">
+                <button class="btn btn-outline" id="modal-action-sample-btn" style="border-color: var(--gold); color: var(--gold); display:flex; align-items:center; justify-content:center; gap:8px;" data-translate="modal_spec_btn_sample">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                  Request Sample
+                </button>
+                <button class="btn btn-outline" id="modal-action-back-btn" data-translate="modal_spec_btn_close">Close</button>
+              </div>
             </div>
-            <span class="modal-rate-status-pill" id="modal-rate-status-pill">Live Auction Rate</span>
           </div>
-          <div class="modal-rate-body">
-            <div class="modal-rate-val-wrap">
-              <span class="modal-rate-curr">₹</span>
-              <span class="modal-rate-num" id="modal-spec-rate-num">3,000</span>
-              <span class="modal-rate-per"> / kg</span>
-            </div>
-            <div class="modal-rate-range-wrap" id="modal-spec-rate-range">(Range: ₹2,850 – ₹3,150)</div>
-          </div>
-          <div class="modal-rate-footer" id="modal-spec-rate-footer">
-            <span class="rate-dot"></span>
-            <span id="modal-spec-rate-desc">Standard auction benchmark rate for selected grade</span>
-          </div>
-        </div>
-        <div class="modal-desc">
-          <h4 data-translate="modal_spec_summary_lbl">Product Summary</h4>
-          <p id="modal-spec-desc">Our premium 6.5mm grade green cardamom is ideal for standard packaging retail lines
-            and industrial spice mixtures. Sorted to ensure split pods stay below 2%, it offers a sweet, woody flavor
-            note from volatile oils.</p>
-        </div>
-        <div class="modal-action">
-          <button class="btn btn-dark" id="modal-action-quote-btn" style="display:flex; align-items:center; justify-content:center; gap:8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span data-translate="modal_spec_btn_quote">Add to Cart</span>
-          </button>
-          <button class="btn btn-outline" id="modal-action-sample-btn" style="border-color: var(--gold); color: var(--gold); display:flex; align-items:center; justify-content:center; gap:8px;" data-translate="modal_spec_btn_sample">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-            Request Sample
-          </button>
-          <button class="btn btn-outline" id="modal-action-back-btn" data-translate="modal_spec_btn_close">Close</button>
         </div>
       </div>
     </div>
@@ -1370,105 +1383,113 @@
         </div>
       </div>
 
-      <!-- LIVE RATE BANNER -->
-      <div class="bulk-rate-banner">
-        <div class="rate-banner-info">
-          <span class="rate-label">Market Rate:</span>
-          <span class="rate-value" id="bulk-rate-per-kg">₹2,200 / kg</span>
-          <span class="rate-range" id="bulk-rate-range">(₹2,150 – ₹2,300)</span>
-        </div>
-        <div class="rate-badge" id="bulk-rate-badge">
-          <span class="live-dot"></span> Live Auction Rate
-        </div>
-      </div>
+      <div class="bulk-modal-2col">
+        <!-- LEFT COLUMN: Rate, Color Profile, Quantity, Packaging -->
+        <div class="bulk-col-left">
+          <!-- LIVE RATE BANNER -->
+          <div class="bulk-rate-banner">
+            <div class="rate-banner-info">
+              <span class="rate-label">Market Rate:</span>
+              <span class="rate-value" id="bulk-rate-per-kg">₹2,200 / kg</span>
+              <span class="rate-range" id="bulk-rate-range">(₹2,150 – ₹2,300)</span>
+            </div>
+            <div class="rate-badge" id="bulk-rate-badge">
+              <span class="live-dot"></span> Live Auction Rate
+            </div>
+          </div>
 
-      <!-- COLOR PROFILE VARIETY SELECTION IN BULK MODAL -->
-      <div class="bulk-field-group">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <label class="bulk-field-label" style="margin-bottom:0;">Color Profile Variety:</label>
-          <span class="color-flex-tag-sm" data-translate="modal_rate_flexible_tag">Flexible Rate</span>
+          <!-- COLOR PROFILE VARIETY SELECTION IN BULK MODAL -->
+          <div class="bulk-field-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <label class="bulk-field-label" style="margin-bottom:0;">Color Profile Variety:</label>
+              <span class="color-flex-tag-sm" data-translate="modal_rate_flexible_tag">Flexible Rate</span>
+            </div>
+            <div class="bulk-color-selector" id="bulk-color-selector">
+              <button type="button" class="bulk-color-btn" data-color="fancy" onclick="setBulkColorProfile('fancy')">
+                <span class="color-dot dot-fancy"></span>
+                <span data-translate="color_fancy_lbl">Colour Fancy</span>
+                <span class="color-rate-pill" data-translate="color_fancy_badge">+5% Premium</span>
+              </button>
+              <button type="button" class="bulk-color-btn active" data-color="colour" onclick="setBulkColorProfile('colour')">
+                <span class="color-dot dot-colour"></span>
+                <span data-translate="color_standard_lbl">Colour</span>
+                <span class="color-rate-pill" data-translate="color_standard_badge">Benchmark</span>
+              </button>
+              <button type="button" class="bulk-color-btn" data-color="avg" onclick="setBulkColorProfile('avg')">
+                <span class="color-dot dot-avg"></span>
+                <span data-translate="color_avg_lbl">Avg Colour</span>
+                <span class="color-rate-pill" data-translate="color_avg_badge">-5% Value</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- QUANTITY CONTROLS -->
+          <div class="bulk-field-group">
+            <label class="bulk-field-label">How Many KG / Quantity Needed:</label>
+            <div class="bulk-stepper-wrap">
+              <button type="button" class="bulk-step-btn" onclick="changeBulkQty(-1)" aria-label="Decrease quantity">−</button>
+              <input type="number" id="bulk-qty-input" value="500" min="1" step="any" class="bulk-qty-field" oninput="updateBulkModalCalculations()">
+              <button type="button" class="bulk-step-btn" onclick="changeBulkQty(1)" aria-label="Increase quantity">+</button>
+              <select id="bulk-unit-select" class="bulk-unit-dropdown" onchange="onBulkUnitChange()">
+                <option value="kg" selected>KG</option>
+                <option value="ton">TON</option>
+                <option value="gram">GRAM</option>
+              </select>
+            </div>
+            
+            <!-- QUICK INCREMENTS -->
+            <div class="bulk-quick-pills">
+              <button type="button" class="quick-pill" onclick="setBulkPreset(100)">100 kg</button>
+              <button type="button" class="quick-pill" onclick="setBulkPreset(250)">250 kg</button>
+              <button type="button" class="quick-pill" onclick="setBulkPreset(500)">500 kg</button>
+              <button type="button" class="quick-pill" onclick="setBulkPreset(1000)">1 Ton (1000 kg)</button>
+            </div>
+          </div>
+
+          <!-- PACKAGING SELECTION -->
+          <div class="bulk-field-group">
+            <label class="bulk-field-label">Which Package You Need:</label>
+            <select id="bulk-packaging-select" class="bulk-packaging-dropdown" onchange="updateBulkModalCalculations()">
+              <option value="25" selected>25 kg Heavy-Duty Gunny Bags (Wholesale Standard)</option>
+              <option value="10">10 kg Multi-Barrier Boxes (Export Standard)</option>
+              <option value="5">5 kg Vacuum Sealed Bags (Aroma Lock)</option>
+              <option value="1">1 kg Food-Grade Pouches (Retail Ready)</option>
+              <option value="50">50 kg Master Jute Sacks (Bulk Container Cargo)</option>
+            </select>
+          </div>
         </div>
-        <div class="bulk-color-selector" id="bulk-color-selector">
-          <button type="button" class="bulk-color-btn" data-color="fancy" onclick="setBulkColorProfile('fancy')">
-            <span class="color-dot dot-fancy"></span>
-            <span data-translate="color_fancy_lbl">Colour Fancy</span>
-            <span class="color-rate-pill" data-translate="color_fancy_badge">+5% Premium</span>
+
+        <!-- RIGHT COLUMN: Order Calculation Summary & Confirm Button -->
+        <div class="bulk-col-right">
+          <!-- REAL-TIME CALCULATION SUMMARY CARD -->
+          <div class="bulk-summary-card">
+            <div class="summary-card-title">Live Order Calculation</div>
+            <div class="summary-line">
+              <span>Total Weight:</span>
+              <strong id="bulk-calc-weight">500 kg</strong>
+            </div>
+            <div class="summary-line">
+              <span>Required Packaging:</span>
+              <strong id="bulk-calc-bags" style="color:var(--primary);">20 Bags (25 kg each)</strong>
+            </div>
+            <div class="summary-line">
+              <span>Rate per KG:</span>
+              <strong id="bulk-calc-rate">₹2,200 / kg</strong>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-line total-line">
+              <span>Estimated Total:</span>
+              <strong id="bulk-calc-total">₹11,00,000</strong>
+            </div>
+          </div>
+
+          <!-- ADD TO QUOTE BUTTON -->
+          <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddBulk()" id="btn-add-bulk-quote">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span>Add to Build Your Quote &rarr;</span>
           </button>
-          <button type="button" class="bulk-color-btn active" data-color="colour" onclick="setBulkColorProfile('colour')">
-            <span class="color-dot dot-colour"></span>
-            <span data-translate="color_standard_lbl">Colour</span>
-            <span class="color-rate-pill" data-translate="color_standard_badge">Benchmark</span>
-          </button>
-          <button type="button" class="bulk-color-btn" data-color="avg" onclick="setBulkColorProfile('avg')">
-            <span class="color-dot dot-avg"></span>
-            <span data-translate="color_avg_lbl">Avg Colour</span>
-            <span class="color-rate-pill" data-translate="color_avg_badge">-5% Value</span>
-          </button>
         </div>
       </div>
-
-      <!-- QUANTITY CONTROLS -->
-      <div class="bulk-field-group">
-        <label class="bulk-field-label">How Many KG / Quantity Needed:</label>
-        <div class="bulk-stepper-wrap">
-          <button type="button" class="bulk-step-btn" onclick="changeBulkQty(-1)" aria-label="Decrease quantity">−</button>
-          <input type="number" id="bulk-qty-input" value="500" min="1" step="any" class="bulk-qty-field" oninput="updateBulkModalCalculations()">
-          <button type="button" class="bulk-step-btn" onclick="changeBulkQty(1)" aria-label="Increase quantity">+</button>
-          <select id="bulk-unit-select" class="bulk-unit-dropdown" onchange="onBulkUnitChange()">
-            <option value="kg" selected>KG</option>
-            <option value="ton">TON</option>
-            <option value="gram">GRAM</option>
-          </select>
-        </div>
-        
-        <!-- QUICK INCREMENTS -->
-        <div class="bulk-quick-pills">
-          <button type="button" class="quick-pill" onclick="setBulkPreset(100)">100 kg</button>
-          <button type="button" class="quick-pill" onclick="setBulkPreset(250)">250 kg</button>
-          <button type="button" class="quick-pill" onclick="setBulkPreset(500)">500 kg</button>
-          <button type="button" class="quick-pill" onclick="setBulkPreset(1000)">1 Ton (1000 kg)</button>
-        </div>
-      </div>
-
-      <!-- PACKAGING SELECTION -->
-      <div class="bulk-field-group">
-        <label class="bulk-field-label">Which Package You Need:</label>
-        <select id="bulk-packaging-select" class="bulk-packaging-dropdown" onchange="updateBulkModalCalculations()">
-          <option value="25" selected>25 kg Heavy-Duty Gunny Bags (Wholesale Standard)</option>
-          <option value="10">10 kg Multi-Barrier Boxes (Export Standard)</option>
-          <option value="5">5 kg Vacuum Sealed Bags (Aroma Lock)</option>
-          <option value="1">1 kg Food-Grade Pouches (Retail Ready)</option>
-          <option value="50">50 kg Master Jute Sacks (Bulk Container Cargo)</option>
-        </select>
-      </div>
-
-      <!-- REAL-TIME CALCULATION SUMMARY CARD -->
-      <div class="bulk-summary-card">
-        <div class="summary-card-title">Live Order Calculation</div>
-        <div class="summary-line">
-          <span>Total Weight:</span>
-          <strong id="bulk-calc-weight">500 kg</strong>
-        </div>
-        <div class="summary-line">
-          <span>Required Packaging:</span>
-          <strong id="bulk-calc-bags" style="color:var(--primary);">20 Bags (25 kg each)</strong>
-        </div>
-        <div class="summary-line">
-          <span>Rate per KG:</span>
-          <strong id="bulk-calc-rate">₹2,200 / kg</strong>
-        </div>
-        <div class="summary-divider"></div>
-        <div class="summary-line total-line">
-          <span>Estimated Total:</span>
-          <strong id="bulk-calc-total">₹11,00,000</strong>
-        </div>
-      </div>
-
-      <!-- ADD TO QUOTE BUTTON -->
-      <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddBulk()" id="btn-add-bulk-quote">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        <span>Add to Build Your Quote &rarr;</span>
-      </button>
     </div>
   </div>
 
@@ -1492,98 +1513,106 @@
         </div>
       </div>
 
-      <!-- Commercial Policy Banner (No Free Samples) -->
-      <div class="sample-policy-banner">
-        <div class="sample-policy-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        </div>
-        <div class="sample-policy-text">
-          <strong>Commercial Policy: No Free Samples</strong>
-          <span>Cardamom samples are charged pro-rata based on prevailing Bodinayakanur daily auction rates. Courier/dispatch costs are confirmed prior to shipping.</span>
-        </div>
-      </div>
-
-      <!-- Live Auction Rate Banner -->
-      <div class="bulk-rate-banner" style="margin-bottom:14px;">
-        <div class="rate-banner-info">
-          <span class="rate-label">Daily Market Rate:</span>
-          <span class="rate-value" id="sample-rate-per-kg">₹2,200 / kg</span>
-          <span class="rate-range" id="sample-rate-range">(₹2,100 – ₹2,300)</span>
-        </div>
-        <span class="rate-badge">
-          <span class="live-dot"></span> Live Auction
-        </span>
-      </div>
-
-      <!-- Sample Size Selection -->
-      <div class="sample-radios-group">
-        <label class="sample-radio-card active" id="sample-opt-50g">
-          <input type="radio" name="sample-qty" value="50g" checked onchange="updateSampleModalCalculations()">
-          <div class="sample-opt-info">
-            <span class="sample-opt-weight">50 grams</span>
-            <span class="sample-opt-sub">Standard Aroma &amp; Pod Evaluation</span>
-          </div>
-          <strong class="sample-opt-price" id="sample-price-50g">₹110</strong>
-        </label>
-        
-        <label class="sample-radio-card" id="sample-opt-100g">
-          <input type="radio" name="sample-qty" value="100g" onchange="updateSampleModalCalculations()">
-          <div class="sample-opt-info">
-            <span class="sample-opt-weight">100 grams</span>
-            <span class="sample-opt-sub">Roasting, Cracking &amp; Grinding Trial</span>
-          </div>
-          <strong class="sample-opt-price" id="sample-price-100g">₹220</strong>
-        </label>
-        
-        <label class="sample-radio-card" id="sample-opt-250g">
-          <input type="radio" name="sample-qty" value="250g" onchange="updateSampleModalCalculations()">
-          <div class="sample-opt-info">
-            <span class="sample-opt-weight">250 grams</span>
-            <span class="sample-opt-sub">Commercial Lab Quality Batch</span>
-          </div>
-          <strong class="sample-opt-price" id="sample-price-250g">₹550</strong>
-        </label>
-        
-        <label class="sample-radio-card" id="sample-opt-custom">
-          <input type="radio" name="sample-qty" value="custom" onchange="updateSampleModalCalculations()">
-          <div class="sample-opt-info">
-            <span class="sample-opt-weight">Custom Sample Weight:</span>
-            <div style="display:flex; align-items:center; gap:6px; margin-top:5px;">
-              <input type="number" id="sample-custom-input" placeholder="e.g. 500" min="10" max="5000" step="10" oninput="onSampleCustomInput()" style="width:100px; padding:6px 10px; border:1px solid #c9d4ce; border-radius:6px; font-weight:700; font-size:14px; color:var(--green-900);">
-              <span style="font-size:12.5px; font-weight:600; color:#555;">grams</span>
+      <div class="sample-modal-2col">
+        <!-- LEFT COLUMN: Policy & Sample Size Selection -->
+        <div class="sample-col-left">
+          <!-- Commercial Policy Banner (No Free Samples) -->
+          <div class="sample-policy-banner">
+            <div class="sample-policy-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </div>
+            <div class="sample-policy-text">
+              <strong>Commercial Policy: No Free Samples</strong>
+              <span>Cardamom samples are charged pro-rata based on prevailing Bodinayakanur daily auction rates. Courier/dispatch costs are confirmed prior to shipping.</span>
             </div>
           </div>
-          <strong class="sample-opt-price" id="sample-price-custom">--</strong>
-        </label>
-      </div>
 
-      <!-- Real-Time Calculation Card -->
-      <div class="bulk-summary-card" style="margin-top:12px; margin-bottom:16px;">
-        <div class="summary-card-title">Live Sample Estimation</div>
-        <div class="summary-line">
-          <span>Sample Quantity:</span>
-          <strong id="sample-calc-qty">50 grams (0.05 kg)</strong>
+          <!-- Sample Size Selection -->
+          <div class="sample-radios-group">
+            <label class="sample-radio-card active" id="sample-opt-50g">
+              <input type="radio" name="sample-qty" value="50g" checked onchange="updateSampleModalCalculations()">
+              <div class="sample-opt-info">
+                <span class="sample-opt-weight">50 grams</span>
+                <span class="sample-opt-sub">Standard Aroma &amp; Pod Evaluation</span>
+              </div>
+              <strong class="sample-opt-price" id="sample-price-50g">₹110</strong>
+            </label>
+            
+            <label class="sample-radio-card" id="sample-opt-100g">
+              <input type="radio" name="sample-qty" value="100g" onchange="updateSampleModalCalculations()">
+              <div class="sample-opt-info">
+                <span class="sample-opt-weight">100 grams</span>
+                <span class="sample-opt-sub">Roasting, Cracking &amp; Grinding Trial</span>
+              </div>
+              <strong class="sample-opt-price" id="sample-price-100g">₹220</strong>
+            </label>
+            
+            <label class="sample-radio-card" id="sample-opt-250g">
+              <input type="radio" name="sample-qty" value="250g" onchange="updateSampleModalCalculations()">
+              <div class="sample-opt-info">
+                <span class="sample-opt-weight">250 grams</span>
+                <span class="sample-opt-sub">Commercial Lab Quality Batch</span>
+              </div>
+              <strong class="sample-opt-price" id="sample-price-250g">₹550</strong>
+            </label>
+            
+            <label class="sample-radio-card" id="sample-opt-custom">
+              <input type="radio" name="sample-qty" value="custom" onchange="updateSampleModalCalculations()">
+              <div class="sample-opt-info">
+                <span class="sample-opt-weight">Custom Sample Weight:</span>
+                <div style="display:flex; align-items:center; gap:6px; margin-top:5px;">
+                  <input type="number" id="sample-custom-input" placeholder="e.g. 500" min="10" max="5000" step="10" oninput="onSampleCustomInput()" style="width:100px; padding:6px 10px; border:1px solid #c9d4ce; border-radius:6px; font-weight:700; font-size:14px; color:var(--green-900);">
+                  <span style="font-size:12.5px; font-weight:600; color:#555;">grams</span>
+                </div>
+              </div>
+              <strong class="sample-opt-price" id="sample-price-custom">--</strong>
+            </label>
+          </div>
         </div>
-        <div class="summary-line">
-          <span>Market Rate:</span>
-          <strong id="sample-calc-rate">₹2,200 / kg</strong>
-        </div>
-        <div class="summary-line">
-          <span>Sample Packaging:</span>
-          <strong style="color:var(--primary);">Aroma-Lock Heat-Sealed Pouch</strong>
-        </div>
-        <div class="summary-divider"></div>
-        <div class="summary-line total-line">
-          <span>Estimated Sample Cost:</span>
-          <strong id="sample-calc-total" style="color:var(--green-900);">₹110</strong>
+
+        <!-- RIGHT COLUMN: Market Rate, Sample Calculation & Confirm Button -->
+        <div class="sample-col-right">
+          <!-- Live Auction Rate Banner -->
+          <div class="bulk-rate-banner" style="margin-bottom:12px;">
+            <div class="rate-banner-info">
+              <span class="rate-label">Daily Market Rate:</span>
+              <span class="rate-value" id="sample-rate-per-kg">₹2,200 / kg</span>
+              <span class="rate-range" id="sample-rate-range">(₹2,100 – ₹2,300)</span>
+            </div>
+            <span class="rate-badge">
+              <span class="live-dot"></span> Live Auction
+            </span>
+          </div>
+
+          <!-- Real-Time Calculation Card -->
+          <div class="bulk-summary-card">
+            <div class="summary-card-title">Live Sample Estimation</div>
+            <div class="summary-line">
+              <span>Sample Quantity:</span>
+              <strong id="sample-calc-qty">50 grams (0.05 kg)</strong>
+            </div>
+            <div class="summary-line">
+              <span>Market Rate:</span>
+              <strong id="sample-calc-rate">₹2,200 / kg</strong>
+            </div>
+            <div class="summary-line">
+              <span>Sample Packaging:</span>
+              <strong style="color:var(--primary);">Aroma-Lock Heat-Sealed Pouch</strong>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-line total-line">
+              <span>Estimated Sample Cost:</span>
+              <strong id="sample-calc-total" style="color:var(--green-900);">₹110</strong>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddSample()" id="btn-add-sample-quote" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span id="sample-submit-btn-text">Add Paid Sample to Quote (₹110) &rarr;</span>
+          </button>
         </div>
       </div>
-
-      <!-- Submit Button -->
-      <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddSample()" id="btn-add-sample-quote" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        <span id="sample-submit-btn-text">Add Paid Sample to Quote (₹110) &rarr;</span>
-      </button>
     </div>
   </div>
 
@@ -1640,7 +1669,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=6.1"></script>
+  <script src="app.js?v=6.2"></script>
 </body>
 
 </html>
