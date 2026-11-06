@@ -3623,14 +3623,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const parentCard = header.closest('.m-card');
       const isExpanded = parentCard.classList.contains('expanded');
       
-      // Close all other cards
+      // Close all other cards and reset toggle symbols to +
       document.querySelectorAll('.m-card.expanded').forEach(card => {
         card.classList.remove('expanded');
+        const toggleEl = card.querySelector('.m-card-toggle');
+        if (toggleEl) toggleEl.textContent = '+';
       });
 
       // Expand the clicked one if it wasn't already expanded
       if (!isExpanded) {
         parentCard.classList.add('expanded');
+        const toggleEl = parentCard.querySelector('.m-card-toggle');
+        if (toggleEl) toggleEl.textContent = '−';
       }
     });
   });
