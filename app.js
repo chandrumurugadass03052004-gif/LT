@@ -3180,7 +3180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 9. Refresh active specs modal if open
     if (activeModalGradeKey && typeof openModal === 'function') {
-      const specModalEl = document.getElementById('specs-modal');
+      const specModalEl = document.getElementById('product-modal');
       if (specModalEl && specModalEl.classList.contains('open')) {
         openModal(activeModalGradeKey);
       }
