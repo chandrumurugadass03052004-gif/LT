@@ -65,6 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_85_lbl': '8.5 mm',
       'grade_9_lbl': '9.0 mm',
       'grade_8plus_lbl': '8+',
+      'color_fancy_lbl': 'Colour Fancy',
+      'color_standard_lbl': 'Colour',
+      'color_avg_lbl': 'Avg Colour',
+      'color_fancy_badge': '+5% Premium',
+      'color_standard_badge': 'Benchmark',
+      'color_avg_badge': '-5% Value',
+      'modal_indicative_rate_lbl': 'Indicative Market Auction Rate:',
+      'modal_rate_flexible_tag': 'Flexible Rate by Color Profile',
+      'calc_label_color_profile': 'Select Color Profile Variety',
       'grade_6_sub': 'Standard Sized (Medium)',
       'grade_7_sub': 'Premium Bold (AGEB)',
       'grade_75_sub': 'Elite Premium Bold',
@@ -435,6 +444,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_85_lbl': '8.5 मिमी',
       'grade_9_lbl': '9.0 मिमी',
       'grade_8plus_lbl': '8+',
+      'color_fancy_lbl': 'कलर फैंसी',
+      'color_standard_lbl': 'कलर',
+      'color_avg_lbl': 'औसत कलर',
+      'color_fancy_badge': '+5% प्रीमियम',
+      'color_standard_badge': 'मानक बेंचमार्क',
+      'color_avg_badge': '-5% छूट',
+      'modal_indicative_rate_lbl': 'सांकेतिक बाजार नीलामी दर:',
+      'modal_rate_flexible_tag': 'कलर प्रोफ़ाइल के अनुसार लचीली दर',
+      'calc_label_color_profile': 'कलर प्रोफ़ाइल किस्म चुनें',
       'grade_6_sub': 'मानक आकार (मध्यम)',
       'grade_7_sub': 'प्रीमियम बोल्ड (AGEB)',
       'grade_75_sub': 'एलीट प्रीमियम बोल्ड',
@@ -780,6 +798,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_85_lbl': '8.5 மிமீ',
       'grade_9_lbl': '9.0 மிமீ',
       'grade_8plus_lbl': '8+',
+      'color_fancy_lbl': 'கலர் ஃபேன்ஸி',
+      'color_standard_lbl': 'கலர்',
+      'color_avg_lbl': 'சராசரி கலர்',
+      'color_fancy_badge': '+5% பிரீமியம்',
+      'color_standard_badge': 'நிலையான அடிப்படை',
+      'color_avg_badge': '-5% மதிப்பு தள்ளுபடி',
+      'modal_indicative_rate_lbl': 'சந்தை மாதிரி ஏல விலை:',
+      'modal_rate_flexible_tag': 'கலர் தேர்வுக்கு ஏற்ப மாறுபடும் விலை',
+      'calc_label_color_profile': 'கலர் வகை தேர்வு செய்யவும்',
       'grade_6_sub': 'சாதாரண நடுத்தர அளவு',
       'grade_7_sub': 'பிரீமியம் போல்ட் (AGEB)',
       'grade_75_sub': 'எலைட் பிரீமியம் போல்ட்',
@@ -1150,6 +1177,139 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      4. PRODUCT SPECIFICATIONS MATRIX (MULTI-LANG)
      ========================================================================== */
+  
+  /* ==========================================================================
+     COLOR PROFILE VARIETY MATRIX (MULTI-LANG)
+     ========================================================================== */
+  const colorProfileDetails = {
+    'en': {
+      'green': {
+        'fancy': {
+          name: 'Colour Fancy',
+          badge: '+5% Premium',
+          desc: 'Deep vibrant emerald green with supreme chlorophyll intensity. First-pick auction lot with unmatched visual appeal.',
+          tag: '+₹DIFF/kg Premium over benchmark'
+        },
+        'colour': {
+          name: 'Colour',
+          badge: 'Benchmark',
+          desc: 'Rich uniform natural green pods. Standard auction color meeting the highest commercial export benchmarks.',
+          tag: 'Standard auction benchmark rate'
+        },
+        'avg': {
+          name: 'Avg Colour',
+          badge: '-5% Value',
+          desc: 'Natural light olive to balanced medium green. High volatile oil content with slight natural shade variations.',
+          tag: '-₹DIFF/kg Value discount'
+        }
+      },
+      'yellow': {
+        'fancy': {
+          name: 'Colour Fancy',
+          badge: '+5% Premium',
+          desc: 'Exquisite royal golden yellow with bright lustrous pods. Rare, premium sun-cured auction selection.',
+          tag: '+₹DIFF/kg Premium over benchmark'
+        },
+        'colour': {
+          name: 'Colour',
+          badge: 'Benchmark',
+          desc: 'Rich golden amber yellow pods. Uniformly cured, full-bodied aromatic pods with consistent golden hue.',
+          tag: 'Standard auction benchmark rate'
+        },
+        'avg': {
+          name: 'Avg Colour',
+          badge: '-5% Value',
+          desc: 'Natural pale straw to warm golden yellow. Full aromatic flavor with natural multi-tone golden shading.',
+          tag: '-₹DIFF/kg Value discount'
+        }
+      }
+    },
+    'hi': {
+      'green': {
+        'fancy': {
+          name: 'कलर फैंसी',
+          badge: '+5% प्रीमियम',
+          desc: 'गहरा जीवंत पन्ना हरा। उच्चतम क्लोरोफिल और बेजोड़ दृश्य आकर्षण के साथ प्रीमियम नीलामी चयन।',
+          tag: '+₹DIFF/किग्रा बेंचमार्क से प्रीमियम'
+        },
+        'colour': {
+          name: 'कलर',
+          badge: 'मानक बेंचमार्क',
+          desc: 'समृद्ध प्राकृतिक एकसमान हरी फली। उच्चतम निर्यात मानकों को पूरा करने वाला मानक नीलामी रंग।',
+          tag: 'मानक नीलामी बेंचमार्क दर'
+        },
+        'avg': {
+          name: 'औसत कलर',
+          badge: '-5% छूट',
+          desc: 'प्राकृतिक हल्का जैतून से मध्यम हरा। उच्च वाष्पशील तेल सामग्री और हल्के प्राकृतिक रंग भिन्नता के साथ।',
+          tag: '-₹DIFF/किग्रा मूल्य छूट'
+        }
+      },
+      'yellow': {
+        'fancy': {
+          name: 'कलर फैंसी',
+          badge: '+5% प्रीमियम',
+          desc: 'उत्कृष्ट शाही सुनहरा पीला। चमकदार और दुर्लभ प्रीमियम नीलामी चयन।',
+          tag: '+₹DIFF/किग्रा बेंचमार्क से प्रीमियम'
+        },
+        'colour': {
+          name: 'कलर',
+          badge: 'मानक बेंचमार्क',
+          desc: 'समृद्ध सुनहरा एम्बर पीला। समान रूप से सुखाया हुआ, सुगंधित और सुसंगत सुनहरा रंग।',
+          tag: 'मानक नीलामी बेंचमार्क दर'
+        },
+        'avg': {
+          name: 'औसत कलर',
+          badge: '-5% छूट',
+          desc: 'प्राकृतिक हल्का भूसा पीला। प्राकृतिक हल्के सुनहरे रंगों के साथ पूर्ण सुगंधित स्वाद।',
+          tag: '-₹DIFF/किग्रा मूल्य छूट'
+        }
+      }
+    },
+    'ta': {
+      'green': {
+        'fancy': {
+          name: 'கலர் ஃபேன்ஸி',
+          badge: '+5% பிரீமியம்',
+          desc: 'அடர் கவர்ச்சியான மரகத பச்சை. மிக உயர்ந்த குளோரோபில் மற்றும் நிகரற்ற தோற்றமுடைய பிரீமியம் ஏலத் தேர்வு.',
+          tag: '+₹DIFF/கிலோ கூடுதல் பிரீமியம்'
+        },
+        'colour': {
+          name: 'கலர்',
+          badge: 'நிலையான அடிப்படை',
+          desc: 'சீரான இயற்கை வனப் பச்சை ஏலக்காய். சர்வதேச ஏற்றுமதி தரத்தை பூர்த்தி செய்யும் நிலையான ஏல நிறம்.',
+          tag: 'நிலையான ஏல அடிப்படை விலை'
+        },
+        'avg': {
+          name: 'சராசரி கலர்',
+          badge: '-5% மதிப்பு தள்ளுபடி',
+          desc: 'இயற்கை வெளிர் ஆலிவ் முதல் நடுத்தர பச்சை. அதிக நறுமண எண்ணெய் கொண்ட சீரான வணிகத் தரம்.',
+          tag: '-₹DIFF/கிலோ விலை தள்ளுபடி'
+        }
+      },
+      'yellow': {
+        'fancy': {
+          name: 'கலர் ஃபேன்ஸி',
+          badge: '+5% பிரீமியம்',
+          desc: 'நேர்த்தியான அரச தங்க மஞ்சள். பிரகாசமான, அரிய உயர்தர பழ ஏலக்காய் ஏலத் தேர்வு.',
+          tag: '+₹DIFF/கிலோ கூடுதல் பிரீமியம்'
+        },
+        'colour': {
+          name: 'கலர்',
+          badge: 'நிலையான அடிப்படை',
+          desc: 'செழுமையான தங்க அம்பர் மஞ்சள் காய்கள். சீரான வண்ணமும் மிகுந்த நறுமணமும் கொண்ட நிலையான தரம்.',
+          tag: 'நிலையான ஏல அடிப்படை விலை'
+        },
+        'avg': {
+          name: 'சராசரி கலர்',
+          badge: '-5% மதிப்பு தள்ளுபடி',
+          desc: 'இயற்கை வெளிர் வைக்கோல் மஞ்சள். இனிமையான நறுமணமும் மென்மையான தங்க நிறமும் கொண்ட வணிகத் தரம்.',
+          tag: '-₹DIFF/கிலோ விலை தள்ளுபடி'
+        }
+      }
+    }
+  };
+
   const productSpecsEn = {
     '6mm': {
       title: '6.0 mm Green Cardamom',
@@ -1667,25 +1827,95 @@ document.addEventListener('DOMContentLoaded', () => {
   const mWeight = document.getElementById('modal-spec-weight');
   const mColor = document.getElementById('modal-spec-color');
   const mDesc = document.getElementById('modal-spec-desc');
+  const mColorSelector = document.getElementById('modal-color-selector');
+  const mRateNum = document.getElementById('modal-spec-rate-num');
+  const mRateRange = document.getElementById('modal-spec-rate-range');
+  const mRateDesc = document.getElementById('modal-spec-rate-desc');
 
   let activeModalGradeKey = '';
+  let activeModalColorProfile = 'colour'; // 'fancy', 'colour', 'avg'
 
-  const openModal = (gradeKey) => {
+  const updateModalColorAndRate = () => {
+    if (!activeModalGradeKey) return;
+    const isYellow = activeModalGradeKey.includes('-yellow');
+    const variety = isYellow ? 'yellow' : 'green';
+    const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'en';
+
+    if (mColorSelector) {
+      if (isYellow) {
+        mColorSelector.classList.add('yellow-palette');
+      } else {
+        mColorSelector.classList.remove('yellow-palette');
+      }
+      const btns = mColorSelector.querySelectorAll('.modal-color-btn');
+      btns.forEach(btn => {
+        const cVal = btn.getAttribute('data-color');
+        if (cVal === activeModalColorProfile) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    const cData = (colorProfileDetails[lang] && colorProfileDetails[lang][variety] && colorProfileDetails[lang][variety][activeModalColorProfile])
+      || (colorProfileDetails['en'] && colorProfileDetails['en'][variety] && colorProfileDetails['en'][variety][activeModalColorProfile]);
+    if (mColor && cData) {
+      mColor.innerText = `${cData.name} — ${cData.desc}`;
+    }
+
+    const priceInfo = (typeof window.getDailyPriceRange === 'function')
+      ? window.getDailyPriceRange(activeModalGradeKey, variety, activeModalColorProfile)
+      : null;
+
+    if (priceInfo) {
+      if (mRateNum) mRateNum.innerText = (priceInfo.avg || 0).toLocaleString('en-IN');
+      if (mRateRange) mRateRange.innerText = `(Range: ₹${(priceInfo.min || 0).toLocaleString('en-IN')} – ₹${(priceInfo.max || 0).toLocaleString('en-IN')})`;
+      if (mRateDesc && cData) {
+        let tagText = cData.tag || '';
+        if (priceInfo.diff && priceInfo.diff !== 0) {
+          tagText = tagText.replace('DIFF', Math.abs(priceInfo.diff).toLocaleString('en-IN'));
+        } else {
+          tagText = cData.tag.includes('DIFF') ? 'Benchmark standard auction rate' : cData.tag;
+        }
+        mRateDesc.innerText = tagText;
+      }
+    }
+  };
+
+  const openModal = (gradeKey, colorProfile = 'colour') => {
     activeModalGradeKey = gradeKey;
+    activeModalColorProfile = colorProfile || 'colour';
     const data = currentProductSpecs[gradeKey];
     if (!data) return;
 
-    mTitle.innerText = data.title;
-    mType.innerText = data.subtitle;
-    mSieve.innerText = data.sieve;
-    mMoisture.innerText = data.moisture;
-    mWeight.innerText = data.weight;
-    mColor.innerText = data.color;
-    mDesc.innerText = data.desc;
+    if (mTitle) mTitle.innerText = data.title;
+    if (mType) mType.innerText = data.subtitle;
+    if (mSieve) mSieve.innerText = data.sieve;
+    if (mMoisture) mMoisture.innerText = data.moisture;
+    if (mWeight) mWeight.innerText = data.weight;
+    if (mDesc) mDesc.innerText = data.desc;
+
+    updateModalColorAndRate();
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden'; // Lock background scroll
   };
+
+  // Wire click events on modal color selector buttons
+  if (mColorSelector) {
+    const colorBtns = mColorSelector.querySelectorAll('.modal-color-btn');
+    colorBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cVal = btn.getAttribute('data-color');
+        if (cVal) {
+          activeModalColorProfile = cVal;
+          updateModalColorAndRate();
+        }
+      });
+    });
+  }
 
   const closeModal = () => {
     modal.classList.remove('open');
@@ -1905,7 +2135,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // openBulkModal comes from HTML injection previously
       if (typeof window.openBulkModal === 'function') {
-        window.openBulkModal(activeModalGradeKey, variety);
+        window.openBulkModal(activeModalGradeKey, variety, activeModalColorProfile);
       }
     });
   }
@@ -2018,8 +2248,23 @@ document.addEventListener('DOMContentLoaded', () => {
   let pricePollInterval   = null;  // setInterval handle for 30-sec auto-refresh
 
   // ── Estimator state ──────────────────────────────────────────
-  let calcVariety   = 'green';
-  let estimateItems = [];
+  let calcVariety      = 'green';
+  let calcColorProfile = 'colour';
+  let estimateItems    = [];
+
+  // Wire Quick Quote Calculator Color Radios
+  const calcColorSelector = document.getElementById('calc-color-selector');
+  if (calcColorSelector) {
+    const colorRadioBtns = calcColorSelector.querySelectorAll('.color-radio-btn');
+    colorRadioBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        colorRadioBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        calcColorProfile = btn.getAttribute('data-val') || 'colour';
+        updateQuote();
+      });
+    });
+  }
 
   // ── DOM references ───────────────────────────────────────────
   const varietyGreenBtn       = document.getElementById('variety-green');
@@ -2308,9 +2553,26 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ----------------------------------------------------------
      getDailyPriceRange — wrapper used throughout the calc
   ---------------------------------------------------------- */
-  const getDailyPriceRange = (grade, variety = 'green') => {
+  const getDailyPriceRange = (grade, variety = 'green', colorProfile = 'colour') => {
     if (apiFetchFailed) return null;   // API down — show error
-    return getLivePrice(grade, variety); // null if loading/not found
+    let base = getLivePrice(grade, variety);
+    if (!base) {
+      let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
+      let cleanVariety = (variety === 'yellow' || (grade && grade.includes('-yellow'))) ? 'yellow' : 'green';
+      const key = cleanVariety === 'yellow' ? 'Y' + cleanGrade : cleanGrade;
+      base = defaultGradePrices[key] || { min: 2000, max: 2400, avg: 2200 };
+    }
+    let mult = 1.0;
+    if (colorProfile === 'fancy') mult = 1.05;
+    else if (colorProfile === 'avg') mult = 0.95;
+
+    const baseAvg = base.avg ? base.avg : Math.round((base.min + base.max) / 2);
+    const avg = Math.round(baseAvg * mult);
+    const min = Math.round(base.min * mult);
+    const max = Math.round(base.max * mult);
+    const diff = avg - baseAvg;
+
+    return { min, max, avg, diff };
   };
   window.getDailyPriceRange = getDailyPriceRange;
 
@@ -2358,10 +2620,18 @@ document.addEventListener('DOMContentLoaded', () => {
       totalBags = Math.ceil(qty / 25);
     }
 
-    const priceInfo = getDailyPriceRange(grade, calcVariety);
+    const getSelectedColorProfile = () => {
+      if (!calcColorSelector) return 'colour';
+      const activeBtn = calcColorSelector.querySelector('.color-radio-btn.selected');
+      return activeBtn ? (activeBtn.getAttribute('data-val') || 'colour') : 'colour';
+    };
+
+    const colorProfile = getSelectedColorProfile();
+    const priceInfo = getDailyPriceRange(grade, calcVariety, colorProfile);
 
     return {
       grade,
+      colorProfile,
       qty,
       packagingType,
       totalBags,
@@ -2395,7 +2665,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newItemId = 'est_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
     
     // Check if item of same variety and grade already exists in cart, if so, merge them
-    const existing = estimateItems.find(item => item.variety === calcVariety && item.grade === details.grade);
+    const existing = estimateItems.find(item => item.variety === calcVariety && item.grade === details.grade && (item.colorProfile || 'colour') === details.colorProfile);
     if (existing) {
       existing.qty += details.qty;
       // Re-calculate packaging & prices for the merged quantity
@@ -2417,7 +2687,7 @@ document.addEventListener('DOMContentLoaded', () => {
         totalBags = Math.ceil(mergedQty / 25);
       }
       
-      const priceInfo = getDailyPriceRange(existing.grade, existing.variety);
+      const priceInfo = getDailyPriceRange(existing.grade, existing.variety, existing.colorProfile || 'colour');
       existing.packaging = packagingType;
       existing.packagingType = packagingType;
       existing.bags = totalBags;
@@ -2446,6 +2716,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: newItemId,
         variety: calcVariety,
         grade: details.grade,
+        colorProfile: details.colorProfile,
         qty: details.qty,
         packaging: details.packagingType,
         packagingType: details.packagingType,
@@ -2550,9 +2821,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const sampleCostText = '₹' + sampleCost.toLocaleString('en-IN');
         const rateText = '₹' + ratePerKg.toLocaleString('en-IN') + '/kg';
 
+        const colorLabels = {
+          'fancy': (translations[currentLang] && translations[currentLang]['color_fancy_lbl']) || 'Colour Fancy',
+          'colour': (translations[currentLang] && translations[currentLang]['color_standard_lbl']) || 'Colour',
+          'avg': (translations[currentLang] && translations[currentLang]['color_avg_lbl']) || 'Avg Colour'
+        };
+        const colorName = colorLabels[item.colorProfile || 'colour'] || 'Colour';
+
         tr.innerHTML = `
           <td class="est-cell-item">
-            <strong>${sizeLabel} ${varLabel}</strong>
+            <strong>${sizeLabel} ${varLabel} · <span style="color:#2e6040;font-weight:600;">${colorName}</span></strong>
             <span class="est-item-pack">Aroma-Lock Foil Sample Pouch &mdash; ${item.sampleSize}</span>
             <div style="margin: 4px 0 6px;">
               <span class="sample-paid-pill">Paid Sample &bull; No Free Sample</span>
@@ -2809,14 +3087,16 @@ document.addEventListener('DOMContentLoaded', () => {
     estimateItems.forEach((item) => {
       const varName = item.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
       const gradeName = currentGradeNames[item.grade] || item.grade;
+      const colorLabels = { 'fancy': 'Colour Fancy', 'colour': 'Colour', 'avg': 'Avg Colour' };
+      const colorName = colorLabels[item.colorProfile || 'colour'] || 'Colour';
       
       if (item.isSample) {
         const sampleCost = item.priceAvg || 0;
         const ratePerKg = item.pricePerKg || 0;
-        sampleDetails += `  ${sampleCount}. ${varName} (${gradeName}) - Sample: ${item.sampleSize} [Paid Sample: Est. ₹${sampleCost.toLocaleString('en-IN')} @ ₹${ratePerKg.toLocaleString('en-IN')}/kg]\n`;
+        sampleDetails += `  ${sampleCount}. ${varName} (${gradeName} · ${colorName}) - Sample: ${item.sampleSize} [Paid Sample: Est. ₹${sampleCost.toLocaleString('en-IN')} @ ₹${ratePerKg.toLocaleString('en-IN')}/kg]\n`;
         sampleCount++;
       } else {
-        itemsDetails += `  ${bulkCount}. ${varName} (${gradeName}) - ${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType})\n`;
+        itemsDetails += `  ${bulkCount}. ${varName} (${gradeName} · ${colorName}) - ${item.displayQty || item.qty + ' KG'} (${item.bags} bags, ${item.packagingType})\n`;
         bulkCount++;
       }
     });
@@ -2926,7 +3206,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const variety = isYellow ? 'yellow' : 'green';
       
       if (typeof window.openSampleModal === 'function') {
-        window.openSampleModal(activeModalGradeKey, variety);
+        window.openSampleModal(activeModalGradeKey, variety, activeModalColorProfile);
       }
     });
   }
@@ -3760,19 +4040,32 @@ const defaultGradePrices = {
   'Y9mm': { min: 2700, max: 2950, avg: 2825 }
 };
 
-window.getDailyPriceRange = function(grade, variety = 'green') {
-  if (!grade) return { min: 2000, max: 2400, avg: 2200 };
+window.getDailyPriceRange = function(grade, variety = 'green', colorProfile = 'colour') {
+  if (!grade) return { min: 2000, max: 2400, avg: 2200, diff: 0 };
   let cleanGrade = grade.replace('-yellow', '').trim();
   let cleanVariety = (variety === 'yellow' || grade.includes('-yellow')) ? 'yellow' : 'green';
   const key = cleanVariety === 'yellow' ? 'Y' + cleanGrade : cleanGrade;
   
+  let base = null;
   if (window.livePrices && window.livePrices[key]) {
-    return window.livePrices[key];
+    base = window.livePrices[key];
+  } else if (defaultGradePrices[key]) {
+    base = defaultGradePrices[key];
+  } else {
+    base = { min: 2000, max: 2400, avg: 2200 };
   }
-  if (defaultGradePrices[key]) {
-    return defaultGradePrices[key];
-  }
-  return { min: 2000, max: 2400, avg: 2200 };
+
+  let mult = 1.0;
+  if (colorProfile === 'fancy') mult = 1.05;
+  else if (colorProfile === 'avg') mult = 0.95;
+
+  const baseAvg = base.avg ? base.avg : Math.round((base.min + base.max) / 2);
+  const avg = Math.round(baseAvg * mult);
+  const min = Math.round(base.min * mult);
+  const max = Math.round(base.max * mult);
+  const diff = avg - baseAvg;
+
+  return { min, max, avg, diff };
 };
 
 let myQuoteItems = [];
@@ -3855,9 +4148,10 @@ function updateBulkModalCalculations() {
   else if (packKg === 10) unitText = 'Boxes';
   
   // Fetch price per kg
+  const colorProfile = (currentActiveProduct && currentActiveProduct.colorProfile) || 'colour';
   const priceInfo = (typeof window.getDailyPriceRange === 'function') 
-    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) 
-    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile) 
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile) : null);
   const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
   const totalPrice = Math.round(qtyKg * ratePerKg);
   
@@ -3881,21 +4175,37 @@ function updateBulkModalCalculations() {
 window.updateBulkModalCalculations = updateBulkModalCalculations;
 
 // Bulk Modal Toggles
-function openBulkModal(grade, variety) {
+function openBulkModal(grade, variety, colorProfile = 'colour') {
   let isYellow = (variety === 'yellow' || (grade && grade.includes('-yellow')));
   let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
   let cleanVariety = isYellow ? 'yellow' : 'green';
+  let cleanColor = colorProfile || 'colour';
   
-  currentActiveProduct = { grade: cleanGrade, rawGrade: grade, variety: cleanVariety };
+  currentActiveProduct = { grade: cleanGrade, rawGrade: grade, variety: cleanVariety, colorProfile: cleanColor };
   
   const gradeNamesObj = window.currentGradeNames || (typeof currentGradeNames !== 'undefined' ? currentGradeNames : defaultGradeNames);
   const gradeName = (gradeNamesObj && gradeNamesObj[cleanGrade]) || defaultGradeNames[cleanGrade] || cleanGrade;
   const varietyName = cleanVariety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
+  const colorNames = { 'fancy': 'Colour Fancy', 'colour': 'Colour', 'avg': 'Avg Colour' };
+  const colorLabel = colorNames[cleanColor] || 'Colour';
   
   const prodTitleEl = document.getElementById('bulk-modal-product');
   if (prodTitleEl) {
-    prodTitleEl.innerText = `${cleanGrade} ${varietyName} · ${gradeName}`;
+    prodTitleEl.innerText = `${cleanGrade} ${varietyName} · ${gradeName} (${colorLabel})`;
   }
+
+  const bulkColorSelector = document.getElementById('bulk-color-selector');
+  if (bulkColorSelector) {
+    const btns = bulkColorSelector.querySelectorAll('.bulk-color-btn');
+    btns.forEach(b => {
+      if (b.getAttribute('data-color') === cleanColor) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+  }
+
   
   // Reset initial inputs if needed
   const input = document.getElementById('bulk-qty-input');
@@ -3914,6 +4224,38 @@ function openBulkModal(grade, variety) {
   if (modal) modal.classList.add('open', 'active');
 }
 window.openBulkModal = openBulkModal;
+
+function setBulkColorProfile(color) {
+  if (!currentActiveProduct) return;
+  currentActiveProduct.colorProfile = color || 'colour';
+  
+  const colorNames = { 'fancy': 'Colour Fancy', 'colour': 'Colour', 'avg': 'Avg Colour' };
+  const colorLabel = colorNames[currentActiveProduct.colorProfile] || 'Colour';
+  const gradeNamesObj = window.currentGradeNames || (typeof currentGradeNames !== 'undefined' ? currentGradeNames : defaultGradeNames);
+  const gradeName = (gradeNamesObj && gradeNamesObj[currentActiveProduct.grade]) || defaultGradeNames[currentActiveProduct.grade] || currentActiveProduct.grade;
+  const varietyName = currentActiveProduct.variety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
+
+  const prodTitleEl = document.getElementById('bulk-modal-product');
+  if (prodTitleEl) {
+    prodTitleEl.innerText = `${currentActiveProduct.grade} ${varietyName} · ${gradeName} (${colorLabel})`;
+  }
+
+  const bulkColorSelector = document.getElementById('bulk-color-selector');
+  if (bulkColorSelector) {
+    const btns = bulkColorSelector.querySelectorAll('.bulk-color-btn');
+    btns.forEach(b => {
+      if (b.getAttribute('data-color') === currentActiveProduct.colorProfile) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+  }
+
+  updateBulkModalCalculations();
+}
+window.setBulkColorProfile = setBulkColorProfile;
+
 
 function closeBulkModal() {
   const modal = document.getElementById('modal-bulk-add');
@@ -3993,9 +4335,10 @@ window.closeSampleModal = closeSampleModal;
 
 function updateSampleModalCalculations() {
   if (!currentActiveProduct) return;
+  const colorProfile = (currentActiveProduct && currentActiveProduct.colorProfile) || 'colour';
   const priceInfo = (typeof window.getDailyPriceRange === 'function')
-    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety)
-    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile)
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile) : null);
   const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
 
   // Rate banner
@@ -4101,7 +4444,7 @@ function confirmAddBulk() {
   const priceMax = priceInfo ? Math.round(priceInfo.max * qtyKg) : 0;
   
   // Check if item already exists in quote
-  const existing = myQuoteItems.find(i => !i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety);
+  const existing = myQuoteItems.find(i => !i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety && (i.colorProfile || 'colour') === colorProfile);
   if (existing) {
     existing.qty = qty;
     existing.unit = unit;
@@ -4119,6 +4462,7 @@ function confirmAddBulk() {
       isSample: false,
       grade: currentActiveProduct.grade,
       variety: currentActiveProduct.variety,
+      colorProfile: colorProfile,
       qty: qty,
       unit: unit,
       qtyKg: qtyKg,
@@ -4301,12 +4645,15 @@ function renderQuotePanel() {
       panelTotalVol += (item.qtyKg || item.qty);
       panelTotalBags += (item.bags || 0);
       
+const colorNames = { 'fancy': 'Colour Fancy', 'colour': 'Colour', 'avg': 'Avg Colour' };
+      const colorLabel = colorNames[item.colorProfile || 'colour'] || 'Colour';
+      
       const el = document.createElement('div');
       el.className = 'quote-item';
       el.innerHTML = `
         <img src="${imgPath}" alt="${gradeName}">
         <div class="quote-item-info">
-          <h5>${item.grade} ${varietyName}</h5>
+          <h5>${item.grade} ${varietyName} · <span style="color:#2e6040;font-size:0.85em;">${colorLabel}</span></h5>
           <p class="quote-item-sub">${gradeName}</p>
           <div class="quote-item-details-grid">
             <span class="quote-detail-pill"><strong>Qty:</strong> ${item.qty} ${item.unit.toUpperCase()}</span>

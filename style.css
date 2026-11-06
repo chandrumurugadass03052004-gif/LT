@@ -5948,3 +5948,386 @@ img.clickable-spec:hover {
 }
 
 
+
+
+/* ==========================================================================
+   COLOR PROFILE VARIETIES & FLEXIBLE RATE STYLES
+   ========================================================================== */
+
+.spec-item.spec-item-full {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+.spec-color-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.color-flex-tag,
+.color-flex-tag-sm {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1e6634;
+  background: #eaf5ec;
+  border: 1px solid #b7e0bd;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+}
+
+.color-flex-tag-sm {
+  font-size: 10px;
+  padding: 1px 6px;
+}
+
+.modal-color-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 8px 0 10px 0;
+}
+
+.modal-color-btn {
+  background: #faf8f5;
+  border: 1.5px solid #ded6c9;
+  border-radius: 8px;
+  padding: 10px 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  font-family: inherit;
+  width: 100%;
+}
+
+.modal-color-btn:hover {
+  background: #f4efe4;
+  border-color: #8c7b60;
+  transform: translateY(-1px);
+}
+
+.modal-color-btn.active {
+  background: #eaf5ec;
+  border-color: #2e6040;
+  box-shadow: 0 2px 8px rgba(46, 96, 64, 0.16);
+  transform: translateY(-1px);
+}
+
+.modal-color-selector.yellow-palette .modal-color-btn.active {
+  background: #fbf7ea;
+  border-color: #bfa136;
+  box-shadow: 0 2px 8px rgba(191, 161, 54, 0.2);
+}
+
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.dot-fancy {
+  background: linear-gradient(135deg, #18793b, #0c4d22);
+}
+
+.dot-colour {
+  background: linear-gradient(135deg, #37a35e, #23783f);
+}
+
+.dot-avg {
+  background: linear-gradient(135deg, #7ba864, #598045);
+}
+
+.yellow-palette .dot-fancy,
+.yellow-mode .dot-fancy {
+  background: linear-gradient(135deg, #ffd700, #c89600);
+}
+
+.yellow-palette .dot-colour,
+.yellow-mode .dot-colour {
+  background: linear-gradient(135deg, #f0c040, #bd8e15);
+}
+
+.yellow-palette .dot-avg,
+.yellow-mode .dot-avg {
+  background: linear-gradient(135deg, #eedb8a, #baa14e);
+}
+
+.color-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-900);
+  line-height: 1.2;
+}
+
+.color-badge,
+.color-rate-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: #ece6da;
+  color: #695f4e;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+
+.modal-color-btn.active .color-badge {
+  background: #2e6040;
+  color: #ffffff;
+}
+
+.modal-color-selector.yellow-palette .modal-color-btn.active .color-badge {
+  background: #a38218;
+  color: #ffffff;
+}
+
+.color-active-detail {
+  background: #faf8f5;
+  border-left: 3px solid #2e6040;
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 6px;
+}
+
+.color-active-detail strong {
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #1e3d29;
+  display: block;
+}
+
+/* Indicative Market Auction Rate Card */
+.modal-rate-card {
+  background: linear-gradient(135deg, #f7faf7 0%, #edf5ef 100%);
+  border: 1.5px solid #c2dec7;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 16px 0 14px 0;
+  box-shadow: 0 2px 10px rgba(46, 96, 64, 0.06);
+}
+
+.modal-rate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.modal-rate-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #2e6040;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modal-rate-status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #dff0e2;
+  color: #1e6634;
+  border: 1px solid #b7e0bd;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.modal-rate-body {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.modal-rate-val-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-sans);
+  color: #123d21;
+}
+
+.modal-rate-curr {
+  font-size: 20px;
+  font-weight: 700;
+  color: #b8860b;
+  margin-right: 2px;
+}
+
+.modal-rate-num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.modal-rate-per {
+  font-size: 14px;
+  font-weight: 600;
+  color: #526658;
+  margin-left: 2px;
+}
+
+.modal-rate-range-wrap {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5c7463;
+}
+
+.modal-rate-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #41624b;
+  font-weight: 500;
+  border-top: 1px dashed #cde2d1;
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+.rate-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2e6040;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Quick Quote Calculator Color Radios */
+.color-radios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.color-radio-btn {
+  padding: 10px 8px;
+  border: 1.5px solid #ded6c9;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.color-radio-btn:hover {
+  background: #faf6ef;
+  border-color: #8c7b60;
+}
+
+.color-radio-btn.selected {
+  background: #eaf5ec;
+  border-color: #2e6040;
+  box-shadow: 0 0 0 1px #2e6040;
+}
+
+.color-radio-btn.selected .color-rate-pill {
+  background: #2e6040;
+  color: #fff;
+}
+
+/* Bulk Modal Color Selector */
+.bulk-color-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.bulk-color-btn {
+  padding: 8px 6px;
+  border: 1.5px solid #ded6c9;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.bulk-color-btn:hover {
+  background: #faf6ef;
+  border-color: #8c7b60;
+}
+
+.bulk-color-btn.active {
+  background: #eaf5ec;
+  border-color: #2e6040;
+  box-shadow: 0 0 0 1px #2e6040;
+}
+
+.bulk-color-btn.active .color-rate-pill {
+  background: #2e6040;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .modal-color-selector {
+    gap: 6px;
+  }
+  .modal-color-btn {
+    padding: 8px 4px;
+  }
+  .color-name {
+    font-size: 11.5px;
+  }
+  .color-badge {
+    font-size: 9.5px;
+    padding: 1px 4px;
+  }
+  .modal-rate-num {
+    font-size: 24px;
+  }
+  .color-radios {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .color-radio-btn {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 12px;
+  }
+  .bulk-color-selector {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .bulk-color-btn {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 12px;
+  }
+}

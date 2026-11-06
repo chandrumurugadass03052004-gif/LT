@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5.9">
+  <link rel="stylesheet" href="style.css?v=6.0">
   <script>
     (function() {
       try {
@@ -573,6 +573,31 @@
                 <div class="grade-radio-btn selected" data-val="7.5mm" data-translate="grade_75_lbl">7.5 mm</div>
                 <div class="grade-radio-btn" data-val="7mm" data-translate="grade_7_lbl">7.0 mm</div>
                 <div class="grade-radio-btn" data-val="6mm" data-translate="grade_6_lbl">6.0 mm</div>
+              </div>
+            </div>
+
+            <!-- Color Profile selection -->
+            <div class="form-group" style="margin-top: 15px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <label data-translate="calc_label_color_profile" style="margin-bottom:0;">Select Color Profile Variety</label>
+                <span class="color-flex-tag-sm" data-translate="modal_rate_flexible_tag">Flexible Rate</span>
+              </div>
+              <div class="color-radios" id="calc-color-selector">
+                <div class="color-radio-btn" data-val="fancy">
+                  <span class="color-dot dot-fancy"></span>
+                  <span data-translate="color_fancy_lbl">Colour Fancy</span>
+                  <span class="color-rate-pill" data-translate="color_fancy_badge">+5% Premium</span>
+                </div>
+                <div class="color-radio-btn selected" data-val="colour">
+                  <span class="color-dot dot-colour"></span>
+                  <span data-translate="color_standard_lbl">Colour</span>
+                  <span class="color-rate-pill" data-translate="color_standard_badge">Benchmark</span>
+                </div>
+                <div class="color-radio-btn" data-val="avg">
+                  <span class="color-dot dot-avg"></span>
+                  <span data-translate="color_avg_lbl">Avg Colour</span>
+                  <span class="color-rate-pill" data-translate="color_avg_badge">-5% Value</span>
+                </div>
               </div>
             </div>
 
@@ -1185,9 +1210,56 @@
             <span data-translate="modal_spec_weight_lbl">Liter Weight (g/l)</span>
             <strong id="modal-spec-weight">380 - 410 g/l</strong>
           </div>
-          <div class="spec-item">
-            <span data-translate="modal_spec_color_lbl">Color Profile</span>
-            <strong id="modal-spec-color">Deep Sage Green (AGB)</strong>
+          <div class="spec-item spec-item-full">
+            <div class="spec-color-header">
+              <span data-translate="modal_spec_color_lbl">Color Profile &amp; Variety</span>
+              <span class="color-flex-tag" data-translate="modal_rate_flexible_tag">Flexible Rate by Color Profile</span>
+            </div>
+            
+            <div class="modal-color-selector" id="modal-color-selector">
+              <button type="button" class="modal-color-btn" data-color="fancy">
+                <span class="color-dot dot-fancy"></span>
+                <span class="color-name" data-translate="color_fancy_lbl">Colour Fancy</span>
+                <span class="color-badge" data-translate="color_fancy_badge">+5% Premium</span>
+              </button>
+              <button type="button" class="modal-color-btn active" data-color="colour">
+                <span class="color-dot dot-colour"></span>
+                <span class="color-name" data-translate="color_standard_lbl">Colour</span>
+                <span class="color-badge" data-translate="color_standard_badge">Benchmark</span>
+              </button>
+              <button type="button" class="modal-color-btn" data-color="avg">
+                <span class="color-dot dot-avg"></span>
+                <span class="color-name" data-translate="color_avg_lbl">Avg Colour</span>
+                <span class="color-badge" data-translate="color_avg_badge">-5% Value</span>
+              </button>
+            </div>
+
+            <div class="color-active-detail">
+              <strong id="modal-spec-color">Deep Sage Green (AGB)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicative Market Auction Rate Card -->
+        <div class="modal-rate-card" id="modal-spec-rate-card">
+          <div class="modal-rate-header">
+            <div class="modal-rate-title-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span data-translate="modal_indicative_rate_lbl">Indicative Market Auction Rate:</span>
+            </div>
+            <span class="modal-rate-status-pill" id="modal-rate-status-pill">Live Auction Rate</span>
+          </div>
+          <div class="modal-rate-body">
+            <div class="modal-rate-val-wrap">
+              <span class="modal-rate-curr">₹</span>
+              <span class="modal-rate-num" id="modal-spec-rate-num">3,000</span>
+              <span class="modal-rate-per"> / kg</span>
+            </div>
+            <div class="modal-rate-range-wrap" id="modal-spec-rate-range">(Range: ₹2,850 – ₹3,150)</div>
+          </div>
+          <div class="modal-rate-footer" id="modal-spec-rate-footer">
+            <span class="rate-dot"></span>
+            <span id="modal-spec-rate-desc">Standard auction benchmark rate for selected grade</span>
           </div>
         </div>
         <div class="modal-desc">
@@ -1307,6 +1379,31 @@
         </div>
         <div class="rate-badge" id="bulk-rate-badge">
           <span class="live-dot"></span> Live Auction Rate
+        </div>
+      </div>
+
+      <!-- COLOR PROFILE VARIETY SELECTION IN BULK MODAL -->
+      <div class="bulk-field-group">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label class="bulk-field-label" style="margin-bottom:0;">Color Profile Variety:</label>
+          <span class="color-flex-tag-sm" data-translate="modal_rate_flexible_tag">Flexible Rate</span>
+        </div>
+        <div class="bulk-color-selector" id="bulk-color-selector">
+          <button type="button" class="bulk-color-btn" data-color="fancy" onclick="setBulkColorProfile('fancy')">
+            <span class="color-dot dot-fancy"></span>
+            <span data-translate="color_fancy_lbl">Colour Fancy</span>
+            <span class="color-rate-pill" data-translate="color_fancy_badge">+5% Premium</span>
+          </button>
+          <button type="button" class="bulk-color-btn active" data-color="colour" onclick="setBulkColorProfile('colour')">
+            <span class="color-dot dot-colour"></span>
+            <span data-translate="color_standard_lbl">Colour</span>
+            <span class="color-rate-pill" data-translate="color_standard_badge">Benchmark</span>
+          </button>
+          <button type="button" class="bulk-color-btn" data-color="avg" onclick="setBulkColorProfile('avg')">
+            <span class="color-dot dot-avg"></span>
+            <span data-translate="color_avg_lbl">Avg Colour</span>
+            <span class="color-rate-pill" data-translate="color_avg_badge">-5% Value</span>
+          </button>
         </div>
       </div>
 
@@ -1543,7 +1640,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=5.9"></script>
+  <script src="app.js?v=6.0"></script>
 </body>
 
 </html>
