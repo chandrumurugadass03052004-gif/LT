@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_lbl': '8.0 mm',
       'grade_85_lbl': '8.5 mm',
       'grade_9_lbl': '9.0 mm',
+      'grade_8plus_lbl': '8+',
       'grade_6_sub': 'Standard Sized (Medium)',
       'grade_7_sub': 'Premium Bold (AGEB)',
       'grade_75_sub': 'Elite Premium Bold',
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_sub': 'Super Extra Bold (Super Jumbo)',
       'grade_85_sub': 'Imperial Jumbo Bold',
       'grade_9_sub': 'Supreme Royal Jumbo',
+      'grade_8plus_sub': 'Special Bold Selection (8+)',
       'about_eyebrow': 'Our Brand Legacy',
       'about_founder_desc': 'Established in 2012 by <strong>Murugadass B</strong>, Lisha Traders is rooted in the Bodinayakanur cardamom belt. Backed by over <strong>12 prestigious Spices Board auction permissions</strong>, we source directly from certified daily auctions to deliver the finest Green, Fruit (Yellow), Splits, and Seeds.',
       'about_title': 'A Quality You Can Trust, Service You Can Rely On.',
@@ -203,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_sub_yellow': 'Super Extra Pale Bold (Jumbo)',
       'grade_85_sub_yellow': 'Imperial Pale Jumbo Bold',
       'grade_9_sub_yellow': 'Supreme Royal Pale Jumbo',
+      'grade_8plus_sub_yellow': 'Special Pale Bold Selection (8+)',
       'calc_label_variety': 'Cardamom Variety',
       'calc_empty_cart': 'No items added yet. Select variety, size, and quantity, then click \'Add to Inquiry List\'.',
       'table_th_item': 'Item',
@@ -346,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'table_sub_8': 'Super Extra Bold (Super Jumbo)',
       'table_sub_85': 'Imperial Jumbo Bold',
       'table_sub_9': 'Supreme Royal Jumbo',
+      'table_sub_8plus': 'Special Bold Selection',
       'contact_main_title_p3': 'Together.',
       'why_f1_title': 'Direct Spices Board Auction Sourced',
       'why_f1_desc': 'Sourced directly from certified Spices Board auctions in Bodinayakanur, guaranteeing authentic origin and unblended batches.',
@@ -430,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_lbl': '8.0 मिमी',
       'grade_85_lbl': '8.5 मिमी',
       'grade_9_lbl': '9.0 मिमी',
+      'grade_8plus_lbl': '8+',
       'grade_6_sub': 'मानक आकार (मध्यम)',
       'grade_7_sub': 'प्रीमियम बोल्ड (AGEB)',
       'grade_75_sub': 'एलीट प्रीमियम बोल्ड',
@@ -437,6 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_sub': 'सुपर एक्स्ट्रा बोल्ड (सुपर जंबो)',
       'grade_85_sub': 'इंपीरियल जंबो बोल्ड',
       'grade_9_sub': 'सुप्रीम रॉयल जंबो',
+      'grade_8plus_sub': 'विशेष बोल्ड चयन (8+)',
       'about_eyebrow': 'हमारी विरासत',
       'about_title': 'एक गुणवत्ता जिस पर आप भरोसा कर सकें, एक सेवा जिस पर आप निर्भर हो सकें।',
       'feat_1_title': 'प्रीमियम सॉर्टर गुणवत्ता',
@@ -567,6 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_sub_yellow': 'सुपर एक्स्ट्रा पीला बोल्ड (जंबो)',
       'grade_85_sub_yellow': 'शाही पीला जंबो बोल्ड',
       'grade_9_sub_yellow': 'सर्वोच्च रॉयल पीला जंबो',
+      'grade_8plus_sub_yellow': 'विशेष पीला बोल्ड चयन (8+)',
       'calc_label_variety': 'इलायची की किस्म',
       'calc_empty_cart': 'अभी तक कोई आइटम नहीं जोड़ा गया है। किस्म, आकार और मात्रा का चयन करें, फिर \'पूछताछ सूची में जोड़ें\' पर क्लिक करें।',
       'table_th_item': 'विवरण',
@@ -687,6 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'table_sub_8': 'सुपर एक्स्ट्रा बोल्ड (सुपर जंबो)',
       'table_sub_85': 'इंपीरियल जंबो बोल्ड',
       'table_sub_9': 'सुप्रीम रॉयल जंबो',
+      'table_sub_8plus': 'विशेष बोल्ड चयन',
       'contact_main_title_p3': 'बनाएं।',
       'why_f1_title': 'सीधे स्पाइसेस बोर्ड नीलामी से प्राप्त',
       'why_f1_desc': 'बोदिनायक्कनूर में प्रमाणित स्पाइसेस बोर्ड नीलामियों से सीधे प्राप्त, प्रामाणिक गुणवत्ता और 100% शुद्ध बैच की गारंटी।',
@@ -771,6 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_lbl': '8.0 மிமீ',
       'grade_85_lbl': '8.5 மிமீ',
       'grade_9_lbl': '9.0 மிமீ',
+      'grade_8plus_lbl': '8+',
       'grade_6_sub': 'சாதாரண நடுத்தர அளவு',
       'grade_7_sub': 'பிரீமியம் போல்ட் (AGEB)',
       'grade_75_sub': 'எலைட் பிரீமியம் போல்ட்',
@@ -778,6 +787,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_sub': 'சூப்பர் எக்ஸ்ட்ரா போல்ட்',
       'grade_85_sub': 'இம்பீரியல் ஜம்போ போல்ட்',
       'grade_9_sub': 'சுப்ரீம் ராயல் ஜம்போ',
+      'grade_8plus_sub': 'சிறப்பு போல்ட் தேர்வு (8+)',
       'about_eyebrow': 'எங்கள் பாரம்பரியம்',
       'about_founder_desc': '2012 ஆம் ஆண்டில் <strong>முருகதாஸ் பி</strong> என்பவரால் தொடங்கப்பட்ட லீஷா டிரேடர்ஸ், போடிநாயக்கனூர் ஏலக்காய் வர்த்தக மையத்தில் முன்னணியில் உள்ளது. <strong>12-க்கும் மேற்பட்ட மதிப்புமிக்க ஸ்பைசஸ் போர்டு ஏல அனுமதிகள்</strong> மூலம், தினசரி சான்றளிக்கப்பட்ட ஏலங்களிலிருந்து நேரடியாகக் கொள்முதல் செய்து மிகச்சிறந்த பச்சை, மஞ்சள், உடைந்த ஏலக்காய் மற்றும் விதைகளை வழங்குகிறோம்.',
       'about_title': 'நீங்கள் நம்பக்கூடிய தரம், நீங்கள் சார்ந்திருக்கக்கூடிய சேவை.',
@@ -909,6 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'grade_8_sub_yellow': 'சூப்பர் எக்ஸ்ட்ரா வெளிர் தரம்',
       'grade_85_sub_yellow': 'இம்பீரியல் வெளிர் ஜம்போ போல்ட்',
       'grade_9_sub_yellow': 'சுப்ரீம் ராயல் வெளிர் ஜம்போ',
+      'grade_8plus_sub_yellow': 'சிறப்பு வெளிர் போல்ட் தேர்வு (8+)',
       'calc_label_variety': 'ஏலக்காய் ரகம்',
       'calc_empty_cart': 'இன்னும் பொருட்கள் எதுவும் சேர்க்கப்படவில்லை. ரகம், அளவு மற்றும் எடையைத் தேர்ந்தெடுத்து, \'விசாரணைப் பட்டியலில் சேர்\' என்பதை கிளிக் செய்யவும்.',
       'table_th_item': 'பொருள்',
@@ -1028,6 +1039,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'table_sub_8': 'சூப்பர் எக்ஸ்ட்ரா போல்ட் (சூப்பர் ஜம்போ)',
       'table_sub_85': 'இம்பீரியல் ஜம்போ போல்ட்',
       'table_sub_9': 'சுப்ரீம் ராயல் ஜம்போ',
+      'table_sub_8plus': 'சிறப்பு போல்ட் தேர்வு',
       'contact_main_title_p3': 'இணைவோம்.',
       'why_f1_title': 'நேரடி ஸ்பைசஸ் போர்டு ஏலக் கொள்முதல்',
       'why_f1_desc': 'போடிநாயக்கனூரில் உள்ள சான்றளிக்கப்பட்ட ஸ்பைசஸ் போர்டு ஏலங்களிலிருந்து நேரடியாகப் பெறப்பட்டு, உண்மையான தரம் மற்றும் கலப்படமற்ற தன்மை உறுதி செய்யப்படுகிறது.',
@@ -1193,6 +1205,16 @@ document.addEventListener('DOMContentLoaded', () => {
       color: 'Luxurious Deep Green',
       desc: 'Gourmet grade visual cardamom. Selected exclusively for premium gifting, international luxury packaging, and royal spice blends.'
     },
+    '8plus': {
+      title: '8+ Green Cardamom',
+      subtitle: 'Special Bold Selection (8+)',
+      sieve: '8 above (diameter mesh)',
+      moisture: '10.0% Max humidity',
+      weight: '380 - 420 g/l test weight',
+      color: 'Green',
+      desc: 'Hand-selected premium cardamom pods graded 8mm and above. Outstanding volatile oil content, uniform green color, and full aromatic seeds.'
+    },
+
     '9mm': {
       title: '9.0 mm Green Cardamom',
       subtitle: 'Supreme Royal Jumbo',
@@ -1256,6 +1278,16 @@ document.addEventListener('DOMContentLoaded', () => {
       color: 'Luxurious Golden Yellow',
       desc: 'Gourmet grade visual cardamom. Selected exclusively for premium gifting, international luxury packaging, and royal spice blends.'
     },
+    '8plus-yellow': {
+      title: '8+ Fruit Cardamom (Yellow/Pale)',
+      subtitle: 'Special Bold Selection (8+)',
+      sieve: '8 above (diameter mesh)',
+      moisture: '10.0% Max humidity',
+      weight: '380 - 420 g/l test weight',
+      color: 'Exquisite Royal Golden Yellow',
+      desc: 'Hand-selected premium fruit cardamom pods graded 8mm and above. Rich golden color, fragrant seeds, and exceptional bold pod structure.'
+    },
+
     '9mm-yellow': {
       title: '9.0 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Supreme Royal Jumbo',
@@ -1322,6 +1354,16 @@ document.addEventListener('DOMContentLoaded', () => {
       color: 'शानदार गहरी हरी',
       desc: 'पेटू ग्रेड दृश्य इलायची। विशेष रूप से प्रीमियम उपहार देने, अंतरराष्ट्रीय लक्जरी पैकेजिंग और शाही मसाला मिश्रणों के लिए चुनी गई।'
     },
+    '8plus': {
+      title: '8+ हरी इलायची',
+      subtitle: 'विशेष बोल्ड चयन (8+)',
+      sieve: '8 से ऊपर (व्यास मेष)',
+      moisture: '10.0% अधिकतम नमी',
+      weight: '380 - 420 ग्राम/लीटर परीक्षण वजन',
+      color: 'हरा',
+      desc: '8 मिमी और उससे अधिक आकार की हाथ से चुनी गई प्रीमियम इलायची। उच्च वाष्पशील तेल सामग्री और समान हरे रंग के साथ उत्कृष्ट गुणवत्ता।'
+    },
+
     '9mm': {
       title: '9.0 मिमी हरी इलायची',
       subtitle: 'सुप्रीम रॉयल जंबो',
@@ -1451,6 +1493,15 @@ document.addEventListener('DOMContentLoaded', () => {
       color: 'அழகிய அடர் பச்சை',
       desc: 'ஆடம்பர பரிசுப் பொதிகள், சர்வதேச பேக்கேஜிங் மற்றும் பிரீமியம் மசாலா கலவைகளுக்கு ஏற்ற சிறப்புத் தேர்வு.'
     },
+    '8plus': {
+      title: '8+ பச்சை ஏலக்காய்',
+      subtitle: 'சிறப்பு போல்ட் தேர்வு (8+)',
+      sieve: '8க்கு மேல் (விட்டம் வலை)',
+      moisture: '10.0% அதிகபட்ச ஈரப்பதம்',
+      weight: '380 - 420 கிராம்/லிட்டர் எடை',
+      color: 'பச்சை',
+      desc: '8 மிமீ மற்றும் அதற்கு மேற்பட்ட விட்டம் கொண்ட பிரீமியம் தரம். அதிக நறுமண எண்ணெய் மற்றும் அதிக விதைகளைக் கொண்டது.'
+    },
     '9mm': {
       title: '9.0 மிமீ பச்சை ஏலக்காய்',
       subtitle: 'சுப்ரீம் ராயல் ஜம்போ',
@@ -1514,6 +1565,16 @@ document.addEventListener('DOMContentLoaded', () => {
       color: 'சொகுசு பொன் மஞ்சள்',
       desc: 'பரிசுப் பெட்டிகள் மற்றும் இம்பீரியல் நறுமண கலவைகளுக்கு ஏற்ற சிறப்பு தேர்வு.'
     },
+    '8plus-yellow': {
+      title: '8+ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
+      subtitle: 'சிறப்பு மஞ்சள் போல்ட் தேர்வு (8+)',
+      sieve: '8க்கு மேல் (விட்டம் வலை)',
+      moisture: '10.0% அதிகபட்ச ஈரப்பதம்',
+      weight: '380 - 420 கிராம்/லிட்டர் எடை',
+      color: 'அரச பொன் மஞ்சள் நிறம்',
+      desc: '8 மிமீ மற்றும் அதற்கு மேற்பட்ட விட்டம் கொண்ட பிரீமியம் மஞ்சள் ஏலக்காய். பொன் மஞ்சள் நிறம் மற்றும் நறுமண விதைகளைக் கொண்டது.'
+    },
+
     '9mm-yellow': {
       title: '9.0 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'சுப்ரீம் ராயல் ஜம்போ',
@@ -1533,6 +1594,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '7.5mm': '7.5 mm Elite Premium Bold',
     '7.5-8mm': '7.5 - 8.0 mm Super Bold Export Mix',
     '8mm': '8.0 mm Super Extra Bold (Jumbo)',
+    '8plus': '8+ Special Bold Selection',
     '8.5mm': '8.5 mm Imperial Jumbo Bold',
     '9mm': '9.0 mm Supreme Royal Jumbo'
   };
@@ -1543,6 +1605,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '7.5mm': '7.5 मिमी एलीट प्रीमियम बोल्ड',
     '7.5-8mm': '7.5 - 8.0 मिमी सुपर बोल्ड निर्यात मिक्स',
     '8mm': '8.0 मिमी सुपर एक्स्ट्रा बोल्ड (जंबो)',
+    '8plus': '8+ विशेष बोल्ड चयन',
     '8.5mm': '8.5 मिमी इंपीरियल जंबो बोल्ड',
     '9mm': '9.0 मिमी सुप्रीम रॉयल जंबो'
   };
@@ -1553,6 +1616,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '7.5mm': '7.5 மிமீ எலைட் பிரீமியம் போல்ட்',
     '7.5-8mm': '7.5 - 8.0 மிமீ ஏற்றுமதி போல்ட் கலவை',
     '8mm': '8.0 மிமீ சூப்பர் எக்ஸ்ட்ரா போல்ட்',
+    '8plus': '8+ சிறப்பு போல்ட் தேர்வு',
     '8.5mm': '8.5 மிமீ இம்பீரியல் ஜம்போ போல்ட்',
     '9mm': '9.0 மிமீ சுப்ரீம் ராயல் ஜம்போ'
   };
@@ -3683,6 +3747,7 @@ const defaultGradePrices = {
   '7.5mm': { min: 2100, max: 2300, avg: 2200 },
   '7.5-8mm': { min: 2300, max: 2500, avg: 2400 },
   '8mm': { min: 2500, max: 2750, avg: 2625 },
+  '8plus': { min: 2850, max: 3150, avg: 3000 },
   '8.5mm': { min: 2750, max: 3000, avg: 2875 },
   '9mm': { min: 3000, max: 3350, avg: 3175 },
   'Y6mm': { min: 1400, max: 1550, avg: 1475 },
@@ -3690,6 +3755,7 @@ const defaultGradePrices = {
   'Y7.5mm': { min: 1900, max: 2050, avg: 1975 },
   'Y7.5-8mm': { min: 2100, max: 2250, avg: 2175 },
   'Y8mm': { min: 2300, max: 2500, avg: 2400 },
+  'Y8plus': { min: 2600, max: 2800, avg: 2700 },
   'Y8.5mm': { min: 2500, max: 2700, avg: 2600 },
   'Y9mm': { min: 2700, max: 2950, avg: 2825 }
 };
