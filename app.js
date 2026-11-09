@@ -1350,7 +1350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8mm': {
       title: '7.5 to 8 mm Green Cardamom',
       subtitle: 'Super Extra Bold (Super Jumbo)',
-      sieve: 'No 7.5 below, No 8 above',
+      sieve: '7.5 mm - 8.0 mm range',
       moisture: '10.5% Max humidity',
       weight: '390 - 420 g/l test weight',
       color: 'Rich Deep Forest Green',
@@ -1359,7 +1359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8.5mm': {
       title: '8 to 8.5 mm Green Cardamom',
       subtitle: 'Imperial Jumbo Bold',
-      sieve: 'No 8 below, No 8.5 above',
+      sieve: '8.0 mm - 8.5 mm range',
       moisture: '10.2% Max humidity',
       weight: '390 - 420 g/l test weight',
       color: 'Luxurious Deep Green',
@@ -1423,7 +1423,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8mm-yellow': {
       title: '7.5 to 8 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Super Extra Bold (Super Jumbo)',
-      sieve: 'No 7.5 below, No 8 above',
+      sieve: '7.5 mm - 8.0 mm range',
       moisture: '10.5% Max humidity',
       weight: '390 - 420 g/l test weight',
       color: 'Deep Golden Yellow',
@@ -1432,7 +1432,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8.5mm-yellow': {
       title: '8 to 8.5 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Imperial Jumbo Bold',
-      sieve: 'No 8 below, No 8.5 above',
+      sieve: '8.0 mm - 8.5 mm range',
       moisture: '10.2% Max humidity',
       weight: '390 - 420 g/l test weight',
       color: 'Luxurious Golden Yellow',
@@ -1499,7 +1499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8mm': {
       title: '7.5 से 8 मिमी हरी इलायची',
       subtitle: 'सुपर एक्स्ट्रा बोल्ड (सुपर जंबो)',
-      sieve: '7.5 से कम नहीं, 8 से अधिक नहीं',
+      sieve: '7.5 मिमी - 8.0 मिमी रेंज',
       moisture: '10.5% अधिकतम नमी',
       weight: '390 - 420 ग्राम/लीटर परीक्षण वजन',
       color: 'गहरी वन हरी (फॉरेस्ट ग्रीन)',
@@ -1508,7 +1508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8.5mm': {
       title: '8 से 8.5 मिमी हरी इलायची',
       subtitle: 'इंपीरियल जंबो बोल्ड',
-      sieve: '8 से कम नहीं, 8.5 से अधिक नहीं',
+      sieve: '8.0 मिमी - 8.5 मिमी रेंज',
       moisture: '10.2% अधिकतम नमी',
       weight: '390 - 420 ग्राम/लीटर परीक्षण वजन',
       color: 'शानदार गहरी हरी',
@@ -1572,7 +1572,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8mm-yellow': {
       title: '7.5 से 8 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'सुपर एक्स्ट्रा पीला बोल्ड (जंबो)',
-      sieve: '7.5 से कम नहीं, 8 से अधिक नहीं',
+      sieve: '7.5 मिमी - 8.0 मिमी रेंज',
       moisture: '10.5% अधिकतम नमी',
       weight: '390 - 420 ग्राम/लीटर परीक्षण वजन',
       color: 'गहरी सुनहरी पीली',
@@ -1581,7 +1581,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8.5mm-yellow': {
       title: '8 से 8.5 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'इंपीरियल पीला जंबो बोल्ड',
-      sieve: '8 से कम नहीं, 8.5 से अधिक नहीं',
+      sieve: '8.0 मिमी - 8.5 मिमी रेंज',
       moisture: '10.2% अधिकतम नमी',
       weight: '390 - 420 ग्राम/लीटर परीक्षण वजन',
       color: 'शानदार सुनहरी पीली',
@@ -1638,7 +1638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8mm': {
       title: '7.5 முதல் 8 மிமீ பச்சை ஏலக்காய்',
       subtitle: 'சூப்பர் எக்ஸ்ட்ரா போல்ட் (சூப்பர் ஜம்போ)',
-      sieve: '7.5க்கு கீழ் இல்லை, 8க்கு மேல் இல்லை',
+      sieve: '7.5 மிமீ - 8.0 மிமீ வரம்பு',
       moisture: '10.5% அதிகபட்ச ஈரப்பதம்',
       weight: '390 - 420 கிராம்/லிட்டர் எடை',
       color: 'அடர்ந்த காட்டு பச்சை',
@@ -1647,7 +1647,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8.5mm': {
       title: '8 முதல் 8.5 மிமீ பச்சை ஏலக்காய்',
       subtitle: 'இம்பீரியல் ஜம்போ போல்ட்',
-      sieve: '8க்கு கீழ் இல்லை, 8.5க்கு மேல் இல்லை',
+      sieve: '8.0 மிமீ - 8.5 மிமீ வரம்பு',
       moisture: '10.2% அதிகபட்ச ஈரப்பதம்',
       weight: '390 - 420 கிராம்/லிட்டர் எடை',
       color: 'அழகிய அடர் பச்சை',
@@ -1710,7 +1710,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8mm-yellow': {
       title: '7.5 முதல் 8 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'சூப்பர் எக்ஸ்ட்ரா போல்ட் (ஜம்போ)',
-      sieve: '7.5க்கு கீழ் இல்லை, 8க்கு மேல் இல்லை',
+      sieve: '7.5 மிமீ - 8.0 மிமீ வரம்பு',
       moisture: '10.5% அதிகபட்ச ஈரப்பதம்',
       weight: '390 - 420 கிராம்/லிட்டர் எடை',
       color: 'அடர்ந்த பொன் மஞ்சள் நிறம்',
@@ -1719,7 +1719,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '8.5mm-yellow': {
       title: '8 முதல் 8.5 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'இம்பீரியல் ஜம்போ போல்ட்',
-      sieve: '8க்கு கீழ் இல்லை, 8.5க்கு மேல் இல்லை',
+      sieve: '8.0 மிமீ - 8.5 மிமீ வரம்பு',
       moisture: '10.2% அதிகபட்ச ஈரப்பதம்',
       weight: '390 - 420 கிராம்/லிட்டர் எடை',
       color: 'சொகுசு பொன் மஞ்சள்',
