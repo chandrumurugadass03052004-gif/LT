@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'btn_calc_bulk': 'Calculate Bulk Quote →',
       'grade_6_lbl': '6.0 mm',
       'grade_7_lbl': '7.0 mm',
-      'grade_75_lbl': '7.5 mm',
+      'grade_75_lbl': '7 to 7.5 mm',
       'grade_75_8_lbl': '7 to 8 mm',
       'grade_8_lbl': '7.5 to 8 mm',
       'grade_85_lbl': '8 to 8.5 mm',
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'faq_title_p1': 'Frequently Asked',
       'faq_title_p2': 'Questions',
       'faq_1_q': 'What types and grades of cardamom do you supply?',
-      'faq_1_a': '<p>We supply a complete range of premium Indian cardamom to meet every requirement:</p><ul style="margin-top:10px; margin-left: 20px; list-style-type: disc;"><li><strong>Green Cardamom:</strong> Multiple grades including 6.0mm, 7.0mm, 7.5mm, 7 to 8mm, 7.5 to 8mm, 8 to 8.5mm, and 9.0mm jumbo pods.</li><li><strong>Fruit Cardamom (Yellow/Pale):</strong> Specially sourced and sorted pale pods.</li><li><strong>Split Cardamom:</strong> High-quality split pods suitable for grinding and extraction.</li><li><strong>Cardamom Seeds:</strong> Pure cardamom seeds sorted for culinary and commercial use.</li></ul>',
+      'faq_1_a': '<p>We supply a complete range of premium Indian cardamom to meet every requirement:</p><ul style="margin-top:10px; margin-left: 20px; list-style-type: disc;"><li><strong>Green Cardamom:</strong> Multiple grades including 6.0mm, 7.0mm, 7 to 7.5mm, 7 to 8mm, 7.5 to 8mm, 8 to 8.5mm, and 9.0mm jumbo pods.</li><li><strong>Fruit Cardamom (Yellow/Pale):</strong> Specially sourced and sorted pale pods.</li><li><strong>Split Cardamom:</strong> High-quality split pods suitable for grinding and extraction.</li><li><strong>Cardamom Seeds:</strong> Pure cardamom seeds sorted for culinary and commercial use.</li></ul>',
       'faq_2_q': 'Do you accept bulk orders?',
       'faq_2_a': 'Yes. Lisha Traders specializes in wholesale and bulk orders. Contact us with your quantity requirements, and our team will provide a customized quotation.',
       'faq_3_q': 'How can I request a quotation?',
@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_f6_title': 'Transparent Market-Linked Rates',
       'why_f6_desc': 'Daily pricing benchmarked to real-time Bodinayakanur auction rates, giving buyers clarity, fair value, and reliable procurement cycles.',
       'faq_q1': 'What cardamom grades do you offer?',
-      'faq_a1': 'We supply all standard Indian cardamom sizes from 6.0 mm (Medium) up to 9.0 mm (Supreme Royal Jumbo), including AGEB (7.0 mm), Elite Bold (7.5 mm), and Super Extra Bold (7.5 to 8 mm). We also offer Fruit Cardamom (Yellow/Pale), Split Cardamom, and Cardamom Seeds.',
+      'faq_a1': 'We supply all standard Indian cardamom sizes from 6.0 mm (Medium) up to 9.0 mm (Supreme Royal Jumbo), including AGEB (7.0 mm), Elite Bold (7 to 7.5 mm), and Super Extra Bold (7.5 to 8 mm). We also offer Fruit Cardamom (Yellow/Pale), Split Cardamom, and Cardamom Seeds.',
       'faq_q2': 'What is the minimum order quantity (MOQ)?',
       'faq_a2': 'Our standard wholesale MOQ is 20 kg (one master carton). For trial orders or regional retail distributors, smaller quantities can be arranged. We also fulfill container loads (FCL) for export.',
       'faq_q3': 'Can I request a sample before placing a bulk order?',
@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'btn_calc_bulk': 'थोक कोटेशन की गणना करें →',
       'grade_6_lbl': '6.0 मिमी',
       'grade_7_lbl': '7.0 मिमी',
-      'grade_75_lbl': '7.5 मिमी',
+      'grade_75_lbl': '7 से 7.5 मिमी',
       'grade_75_8_lbl': '7 से 8 मिमी',
       'grade_8_lbl': '7.5 से 8 मिमी',
       'grade_85_lbl': '8 से 8.5 मिमी',
@@ -616,7 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'faq_title_p1': 'अक्सर पूछे जाने वाले',
       'faq_title_p2': 'प्रश्न',
       'faq_1_q': 'आप किस प्रकार और ग्रेड की इलायची की आपूर्ति करते हैं?',
-      'faq_1_a': '<p>हम हर आवश्यकता को पूरा करने के लिए प्रीमियम भारतीय इलायची की एक पूरी श्रृंखला की आपूर्ति करते हैं:</p><ul style="margin-top:10px; margin-left: 20px; list-style-type: disc;"><li><strong>हरी इलायची:</strong> 6.0 मिमी, 7.0 मिमी, 7.5 मिमी, 7 से 8 मिमी, 7.5 से 8 मिमी, 8 से 8.5 मिमी और 9.0 मिमी जंबो पॉड्स सहित कई ग्रेड।</li><li><strong>फ्रूट इलायची (पीली/हल्की पीली):</strong> विशेष रूप से प्राप्त और छंटनी की गई हल्की पीली फलियाँ।</li><li><strong>स्प्लिट इलायची:</strong> पीसने और निकालने के लिए उपयुक्त उच्च गुणवत्ता वाली स्प्लिट फलियाँ।</li><li><strong>इलायची के बीज:</strong> पाक और व्यावसायिक उपयोग के लिए छांटे गए शुद्ध इलायची के बीज।</li></ul>',
+      'faq_1_a': '<p>हम हर आवश्यकता को पूरा करने के लिए प्रीमियम भारतीय इलायची की एक पूरी श्रृंखला की आपूर्ति करते हैं:</p><ul style="margin-top:10px; margin-left: 20px; list-style-type: disc;"><li><strong>हरी इलायची:</strong> 6.0 मिमी, 7.0 मिमी, 7 से 7.5 मिमी, 7 से 8 मिमी, 7.5 से 8 मिमी, 8 से 8.5 मिमी और 9.0 मिमी जंबो पॉड्स सहित कई ग्रेड।</li><li><strong>फ्रूट इलायची (पीली/हल्की पीली):</strong> विशेष रूप से प्राप्त और छंटनी की गई हल्की पीली फलियाँ।</li><li><strong>स्प्लिट इलायची:</strong> पीसने और निकालने के लिए उपयुक्त उच्च गुणवत्ता वाली स्प्लिट फलियाँ।</li><li><strong>इलायची के बीज:</strong> पाक और व्यावसायिक उपयोग के लिए छांटे गए शुद्ध इलायची के बीज।</li></ul>',
       'faq_2_q': 'क्या आप थोक ऑर्डर स्वीकार करते हैं?',
       'faq_2_a': 'हाँ। लीशा ट्रेडर्स थोक और बल्क ऑर्डर में माहिर है। अपनी मात्रा आवश्यकताओं के साथ हमसे संपर्क करें, और हमारी टीम एक अनुकूलित उद्धरण प्रदान करेगी।',
       'faq_3_q': 'मैं कोटेशन का अनुरोध कैसे कर सकता हूँ?',
@@ -727,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_f6_title': 'पारदर्शी बाजार-आधारित दरें',
       'why_f6_desc': 'दैनिक मूल्य निर्धारण बोदिनायक्कनूर नीलामी दरों से जुड़ा है, जिससे खरीदारों को स्पष्टता, उचित मूल्य और विश्वसनीय चक्र मिलता है।',
       'faq_q1': 'आप कौन से इलायची ग्रेड पेश करते हैं?',
-      'faq_a1': 'हम 6.0 मिमी (मीडियम) से लेकर 9.0 मिमी (सुप्रीम रॉयल जंबो) तक के सभी मानक भारतीय आकार प्रदान करते हैं, जिसमें AGEB (7.0 मिमी), एलीट बोल्ड (7.5 मिमी) और सुपर एक्स्ट्रा बोल्ड (7.5 से 8 मिमी) शामिल हैं। हम फ्रूट इलायची (पीली), स्प्लिट इलायची और बीज भी उपलब्ध कराते हैं।',
+      'faq_a1': 'हम 6.0 मिमी (मीडियम) से लेकर 9.0 मिमी (सुप्रीम रॉयल जंबो) तक के सभी मानक भारतीय आकार प्रदान करते हैं, जिसमें AGEB (7.0 मिमी), एलीट बोल्ड (7 से 7.5 मिमी) और सुपर एक्स्ट्रा बोल्ड (7.5 से 8 मिमी) शामिल हैं। हम फ्रूट इलायची (पीली), स्प्लिट इलायची और बीज भी उपलब्ध कराते हैं।',
       'faq_q2': 'न्यूनतम ऑर्डर मात्रा (MOQ) क्या है?',
       'faq_a2': 'हमारा मानक थोक MOQ 20 किग्रा (एक मास्टर कार्टन) है। ट्रायल ऑर्डर या क्षेत्रीय खुदरा वितरकों के लिए छोटी मात्रा की व्यवस्था की जा सकती है। हम निर्यात के लिए पूर्ण कंटेनर लोड (FCL) भी पूरा करते हैं।',
       'faq_q3': 'क्या मैं थोक ऑर्डर देने से पहले सैंपल मांग सकता हूँ?',
@@ -792,7 +792,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'btn_calc_bulk': 'மொத்த விலை கணக்கிட →',
       'grade_6_lbl': '6.0 மிமீ',
       'grade_7_lbl': '7.0 மிமீ',
-      'grade_75_lbl': '7.5 மிமீ',
+      'grade_75_lbl': '7 முதல் 7.5 மிமீ',
       'grade_75_8_lbl': '7 முதல் 8 மிமீ',
       'grade_8_lbl': '7.5 முதல் 8 மிமீ',
       'grade_85_lbl': '8 முதல் 8.5 மிமீ',
@@ -970,7 +970,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'faq_title_p1': 'அடிக்கடி கேட்கப்படும்',
       'faq_title_p2': 'கேள்விகள்',
       'faq_1_q': 'நீங்கள் என்ன வகையான மற்றும் தரமான ஏலக்காயை வழங்குகிறீர்கள்?',
-      'faq_1_a': '<p>ஒவ்வொரு தேவையையும் பூர்த்தி செய்ய பிரீமியம் இந்திய ஏலக்காயின் முழுமையான வரிசையை நாங்கள் வழங்குகிறோம்:</p><ul style="margin-top:10px; margin-left: 20px; list-style-type: disc;"><li><strong>பச்சை ஏலக்காய்:</strong> 6.0மிமீ, 7.0மிமீ, 7.5மிமீ, 7 முதல் 8மிமீ, 7.5 முதல் 8மிமீ, 8 முதல் 8.5மிமீ மற்றும் 9.0மிமீ ஜம்போ காய்கள் உட்பட பல தரங்கள்.</li><li><strong>பழ ஏலக்காய் (மஞ்சள்):</strong> பிரத்தியேகமாக பெறப்பட்டு தரம் பிரிக்கப்பட்ட மஞ்சள் காய்கள்.</li><li><strong>உடைந்த ஏலக்காய்:</strong> அரைப்பதற்கும் சாறு எடுப்பதற்கும் ஏற்ற உயர்தர உடைந்த காய்கள்.</li><li><strong>ஏலக்காய் விதைகள்:</strong> சமையல் மற்றும் வணிக பயன்பாட்டிற்காக தரம் பிரிக்கப்பட்ட தூய ஏலக்காய் விதைகள்.</li></ul>',
+      'faq_1_a': '<p>ஒவ்வொரு தேவையையும் பூர்த்தி செய்ய பிரீமியம் இந்திய ஏலக்காயின் முழுமையான வரிசையை நாங்கள் வழங்குகிறோம்:</p><ul style="margin-top:10px; margin-left: 20px; list-style-type: disc;"><li><strong>பச்சை ஏலக்காய்:</strong> 6.0மிமீ, 7.0மிமீ, 7 முதல் 7.5மிமீ, 7 முதல் 8மிமீ, 7.5 முதல் 8மிமீ, 8 முதல் 8.5மிமீ மற்றும் 9.0மிமீ ஜம்போ காய்கள் உட்பட பல தரங்கள்.</li><li><strong>பழ ஏலக்காய் (மஞ்சள்):</strong> பிரத்தியேகமாக பெறப்பட்டு தரம் பிரிக்கப்பட்ட மஞ்சள் காய்கள்.</li><li><strong>உடைந்த ஏலக்காய்:</strong> அரைப்பதற்கும் சாறு எடுப்பதற்கும் ஏற்ற உயர்தர உடைந்த காய்கள்.</li><li><strong>ஏலக்காய் விதைகள்:</strong> சமையல் மற்றும் வணிக பயன்பாட்டிற்காக தரம் பிரிக்கப்பட்ட தூய ஏலக்காய் விதைகள்.</li></ul>',
       'faq_2_q': 'நீங்கள் மொத்த ஆர்டர்களை ஏற்றுக்கொள்கிறீர்களா?',
       'faq_2_a': 'ஆம். லீஷா டிரேடர்ஸ் மொத்த ஆர்டர்களில் நிபுணத்துவம் பெற்றது. உங்கள் அளவு தேவைகளுடன் எங்களை தொடர்பு கொள்ளவும், எங்கள் குழு உங்களுக்கு பிரத்தியேக விலைப்பட்டியலை வழங்கும்.',
       'faq_3_q': 'நான் எப்படி விலைப்பட்டியல் கேட்பது?',
@@ -1081,7 +1081,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'why_f6_title': 'வெளிப்படையான சந்தை சார்ந்த விலை',
       'why_f6_desc': 'தினசரி விலை போடிநாயக்கனூர் ஏல விலைகளுடன் இணைக்கப்பட்டு, வாங்குபவர்களுக்கு தெளிவு, நியாயமான மதிப்பு மற்றும் நம்பகமான கொள்முதலை வழங்குகிறது.',
       'faq_q1': 'நீங்கள் என்னென்ன ஏலக்காய் தரங்களை வழங்குகிறீர்கள்?',
-      'faq_a1': 'நாங்கள் 6.0 மிமீ (மீடியம்) முதல் 9.0 மிமீ (சுப்ரீம் ராயல் ஜம்போ) வரையிலான அனைத்து நிலையான இந்திய ஏலக்காய் அளவுகளையும் வழங்குகிறோம், இதில் AGEB (7.0 மிமீ), எலைட் போல்ட் (7.5 மிமீ) மற்றும் சூப்பர் எக்ஸ்ட்ரா போல்ட் (7.5 முதல் 8 மிமீ) அடங்கும். மேலும் பழ ஏலக்காய் (மஞ்சள்), பிளவு ஏலக்காய் மற்றும் ஏலக்காய் விதைகளையும் வழங்குகிறோம்.',
+      'faq_a1': 'நாங்கள் 6.0 மிமீ (மீடியம்) முதல் 9.0 மிமீ (சுப்ரீம் ராயல் ஜம்போ) வரையிலான அனைத்து நிலையான இந்திய ஏலக்காய் அளவுகளையும் வழங்குகிறோம், இதில் AGEB (7.0 மிமீ), எலைட் போல்ட் (7 முதல் 7.5 மிமீ) மற்றும் சூப்பர் எக்ஸ்ட்ரா போல்ட் (7.5 முதல் 8 மிமீ) அடங்கும். மேலும் பழ ஏலக்காய் (மஞ்சள்), பிளவு ஏலக்காய் மற்றும் ஏலக்காய் விதைகளையும் வழங்குகிறோம்.',
       'faq_q2': 'குறைந்தபட்ச ஆர்டர் அளவு (MOQ) என்ன?',
       'faq_a2': 'எங்கள் நிலையான மொத்த விற்பனை MOQ 20 கிலோ (ஒரு மாஸ்டர் கார்டன்). சோதனை ஆர்டர்கள் அல்லது பிராந்திய சில்லறை விநியோகஸ்தர்களுக்கு சிறிய அளவுகளும் ஏற்பாடு செய்யப்படலாம். ஏற்றுமதிக்கான கொள்கலன் ஏற்றுமதியையும் (FCL) நாங்கள் பூர்த்தி செய்கிறோம்.',
       'faq_q3': 'மொத்த ஆர்டர் செய்வதற்கு முன் நான் மாதிரி (Sample) பெற முடியுமா?',
@@ -1330,11 +1330,11 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Exceptionally plump pods filled with high volatile natural oil content. Sorted carefully to exclude damaged units. Represents a premium domestic grade for catering houses and retail branding.'
     },
     '7.5mm': {
-      title: '7.5 mm Green Cardamom',
+      title: '7 to 7.5 mm Green Cardamom',
       subtitle: 'Elite Premium Bold',
-      sieve: '> 7.5 mm (diameter mesh)',
+      sieve: '7.0 mm - 7.5 mm range',
       moisture: '11.2% Max humidity',
-      weight: '410 - 430 g/l test weight',
+      weight: '380 - 400 g/l test weight',
       color: 'Deep Emerald Green',
       desc: 'Highly sought-after export grade. Visually sorted to guarantee a high color index, minimum thrips spot percentage, and deep seed count. Excellent value for international markets.'
     },
@@ -1403,11 +1403,11 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Exceptionally plump pods filled with high volatile natural oil content. Sorted carefully to exclude damaged units. Represents a premium domestic grade for catering houses and retail branding.'
     },
     '7.5mm-yellow': {
-      title: '7.5 mm Fruit Cardamom (Yellow/Pale)',
+      title: '7 to 7.5 mm Fruit Cardamom (Yellow/Pale)',
       subtitle: 'Elite Premium Bold',
-      sieve: '> 7.5 mm (diameter mesh)',
+      sieve: '7.0 mm - 7.5 mm range',
       moisture: '11.2% Max humidity',
-      weight: '400 - 420 g/l test weight',
+      weight: '380 - 400 g/l test weight',
       color: 'Rich Golden Pale Yellow',
       desc: 'Highly sought-after export grade. Visually sorted to guarantee a high color index, minimum thrips spot percentage, and deep seed count. Excellent value for international markets.'
     },
@@ -1479,11 +1479,11 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'उच्च वाष्पशील प्राकृतिक तेल सामग्री से भरे हुए असाधारण रूप से मोटे पॉड्स। खानपान और खुदरा ब्रांडिंग के लिए एक प्रीमियम घरेलू ग्रेड का प्रतिनिधित्व करता है।'
     },
     '7.5mm': {
-      title: '7.5 मिमी हरी इलायची',
+      title: '7 से 7.5 मिमी हरी इलायची',
       subtitle: 'एलीट प्रीमियम बोल्ड',
-      sieve: '> 7.5 मिमी (व्यास मेष)',
+      sieve: '7.0 मिमी - 7.5 मिमी रेंज',
       moisture: '11.2% अधिकतम नमी',
-      weight: '410 - 430 ग्राम/लीटर परीक्षण वजन',
+      weight: '380 - 400 ग्राम/लीटर परीक्षण वजन',
       color: 'गहरी पन्ना हरी (एमेराल्ड)',
       desc: 'अत्यधिक निर्यात ग्रेड। उच्च रंग सूचकांक, न्यूनतम थ्रिप्स स्पॉट और गहरे बीजों की संख्या की गारंटी के लिए सावधानीपूर्वक छांटा गया।'
     },
@@ -1552,11 +1552,11 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'असाधारण रूप से मोटे पॉड्स। खानपान और खुदरा ब्रांडिंग के लिए एक प्रीमियम घरेलू ग्रेड का प्रतिनिधित्व करता है।'
     },
     '7.5mm-yellow': {
-      title: '7.5 मिमी फ्रूट इलायची (पीली/हल्की)',
+      title: '7 से 7.5 मिमी फ्रूट इलायची (पीली/हल्की)',
       subtitle: 'एलीट प्रीमियम पीला बोल्ड',
-      sieve: '> 7.5 मिमी (व्यास मेष)',
+      sieve: '7.0 मिमी - 7.5 मिमी रेंज',
       moisture: '11.2% अधिकतम नमी',
-      weight: '400 - 420 ग्राम/लीटर परीक्षण वजन',
+      weight: '380 - 400 ग्राम/लीटर परीक्षण वजन',
       color: 'गहरी सुनहरी हल्की पीली',
       desc: 'अत्यधिक निर्यात ग्रेड। उच्च रंग सूचकांक, न्यूनतम थ्रिप्स स्पॉट और गहरे बीजों की संख्या की गारंटी के लिए सावधानीपूर्वक छांटा गया।'
     },
@@ -1618,11 +1618,11 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'அரோமா எண்ணெய்கள் நிறைந்த முழுமையான ஏலக்காய் காய்கள். கேட்டரிங் மற்றும் சில்லறை வர்த்தகத்திற்கு ஏற்ற பிரீமியம் தரம்.'
     },
     '7.5mm': {
-      title: '7.5 மிமீ பச்சை ஏலக்காய்',
+      title: '7 முதல் 7.5 மிமீ பச்சை ஏலக்காய்',
       subtitle: 'எலைட் பிரீமியம் போல்ட்',
-      sieve: '> 7.5 மிமீ (விட்டம் வலை)',
+      sieve: '7.0 மிமீ - 7.5 மிமீ வரம்பு',
       moisture: '11.2% அதிகபட்ச ஈரப்பதம்',
-      weight: '410 - 430 கிராம்/லிட்டர் எடை',
+      weight: '380 - 400 கிராம்/லிட்டர் எடை',
       color: 'அடர்ந்த மரகத பச்சை',
       desc: 'உலகளவில் அதிகம் விரும்பப்படும் ஏற்றுமதி தரம். சிறந்த நிறம், தரம் மற்றும் அதிக விதைகள் நிறைந்த காய்களை உறுதி செய்ய தரம் பிரிக்கப்பட்டது.'
     },
@@ -1690,11 +1690,11 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'அரோமா எண்ணெய்கள் நிறைந்த முழுமையான ஏலக்காய் காய்கள். கேட்டரிங் மற்றும் சில்லறை வர்த்தகத்திற்கு ஏற்ற பிரீமியம் தரம்.'
     },
     '7.5mm-yellow': {
-      title: '7.5 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
+      title: '7 முதல் 7.5 மிமீ பழ ஏலக்காய் (மஞ்சள்/வெளிர்)',
       subtitle: 'எலைட் பிரீமியம் போல்ட்',
-      sieve: '> 7.5 மிமீ (விட்டம் வலை)',
+      sieve: '7.0 மிமீ - 7.5 மிமீ வரம்பு',
       moisture: '11.2% அதிகபட்ச ஈரப்பதம்',
-      weight: '400 - 420 கிராம்/லிட்டர் எடை',
+      weight: '380 - 400 கிராம்/லிட்டர் எடை',
       color: 'அடர்ந்த பொன் மஞ்சள்',
       desc: 'ஏற்றுமதி தரம். சிறந்த நிறம், தரம் மற்றும் அதிக விதைகள் நிறைந்த காய்களை உறுதி செய்ய தரம் பிரிக்கப்பட்டது.'
     },
@@ -1751,7 +1751,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const gradeNamesEn = {
     '6mm': '6.0 mm Standard Sized',
     '7mm': '7.0 mm Premium Bold (AGEB)',
-    '7.5mm': '7.5 mm Elite Premium Bold',
+    '7.5mm': '7 to 7.5 mm Elite Premium Bold',
     '7.5-8mm': '7 to 8 mm Super Bold Export Mix',
     '8mm': '7.5 to 8 mm Super Extra Bold (Jumbo)',
     '8plus': '8+ Special Bold Selection',
@@ -1762,7 +1762,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const gradeNamesHi = {
     '6mm': '6.0 मिमी मानक आकार',
     '7mm': '7.0 मिमी प्रीमियम बोल्ड (AGEB)',
-    '7.5mm': '7.5 मिमी एलीट प्रीमियम बोल्ड',
+    '7.5mm': '7 से 7.5 मिमी एलीट प्रीमियम बोल्ड',
     '7.5-8mm': '7 से 8 मिमी सुपर बोल्ड निर्यात मिक्स',
     '8mm': '7.5 से 8 मिमी सुपर एक्स्ट्रा बोल्ड (जंबो)',
     '8plus': '8+ विशेष बोल्ड चयन',
@@ -1773,7 +1773,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const gradeNamesTa = {
     '6mm': '6.0 மிமீ சாதாரண நடுத்தர அளவு',
     '7mm': '7.0 மிமீ பிரீமியம் போல்ட் (AGEB)',
-    '7.5mm': '7.5 மிமீ எலைட் பிரீமியம் போல்ட்',
+    '7.5mm': '7 முதல் 7.5 மிமீ எலைட் பிரீமியம் போல்ட்',
     '7.5-8mm': '7 முதல் 8 மிமீ ஏற்றுமதி போல்ட் கலவை',
     '8mm': '7.5 முதல் 8 மிமீ சூப்பர் எக்ஸ்ட்ரா போல்ட்',
     '8plus': '8+ சிறப்பு போல்ட் தேர்வு',
@@ -4014,7 +4014,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const defaultGradeNames = {
   '6mm': '6.0 mm Standard Medium',
   '7mm': '7.0 mm Premium Bold (AGEB)',
-  '7.5mm': '7.5 mm Elite Premium Bold',
+  '7.5mm': '7 to 7.5 mm Elite Premium Bold',
   '7.5-8mm': '7 to 8 mm Super Bold Export Mix',
   '8mm': '7.5 to 8 mm Super Extra Bold (Jumbo)',
   '8plus': '8+ Special Bold Selection',
