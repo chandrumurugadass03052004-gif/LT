@@ -4099,16 +4099,18 @@ function generateId() {
 
 // Panel Toggles
 function openQuotePanel() {
-  if (quotePanel) {
-    quotePanel.classList.add('open');
+  const panel = quotePanel || document.getElementById('my-quote-panel');
+  if (panel) {
+    panel.classList.add('open');
     renderQuotePanel();
   }
 }
 window.openQuotePanel = openQuotePanel;
 
 function closeQuotePanel() {
-  if (quotePanel) {
-    quotePanel.classList.remove('open');
+  const panel = quotePanel || document.getElementById('my-quote-panel');
+  if (panel) {
+    panel.classList.remove('open');
   }
 }
 window.closeQuotePanel = closeQuotePanel;
@@ -4420,7 +4422,10 @@ function confirmAddBulk() {
   const packSelect = document.getElementById('bulk-packaging-select');
   
   let qty = parseFloat(input ? input.value : 0) || 0;
-  if (qty <= 0) return;
+  if (qty <= 0) {
+    if (input) input.focus();
+    return;
+  }
   const unit = unitSelect ? unitSelect.value : 'kg';
   
   let qtyKg = qty;
@@ -4435,9 +4440,10 @@ function confirmAddBulk() {
   }
   
   const totalBags = Math.ceil(qtyKg / packKg);
+  const colorProfile = (currentActiveProduct && currentActiveProduct.colorProfile) || 'colour';
   const priceInfo = (typeof window.getDailyPriceRange === 'function')
-    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety)
-    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile)
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile) : null);
   const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
   const totalPrice = Math.round(qtyKg * ratePerKg);
   const priceMin = priceInfo ? Math.round(priceInfo.min * qtyKg) : 0;
@@ -4456,6 +4462,7 @@ function confirmAddBulk() {
     existing.totalPrice = totalPrice;
     existing.priceMin = priceMin;
     existing.priceMax = priceMax;
+    existing.colorProfile = colorProfile;
   } else {
     myQuoteItems.push({
       id: generateId(),
@@ -4476,6 +4483,7 @@ function confirmAddBulk() {
     });
   }
   
+  window.myQuoteItems = myQuoteItems;
   closeBulkModal();
   updateQuoteBadge();
   animateBadge();
@@ -4506,16 +4514,17 @@ function confirmAddSample() {
   }
   
   const weightKg = weightGrams / 1000;
+  const colorProfile = (currentActiveProduct && currentActiveProduct.colorProfile) || 'colour';
   const priceInfo = (typeof window.getDailyPriceRange === 'function')
-    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety)
-    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety) : null);
+    ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile)
+    : ((typeof getDailyPriceRange === 'function') ? getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile) : null);
   const ratePerKg = priceInfo ? (priceInfo.avg || Math.round((priceInfo.min + priceInfo.max) / 2)) : 2200;
   const samplePrice = Math.round(weightKg * ratePerKg);
   const samplePriceMin = priceInfo ? Math.round(weightKg * priceInfo.min) : samplePrice;
   const samplePriceMax = priceInfo ? Math.round(weightKg * priceInfo.max) : samplePrice;
 
   // Check if sample item already exists in quote
-  const existing = myQuoteItems.find(i => i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety);
+  const existing = myQuoteItems.find(i => i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety && (i.colorProfile || 'colour') === colorProfile);
   if (existing) {
     existing.sampleSize = sampleSize;
     existing.weightGrams = weightGrams;
@@ -4524,12 +4533,14 @@ function confirmAddSample() {
     existing.totalPrice = samplePrice;
     existing.priceMin = samplePriceMin;
     existing.priceMax = samplePriceMax;
+    existing.colorProfile = colorProfile;
   } else {
     myQuoteItems.push({
       id: generateId(),
       isSample: true,
       grade: currentActiveProduct.grade,
       variety: currentActiveProduct.variety,
+      colorProfile: colorProfile,
       sampleSize: sampleSize,
       weightGrams: weightGrams,
       weightKg: weightKg,
@@ -4541,6 +4552,7 @@ function confirmAddSample() {
     });
   }
   
+  window.myQuoteItems = myQuoteItems;
   closeSampleModal();
   updateQuoteBadge();
   animateBadge();
@@ -4768,6 +4780,7 @@ function continueToCalculator() {
         isSample: false,
         grade: qItem.grade,
         variety: qItem.variety,
+        colorProfile: qItem.colorProfile || 'colour',
         qty: qItem.qtyKg,
         displayQty: `${qItem.qty} ${qItem.unit.toUpperCase()}`,
         packagingType: qItem.packagingName || '25 kg Heavy-Duty Gunny Bags',
@@ -4784,6 +4797,7 @@ function continueToCalculator() {
         isSample: true,
         grade: qItem.grade,
         variety: qItem.variety,
+        colorProfile: qItem.colorProfile || 'colour',
         sampleSize: qItem.sampleSize,
         qty: qItem.weightKg || 0.05,
         displayQty: qItem.sampleSize,
