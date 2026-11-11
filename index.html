@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8.3">
+  <link rel="stylesheet" href="style.css?v=8.4">
   <script>
     (function() {
       try {
@@ -718,11 +718,160 @@
 
 
     
-<div class="calc-btn-group">
+            <div class="calc-btn-group" id="calc-inquiry-btn-group">
               <button class="btn btn-dark" id="calc-whatsapp-btn" data-translate="btn_calc_whatsapp">Send Quote Request
                 via WhatsApp →</button>
               <button class="btn btn-outline" id="calc-email-btn" data-translate="btn_calc_email">Send Quote Request via
                 Email</button>
+            </div>
+
+            <!-- ESTIMATE SUMMARY DIRECT ONLINE PAYMENT SECTION (Appears when Samples are added to Cart) -->
+            <div id="est-summary-payment-box" style="display:none; margin: 24px 0 16px; border: 2px solid #16a34a; border-radius: 12px; background: #f0fdf4; padding: 18px 16px; text-align: center; box-shadow: 0 4px 18px rgba(22,163,74,0.12);">
+              <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
+                <span style="background:#16a34a; color:#fff; font-size:11px; font-weight:800; padding:2px 8px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px;">Direct Online Payment</span>
+                <span style="font-size:12px; color:#166534; font-weight:700;">✈️ 24h Express Flight Courier</span>
+              </div>
+              <h4 style="margin:4px 0 6px; font-size:17.5px; color:#14532d; font-family:'Playfair Display', serif;">Sample Consignment Checkout &amp; Settlement</h4>
+              <p style="margin:0 0 12px; font-size:12px; color:#166534;">Pay online directly for all your sample items below. Immediate 24h express flight dispatch booked upon payment.</p>
+
+              <!-- Sample Order Financial Breakdown -->
+              <div style="background:#ffffff; border:1px solid #bbf7d0; border-radius:8px; padding:10px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px;">
+                <div style="text-align:left;">
+                  <span style="color:#64748b; font-size:11.5px; display:block;">Sample Pods Total:</span>
+                  <strong id="est-pay-pods-cost" style="color:#0f172a; font-size:14px;">₹0</strong>
+                </div>
+                <div style="text-align:left;">
+                  <span style="color:#b45309; font-size:11.5px; display:block;">✈️ Flight Express Courier:</span>
+                  <strong id="est-pay-flight-cost" style="color:#b45309; font-size:14px;">₹150</strong>
+                </div>
+                <div style="text-align:right;">
+                  <span style="color:#166534; font-size:11.5px; display:block;">Total Payable Online:</span>
+                  <strong id="est-pay-total-cost" style="color:#15803d; font-size:18px;">₹0</strong>
+                </div>
+              </div>
+
+              <!-- Step 1: Active Payment State (QR Code, Bank Details, and Address) -->
+              <div id="est-payment-step-active">
+                <!-- Payment Method Selector Tabs -->
+                <div style="display:flex; justify-content:center; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+                  <button type="button" id="est-tab-upi" onclick="switchEstPaymentTab('upi')" style="padding:7px 14px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; border:1px solid #16a34a; background:#16a34a; color:#fff;">
+                    📱 Scan UPI QR (GPay/PhonePe/Paytm)
+                  </button>
+                  <button type="button" id="est-tab-bank" onclick="switchEstPaymentTab('bank')" style="padding:7px 14px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; border:1px solid #cbd5e1; background:#ffffff; color:#475569;">
+                    🏦 Canara Bank Direct Transfer
+                  </button>
+                </div>
+
+                <!-- UPI QR Panel -->
+                <div id="est-panel-upi" style="display:block;">
+                  <div id="est-qr-box" style="background:#ffffff; border:2px dashed #0284c7; border-radius:12px; padding:12px; max-width:250px; margin:0 auto 8px; position:relative; box-shadow:0 4px 14px rgba(2,132,199,0.12);">
+                    <a id="est-qr-link" href="#" onclick="handleEstQrClick(event)" title="Tap to open in Google Pay, PhonePe, Paytm, or any UPI App" style="display:block; text-decoration:none; cursor:pointer;">
+                      <img id="est-qr-code-img" src="" alt="Dynamic Scannable UPI Payment QR Code" style="width:190px; height:190px; display:block; margin:0 auto; border-radius:8px; object-fit:contain;">
+                    </a>
+                    <!-- Green Tick Overlay Over QR Code -->
+                    <div id="est-qr-success-overlay" style="display:none; position:absolute; inset:0; background:rgba(255,255,255,0.96); border-radius:10px; flex-direction:column; align-items:center; justify-content:center; padding:10px;">
+                      <div class="qr-success-badge-pulse" style="width:58px; height:58px; background:#16a34a; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff; margin-bottom:6px; box-shadow:0 6px 16px rgba(22,163,74,0.45);">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <div style="font-size:13px; font-weight:800; color:#15803d; letter-spacing:0.3px;">PAYMENT RECEIVED</div>
+                      <div id="est-qr-success-amount-text" style="font-size:15px; font-weight:800; color:#0f172a; margin-top:2px;">₹0.00 Received</div>
+                      <div style="font-size:10.5px; color:#166534; font-weight:600; margin-top:3px;">✓ Credited to CHANDRU M</div>
+                    </div>
+                  </div>
+
+                  <!-- QR Scan / Tap Hint -->
+                  <div style="font-size:11.5px; color:#475569; margin-bottom:8px;">
+                    <span id="est-qr-hint">👆 Tap QR to Pay via Any UPI App (or scan with camera)</span>
+                  </div>
+
+                  <!-- UPI ID Chip -->
+                  <div style="display:inline-flex; align-items:center; gap:6px; background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:4px 10px; margin-bottom:12px; font-size:12px;">
+                    <span style="font-family:monospace; font-weight:600; color:#1e293b;">chandru200405-1@okaxis</span>
+                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('chandru200405-1@okaxis', this)" style="border:none; background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:600; cursor:pointer;">📋 Copy</button>
+                  </div>
+                </div>
+
+                <!-- Bank Details Panel -->
+                <div id="est-panel-bank" style="display:none; text-align:left; background:#ffffff; border:1px solid #bbf7d0; border-radius:10px; padding:12px 14px; max-width:400px; margin:0 auto 12px; font-size:12px; line-height:1.5;">
+                  <div style="font-weight:700; color:#166534; font-size:13px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                    <span>🏦 Canara Bank Direct Account Details</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns: 95px 1fr; gap:4px; color:#334155;">
+                    <span style="color:#64748b;">Account No:</span>
+                    <span><strong style="font-family:monospace; font-size:13px; color:#0f172a;">110058339732</strong> <button type="button" class="btn-copy-chip" onclick="copyToClipboard('110058339732', this)" style="border:none; background:#f1f5f9; padding:1px 5px; border-radius:3px; font-size:10px; cursor:pointer;">Copy</button></span>
+                    <span style="color:#64748b;">IFSC Code:</span>
+                    <span><strong style="font-family:monospace; color:#0f172a;">CNRB0001002</strong> <button type="button" class="btn-copy-chip" onclick="copyToClipboard('CNRB0001002', this)" style="border:none; background:#f1f5f9; padding:1px 5px; border-radius:3px; font-size:10px; cursor:pointer;">Copy</button></span>
+                    <span style="color:#64748b;">Holder Name:</span>
+                    <span><strong>CHANDRU M</strong></span>
+                    <span style="color:#64748b;">Mobile No:</span>
+                    <span>+91 7904612672</span>
+                    <span style="color:#64748b;">MMID:</span>
+                    <span>9015522</span>
+                    <span style="color:#64748b;">Branch:</span>
+                    <span>NO. 151/2, WARD NO. 03, KRISHNA NAGAR 1ST ARCH, THEVARAM ROAD</span>
+                  </div>
+                </div>
+
+                <!-- Express Flight Dispatch Shipping Address Form -->
+                <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:12px 14px; max-width:440px; margin:0 auto 12px; text-align:left;">
+                  <div style="font-weight:700; color:#0f172a; font-size:12.5px; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                    <span>📦 Express Air Dispatch Delivery Address</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:6px;">
+                    <input type="text" id="est-ship-name" placeholder="Full Name *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;">
+                    <input type="tel" id="est-ship-phone" placeholder="Mobile / WhatsApp *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;">
+                  </div>
+                  <textarea id="est-ship-address" placeholder="Street Address, Building, Landmark *" rows="2" style="width:100%; padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px; resize:none; margin-bottom:6px;"></textarea>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:6px;">
+                    <input type="text" id="est-ship-city" placeholder="City / District *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;">
+                    <input type="text" id="est-ship-pincode" placeholder="Pincode *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;">
+                  </div>
+                  <input type="text" id="est-pay-utr" placeholder="12-digit UPI UTR / Reference No. (Auto-detects on paste)" oninput="handleEstUtrAutoCheck(this.value)" style="width:100%; padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;">
+                </div>
+
+                <!-- Confirmation Button -->
+                <button type="button" class="btn btn-payment-done" onclick="confirmEstimatePaymentDone()" style="width:100%; max-width:440px; padding:12px; background:#16a34a; color:#fff; border:none; border-radius:8px; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; margin:0 auto; box-shadow:0 3px 12px rgba(22,163,74,0.3);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>✓ I Have Paid — Confirm Order &amp; Generate Receipt &rarr;</span>
+                </button>
+              </div>
+
+              <!-- Step 2: Confirmed Receipt Screen (Appears after payment confirmation) -->
+              <div id="est-payment-step-success" style="display:none; background:#ffffff; border:1px solid #bbf7d0; border-radius:10px; padding:16px; max-width:480px; margin:0 auto; text-align:left;">
+                <div style="text-align:center; margin-bottom:12px;">
+                  <div style="width:48px; height:48px; background:#16a34a; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 8px;">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <h3 style="margin:0; font-size:17px; color:#14532d; font-family:'Playfair Display', serif;">Sample Consignment Payment Confirmed!</h3>
+                  <p style="margin:2px 0 0; font-size:12px; color:#166534;">Payment credited to CHANDRU M &bull; Express flight dispatch scheduled within 24h</p>
+                </div>
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px; font-size:12px; margin-bottom:12px;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <span style="color:#64748b;">Consignment ID:</span>
+                    <strong id="est-receipt-order-id" style="color:#0f172a; font-family:monospace;">LT-SMP-00000</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <span style="color:#64748b;">Sample Items:</span>
+                    <strong id="est-receipt-items-summary" style="color:#0f172a; text-align:right;">--</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <span style="color:#64748b;">Delivery To:</span>
+                    <strong id="est-receipt-ship-address" style="color:#0f172a; text-align:right; max-width:240px;">--</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; border-top:1px dashed #cbd5e1; padding-top:6px; margin-top:6px; font-size:13px;">
+                    <span style="font-weight:700; color:#15803d;">Total Paid (Incl. Flight Cargo):</span>
+                    <strong id="est-receipt-total-paid" style="color:#15803d; font-size:15px;">₹0</strong>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                  <a id="est-receipt-btn-wa" href="#" target="_blank" style="flex:1; min-width:180px; padding:9px 14px; background:#25d366; color:#fff; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none; text-align:center; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+                    <span>💬 Send Dispatch Notice via WhatsApp</span>
+                  </a>
+                  <button type="button" onclick="window.print()" style="padding:9px 14px; background:#0f172a; color:#fff; border:none; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">
+                    🖨️ Print Receipt
+                  </button>
+                </div>
+              </div>
             </div>
 
             <p class="compliance-note"
@@ -1509,24 +1658,24 @@
           </svg>
         </div>
         <div>
-          <h3 style="margin:0; font-size:18px; color:var(--green-900);">Request Product Sample &bull; Direct Online Payment</h3>
+          <h3 style="margin:0; font-size:18px; color:var(--green-900);">Request Product Sample &bull; Add to Cart</h3>
           <p id="sample-modal-product" style="margin:2px 0 0; font-size:13px; font-weight:600; color:#555;"></p>
         </div>
       </div>
 
-      <!-- STEP 1: SAMPLE SIZE & CALCULATION (INCLUDING FLIGHT CHARGES) -->
+      <!-- STEP 1: SAMPLE SIZE & CALCULATION (ADD TO CART) -->
       <div id="sample-step-config">
         <div class="sample-modal-2col">
           <!-- LEFT COLUMN: Policy & Sample Size Selection -->
           <div class="sample-col-left">
-            <!-- Commercial Policy Banner (Direct Online Payment) -->
+            <!-- Commercial Policy Banner -->
             <div class="sample-policy-banner">
               <div class="sample-policy-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
               </div>
               <div class="sample-policy-text">
-                <strong>Commercial Policy: Direct Online Payment for Samples</strong>
-                <span>Samples are charged pro-rata at daily auction rates + express flight cargo charges. No quotation required. Immediate express air dispatch upon direct online payment to Canara Bank / UPI.</span>
+                <strong>Commercial Policy: Paid Samples at Daily Auction Rates</strong>
+                <span>Select your preferred sample size and add to cart. You can add multiple sample grades as per your preference, and complete direct online payment for express 24h flight courier dispatch at checkout in the Estimate Summary.</span>
               </div>
             </div>
 
@@ -1573,7 +1722,7 @@
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: Market Rate, Sample Calculation & Proceed to Online Payment -->
+          <!-- RIGHT COLUMN: Market Rate, Sample Calculation & Add to Cart -->
           <div class="sample-col-right">
             <!-- Live Auction Rate Banner -->
             <div class="bulk-rate-banner" style="margin-bottom:10px;">
@@ -1589,7 +1738,7 @@
 
             <!-- Real-Time Calculation Card -->
             <div class="bulk-summary-card" style="margin-bottom:10px;">
-              <div class="summary-card-title">Live Sample &amp; Dispatch Estimation</div>
+              <div class="summary-card-title">Live Sample Calculation</div>
               <div class="summary-line">
                 <span>Sample Pods:</span>
                 <strong id="sample-calc-qty">50 grams (0.05 kg)</strong>
@@ -1604,26 +1753,27 @@
               </div>
               <div class="summary-line flight-charge-line" style="background: rgba(180, 83, 9, 0.08); padding: 5px 8px; border-radius: 6px; margin: 4px 0;">
                 <span style="display:flex; align-items:center; gap:5px; color:#92400e; font-weight:600;">
-                  ✈️ <strong>Flight / Air Express Charges:</strong>
+                  ✈️ <strong>Express Flight Courier:</strong>
                 </span>
-                <strong id="sample-calc-flight" style="color:#b45309;">₹150</strong>
+                <strong id="sample-calc-flight" style="color:#b45309;">₹150 (Consolidated at Checkout)</strong>
               </div>
               <div class="summary-divider"></div>
               <div class="summary-line total-line">
-                <span>Total Payable (Sample + Flight):</span>
-                <strong id="sample-calc-total" style="color:var(--green-900); font-size:17px;">₹260</strong>
+                <span>Sample Pod Value:</span>
+                <strong id="sample-calc-total" style="color:var(--green-900); font-size:17px;">₹110</strong>
               </div>
             </div>
 
-            <!-- Direct Online Payment Button -->
-            <button class="btn btn-dark btn-bulk-submit" onclick="proceedToSamplePayment()" id="btn-proceed-sample-pay" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-              <span id="sample-proceed-btn-text">Proceed to Direct Online Payment (₹260) &rarr;</span>
+            <!-- Add to Cart Button -->
+            <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddSample()" id="btn-add-sample-cart" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span id="sample-add-cart-text">+ Add to Cart (<span id="sample-add-btn-cost">₹110</span>)</span>
             </button>
-            <div style="margin-top:6px; font-size:11.5px; color:#555; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px;">
-              <span>🏦 Canara Bank Direct Transfer</span>
-              <span>&bull;</span>
-              <span>📱 Instant UPI (GPay/PhonePe)</span>
+            <div style="margin-top:6px; font-size:11.5px; color:#64748b; text-align:center;">
+              Add multiple sample grades as per your preference &bull; Pay together at checkout
             </div>
           </div>
         </div>
@@ -1984,8 +2134,8 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="assets/js/qrcode.min.js?v=8.3"></script>
-  <script src="app.js?v=8.3"></script>
+  <script src="assets/js/qrcode.min.js?v=8.4"></script>
+  <script src="app.js?v=8.4"></script>
 </body>
 
 </html>

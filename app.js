@@ -2987,6 +2987,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const sizesJoined = sizeCodes.length > 0 ? sizeCodes.join('-') : 'SAMPLES';
     const formattedId = `LT-${sizesJoined}-${Math.max(1, totalBags)}-${custNum}`;
     document.getElementById('invoice-id').innerText = formattedId;
+
+    // Update Direct Online Payment section at the end of the Estimate Summary
+    const estPayBox = document.getElementById('est-summary-payment-box');
+    if (estPayBox) {
+      if (samples.length > 0) {
+        estPayBox.style.display = 'block';
+        const samplePodsCost = samples.reduce((acc, i) => acc + (i.priceAvg || 0), 0);
+        const flightCourierCost = 150;
+        const totalSamplePayable = samplePodsCost + flightCourierCost;
+        
+        window.currentEstSampleCalculation = {
+          samplePodsCost: samplePodsCost,
+          flightCourierCost: flightCourierCost,
+          totalSamplePayable: totalSamplePayable,
+          samples: samples
+        };
+
+        const podsCostEl = document.getElementById('est-pay-pods-cost');
+        const flightCostEl = document.getElementById('est-pay-flight-cost');
+        const totalCostEl = document.getElementById('est-pay-total-cost');
+        if (podsCostEl) podsCostEl.innerText = '₹' + samplePodsCost.toLocaleString('en-IN');
+        if (flightCostEl) flightCostEl.innerText = '₹' + flightCourierCost.toLocaleString('en-IN');
+        if (totalCostEl) totalCostEl.innerText = '₹' + totalSamplePayable.toLocaleString('en-IN');
+
+        // Dynamic Scannable QR Code for Combined Sample Consignment
+        const desc = encodeURIComponent(`Lisha Traders ${samples.length} Samples Consignment`);
+        const amountStr = Number(totalSamplePayable).toFixed(2);
+        const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=chan%20.M&aid=uGICAgMCI16Pzdg&am=${amountStr}&cu=INR&tn=${desc}`;
+        window.currentEstUpiUrl = upiUrl;
+
+        const qrLink = document.getElementById('est-qr-link');
+        if (qrLink) qrLink.href = upiUrl;
+
+        const qrImg = document.getElementById('est-qr-code-img');
+        if (qrImg) {
+          if (window.QRCode && typeof window.QRCode.toDataURL === 'function') {
+            window.QRCode.toDataURL(upiUrl, {
+              width: 260,
+              margin: 2,
+              errorCorrectionLevel: 'M',
+              color: { dark: '#0f172a', light: '#ffffff' }
+            }, function(err, url) {
+              if (!err && url) qrImg.src = url;
+              else qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(upiUrl)}&margin=2`;
+            });
+          } else {
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(upiUrl)}&margin=2`;
+          }
+        }
+      } else {
+        estPayBox.style.display = 'none';
+      }
+    }
   };
   window.updateQuote = updateQuote;
   window.estimateItems = estimateItems;
@@ -2994,6 +3047,156 @@ document.addEventListener('DOMContentLoaded', () => {
     estimateItems = items;
     window.estimateItems = items;
   };
+
+  // Estimate Summary Direct Online Payment Logic
+  function switchEstPaymentTab(tab) {
+    const tabUpi = document.getElementById('est-tab-upi');
+    const tabBank = document.getElementById('est-tab-bank');
+    const panelUpi = document.getElementById('est-panel-upi');
+    const panelBank = document.getElementById('est-panel-bank');
+
+    if (tab === 'bank') {
+      if (tabBank) {
+        tabBank.style.background = '#16a34a';
+        tabBank.style.color = '#fff';
+        tabBank.style.borderColor = '#16a34a';
+      }
+      if (tabUpi) {
+        tabUpi.style.background = '#ffffff';
+        tabUpi.style.color = '#475569';
+        tabUpi.style.borderColor = '#cbd5e1';
+      }
+      if (panelUpi) panelUpi.style.display = 'none';
+      if (panelBank) panelBank.style.display = 'block';
+    } else {
+      if (tabUpi) {
+        tabUpi.style.background = '#16a34a';
+        tabUpi.style.color = '#fff';
+        tabUpi.style.borderColor = '#16a34a';
+      }
+      if (tabBank) {
+        tabBank.style.background = '#ffffff';
+        tabBank.style.color = '#475569';
+        tabBank.style.borderColor = '#cbd5e1';
+      }
+      if (panelUpi) panelUpi.style.display = 'block';
+      if (panelBank) panelBank.style.display = 'none';
+    }
+  }
+  window.switchEstPaymentTab = switchEstPaymentTab;
+
+  function handleEstQrClick(e) {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
+    if (window.currentEstUpiUrl) {
+      window.location.href = window.currentEstUpiUrl;
+    }
+  }
+  window.handleEstQrClick = handleEstQrClick;
+
+  function handleEstUtrAutoCheck(val) {
+    if (!val) return;
+    const clean = String(val).trim().replace(/[^0-9]/g, '');
+    if (clean.length === 12) {
+      executeEstPaymentConfirmation(clean);
+    }
+  }
+  window.handleEstUtrAutoCheck = handleEstUtrAutoCheck;
+
+  function confirmEstimatePaymentDone() {
+    const nameEl = document.getElementById('est-ship-name');
+    const phoneEl = document.getElementById('est-ship-phone');
+    const addrEl = document.getElementById('est-ship-address');
+    const cityEl = document.getElementById('est-ship-city');
+    const pinEl = document.getElementById('est-ship-pincode');
+    const utrEl = document.getElementById('est-pay-utr');
+
+    const name = nameEl ? nameEl.value.trim() : '';
+    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const address = addrEl ? addrEl.value.trim() : '';
+    const city = cityEl ? cityEl.value.trim() : '';
+    const pincode = pinEl ? pinEl.value.trim() : '';
+    const utr = utrEl ? utrEl.value.trim() : '';
+
+    if (!name || !phone || !address || !pincode) {
+      alert('Please enter your Delivery Name, Mobile Number, Shipping Address, and Pincode for express air dispatch.');
+      if (!name && nameEl) nameEl.focus();
+      else if (!phone && phoneEl) phoneEl.focus();
+      else if (!address && addrEl) addrEl.focus();
+      else if (!pincode && pinEl) pinEl.focus();
+      return;
+    }
+
+    executeEstPaymentConfirmation(utr);
+  }
+  window.confirmEstimatePaymentDone = confirmEstimatePaymentDone;
+
+  function executeEstPaymentConfirmation(utrNumber) {
+    const calc = window.currentEstSampleCalculation || { totalSamplePayable: 260, samples: [] };
+    const total = calc.totalSamplePayable;
+
+    // 1. Show Green Tick directly over Estimate Summary QR code
+    const overlay = document.getElementById('est-qr-success-overlay');
+    const box = document.getElementById('est-qr-box');
+    const amtText = document.getElementById('est-qr-success-amount-text');
+    if (box) {
+      box.style.borderColor = '#16a34a';
+      box.style.background = '#f0fdf4';
+    }
+    if (amtText) {
+      amtText.innerText = '₹' + Number(total).toLocaleString('en-IN') + '.00 Received';
+    }
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
+
+    // 2. Play soundbox chime
+    try {
+      if (typeof playSuccessChime === 'function') playSuccessChime();
+    } catch(e) {}
+
+    // 3. Transition to receipt in Estimate Summary after 900ms
+    setTimeout(() => {
+      const activeStep = document.getElementById('est-payment-step-active');
+      const successStep = document.getElementById('est-payment-step-success');
+      if (activeStep) activeStep.style.display = 'none';
+      if (successStep) successStep.style.display = 'block';
+
+      const orderId = 'LT-SMP-' + Math.floor(10000 + Math.random() * 90000);
+      const orderIdEl = document.getElementById('est-receipt-order-id');
+      const itemsSummaryEl = document.getElementById('est-receipt-items-summary');
+      const shipAddrEl = document.getElementById('est-receipt-ship-address');
+      const totalPaidEl = document.getElementById('est-receipt-total-paid');
+      const waBtn = document.getElementById('est-receipt-btn-wa');
+
+      const nameIn = document.getElementById('est-ship-name');
+      const phoneIn = document.getElementById('est-ship-phone');
+      const addrIn = document.getElementById('est-ship-address');
+      const cityIn = document.getElementById('est-ship-city');
+      const pinIn = document.getElementById('est-ship-pincode');
+      const name = nameIn ? nameIn.value.trim() : 'Customer';
+      const phone = phoneIn ? phoneIn.value.trim() : '';
+      const address = addrIn ? addrIn.value.trim() : '';
+      const city = cityIn ? cityIn.value.trim() : '';
+      const pincode = pinIn ? pinIn.value.trim() : '';
+
+      if (orderIdEl) orderIdEl.innerText = orderId;
+      if (totalPaidEl) totalPaidEl.innerText = '₹' + total.toLocaleString('en-IN');
+      if (shipAddrEl) shipAddrEl.innerText = `${name}, ${address}, ${city} - ${pincode}${phone ? ' (Ph: ' + phone + ')' : ''}`;
+
+      const itemsSummaryText = calc.samples && calc.samples.length > 0 
+        ? calc.samples.map(s => `${s.grade} (${s.sampleSize})`).join(', ') 
+        : 'Sample Cardamom';
+      if (itemsSummaryEl) itemsSummaryEl.innerText = itemsSummaryText;
+
+      if (waBtn) {
+        const waMsg = `Hello Lisha Traders, I have completed direct online payment for Cardamom Sample Consignment ${orderId} (₹${total.toLocaleString('en-IN')} credited to Axis/Canara Bank). Items: ${itemsSummaryText}. Recipient: ${name}, ${address}, ${city} - ${pincode} (Ph: ${phone}). Please dispatch via 24h Express Flight Courier.`;
+        waBtn.href = `https://wa.me/919342153357?text=${encodeURIComponent(waMsg)}`;
+      }
+    }, 900);
+  }
+  window.executeEstPaymentConfirmation = executeEstPaymentConfirmation;
   
   // Variety Button selection actions
   if (varietyGreenBtn && varietyYellowBtn) {
@@ -4509,14 +4712,14 @@ function updateSampleModalCalculations() {
   const calcPodCostEl = document.getElementById('sample-calc-pod-cost');
   const calcFlightEl = document.getElementById('sample-calc-flight');
   const calcTotalEl = document.getElementById('sample-calc-total');
-  const proceedBtnText = document.getElementById('sample-proceed-btn-text');
+  const addBtnCost = document.getElementById('sample-add-btn-cost');
 
   if (calcQtyEl) calcQtyEl.innerText = `${weightGrams} grams (${weightKg < 1 ? weightKg.toFixed(2) : weightKg} kg)`;
   if (calcRateEl) calcRateEl.innerText = '₹' + ratePerKg.toLocaleString('en-IN') + ' / kg';
   if (calcPodCostEl) calcPodCostEl.innerText = '₹' + podCost.toLocaleString('en-IN');
-  if (calcFlightEl) calcFlightEl.innerText = '₹' + flightCharge.toLocaleString('en-IN');
-  if (calcTotalEl) calcTotalEl.innerText = '₹' + totalPayable.toLocaleString('en-IN');
-  if (proceedBtnText) proceedBtnText.innerText = `Proceed to Direct Online Payment (₹${totalPayable.toLocaleString('en-IN')}) →`;
+  if (calcFlightEl) calcFlightEl.innerText = '₹150 (Consolidated at Checkout)';
+  if (calcTotalEl) calcTotalEl.innerText = '₹' + podCost.toLocaleString('en-IN');
+  if (addBtnCost) addBtnCost.innerText = '₹' + podCost.toLocaleString('en-IN');
 }
 window.updateSampleModalCalculations = updateSampleModalCalculations;
 
@@ -5073,11 +5276,6 @@ function saveReceiptDeliveryAddress() {
 }
 window.saveReceiptDeliveryAddress = saveReceiptDeliveryAddress;
 
-function confirmAddSample() {
-  proceedToSamplePayment();
-}
-window.confirmAddSample = confirmAddSample;
-
 // Confirm Add to Quote
 function confirmAddBulk() {
   if (!currentActiveProduct) return;
@@ -5187,8 +5385,8 @@ function confirmAddSample() {
   const samplePriceMin = priceInfo ? Math.round(weightKg * priceInfo.min) : samplePrice;
   const samplePriceMax = priceInfo ? Math.round(weightKg * priceInfo.max) : samplePrice;
 
-  // Check if sample item already exists in quote
-  const existing = myQuoteItems.find(i => i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety && (i.colorProfile || 'colour') === colorProfile);
+  // Check if sample item already exists in quote with identical size & grade
+  const existing = myQuoteItems.find(i => i.isSample && i.grade === currentActiveProduct.grade && i.variety === currentActiveProduct.variety && (i.colorProfile || 'colour') === colorProfile && i.sampleSize === sampleSize);
   if (existing) {
     existing.sampleSize = sampleSize;
     existing.weightGrams = weightGrams;
