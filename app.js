@@ -3158,7 +3158,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const invId = invoiceIdEl ? invoiceIdEl.innerText : 'QUOTE';
       const subject = encodeURIComponent(`Bulk Quotation Request - ${invId}`);
       const body = encodeURIComponent(buildInquiryText());
-      const mailtoUrl = `mailto:info@lishatraders.com?subject=${subject}&body=${body}`;
+      const mailtoUrl = `mailto:lishatraders@gmail.com?subject=${subject}&body=${body}`;
       window.location.href = mailtoUrl;
       incrementCustomerNumber();
     });
