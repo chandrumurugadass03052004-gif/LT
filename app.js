@@ -4309,8 +4309,54 @@ let currentSampleCalculation = {
 };
 window.currentSampleCalculation = currentSampleCalculation;
 
+// Reset All QR & Payment Status (Clears any old Green Tick when choosing different packages)
+function resetSamplePaymentState() {
+  if (window.paymentAutoTimer) {
+    clearTimeout(window.paymentAutoTimer);
+    window.paymentAutoTimer = null;
+  }
+  try {
+    sessionStorage.removeItem('sample_payment_confirmed');
+    sessionStorage.removeItem('sample_payment_initiated');
+  } catch (e) {}
+
+  const overlay = document.getElementById('sample-qr-success-overlay');
+  const box = document.getElementById('sample-qr-box');
+  const hint = document.getElementById('sample-qr-hint-text');
+  const subhint = document.getElementById('sample-qr-subhint');
+  const returnedPrompt = document.getElementById('sample-returned-prompt');
+  const payBtn = document.querySelector('.btn-payment-done');
+
+  if (overlay) overlay.style.display = 'none';
+  if (box) {
+    box.style.borderColor = '#0284c7';
+    box.style.background = '#ffffff';
+    box.style.boxShadow = '0 4px 14px rgba(2,132,199,0.12)';
+  }
+  if (hint) {
+    hint.innerHTML = '<span>👆 Tap QR to Pay via Any UPI App</span>';
+  }
+  if (subhint) {
+    subhint.innerHTML = '(Or scan QR code using your phone camera)';
+  }
+  if (returnedPrompt) {
+    returnedPrompt.style.display = 'none';
+  }
+  if (payBtn) {
+    payBtn.style.background = '#16a34a';
+    payBtn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>Payment Done? View Order Confirmation &rarr;</span>
+    `;
+  }
+}
+window.resetSamplePaymentState = resetSamplePaymentState;
+
 // Sample Modal Toggles & Direct Online Payment Flow
 function openSampleModal(grade, variety) {
+  // Clear any past payment so new product / package has fresh payment state
+  resetSamplePaymentState();
+
   let isYellow = (variety === 'yellow' || (grade && grade.includes('-yellow')));
   let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
   let cleanVariety = isYellow ? 'yellow' : 'green';
@@ -4347,6 +4393,7 @@ function openSampleModal(grade, variety) {
 window.openSampleModal = openSampleModal;
 
 function closeSampleModal() {
+  resetSamplePaymentState();
   const modal = document.getElementById('modal-req-sample');
   if (modal) modal.classList.remove('open', 'active');
   const stepConfig = document.getElementById('sample-step-config');
@@ -4361,6 +4408,8 @@ window.closeSampleModal = closeSampleModal;
 
 function updateSampleModalCalculations() {
   if (!currentActiveProduct) return;
+  // Always reset payment overlay when changing weight / package options
+  resetSamplePaymentState();
   const colorProfile = (currentActiveProduct && currentActiveProduct.colorProfile) || 'colour';
   const priceInfo = (typeof window.getDailyPriceRange === 'function')
     ? window.getDailyPriceRange(currentActiveProduct.grade, currentActiveProduct.variety, colorProfile)
@@ -4485,6 +4534,9 @@ function proceedToSamplePayment() {
   if (stepSuccess) stepSuccess.style.display = 'none';
   if (stepPayment) stepPayment.style.display = 'block';
 
+  // Always reset previous payment overlay so the newly selected package gets a fresh, clean QR code
+  resetSamplePaymentState();
+
   // Default to UPI / QR tab on open
   switchPaymentTab('upi');
 
@@ -4509,26 +4561,6 @@ function proceedToSamplePayment() {
 
   if (qrLink) {
     qrLink.href = upiUrl;
-  }
-
-  // Reset QR state for fresh transaction
-  const overlay = document.getElementById('sample-qr-success-overlay');
-  const box = document.getElementById('sample-qr-box');
-  const hint = document.getElementById('sample-qr-hint-text');
-  const subhint = document.getElementById('sample-qr-subhint');
-  if (overlay && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
-    overlay.style.display = 'none';
-  }
-  if (box && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
-    box.style.borderColor = '#0284c7';
-    box.style.background = '#ffffff';
-    box.style.boxShadow = '0 4px 14px rgba(2,132,199,0.12)';
-  }
-  if (hint && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
-    hint.innerHTML = '<span>👆 Tap QR to Pay via Any UPI App</span>';
-  }
-  if (subhint && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
-    subhint.innerHTML = '(Or scan QR code using your phone camera)';
   }
 
   if (qrImg) {
@@ -4562,8 +4594,10 @@ function triggerQrGreenTick(customAmount) {
   const hint = document.getElementById('sample-qr-hint-text');
   const subhint = document.getElementById('sample-qr-subhint');
   const amtText = document.getElementById('qr-success-amount-text');
+  
+  // Always use the active package's total payable
   const calc = currentSampleCalculation || { totalPayable: 260 };
-  const total = customAmount || calc.totalPayable;
+  const total = (typeof customAmount === 'number' && customAmount > 0) ? customAmount : calc.totalPayable;
 
   if (box) {
     box.style.borderColor = '#16a34a';
@@ -4597,7 +4631,7 @@ function triggerQrGreenTick(customAmount) {
   }
 
   try {
-    sessionStorage.setItem('sample_payment_confirmed', 'true');
+    sessionStorage.setItem('sample_payment_confirmed', String(total));
   } catch(e) {}
 }
 window.triggerQrGreenTick = triggerQrGreenTick;
@@ -4614,24 +4648,24 @@ function handleQrClick(e) {
   const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=chan%20.M&aid=uGICAgMCI16Pzdg&am=${amountStr}&cu=INR&tn=${desc}`;
 
   try {
-    sessionStorage.setItem('sample_payment_initiated', 'true');
+    sessionStorage.setItem('sample_payment_initiated', JSON.stringify({
+      product: p.grade,
+      amount: calc.totalPayable,
+      time: Date.now()
+    }));
   } catch (err) {}
 
   // Open user's preferred UPI app (Google Pay, PhonePe, Paytm, BHIM, Cred, etc.)
   window.location.href = upiUrl;
-
-  // Automatically trigger green tick after a realistic payment delay (e.g. 4.5 seconds)
-  if (window.paymentAutoTimer) clearTimeout(window.paymentAutoTimer);
-  window.paymentAutoTimer = setTimeout(() => {
-    triggerQrGreenTick();
-  }, 4500);
 }
 window.handleQrClick = handleQrClick;
 
 // Confirm Payment Done and Show Order Receipt on Website
 function confirmPaymentDone() {
-  // Automatically show the green tick right on the QR code!
-  triggerQrGreenTick();
+  const calc = currentSampleCalculation || { totalPayable: 260 };
+
+  // Automatically show the green tick right on the QR code with current package's amount!
+  triggerQrGreenTick(calc.totalPayable);
 
   const nameEl = document.getElementById('sample-ship-name');
   const phoneEl = document.getElementById('sample-ship-phone');
@@ -4662,23 +4696,28 @@ function confirmPaymentDone() {
 }
 window.confirmPaymentDone = confirmPaymentDone;
 
-// Show green tick and prompt if customer returns to tab after opening their UPI app
+// Show green tick and prompt if customer returns to tab after opening their UPI app for this package
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'visible') {
     try {
-      if (sessionStorage.getItem('sample_payment_initiated') === 'true') {
-        // Automatically show the green tick right on the QR code!
-        triggerQrGreenTick();
-        const prompt = document.getElementById('sample-returned-prompt');
-        if (prompt) {
-          prompt.style.display = 'block';
-          prompt.innerHTML = `
-            <div style="font-size:12.5px; color:#065f46; font-weight:800;">✅ Payment Confirmed with Green Tick!</div>
-            <p style="margin:2px 0 6px; font-size:11.5px; color:#047857;">Axis Bank UPI transfer verified. Click below to view your confirmed receipt and flight dispatch status.</p>
-            <button type="button" onclick="confirmPaymentDone()" style="background:#059669; color:#fff; border:none; padding:7px 16px; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">
-              View Flight Dispatch Receipt &rarr;
-            </button>
-          `;
+      const initiatedStr = sessionStorage.getItem('sample_payment_initiated');
+      if (initiatedStr) {
+        const parsed = JSON.parse(initiatedStr);
+        const calc = currentSampleCalculation || { totalPayable: 260 };
+        // Only trigger if returning for the same package amount
+        if (parsed && Number(parsed.amount) === Number(calc.totalPayable)) {
+          triggerQrGreenTick(calc.totalPayable);
+          const prompt = document.getElementById('sample-returned-prompt');
+          if (prompt) {
+            prompt.style.display = 'block';
+            prompt.innerHTML = `
+              <div style="font-size:12.5px; color:#065f46; font-weight:800;">✅ Payment Confirmed with Green Tick!</div>
+              <p style="margin:2px 0 6px; font-size:11.5px; color:#047857;">Axis Bank UPI transfer verified for ₹${calc.totalPayable.toLocaleString('en-IN')}. Click below to view your confirmed receipt and flight dispatch status.</p>
+              <button type="button" onclick="confirmPaymentDone()" style="background:#059669; color:#fff; border:none; padding:7px 16px; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">
+                View Flight Dispatch Receipt &rarr;
+              </button>
+            `;
+          }
         }
       }
     } catch (e) {}
@@ -4686,6 +4725,7 @@ document.addEventListener('visibilitychange', function() {
 });
 
 function backToSampleConfig() {
+  resetSamplePaymentState();
   const stepConfig = document.getElementById('sample-step-config');
   const stepPayment = document.getElementById('sample-step-payment');
   const stepSuccess = document.getElementById('sample-step-success');
