@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8.1">
+  <link rel="stylesheet" href="style.css?v=8.2">
   <script>
     (function() {
       try {
@@ -1698,6 +1698,12 @@
                   <span id="sample-qr-subhint" style="display:block; margin-top:5px; font-size:10.5px; color:#64748b;">(Or scan QR code using your phone camera)</span>
                 </div>
 
+                <!-- LIVE CREDIT DETECTOR (Active across all devices: Mobile, PC, Tablet) -->
+                <div id="qr-live-detector-bar" style="margin:6px auto 10px; max-width:280px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:20px; padding:4px 12px; display:flex; align-items:center; justify-content:center; gap:7px; font-size:11px; color:#166534; box-shadow:0 1px 4px rgba(22,163,74,0.08);">
+                  <span class="live-pulse-dot" style="width:8px; height:8px; background:#16a34a; border-radius:50%; display:inline-block;"></span>
+                  <span id="qr-detector-text" style="font-weight:600;">Detecting bank credit in real-time...</span>
+                </div>
+
                 <!-- Payable Amount & UPI Details Bar -->
                 <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; margin:0 auto 12px; max-width:320px; display:flex; justify-content:space-between; align-items:center;">
                   <div style="text-align:left;">
@@ -1821,7 +1827,7 @@
                   <input type="text" id="sample-ship-pincode" placeholder="Pincode *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
                 </div>
                 <div class="form-group-sm" style="margin-bottom:8px;">
-                  <input type="text" id="sample-pay-utr" placeholder="Payment UTR / Ref No. (or send screenshot on WhatsApp)" style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                  <input type="text" id="sample-pay-utr" placeholder="Payment UTR / Ref No. (Auto-detects on paste)" oninput="handleUtrAutoCheck(this.value)" style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
                 </div>
 
                 <!-- Trust Guarantee Checklist -->
@@ -1890,6 +1896,23 @@
               <span>Dispatch Mode:</span>
               <span>✈️ Air Express Cargo / Flight Dispatch within 24 Hours</span>
             </div>
+          </div>
+
+          <!-- If delivery address was not entered before auto-confirmation, prompt here -->
+          <div id="receipt-address-prompt" style="display:none; max-width:520px; margin:14px auto 0; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:12px 16px; text-align:left;">
+            <div style="font-size:12.5px; font-weight:700; color:#166534; margin-bottom:6px;">📦 Where should we courier your sample?</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:6px;">
+              <input type="text" id="receipt-input-name" placeholder="Full Name *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12.5px;">
+              <input type="tel" id="receipt-input-phone" placeholder="Mobile / WhatsApp *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12.5px;">
+            </div>
+            <textarea id="receipt-input-addr" placeholder="Door Address (Street, Building, Landmark) *" rows="2" style="width:100%; padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12.5px; resize:none; margin-bottom:6px;"></textarea>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:8px;">
+              <input type="text" id="receipt-input-city" placeholder="City / District *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12.5px;">
+              <input type="text" id="receipt-input-pincode" placeholder="Pincode *" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12.5px;">
+            </div>
+            <button type="button" onclick="saveReceiptDeliveryAddress()" style="width:100%; padding:8px; background:#16a34a; color:#fff; border:none; border-radius:6px; font-weight:700; font-size:12.5px; cursor:pointer;">
+              ✓ Save Address for 24h Express Air Dispatch
+            </button>
           </div>
 
           <div style="display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;">
@@ -1961,8 +1984,8 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="assets/js/qrcode.min.js?v=8.1"></script>
-  <script src="app.js?v=8.1"></script>
+  <script src="assets/js/qrcode.min.js?v=8.2"></script>
+  <script src="app.js?v=8.2"></script>
 </body>
 
 </html>

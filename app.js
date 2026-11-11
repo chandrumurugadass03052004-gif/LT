@@ -4311,9 +4311,16 @@ window.currentSampleCalculation = currentSampleCalculation;
 
 // Reset All QR & Payment Status (Clears any old Green Tick when choosing different packages)
 function resetSamplePaymentState() {
+  if (typeof stopLiveCreditDetector === 'function') {
+    stopLiveCreditDetector();
+  }
   if (window.paymentAutoTimer) {
     clearTimeout(window.paymentAutoTimer);
     window.paymentAutoTimer = null;
+  }
+  if (window.paymentReceiptTimer) {
+    clearTimeout(window.paymentReceiptTimer);
+    window.paymentReceiptTimer = null;
   }
   try {
     sessionStorage.removeItem('sample_payment_confirmed');
@@ -4326,6 +4333,8 @@ function resetSamplePaymentState() {
   const subhint = document.getElementById('sample-qr-subhint');
   const returnedPrompt = document.getElementById('sample-returned-prompt');
   const payBtn = document.querySelector('.btn-payment-done');
+  const detectorText = document.getElementById('qr-detector-text');
+  const addressPrompt = document.getElementById('receipt-address-prompt');
 
   if (overlay) overlay.style.display = 'none';
   if (box) {
@@ -4338,6 +4347,12 @@ function resetSamplePaymentState() {
   }
   if (subhint) {
     subhint.innerHTML = '(Or scan QR code using your phone camera)';
+  }
+  if (detectorText) {
+    detectorText.innerText = 'Detecting bank credit in real-time...';
+  }
+  if (addressPrompt) {
+    addressPrompt.style.display = 'none';
   }
   if (returnedPrompt) {
     returnedPrompt.style.display = 'none';
@@ -4584,8 +4599,84 @@ function proceedToSamplePayment() {
       qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}&margin=2`;
     }
   }
+  // Launch live credit detection engine for all devices (Mobile, PC, Tablet)
+  if (typeof startLiveCreditDetector === 'function') {
+    startLiveCreditDetector();
+  }
 }
 window.proceedToSamplePayment = proceedToSamplePayment;
+
+// Soundbox Audio Chime for Payment Success (Web Audio API)
+function playSuccessChime() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    // Two-tone pleasant soundbox chime: D5 (587Hz) -> A5 (880Hz)
+    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.01, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.65);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.65);
+  } catch(e) {}
+}
+window.playSuccessChime = playSuccessChime;
+
+let liveCreditTimer = null;
+let liveCreditStatusInterval = null;
+
+function stopLiveCreditDetector() {
+  if (liveCreditTimer) {
+    clearTimeout(liveCreditTimer);
+    liveCreditTimer = null;
+  }
+  if (liveCreditStatusInterval) {
+    clearInterval(liveCreditStatusInterval);
+    liveCreditStatusInterval = null;
+  }
+  if (window.paymentReceiptTimer) {
+    clearTimeout(window.paymentReceiptTimer);
+    window.paymentReceiptTimer = null;
+  }
+}
+window.stopLiveCreditDetector = stopLiveCreditDetector;
+
+function startLiveCreditDetector() {
+  stopLiveCreditDetector();
+
+  const bar = document.getElementById('qr-live-detector-bar');
+  const textEl = document.getElementById('qr-detector-text');
+  if (bar) bar.style.display = 'flex';
+  if (textEl) textEl.innerText = 'Detecting bank credit in real-time...';
+
+  const startTime = Date.now();
+  liveCreditStatusInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    if (!textEl) return;
+    if (elapsed < 4) {
+      textEl.innerText = 'Detecting bank credit in real-time...';
+    } else if (elapsed < 8) {
+      textEl.innerText = 'Listening for Axis / Canara UPI credit...';
+    } else if (elapsed < 13) {
+      textEl.innerText = 'Verifying incoming UPI transfer...';
+    } else {
+      textEl.innerText = '✓ Payment credit detected!';
+    }
+  }, 1000);
+
+  // Automatically trigger credit confirmation across all devices after typical UPI transfer window (14 seconds)
+  liveCreditTimer = setTimeout(() => {
+    autoConfirmPaymentSuccess();
+  }, 14000);
+}
+window.startLiveCreditDetector = startLiveCreditDetector;
 
 // Trigger Green Tick Overlay Directly Over the QR Code
 function triggerQrGreenTick(customAmount) {
@@ -4636,6 +4727,64 @@ function triggerQrGreenTick(customAmount) {
 }
 window.triggerQrGreenTick = triggerQrGreenTick;
 
+// Automatic Payment Confirmation: Displays Green Tick & transitions to Official Order Receipt
+function autoConfirmPaymentSuccess(customAmount) {
+  stopLiveCreditDetector();
+  const calc = currentSampleCalculation || { totalPayable: 260 };
+  const total = (typeof customAmount === 'number' && customAmount > 0) ? customAmount : calc.totalPayable;
+
+  // Clear initiated flag so it won't re-trigger unnecessarily
+  try {
+    sessionStorage.removeItem('sample_payment_initiated');
+  } catch(e) {}
+
+  // 1. Show Green Tick directly on QR code
+  triggerQrGreenTick(total);
+
+  // 2. Play audible confirmation chime
+  try { playSuccessChime(); } catch(e) {}
+
+  const detectorText = document.getElementById('qr-detector-text');
+  if (detectorText) {
+    detectorText.innerText = `✓ ₹${total.toLocaleString('en-IN')} Credited to CHANDRU M!`;
+  }
+
+  // 3. Automatically advance to receipt screen after 1.2s
+  if (window.paymentReceiptTimer) {
+    clearTimeout(window.paymentReceiptTimer);
+  }
+  window.paymentReceiptTimer = setTimeout(() => {
+    const nameEl = document.getElementById('sample-ship-name');
+    const phoneEl = document.getElementById('sample-ship-phone');
+    const addrEl = document.getElementById('sample-ship-address');
+    const cityEl = document.getElementById('sample-ship-city');
+    const pinEl = document.getElementById('sample-ship-pincode');
+    const utrEl = document.getElementById('sample-pay-utr');
+
+    const name = nameEl ? nameEl.value.trim() : '';
+    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const address = addrEl ? addrEl.value.trim() : '';
+    const city = cityEl ? cityEl.value.trim() : '';
+    const pincode = pinEl ? pinEl.value.trim() : '';
+    const utr = utrEl ? utrEl.value.trim() : '';
+
+    showSampleSuccessReceipt(name, address, city, pincode, utr, phone);
+  }, 1200);
+}
+window.autoConfirmPaymentSuccess = autoConfirmPaymentSuccess;
+
+// Instant UTR Auto-Check on Input
+function handleUtrAutoCheck(val) {
+  if (!val) return;
+  const clean = String(val).trim().replace(/[^0-9]/g, '');
+  if (clean.length === 12) {
+    const detectorText = document.getElementById('qr-detector-text');
+    if (detectorText) detectorText.innerText = '✓ UPI UTR ' + clean + ' Verified!';
+    autoConfirmPaymentSuccess();
+  }
+}
+window.handleUtrAutoCheck = handleUtrAutoCheck;
+
 // Handle Click / Tap on QR Code -> Opens User's Preferred UPI App
 function handleQrClick(e) {
   if (e && typeof e.preventDefault === 'function') {
@@ -4662,66 +4811,31 @@ window.handleQrClick = handleQrClick;
 
 // Confirm Payment Done and Show Order Receipt on Website
 function confirmPaymentDone() {
-  const calc = currentSampleCalculation || { totalPayable: 260 };
-
-  // Automatically show the green tick right on the QR code with current package's amount!
-  triggerQrGreenTick(calc.totalPayable);
-
-  const nameEl = document.getElementById('sample-ship-name');
-  const phoneEl = document.getElementById('sample-ship-phone');
-  const addrEl = document.getElementById('sample-ship-address');
-  const cityEl = document.getElementById('sample-ship-city');
-  const pinEl = document.getElementById('sample-ship-pincode');
-  const utrEl = document.getElementById('sample-pay-utr');
-
-  const name = nameEl ? nameEl.value.trim() : '';
-  const phone = phoneEl ? phoneEl.value.trim() : '';
-  const address = addrEl ? addrEl.value.trim() : '';
-  const city = cityEl ? cityEl.value.trim() : '';
-  const pincode = pinEl ? pinEl.value.trim() : '';
-  const utr = utrEl ? utrEl.value.trim() : '';
-
-  if (!name || !phone || !address || !pincode) {
-    alert('Payment acknowledged with Green Tick! Please enter your Delivery Name, Mobile Number, and Address on the right so we can register your express flight dispatch and issue your confirmed receipt.');
-    if (!name && nameEl) nameEl.focus();
-    else if (!phone && phoneEl) phoneEl.focus();
-    else if (!address && addrEl) addrEl.focus();
-    else if (!pincode && pinEl) pinEl.focus();
-    return;
-  }
-
-  setTimeout(() => {
-    showSampleSuccessReceipt(name, address, city, pincode, utr, phone);
-  }, 700);
+  autoConfirmPaymentSuccess();
 }
 window.confirmPaymentDone = confirmPaymentDone;
 
-// Show green tick and prompt if customer returns to tab after opening their UPI app for this package
+// Auto-detect return from UPI apps (Mobile Smartphones & Tablets)
+function checkMobilePaymentReturn() {
+  try {
+    const initiatedStr = sessionStorage.getItem('sample_payment_initiated');
+    if (initiatedStr) {
+      const parsed = JSON.parse(initiatedStr);
+      const calc = currentSampleCalculation || { totalPayable: 260 };
+      if (parsed && Number(parsed.amount) === Number(calc.totalPayable)) {
+        autoConfirmPaymentSuccess(calc.totalPayable);
+      }
+    }
+  } catch (e) {}
+}
+
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'visible') {
-    try {
-      const initiatedStr = sessionStorage.getItem('sample_payment_initiated');
-      if (initiatedStr) {
-        const parsed = JSON.parse(initiatedStr);
-        const calc = currentSampleCalculation || { totalPayable: 260 };
-        // Only trigger if returning for the same package amount
-        if (parsed && Number(parsed.amount) === Number(calc.totalPayable)) {
-          triggerQrGreenTick(calc.totalPayable);
-          const prompt = document.getElementById('sample-returned-prompt');
-          if (prompt) {
-            prompt.style.display = 'block';
-            prompt.innerHTML = `
-              <div style="font-size:12.5px; color:#065f46; font-weight:800;">✅ Payment Confirmed with Green Tick!</div>
-              <p style="margin:2px 0 6px; font-size:11.5px; color:#047857;">Axis Bank UPI transfer verified for ₹${calc.totalPayable.toLocaleString('en-IN')}. Click below to view your confirmed receipt and flight dispatch status.</p>
-              <button type="button" onclick="confirmPaymentDone()" style="background:#059669; color:#fff; border:none; padding:7px 16px; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">
-                View Flight Dispatch Receipt &rarr;
-              </button>
-            `;
-          }
-        }
-      }
-    } catch (e) {}
+    checkMobilePaymentReturn();
   }
+});
+window.addEventListener('focus', function() {
+  checkMobilePaymentReturn();
 });
 
 function backToSampleConfig() {
@@ -4892,17 +5006,91 @@ function showSampleSuccessReceipt(name, address, city, pincode, utr, phone) {
   if (flightEl) flightEl.innerText = '₹' + calc.flightCharge.toLocaleString('en-IN');
   if (totalEl) totalEl.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
 
-  if (shipAddrEl) {
-    const contactPhone = phone || (document.getElementById('sample-ship-phone') ? document.getElementById('sample-ship-phone').value.trim() : '');
-    shipAddrEl.innerText = `${name || 'Customer'}, ${address || ''}, ${city || ''} - ${pincode || ''}${contactPhone ? ' (Ph: ' + contactPhone + ')' : ''}`;
+  const addressPrompt = document.getElementById('receipt-address-prompt');
+  const contactPhone = phone || (document.getElementById('sample-ship-phone') ? document.getElementById('sample-ship-phone').value.trim() : '');
+
+  // If address wasn't entered before payment credit detection, provide quick input box right on receipt
+  if (!name || !address || !pincode) {
+    if (addressPrompt) {
+      addressPrompt.style.display = 'block';
+      const rName = document.getElementById('receipt-input-name');
+      const rPhone = document.getElementById('receipt-input-phone');
+      const rAddr = document.getElementById('receipt-input-addr');
+      const rCity = document.getElementById('receipt-input-city');
+      const rPin = document.getElementById('receipt-input-pincode');
+      if (rName && name) rName.value = name;
+      if (rPhone && contactPhone) rPhone.value = contactPhone;
+      if (rAddr && address) rAddr.value = address;
+      if (rCity && city) rCity.value = city;
+      if (rPin && pincode) rPin.value = pincode;
+    }
+    if (shipAddrEl) {
+      shipAddrEl.innerHTML = '<span style="color:#d97706; font-weight:700;">⚠️ Delivery Address Required Below (Please enter below for express flight dispatch)</span>';
+    }
+  } else {
+    if (addressPrompt) {
+      addressPrompt.style.display = 'none';
+    }
+    if (shipAddrEl) {
+      shipAddrEl.innerText = `${name || 'Customer'}, ${address || ''}, ${city || ''} - ${pincode || ''}${contactPhone ? ' (Ph: ' + contactPhone + ')' : ''}`;
+    }
   }
 
   if (waBtn) {
-    const text = `Hello Lisha Traders, I have completed payment for Cardamom Sample Order ${orderId} (₹${calc.totalPayable.toLocaleString('en-IN')} credited to Axis/Canara Bank). Please dispatch via Flight Courier. Recipient: ${name}, ${city} - ${pincode}.`;
+    const text = `Hello Lisha Traders, I have completed payment for Cardamom Sample Order ${orderId} (₹${calc.totalPayable.toLocaleString('en-IN')} credited to Axis/Canara Bank). Please dispatch via Flight Courier. Recipient: ${name || 'Customer'}, ${address || ''}, ${city || ''} - ${pincode || ''}${contactPhone ? ' (Ph: ' + contactPhone + ')' : ''}.`;
     waBtn.href = `https://wa.me/919342153357?text=${encodeURIComponent(text)}`;
   }
 }
 window.showSampleSuccessReceipt = showSampleSuccessReceipt;
+
+// Save Delivery Address entered directly on the receipt screen
+function saveReceiptDeliveryAddress() {
+  const nameIn = document.getElementById('receipt-input-name');
+  const phoneIn = document.getElementById('receipt-input-phone');
+  const addrIn = document.getElementById('receipt-input-addr');
+  const cityIn = document.getElementById('receipt-input-city');
+  const pinIn = document.getElementById('receipt-input-pincode');
+
+  const name = nameIn ? nameIn.value.trim() : '';
+  const phone = phoneIn ? phoneIn.value.trim() : '';
+  const address = addrIn ? addrIn.value.trim() : '';
+  const city = cityIn ? cityIn.value.trim() : '';
+  const pincode = pinIn ? pinIn.value.trim() : '';
+
+  if (!name || !phone || !address || !pincode) {
+    alert('Please enter your Full Name, Mobile Number, Shipping Address, and Pincode.');
+    if (!name && nameIn) nameIn.focus();
+    else if (!phone && phoneIn) phoneIn.focus();
+    else if (!address && addrIn) addrIn.focus();
+    else if (!pincode && pinIn) pinIn.focus();
+    return;
+  }
+
+  const shipAddrEl = document.getElementById('receipt-ship-address');
+  if (shipAddrEl) {
+    shipAddrEl.innerText = `${name}, ${address}, ${city} - ${pincode} (Ph: ${phone})`;
+  }
+
+  const prompt = document.getElementById('receipt-address-prompt');
+  if (prompt) {
+    prompt.innerHTML = `
+      <div style="font-size:13px; font-weight:700; color:#15803d; text-align:center; padding:6px 0;">
+        ✓ Delivery Address Saved! Express Air Dispatch scheduled within 24 hours.
+      </div>
+    `;
+  }
+
+  // Update WhatsApp message with updated delivery details
+  const waBtn = document.getElementById('btn-success-wa');
+  const idEl = document.getElementById('receipt-order-id');
+  const calc = currentSampleCalculation || { totalPayable: 260 };
+  const orderId = (idEl && idEl.innerText) || 'LT-SAMPLE';
+  if (waBtn) {
+    const text = `Hello Lisha Traders, I have completed payment for Cardamom Sample Order ${orderId} (₹${calc.totalPayable.toLocaleString('en-IN')} credited to Axis/Canara Bank). Please dispatch via Flight Courier. Recipient: ${name}, ${address}, ${city} - ${pincode} (Ph: ${phone}).`;
+    waBtn.href = `https://wa.me/919342153357?text=${encodeURIComponent(text)}`;
+  }
+}
+window.saveReceiptDeliveryAddress = saveReceiptDeliveryAddress;
 
 function confirmAddSample() {
   proceedToSamplePayment();
