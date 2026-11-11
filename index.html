@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7.8">
+  <link rel="stylesheet" href="style.css?v=7.9">
   <script>
     (function() {
       try {
@@ -1659,74 +1659,56 @@
               </button>
             </div>
 
-            <!-- TAB 1: UPI & DYNAMIC QR CODE (Works on PC, Mobile, Tablet) -->
+            <!-- TAB 1: UPI & QR CODE (Click QR to Pay with any UPI app / Scan with camera) -->
             <div id="pay-panel-upi" class="pay-panel active">
-              <div class="upi-secure-container" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; box-shadow:0 3px 10px rgba(0,0,0,0.03);">
-                <!-- QR Code & Scanner Box (Desktop / Tablet / Laptop) -->
-                <div class="upi-qr-card" style="display:flex; align-items:center; gap:14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
-                  <div class="qr-wrapper" style="text-align:center; flex-shrink:0;">
-                    <!-- Top GPay User Info Header -->
-                    <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:5px;">
-                      <img src="assets/images/chandru-avatar.png" alt="chan .M" style="width:22px; height:22px; border-radius:50%; object-fit:cover; border:1px solid #cbd5e1;">
-                      <span style="font-size:11.5px; font-weight:700; color:#1e293b;">chan .M</span>
-                      <span style="font-size:9.5px; background:#dcfce7; color:#166534; font-weight:700; padding:1px 5px; border-radius:10px;">✓ Axis UPI</span>
+              <div class="upi-secure-container" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:14px; box-shadow:0 3px 10px rgba(0,0,0,0.03); text-align:center;">
+                
+                <!-- Beneficiary Profile Header -->
+                <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:8px;">
+                  <img src="assets/images/chandru-avatar.png" alt="chan .M" style="width:26px; height:26px; border-radius:50%; object-fit:cover; border:1px solid #cbd5e1;">
+                  <span style="font-size:13px; font-weight:700; color:#1e293b;">chan .M</span>
+                  <span style="font-size:10px; background:#dcfce7; color:#166534; font-weight:700; padding:2px 7px; border-radius:12px;">✓ Verified Axis UPI</span>
+                </div>
+
+                <!-- ONLY SHOW QR CODE: Clickable/Tappable to launch any UPI app according to user preference -->
+                <div style="margin:0 auto 10px; max-width:240px;">
+                  <a id="sample-qr-link" href="#" onclick="handleQrClick(event)" title="Tap to pay in Google Pay, PhonePe, Paytm or any UPI app" style="display:block; text-decoration:none; cursor:pointer;">
+                    <div style="position:relative; display:inline-block; background:#ffffff; padding:10px; border-radius:14px; border:2px solid #0284c7; box-shadow:0 4px 14px rgba(2,132,199,0.12); transition:transform 0.15s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                      <img id="sample-qr-code-img" src="assets/images/sample-qr-default.png" alt="Tap or Scan to Pay Cardamom Sample" style="width:160px; height:160px; display:block; border-radius:6px; margin:0 auto;">
+                      <div style="margin-top:8px; font-size:11.5px; font-weight:700; color:#0369a1; display:flex; align-items:center; justify-content:center; gap:4px;">
+                        <span>👆 Tap QR to Pay via Any UPI App</span>
+                      </div>
                     </div>
-                    <!-- Crisp Dynamic Scannable QR Image with Auto-filled Amount -->
-                    <div style="position:relative; display:inline-block; background:#fff; padding:5px; border-radius:10px; border:1px solid #cbd5e1; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                      <img id="sample-qr-code-img" src="assets/images/sample-qr-default.png" alt="Google Pay QR Code with Auto-filled Amount" style="width:130px; height:130px; display:block; border-radius:4px; cursor:pointer;" onclick="window.open(this.src, '_blank')" title="Click / Tap to view full QR code">
-                    </div>
-                    <!-- Pre-filled Amount Badge -->
-                    <div style="margin-top:6px; background:#e0f2fe; border:1px solid #bae6fd; border-radius:6px; padding:3px 6px;">
-                      <span style="display:block; font-size:9.5px; color:#0369a1; font-weight:600;">Auto-fills on Scan:</span>
-                      <strong id="sample-qr-amount-badge" style="font-size:13px; color:#0c4a6e; font-weight:800;">₹260</strong>
-                    </div>
+                  </a>
+                  <span style="display:block; margin-top:5px; font-size:10.5px; color:#64748b;">(Or scan QR code using your phone camera)</span>
+                </div>
+
+                <!-- Payable Amount & UPI Details Bar -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; margin:0 auto 12px; max-width:320px; display:flex; justify-content:space-between; align-items:center;">
+                  <div style="text-align:left;">
+                    <span style="display:block; font-size:10px; color:#64748b;">Amount Payable</span>
+                    <strong id="sample-qr-amount-badge" style="font-size:15px; color:var(--green-900);">₹260</strong>
                   </div>
-                  <div class="qr-info-text" style="flex:1;">
-                    <div style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; color:#0369a1; background:#e0f2fe; padding:2px 7px; border-radius:4px; margin-bottom:5px;">
-                      ⚡ Instant Auto-Amount Scan
-                    </div>
-                    <p style="margin:0 0 6px; font-size:12px; line-height:1.35; color:#334155;">
-                      Scan with <strong>Google Pay, PhonePe, Paytm, or BHIM</strong>. The exact sample amount will <strong>automatically appear</strong> on your screen!
-                    </p>
-                    <div style="background:#ffffff; border:1px dashed #94a3b8; border-radius:6px; padding:5px 8px; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
-                      <span style="font-size:11.5px; color:#1e293b;">UPI ID: <strong>chandru200405-1@okaxis</strong></span>
-                      <button type="button" class="btn-copy-chip" onclick="copyToClipboard('chandru200405-1@okaxis', this)" title="Copy UPI ID">📋 Copy</button>
-                    </div>
-                    <div style="font-size:11px; color:#64748b; line-height:1.4;">
-                      Beneficiary: <strong>CHANDRU M (chan .M)</strong><br>
-                      Bank: <strong>Axis Bank UPI / Canara Bank</strong>
-                    </div>
-                    <div style="margin-top:7px;">
-                      <button type="button" onclick="toggleOriginalGpayCard()" id="btn-toggle-orig-card" style="background:none; border:none; padding:0; font-size:11px; color:#2563eb; text-decoration:underline; cursor:pointer;">
-                        View Original GPay Card Image &rarr;
-                      </button>
-                    </div>
+                  <div style="text-align:right;">
+                    <span style="font-size:11.5px; color:#1e293b; font-family:monospace; font-weight:600;">chandru200405-1@okaxis</span>
+                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('chandru200405-1@okaxis', this)" title="Copy UPI ID" style="margin-left:6px;">📋 Copy</button>
                   </div>
                 </div>
 
-                <!-- 1-Tap Mobile UPI App Launchers (Phones / Tablets) -->
-                <div class="mobile-apps-section" style="margin-top:10px;">
-                  <span style="display:block; font-size:11px; font-weight:700; color:#475569; margin-bottom:6px;">Tap to Pay via Mobile Apps (Smartphones):</span>
-                  <div class="mobile-upi-apps-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:6px;">
-                    <a id="btn-app-gpay" href="#" class="btn-upi-app-chip btn-gpay" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:11.5px; font-weight:700; color:#1e293b; text-decoration:none;">
-                      <span>🟢</span> Google Pay
-                    </a>
-                    <a id="btn-app-phonepe" href="#" class="btn-upi-app-chip btn-phonepe" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#fbf7ff; border:1px solid #e9d5ff; border-radius:6px; font-size:11.5px; font-weight:700; color:#581c87; text-decoration:none;">
-                      <span>🟣</span> PhonePe
-                    </a>
-                    <a id="btn-app-paytm" href="#" class="btn-upi-app-chip btn-paytm" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; font-size:11.5px; font-weight:700; color:#0369a1; text-decoration:none;">
-                      <span>🔵</span> Paytm
-                    </a>
-                    <a id="btn-app-bhim" href="#" class="btn-upi-app-chip btn-bhim" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:11.5px; font-weight:700; color:#166534; text-decoration:none;">
-                      <span>⚡</span> Any UPI App
-                    </a>
+                <!-- AFTER PAYMENT DONE: Click to View Confirmation on Website -->
+                <div style="border-top:1px dashed #cbd5e1; padding-top:10px; max-width:340px; margin:0 auto;">
+                  <button type="button" onclick="confirmPaymentDone()" class="btn-payment-done" style="width:100%; padding:11px 16px; background:#16a34a; color:#ffffff; border:none; border-radius:8px; font-weight:700; font-size:13.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 3px 10px rgba(22,163,74,0.28);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Payment Done? View Order Confirmation &rarr;</span>
+                  </button>
+                  
+                  <!-- Returned from UPI app prompt -->
+                  <div id="sample-returned-prompt" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:8px; padding:10px; margin-top:10px; text-align:center;">
+                    <div style="font-size:12px; color:#065f46; font-weight:700;">Returned from your UPI app?</div>
+                    <p style="margin:2px 0 6px; font-size:11px; color:#047857;">Click above to view your confirmed receipt and flight dispatch status.</p>
                   </div>
                 </div>
 
-                <div class="upi-trust-strip" style="margin-top:10px; padding:6px 8px; background:#f0fdf4; border:1px solid #dcfce7; border-radius:6px; font-size:11px; color:#166534; display:flex; align-items:center; gap:6px;">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                  <span>100% Direct Settlement • Zero Gateway Surcharge • Instant Crediting</span>
-                </div>
               </div>
             </div>
 
@@ -1856,10 +1838,14 @@
           <h3 style="margin:4px 0 6px; font-size:18px; color:var(--green-900);">Sample Order Confirmed!</h3>
           <p style="margin:0 0 16px; font-size:13px; color:#4a5568;">Your sample order has been registered for immediate flight dispatch.</p>
 
-          <div class="success-receipt-details" style="max-width:500px; margin:0 auto; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px 18px; text-align:left; font-size:13px;">
+          <div class="success-receipt-details" style="max-width:520px; margin:0 auto; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px 18px; text-align:left; font-size:13px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:6px; border-bottom:1px solid #eef2f6; padding-bottom:6px;">
               <span>Order Reference ID:</span>
               <strong id="receipt-order-id" style="font-family:monospace; color:var(--primary); font-size:14px;">LT-SMP-28491</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span>Payment Status:</span>
+              <strong style="color:#16a34a; font-weight:700;">✓ Paid &amp; Confirmed (Online Transfer)</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
               <span>Product &amp; Weight:</span>
@@ -1870,16 +1856,20 @@
               <strong id="receipt-pod-cost">₹110</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-              <span>Flight / Air Express Charges:</span>
+              <span>Flight Courier Charges:</span>
               <strong id="receipt-flight-cost" style="color:#b45309;">₹150</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:6px; border-top:1px dashed #cbd5e1; padding-top:6px; font-size:14.5px;">
-              <span>Total Amount Credited:</span>
+              <span>Total Amount Paid:</span>
               <strong id="receipt-total-cost" style="color:var(--green-900);">₹260</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:#555;">
-              <span>Credited Bank:</span>
-              <span>Canara Bank (A/C: 110058339732 · CHANDRU M)</span>
+              <span>Credited Payee:</span>
+              <span>CHANDRU M (chandru200405-1@okaxis · Canara Bank)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:#334155;">
+              <span>Delivery Recipient:</span>
+              <strong id="receipt-ship-address" style="text-align:right; max-width:65%; font-weight:600; color:#1e293b;">-</strong>
             </div>
             <div style="display:flex; justify-content:space-between; font-size:12px; color:#0b4d75; font-weight:700;">
               <span>Dispatch Mode:</span>
@@ -1887,11 +1877,15 @@
             </div>
           </div>
 
-          <div style="display:flex; gap:10px; margin-top:18px; justify-content:center;">
-            <button type="button" class="btn btn-dark" onclick="closeSampleModal()" style="padding:9px 24px;">Close</button>
+          <div style="display:flex; gap:10px; margin-top:18px; justify-content:center; flex-wrap:wrap;">
+            <button type="button" class="btn btn-dark" onclick="window.print()" style="padding:9px 18px; display:inline-flex; align-items:center; gap:6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>Print / Save Receipt</span>
+            </button>
             <a id="btn-success-wa" href="https://wa.me/919342153357" target="_blank" class="btn btn-outline" style="padding:9px 20px; display:inline-flex; align-items:center; gap:6px; border-color:#25D366; color:#128c7e;">
               <span>WhatsApp Tracking Status</span>
             </a>
+            <button type="button" class="btn btn-outline" onclick="closeSampleModal()" style="padding:9px 20px;">Close</button>
           </div>
         </div>
       </div>
@@ -1952,8 +1946,8 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="assets/js/qrcode.min.js?v=7.8"></script>
-  <script src="app.js?v=7.8"></script>
+  <script src="assets/js/qrcode.min.js?v=7.9"></script>
+  <script src="app.js?v=7.9"></script>
 </body>
 
 </html>

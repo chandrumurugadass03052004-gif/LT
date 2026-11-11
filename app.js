@@ -4501,17 +4501,20 @@ function proceedToSamplePayment() {
 
   // Update dynamic scannable QR Code with pre-filled amount
   const qrImg = document.getElementById('sample-qr-code-img');
+  const qrLink = document.getElementById('sample-qr-link');
   const qrAmountBadge = document.getElementById('sample-qr-amount-badge');
   if (qrAmountBadge) {
     qrAmountBadge.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
   }
 
+  if (qrLink) {
+    qrLink.href = upiUrl;
+  }
+
   if (qrImg) {
-    if (qrImg.getAttribute('data-is-original') === 'true') {
-      qrImg.src = 'assets/images/chandru-upi-qr.jpg';
-    } else if (window.QRCode && typeof window.QRCode.toDataURL === 'function') {
+    if (window.QRCode && typeof window.QRCode.toDataURL === 'function') {
       window.QRCode.toDataURL(upiUrl, {
-        width: 300,
+        width: 320,
         margin: 2,
         errorCorrectionLevel: 'M',
         color: {
@@ -4529,35 +4532,69 @@ function proceedToSamplePayment() {
       qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}&margin=2`;
     }
   }
-
-  // Update 1-tap mobile UPI app launcher buttons
-  const appGpay = document.getElementById('btn-app-gpay');
-  const appPhonepe = document.getElementById('btn-app-phonepe');
-  const appPaytm = document.getElementById('btn-app-paytm');
-  const appBhim = document.getElementById('btn-app-bhim');
-
-  if (appGpay) appGpay.href = upiUrl;
-  if (appPhonepe) appPhonepe.href = upiUrl;
-  if (appPaytm) appPaytm.href = upiUrl;
-  if (appBhim) appBhim.href = upiUrl;
 }
 window.proceedToSamplePayment = proceedToSamplePayment;
 
-function toggleOriginalGpayCard() {
-  const qrImg = document.getElementById('sample-qr-code-img');
-  const btn = document.getElementById('btn-toggle-orig-card');
-  if (!qrImg) return;
-  if (qrImg.getAttribute('data-is-original') === 'true') {
-    qrImg.removeAttribute('data-is-original');
-    if (btn) btn.innerText = 'View Original GPay Card Image →';
-    proceedToSamplePayment();
-  } else {
-    qrImg.setAttribute('data-is-original', 'true');
-    qrImg.src = 'assets/images/chandru-upi-qr.jpg';
-    if (btn) btn.innerText = '← Switch back to Auto-Amount QR Code';
+// Handle Click / Tap on QR Code -> Opens User's Preferred UPI App
+function handleQrClick(e) {
+  if (e && typeof e.preventDefault === 'function') {
+    e.preventDefault();
   }
+  const calc = currentSampleCalculation || { totalPayable: 260 };
+  const p = currentActiveProduct || { grade: 'Cardamom' };
+  const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
+  const amountStr = Number(calc.totalPayable).toFixed(2);
+  const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=chan%20.M&aid=uGICAgMCI16Pzdg&am=${amountStr}&cu=INR&tn=${desc}`;
+
+  try {
+    sessionStorage.setItem('sample_payment_initiated', 'true');
+  } catch (err) {}
+
+  // Open user's preferred UPI app (Google Pay, PhonePe, Paytm, BHIM, Cred, etc.)
+  window.location.href = upiUrl;
 }
-window.toggleOriginalGpayCard = toggleOriginalGpayCard;
+window.handleQrClick = handleQrClick;
+
+// Confirm Payment Done and Show Order Receipt on Website
+function confirmPaymentDone() {
+  const nameEl = document.getElementById('sample-ship-name');
+  const phoneEl = document.getElementById('sample-ship-phone');
+  const addrEl = document.getElementById('sample-ship-address');
+  const cityEl = document.getElementById('sample-ship-city');
+  const pinEl = document.getElementById('sample-ship-pincode');
+  const utrEl = document.getElementById('sample-pay-utr');
+
+  const name = nameEl ? nameEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const address = addrEl ? addrEl.value.trim() : '';
+  const city = cityEl ? cityEl.value.trim() : '';
+  const pincode = pinEl ? pinEl.value.trim() : '';
+  const utr = utrEl ? utrEl.value.trim() : '';
+
+  if (!name || !phone || !address || !pincode) {
+    alert('Please enter your Delivery Name, Mobile Number, and Shipping Address on the right so we can register your express flight dispatch and issue your confirmed receipt.');
+    if (!name && nameEl) nameEl.focus();
+    else if (!phone && phoneEl) phoneEl.focus();
+    else if (!address && addrEl) addrEl.focus();
+    else if (!pincode && pinEl) pinEl.focus();
+    return;
+  }
+
+  showSampleSuccessReceipt(name, address, city, pincode, utr, phone);
+}
+window.confirmPaymentDone = confirmPaymentDone;
+
+// Show prompt if customer returns to tab after opening their UPI app
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'visible') {
+    try {
+      if (sessionStorage.getItem('sample_payment_initiated') === 'true') {
+        const prompt = document.getElementById('sample-returned-prompt');
+        if (prompt) prompt.style.display = 'block';
+      }
+    } catch (e) {}
+  }
+});
 
 function backToSampleConfig() {
   const stepConfig = document.getElementById('sample-step-config');
@@ -4695,13 +4732,17 @@ function submitSampleDirectBooking() {
 }
 window.submitSampleDirectBooking = submitSampleDirectBooking;
 
-function showSampleSuccessReceipt(name, address, city, pincode, utr) {
+function showSampleSuccessReceipt(name, address, city, pincode, utr, phone) {
   const stepConfig = document.getElementById('sample-step-config');
   const stepPayment = document.getElementById('sample-step-payment');
   const stepSuccess = document.getElementById('sample-step-success');
   if (stepConfig) stepConfig.style.display = 'none';
   if (stepPayment) stepPayment.style.display = 'none';
   if (stepSuccess) stepSuccess.style.display = 'block';
+
+  // Scroll sample modal to top so receipt is immediately visible
+  const modalBox = document.querySelector('.sample-modal-box');
+  if (modalBox) modalBox.scrollTop = 0;
 
   const p = currentActiveProduct || { grade: 'Cardamom', variety: 'green' };
   const varietyName = p.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
@@ -4713,6 +4754,7 @@ function showSampleSuccessReceipt(name, address, city, pincode, utr) {
   const podEl = document.getElementById('receipt-pod-cost');
   const flightEl = document.getElementById('receipt-flight-cost');
   const totalEl = document.getElementById('receipt-total-cost');
+  const shipAddrEl = document.getElementById('receipt-ship-address');
   const waBtn = document.getElementById('btn-success-wa');
 
   if (idEl) idEl.innerText = orderId;
@@ -4721,8 +4763,13 @@ function showSampleSuccessReceipt(name, address, city, pincode, utr) {
   if (flightEl) flightEl.innerText = '₹' + calc.flightCharge.toLocaleString('en-IN');
   if (totalEl) totalEl.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
 
+  if (shipAddrEl) {
+    const contactPhone = phone || (document.getElementById('sample-ship-phone') ? document.getElementById('sample-ship-phone').value.trim() : '');
+    shipAddrEl.innerText = `${name || 'Customer'}, ${address || ''}, ${city || ''} - ${pincode || ''}${contactPhone ? ' (Ph: ' + contactPhone + ')' : ''}`;
+  }
+
   if (waBtn) {
-    const text = `Hello Lisha Traders, I have placed Sample Order ${orderId} for ₹${calc.totalPayable.toLocaleString('en-IN')} (Credited to Canara Bank). Please share flight courier tracking.`;
+    const text = `Hello Lisha Traders, I have completed payment for Cardamom Sample Order ${orderId} (₹${calc.totalPayable.toLocaleString('en-IN')} credited to Axis/Canara Bank). Please dispatch via Flight Courier. Recipient: ${name}, ${city} - ${pincode}.`;
     waBtn.href = `https://wa.me/919342153357?text=${encodeURIComponent(text)}`;
   }
 }
