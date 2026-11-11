@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7.6">
+  <link rel="stylesheet" href="style.css?v=7.7">
   <script>
     (function() {
       try {
@@ -1665,8 +1665,8 @@
                 <!-- QR Code & Scanner Box (Desktop / Tablet / Laptop) -->
                 <div class="upi-qr-card" style="display:flex; align-items:center; gap:14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:10px;">
                   <div class="qr-wrapper" style="text-align:center; flex-shrink:0;">
-                    <img id="sample-qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dchandru200405-1%40okaxis%26pn%3DCHANDRU%2520M%26am%3D260%26cu%3DINR&margin=4" alt="Scan to Pay Cardamom Sample" style="width:115px; height:115px; border-radius:8px; border:1px solid #cbd5e1; background:#fff; padding:3px; display:block;">
-                    <span style="display:block; margin-top:4px; font-size:10px; font-weight:700; color:#0369a1;">Point Camera to Pay</span>
+                    <img id="sample-qr-code-img" src="assets/images/chandru-upi-qr.jpg" alt="Google Pay UPI QR Code - Chandru M" style="width:130px; height:auto; max-height:185px; object-fit:contain; border-radius:8px; border:1px solid #cbd5e1; background:#fff; padding:3px; display:block; cursor:pointer;" onclick="window.open(this.src, '_blank')" title="Click / Tap to view full QR code">
+                    <span style="display:block; margin-top:4px; font-size:10px; font-weight:700; color:#0369a1;">Point Camera / Tap to Zoom</span>
                   </div>
                   <div class="qr-info-text" style="flex:1;">
                     <p style="margin:0 0 6px; font-size:12px; line-height:1.35; color:#334155;">
@@ -1676,7 +1676,8 @@
                       <span style="font-size:11.5px; color:#1e293b;">UPI ID: <strong>chandru200405-1@okaxis</strong></span>
                       <button type="button" class="btn-copy-chip" onclick="copyToClipboard('chandru200405-1@okaxis', this)" title="Copy UPI ID">📋 Copy</button>
                     </div>
-                    <div style="font-size:11px; color:#64748b;">Beneficiary: <strong>CHANDRU M</strong></div>
+                    <div style="font-size:11px; color:#64748b;">Beneficiary: <strong>CHANDRU M (chan .M)</strong></div>
+                    <div style="font-size:10.5px; color:#16a34a; margin-top:4px; font-weight:600;">✓ Official Verified Axis Bank / Google Pay QR</div>
                   </div>
                 </div>
 
@@ -1928,7 +1929,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=7.6"></script>
+  <script src="app.js?v=7.7"></script>
 </body>
 
 </html>

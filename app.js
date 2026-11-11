@@ -4498,10 +4498,10 @@ function proceedToSamplePayment() {
   const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
   const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
 
-  // Update dynamic scannable QR Code image for computer/tablet screens
+  // Official scannable Axis Bank / Google Pay QR Code image for computer/tablet screens
   const qrImg = document.getElementById('sample-qr-code-img');
-  if (qrImg) {
-    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}&margin=4`;
+  if (qrImg && (!qrImg.getAttribute('src') || qrImg.src.includes('qrserver.com'))) {
+    qrImg.src = 'assets/images/chandru-upi-qr.jpg';
   }
 
   // Update 1-tap mobile UPI app launcher buttons
