@@ -7000,3 +7000,31 @@ img.clickable-spec:hover {
     font-size: 10px !important;
   }
 }
+
+/* QR Payment Success Green Tick Animations */
+@keyframes popSuccess {
+  0% {
+    transform: scale(0.65);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes pulseGreenTick {
+  0%, 100% {
+    box-shadow: 0 4px 18px rgba(22, 163, 74, 0.45);
+  }
+  50% {
+    box-shadow: 0 4px 26px rgba(22, 163, 74, 0.8), 0 0 0 8px rgba(22, 163, 74, 0.15);
+  }
+}
+.qr-success-badge-pulse {
+  animation: pulseGreenTick 2s infinite ease-in-out;
+}
+

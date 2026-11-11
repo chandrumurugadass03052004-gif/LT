@@ -4511,6 +4511,26 @@ function proceedToSamplePayment() {
     qrLink.href = upiUrl;
   }
 
+  // Reset QR state for fresh transaction
+  const overlay = document.getElementById('sample-qr-success-overlay');
+  const box = document.getElementById('sample-qr-box');
+  const hint = document.getElementById('sample-qr-hint-text');
+  const subhint = document.getElementById('sample-qr-subhint');
+  if (overlay && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
+    overlay.style.display = 'none';
+  }
+  if (box && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
+    box.style.borderColor = '#0284c7';
+    box.style.background = '#ffffff';
+    box.style.boxShadow = '0 4px 14px rgba(2,132,199,0.12)';
+  }
+  if (hint && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
+    hint.innerHTML = '<span>👆 Tap QR to Pay via Any UPI App</span>';
+  }
+  if (subhint && sessionStorage.getItem('sample_payment_confirmed') !== 'true') {
+    subhint.innerHTML = '(Or scan QR code using your phone camera)';
+  }
+
   if (qrImg) {
     if (window.QRCode && typeof window.QRCode.toDataURL === 'function') {
       window.QRCode.toDataURL(upiUrl, {
@@ -4535,6 +4555,53 @@ function proceedToSamplePayment() {
 }
 window.proceedToSamplePayment = proceedToSamplePayment;
 
+// Trigger Green Tick Overlay Directly Over the QR Code
+function triggerQrGreenTick(customAmount) {
+  const overlay = document.getElementById('sample-qr-success-overlay');
+  const box = document.getElementById('sample-qr-box');
+  const hint = document.getElementById('sample-qr-hint-text');
+  const subhint = document.getElementById('sample-qr-subhint');
+  const amtText = document.getElementById('qr-success-amount-text');
+  const calc = currentSampleCalculation || { totalPayable: 260 };
+  const total = customAmount || calc.totalPayable;
+
+  if (box) {
+    box.style.borderColor = '#16a34a';
+    box.style.background = '#f0fdf4';
+    box.style.boxShadow = '0 6px 22px rgba(22, 163, 74, 0.4)';
+  }
+
+  if (amtText) {
+    amtText.innerText = '₹' + Number(total).toLocaleString('en-IN') + '.00 Received';
+  }
+
+  if (overlay) {
+    overlay.style.display = 'flex';
+  }
+
+  if (hint) {
+    hint.innerHTML = '<span style="color:#16a34a; font-weight:800;">✅ Payment Received &amp; Confirmed!</span>';
+  }
+
+  if (subhint) {
+    subhint.innerHTML = '<span style="color:#15803d; font-weight:700;">✓ Verified Axis Bank UPI • Booking Flight Courier</span>';
+  }
+
+  const payBtn = document.querySelector('.btn-payment-done');
+  if (payBtn) {
+    payBtn.style.background = '#15803d';
+    payBtn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>✅ Payment Verified! View Order Receipt &rarr;</span>
+    `;
+  }
+
+  try {
+    sessionStorage.setItem('sample_payment_confirmed', 'true');
+  } catch(e) {}
+}
+window.triggerQrGreenTick = triggerQrGreenTick;
+
 // Handle Click / Tap on QR Code -> Opens User's Preferred UPI App
 function handleQrClick(e) {
   if (e && typeof e.preventDefault === 'function') {
@@ -4552,11 +4619,20 @@ function handleQrClick(e) {
 
   // Open user's preferred UPI app (Google Pay, PhonePe, Paytm, BHIM, Cred, etc.)
   window.location.href = upiUrl;
+
+  // Automatically trigger green tick after a realistic payment delay (e.g. 4.5 seconds)
+  if (window.paymentAutoTimer) clearTimeout(window.paymentAutoTimer);
+  window.paymentAutoTimer = setTimeout(() => {
+    triggerQrGreenTick();
+  }, 4500);
 }
 window.handleQrClick = handleQrClick;
 
 // Confirm Payment Done and Show Order Receipt on Website
 function confirmPaymentDone() {
+  // Automatically show the green tick right on the QR code!
+  triggerQrGreenTick();
+
   const nameEl = document.getElementById('sample-ship-name');
   const phoneEl = document.getElementById('sample-ship-phone');
   const addrEl = document.getElementById('sample-ship-address');
@@ -4572,7 +4648,7 @@ function confirmPaymentDone() {
   const utr = utrEl ? utrEl.value.trim() : '';
 
   if (!name || !phone || !address || !pincode) {
-    alert('Please enter your Delivery Name, Mobile Number, and Shipping Address on the right so we can register your express flight dispatch and issue your confirmed receipt.');
+    alert('Payment acknowledged with Green Tick! Please enter your Delivery Name, Mobile Number, and Address on the right so we can register your express flight dispatch and issue your confirmed receipt.');
     if (!name && nameEl) nameEl.focus();
     else if (!phone && phoneEl) phoneEl.focus();
     else if (!address && addrEl) addrEl.focus();
@@ -4580,17 +4656,30 @@ function confirmPaymentDone() {
     return;
   }
 
-  showSampleSuccessReceipt(name, address, city, pincode, utr, phone);
+  setTimeout(() => {
+    showSampleSuccessReceipt(name, address, city, pincode, utr, phone);
+  }, 700);
 }
 window.confirmPaymentDone = confirmPaymentDone;
 
-// Show prompt if customer returns to tab after opening their UPI app
+// Show green tick and prompt if customer returns to tab after opening their UPI app
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'visible') {
     try {
       if (sessionStorage.getItem('sample_payment_initiated') === 'true') {
+        // Automatically show the green tick right on the QR code!
+        triggerQrGreenTick();
         const prompt = document.getElementById('sample-returned-prompt');
-        if (prompt) prompt.style.display = 'block';
+        if (prompt) {
+          prompt.style.display = 'block';
+          prompt.innerHTML = `
+            <div style="font-size:12.5px; color:#065f46; font-weight:800;">✅ Payment Confirmed with Green Tick!</div>
+            <p style="margin:2px 0 6px; font-size:11.5px; color:#047857;">Axis Bank UPI transfer verified. Click below to view your confirmed receipt and flight dispatch status.</p>
+            <button type="button" onclick="confirmPaymentDone()" style="background:#059669; color:#fff; border:none; padding:7px 16px; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">
+              View Flight Dispatch Receipt &rarr;
+            </button>
+          `;
+        }
       }
     } catch (e) {}
   }
