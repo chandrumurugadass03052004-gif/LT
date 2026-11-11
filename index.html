@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7.7">
+  <link rel="stylesheet" href="style.css?v=7.8">
   <script>
     (function() {
       try {
@@ -1663,21 +1663,44 @@
             <div id="pay-panel-upi" class="pay-panel active">
               <div class="upi-secure-container" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; box-shadow:0 3px 10px rgba(0,0,0,0.03);">
                 <!-- QR Code & Scanner Box (Desktop / Tablet / Laptop) -->
-                <div class="upi-qr-card" style="display:flex; align-items:center; gap:14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:10px;">
+                <div class="upi-qr-card" style="display:flex; align-items:center; gap:14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
                   <div class="qr-wrapper" style="text-align:center; flex-shrink:0;">
-                    <img id="sample-qr-code-img" src="assets/images/chandru-upi-qr.jpg" alt="Google Pay UPI QR Code - Chandru M" style="width:130px; height:auto; max-height:185px; object-fit:contain; border-radius:8px; border:1px solid #cbd5e1; background:#fff; padding:3px; display:block; cursor:pointer;" onclick="window.open(this.src, '_blank')" title="Click / Tap to view full QR code">
-                    <span style="display:block; margin-top:4px; font-size:10px; font-weight:700; color:#0369a1;">Point Camera / Tap to Zoom</span>
+                    <!-- Top GPay User Info Header -->
+                    <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:5px;">
+                      <img src="assets/images/chandru-avatar.png" alt="chan .M" style="width:22px; height:22px; border-radius:50%; object-fit:cover; border:1px solid #cbd5e1;">
+                      <span style="font-size:11.5px; font-weight:700; color:#1e293b;">chan .M</span>
+                      <span style="font-size:9.5px; background:#dcfce7; color:#166534; font-weight:700; padding:1px 5px; border-radius:10px;">✓ Axis UPI</span>
+                    </div>
+                    <!-- Crisp Dynamic Scannable QR Image with Auto-filled Amount -->
+                    <div style="position:relative; display:inline-block; background:#fff; padding:5px; border-radius:10px; border:1px solid #cbd5e1; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+                      <img id="sample-qr-code-img" src="assets/images/sample-qr-default.png" alt="Google Pay QR Code with Auto-filled Amount" style="width:130px; height:130px; display:block; border-radius:4px; cursor:pointer;" onclick="window.open(this.src, '_blank')" title="Click / Tap to view full QR code">
+                    </div>
+                    <!-- Pre-filled Amount Badge -->
+                    <div style="margin-top:6px; background:#e0f2fe; border:1px solid #bae6fd; border-radius:6px; padding:3px 6px;">
+                      <span style="display:block; font-size:9.5px; color:#0369a1; font-weight:600;">Auto-fills on Scan:</span>
+                      <strong id="sample-qr-amount-badge" style="font-size:13px; color:#0c4a6e; font-weight:800;">₹260</strong>
+                    </div>
                   </div>
                   <div class="qr-info-text" style="flex:1;">
+                    <div style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; color:#0369a1; background:#e0f2fe; padding:2px 7px; border-radius:4px; margin-bottom:5px;">
+                      ⚡ Instant Auto-Amount Scan
+                    </div>
                     <p style="margin:0 0 6px; font-size:12px; line-height:1.35; color:#334155;">
-                      Scan with <strong>Google Pay, PhonePe, Paytm, or BHIM</strong> from any phone to pay instantly.
+                      Scan with <strong>Google Pay, PhonePe, Paytm, or BHIM</strong>. The exact sample amount will <strong>automatically appear</strong> on your screen!
                     </p>
-                    <div style="background:#ffffff; border:1px dashed #94a3b8; border-radius:6px; padding:5px 8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="background:#ffffff; border:1px dashed #94a3b8; border-radius:6px; padding:5px 8px; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
                       <span style="font-size:11.5px; color:#1e293b;">UPI ID: <strong>chandru200405-1@okaxis</strong></span>
                       <button type="button" class="btn-copy-chip" onclick="copyToClipboard('chandru200405-1@okaxis', this)" title="Copy UPI ID">📋 Copy</button>
                     </div>
-                    <div style="font-size:11px; color:#64748b;">Beneficiary: <strong>CHANDRU M (chan .M)</strong></div>
-                    <div style="font-size:10.5px; color:#16a34a; margin-top:4px; font-weight:600;">✓ Official Verified Axis Bank / Google Pay QR</div>
+                    <div style="font-size:11px; color:#64748b; line-height:1.4;">
+                      Beneficiary: <strong>CHANDRU M (chan .M)</strong><br>
+                      Bank: <strong>Axis Bank UPI / Canara Bank</strong>
+                    </div>
+                    <div style="margin-top:7px;">
+                      <button type="button" onclick="toggleOriginalGpayCard()" id="btn-toggle-orig-card" style="background:none; border:none; padding:0; font-size:11px; color:#2563eb; text-decoration:underline; cursor:pointer;">
+                        View Original GPay Card Image &rarr;
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -1929,7 +1952,8 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=7.7"></script>
+  <script src="assets/js/qrcode.min.js?v=7.8"></script>
+  <script src="app.js?v=7.8"></script>
 </body>
 
 </html>

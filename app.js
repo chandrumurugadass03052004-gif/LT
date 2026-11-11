@@ -4496,12 +4496,38 @@ function proceedToSamplePayment() {
 
   const p = currentActiveProduct || { grade: 'Cardamom' };
   const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
-  const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
+  const amountStr = Number(calc.totalPayable).toFixed(2);
+  const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=chan%20.M&aid=uGICAgMCI16Pzdg&am=${amountStr}&cu=INR&tn=${desc}`;
 
-  // Official scannable Axis Bank / Google Pay QR Code image for computer/tablet screens
+  // Update dynamic scannable QR Code with pre-filled amount
   const qrImg = document.getElementById('sample-qr-code-img');
-  if (qrImg && (!qrImg.getAttribute('src') || qrImg.src.includes('qrserver.com'))) {
-    qrImg.src = 'assets/images/chandru-upi-qr.jpg';
+  const qrAmountBadge = document.getElementById('sample-qr-amount-badge');
+  if (qrAmountBadge) {
+    qrAmountBadge.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
+  }
+
+  if (qrImg) {
+    if (qrImg.getAttribute('data-is-original') === 'true') {
+      qrImg.src = 'assets/images/chandru-upi-qr.jpg';
+    } else if (window.QRCode && typeof window.QRCode.toDataURL === 'function') {
+      window.QRCode.toDataURL(upiUrl, {
+        width: 300,
+        margin: 2,
+        errorCorrectionLevel: 'M',
+        color: {
+          dark: '#0f172a',
+          light: '#ffffff'
+        }
+      }, function(err, url) {
+        if (!err && url) {
+          qrImg.src = url;
+        } else {
+          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}&margin=2`;
+        }
+      });
+    } else {
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}&margin=2`;
+    }
   }
 
   // Update 1-tap mobile UPI app launcher buttons
@@ -4516,6 +4542,22 @@ function proceedToSamplePayment() {
   if (appBhim) appBhim.href = upiUrl;
 }
 window.proceedToSamplePayment = proceedToSamplePayment;
+
+function toggleOriginalGpayCard() {
+  const qrImg = document.getElementById('sample-qr-code-img');
+  const btn = document.getElementById('btn-toggle-orig-card');
+  if (!qrImg) return;
+  if (qrImg.getAttribute('data-is-original') === 'true') {
+    qrImg.removeAttribute('data-is-original');
+    if (btn) btn.innerText = 'View Original GPay Card Image →';
+    proceedToSamplePayment();
+  } else {
+    qrImg.setAttribute('data-is-original', 'true');
+    qrImg.src = 'assets/images/chandru-upi-qr.jpg';
+    if (btn) btn.innerText = '← Switch back to Auto-Amount QR Code';
+  }
+}
+window.toggleOriginalGpayCard = toggleOriginalGpayCard;
 
 function backToSampleConfig() {
   const stepConfig = document.getElementById('sample-step-config');
