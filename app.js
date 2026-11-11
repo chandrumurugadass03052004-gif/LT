@@ -4496,7 +4496,7 @@ function proceedToSamplePayment() {
 
   const p = currentActiveProduct || { grade: 'Cardamom' };
   const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
-  const upiUrl = `upi://pay?pa=7904612672@cnrb&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
+  const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
 
   // Update dynamic scannable QR Code image for computer/tablet screens
   const qrImg = document.getElementById('sample-qr-code-img');
