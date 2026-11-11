@@ -4300,7 +4300,16 @@ function onBulkUnitChange() {
 }
 window.onBulkUnitChange = onBulkUnitChange;
 
-// Sample Modal Toggles & Real-Time Calculation
+let currentSampleCalculation = {
+  weightGrams: 50,
+  ratePerKg: 2200,
+  podCost: 110,
+  flightCharge: 150,
+  totalPayable: 260
+};
+window.currentSampleCalculation = currentSampleCalculation;
+
+// Sample Modal Toggles & Direct Online Payment Flow
 function openSampleModal(grade, variety) {
   let isYellow = (variety === 'yellow' || (grade && grade.includes('-yellow')));
   let cleanGrade = grade ? grade.replace('-yellow', '').trim() : '7.5mm';
@@ -4316,6 +4325,14 @@ function openSampleModal(grade, variety) {
     sampleProdEl.innerText = `${cleanGrade} ${varietyName} · ${gradeName}`;
   }
   
+  // Reset step views to Step 1
+  const stepConfig = document.getElementById('sample-step-config');
+  const stepPayment = document.getElementById('sample-step-payment');
+  const stepSuccess = document.getElementById('sample-step-success');
+  if (stepConfig) stepConfig.style.display = 'block';
+  if (stepPayment) stepPayment.style.display = 'none';
+  if (stepSuccess) stepSuccess.style.display = 'none';
+
   // Set default to 50g
   const defaultRadio = document.querySelector('input[name="sample-qty"][value="50g"]');
   if (defaultRadio) defaultRadio.checked = true;
@@ -4332,6 +4349,12 @@ window.openSampleModal = openSampleModal;
 function closeSampleModal() {
   const modal = document.getElementById('modal-req-sample');
   if (modal) modal.classList.remove('open', 'active');
+  const stepConfig = document.getElementById('sample-step-config');
+  const stepPayment = document.getElementById('sample-step-payment');
+  const stepSuccess = document.getElementById('sample-step-success');
+  if (stepConfig) stepConfig.style.display = 'block';
+  if (stepPayment) stepPayment.style.display = 'none';
+  if (stepSuccess) stepSuccess.style.display = 'none';
   currentActiveProduct = null;
 }
 window.closeSampleModal = closeSampleModal;
@@ -4394,17 +4417,34 @@ function updateSampleModalCalculations() {
   }
 
   const weightKg = weightGrams / 1000;
-  const currentSamplePrice = Math.round(weightKg * ratePerKg);
+  const podCost = Math.round(weightKg * ratePerKg);
+  // Explicitly itemized flight / air express courier charges:
+  const flightCharge = weightGrams > 250 ? 200 : 150;
+  const totalPayable = podCost + flightCharge;
+
+  currentSampleCalculation = {
+    weightGrams: weightGrams,
+    weightKg: weightKg,
+    ratePerKg: ratePerKg,
+    podCost: podCost,
+    flightCharge: flightCharge,
+    totalPayable: totalPayable
+  };
+  window.currentSampleCalculation = currentSampleCalculation;
 
   const calcQtyEl = document.getElementById('sample-calc-qty');
   const calcRateEl = document.getElementById('sample-calc-rate');
+  const calcPodCostEl = document.getElementById('sample-calc-pod-cost');
+  const calcFlightEl = document.getElementById('sample-calc-flight');
   const calcTotalEl = document.getElementById('sample-calc-total');
-  const submitTextEl = document.getElementById('sample-submit-btn-text');
+  const proceedBtnText = document.getElementById('sample-proceed-btn-text');
 
   if (calcQtyEl) calcQtyEl.innerText = `${weightGrams} grams (${weightKg < 1 ? weightKg.toFixed(2) : weightKg} kg)`;
   if (calcRateEl) calcRateEl.innerText = '₹' + ratePerKg.toLocaleString('en-IN') + ' / kg';
-  if (calcTotalEl) calcTotalEl.innerText = '₹' + currentSamplePrice.toLocaleString('en-IN');
-  if (submitTextEl) submitTextEl.innerText = `Add Paid Sample to Quote (₹${currentSamplePrice.toLocaleString('en-IN')}) →`;
+  if (calcPodCostEl) calcPodCostEl.innerText = '₹' + podCost.toLocaleString('en-IN');
+  if (calcFlightEl) calcFlightEl.innerText = '₹' + flightCharge.toLocaleString('en-IN');
+  if (calcTotalEl) calcTotalEl.innerText = '₹' + totalPayable.toLocaleString('en-IN');
+  if (proceedBtnText) proceedBtnText.innerText = `Proceed to Direct Online Payment (₹${totalPayable.toLocaleString('en-IN')}) →`;
 }
 window.updateSampleModalCalculations = updateSampleModalCalculations;
 
@@ -4414,6 +4454,205 @@ function onSampleCustomInput() {
   updateSampleModalCalculations();
 }
 window.onSampleCustomInput = onSampleCustomInput;
+
+// Switch between Step 1 (Configuration) and Step 2 (Direct Online Payment)
+function proceedToSamplePayment() {
+  const stepConfig = document.getElementById('sample-step-config');
+  const stepPayment = document.getElementById('sample-step-payment');
+  const stepSuccess = document.getElementById('sample-step-success');
+  if (stepConfig) stepConfig.style.display = 'none';
+  if (stepSuccess) stepSuccess.style.display = 'none';
+  if (stepPayment) stepPayment.style.display = 'block';
+
+  const calc = currentSampleCalculation || { totalPayable: 260 };
+  const payStepTotalDisplay = document.getElementById('pay-step-total-display');
+  if (payStepTotalDisplay) {
+    payStepTotalDisplay.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
+  }
+
+  // Update dynamic UPI payment intent link
+  const upiLink = document.getElementById('btn-upi-intent-link');
+  if (upiLink && currentActiveProduct) {
+    const p = currentActiveProduct;
+    const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
+    upiLink.href = `upi://pay?pa=7904612672@cnrb&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
+  }
+}
+window.proceedToSamplePayment = proceedToSamplePayment;
+
+function backToSampleConfig() {
+  const stepConfig = document.getElementById('sample-step-config');
+  const stepPayment = document.getElementById('sample-step-payment');
+  const stepSuccess = document.getElementById('sample-step-success');
+  if (stepPayment) stepPayment.style.display = 'none';
+  if (stepSuccess) stepSuccess.style.display = 'none';
+  if (stepConfig) stepConfig.style.display = 'block';
+}
+window.backToSampleConfig = backToSampleConfig;
+
+// Copy text to clipboard with animated button feedback
+function copyToClipboard(text, btnEl) {
+  function onCopied() {
+    if (!btnEl) return;
+    const oldText = btnEl.innerText;
+    btnEl.innerText = '✓ Copied!';
+    btnEl.classList.add('copied');
+    setTimeout(() => {
+      btnEl.innerText = oldText;
+      btnEl.classList.remove('copied');
+    }, 2000);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(onCopied).catch(() => {
+      fallbackCopy(text, onCopied);
+    });
+  } else {
+    fallbackCopy(text, onCopied);
+  }
+}
+window.copyToClipboard = copyToClipboard;
+
+function fallbackCopy(text, callback) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    if (callback) callback();
+  } catch (err) {}
+  document.body.removeChild(ta);
+}
+
+// WhatsApp Confirmation Handler
+function submitSampleViaWhatsApp() {
+  const nameEl = document.getElementById('sample-ship-name');
+  const phoneEl = document.getElementById('sample-ship-phone');
+  const addrEl = document.getElementById('sample-ship-address');
+  const cityEl = document.getElementById('sample-ship-city');
+  const pinEl = document.getElementById('sample-ship-pincode');
+  const utrEl = document.getElementById('sample-pay-utr');
+
+  const name = nameEl ? nameEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const address = addrEl ? addrEl.value.trim() : '';
+  const city = cityEl ? cityEl.value.trim() : '';
+  const pincode = pinEl ? pinEl.value.trim() : '';
+  const utr = utrEl ? utrEl.value.trim() : '';
+
+  if (!name || !phone || !address || !pincode) {
+    alert('Please enter your Delivery Name, Mobile Number, Shipping Address, and Pincode for express flight courier delivery.');
+    if (!name && nameEl) nameEl.focus();
+    else if (!phone && phoneEl) phoneEl.focus();
+    else if (!address && addrEl) addrEl.focus();
+    else if (!pincode && pinEl) pinEl.focus();
+    return;
+  }
+
+  const p = currentActiveProduct || { grade: 'Cardamom', variety: 'green' };
+  const gradeNamesObj = window.currentGradeNames || defaultGradeNames;
+  const gradeName = (gradeNamesObj && gradeNamesObj[p.grade]) || p.grade;
+  const varietyName = p.variety === 'yellow' ? 'Fruit Cardamom (Yellow/Pale)' : 'Green Cardamom';
+  const calc = currentSampleCalculation || { weightGrams: 50, podCost: 110, flightCharge: 150, totalPayable: 260 };
+
+  const message = 
+`*NEW SAMPLE ORDER - ONLINE PAYMENT CONFIRMATION*
+----------------------------------------
+*Product:* ${p.grade} ${varietyName}
+*Grade Title:* ${gradeName}
+*Sample Size:* ${calc.weightGrams} grams
+*Sample Pod Cost:* ₹${calc.podCost.toLocaleString('en-IN')}
+*Flight / Air Express Charges:* ₹${calc.flightCharge.toLocaleString('en-IN')}
+*TOTAL AMOUNT PAID:* ₹${calc.totalPayable.toLocaleString('en-IN')}
+
+*Payment Destination:* Canara Bank
+*Crediting Account:* 110058339732 (CHANDRU M, IFSC: CNRB0001002)
+*Payment UTR / Ref:* ${utr || 'Proof Attached via Screenshot'}
+
+*FLIGHT DISPATCH SHIPPING ADDRESS:*
+*Recipient Name:* ${name}
+*Mobile / WhatsApp:* ${phone}
+*Address:* ${address}
+*City / State:* ${city || 'India'}
+*Pincode:* ${pincode}
+----------------------------------------
+Please confirm payment receipt & initiate same-day flight courier dispatch with AWB tracking. Thank you!`;
+
+  const waUrl = `https://wa.me/919342153357?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, '_blank');
+  showSampleSuccessReceipt(name, address, city, pincode, utr);
+}
+window.submitSampleViaWhatsApp = submitSampleViaWhatsApp;
+
+// Direct Booking Confirmation Handler
+function submitSampleDirectBooking() {
+  const nameEl = document.getElementById('sample-ship-name');
+  const phoneEl = document.getElementById('sample-ship-phone');
+  const addrEl = document.getElementById('sample-ship-address');
+  const cityEl = document.getElementById('sample-ship-city');
+  const pinEl = document.getElementById('sample-ship-pincode');
+  const utrEl = document.getElementById('sample-pay-utr');
+
+  const name = nameEl ? nameEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const address = addrEl ? addrEl.value.trim() : '';
+  const city = cityEl ? cityEl.value.trim() : '';
+  const pincode = pinEl ? pinEl.value.trim() : '';
+  const utr = utrEl ? utrEl.value.trim() : '';
+
+  if (!name || !phone || !address || !pincode) {
+    alert('Please enter your Delivery Name, Mobile Number, Shipping Address, and Pincode for express flight courier delivery.');
+    if (!name && nameEl) nameEl.focus();
+    else if (!phone && phoneEl) phoneEl.focus();
+    else if (!address && addrEl) addrEl.focus();
+    else if (!pincode && pinEl) pinEl.focus();
+    return;
+  }
+
+  showSampleSuccessReceipt(name, address, city, pincode, utr);
+}
+window.submitSampleDirectBooking = submitSampleDirectBooking;
+
+function showSampleSuccessReceipt(name, address, city, pincode, utr) {
+  const stepConfig = document.getElementById('sample-step-config');
+  const stepPayment = document.getElementById('sample-step-payment');
+  const stepSuccess = document.getElementById('sample-step-success');
+  if (stepConfig) stepConfig.style.display = 'none';
+  if (stepPayment) stepPayment.style.display = 'none';
+  if (stepSuccess) stepSuccess.style.display = 'block';
+
+  const p = currentActiveProduct || { grade: 'Cardamom', variety: 'green' };
+  const varietyName = p.variety === 'yellow' ? 'Fruit Cardamom' : 'Green Cardamom';
+  const calc = currentSampleCalculation || { weightGrams: 50, podCost: 110, flightCharge: 150, totalPayable: 260 };
+
+  const orderId = 'LT-SMP-' + Math.floor(10000 + Math.random() * 90000);
+  const idEl = document.getElementById('receipt-order-id');
+  const prodEl = document.getElementById('receipt-product-name');
+  const podEl = document.getElementById('receipt-pod-cost');
+  const flightEl = document.getElementById('receipt-flight-cost');
+  const totalEl = document.getElementById('receipt-total-cost');
+  const waBtn = document.getElementById('btn-success-wa');
+
+  if (idEl) idEl.innerText = orderId;
+  if (prodEl) prodEl.innerText = `${p.grade} ${varietyName} (${calc.weightGrams}g)`;
+  if (podEl) podEl.innerText = '₹' + calc.podCost.toLocaleString('en-IN');
+  if (flightEl) flightEl.innerText = '₹' + calc.flightCharge.toLocaleString('en-IN');
+  if (totalEl) totalEl.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
+
+  if (waBtn) {
+    const text = `Hello Lisha Traders, I have placed Sample Order ${orderId} for ₹${calc.totalPayable.toLocaleString('en-IN')} (Credited to Canara Bank). Please share flight courier tracking.`;
+    waBtn.href = `https://wa.me/919342153357?text=${encodeURIComponent(text)}`;
+  }
+}
+window.showSampleSuccessReceipt = showSampleSuccessReceipt;
+
+function confirmAddSample() {
+  proceedToSamplePayment();
+}
+window.confirmAddSample = confirmAddSample;
 
 // Confirm Add to Quote
 function confirmAddBulk() {

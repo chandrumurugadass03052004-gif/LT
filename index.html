@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7.3">
+  <link rel="stylesheet" href="style.css?v=7.4">
   <script>
     (function() {
       try {
@@ -1509,111 +1509,302 @@
           </svg>
         </div>
         <div>
-          <h3 style="margin:0; font-size:18px; color:var(--green-900);">Request Product Sample</h3>
+          <h3 style="margin:0; font-size:18px; color:var(--green-900);">Request Product Sample &bull; Direct Online Payment</h3>
           <p id="sample-modal-product" style="margin:2px 0 0; font-size:13px; font-weight:600; color:#555;"></p>
         </div>
       </div>
 
-      <div class="sample-modal-2col">
-        <!-- LEFT COLUMN: Policy & Sample Size Selection -->
-        <div class="sample-col-left">
-          <!-- Commercial Policy Banner (No Free Samples) -->
-          <div class="sample-policy-banner">
-            <div class="sample-policy-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      <!-- STEP 1: SAMPLE SIZE & CALCULATION (INCLUDING FLIGHT CHARGES) -->
+      <div id="sample-step-config">
+        <div class="sample-modal-2col">
+          <!-- LEFT COLUMN: Policy & Sample Size Selection -->
+          <div class="sample-col-left">
+            <!-- Commercial Policy Banner (Direct Online Payment) -->
+            <div class="sample-policy-banner">
+              <div class="sample-policy-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              </div>
+              <div class="sample-policy-text">
+                <strong>Commercial Policy: Direct Online Payment for Samples</strong>
+                <span>Samples are charged pro-rata at daily auction rates + express flight cargo charges. No quotation required. Immediate express air dispatch upon direct online payment to Canara Bank / UPI.</span>
+              </div>
             </div>
-            <div class="sample-policy-text">
-              <strong>Commercial Policy: No Free Samples</strong>
-              <span>Cardamom samples are charged pro-rata based on prevailing Bodinayakanur daily auction rates. Courier/dispatch costs are confirmed prior to shipping.</span>
-            </div>
-          </div>
 
-          <!-- Sample Size Selection -->
-          <div class="sample-radios-group">
-            <label class="sample-radio-card active" id="sample-opt-50g">
-              <input type="radio" name="sample-qty" value="50g" checked onchange="updateSampleModalCalculations()">
-              <div class="sample-opt-info">
-                <span class="sample-opt-weight">50 grams</span>
-                <span class="sample-opt-sub">Standard Aroma &amp; Pod Evaluation</span>
-              </div>
-              <strong class="sample-opt-price" id="sample-price-50g">₹110</strong>
-            </label>
-            
-            <label class="sample-radio-card" id="sample-opt-100g">
-              <input type="radio" name="sample-qty" value="100g" onchange="updateSampleModalCalculations()">
-              <div class="sample-opt-info">
-                <span class="sample-opt-weight">100 grams</span>
-                <span class="sample-opt-sub">Roasting, Cracking &amp; Grinding Trial</span>
-              </div>
-              <strong class="sample-opt-price" id="sample-price-100g">₹220</strong>
-            </label>
-            
-            <label class="sample-radio-card" id="sample-opt-250g">
-              <input type="radio" name="sample-qty" value="250g" onchange="updateSampleModalCalculations()">
-              <div class="sample-opt-info">
-                <span class="sample-opt-weight">250 grams</span>
-                <span class="sample-opt-sub">Commercial Lab Quality Batch</span>
-              </div>
-              <strong class="sample-opt-price" id="sample-price-250g">₹550</strong>
-            </label>
-            
-            <label class="sample-radio-card" id="sample-opt-custom">
-              <input type="radio" name="sample-qty" value="custom" onchange="updateSampleModalCalculations()">
-              <div class="sample-opt-info">
-                <span class="sample-opt-weight">Custom Sample Weight:</span>
-                <div style="display:flex; align-items:center; gap:6px; margin-top:5px;">
-                  <input type="number" id="sample-custom-input" placeholder="e.g. 500" min="10" max="5000" step="10" oninput="onSampleCustomInput()" style="width:100px; padding:6px 10px; border:1px solid #c9d4ce; border-radius:6px; font-weight:700; font-size:14px; color:var(--green-900);">
-                  <span style="font-size:12.5px; font-weight:600; color:#555;">grams</span>
+            <!-- Sample Size Selection -->
+            <div class="sample-radios-group">
+              <label class="sample-radio-card active" id="sample-opt-50g">
+                <input type="radio" name="sample-qty" value="50g" checked onchange="updateSampleModalCalculations()">
+                <div class="sample-opt-info">
+                  <span class="sample-opt-weight">50 grams</span>
+                  <span class="sample-opt-sub">Standard Aroma &amp; Pod Evaluation</span>
                 </div>
+                <strong class="sample-opt-price" id="sample-price-50g">₹110</strong>
+              </label>
+              
+              <label class="sample-radio-card" id="sample-opt-100g">
+                <input type="radio" name="sample-qty" value="100g" onchange="updateSampleModalCalculations()">
+                <div class="sample-opt-info">
+                  <span class="sample-opt-weight">100 grams</span>
+                  <span class="sample-opt-sub">Roasting, Cracking &amp; Grinding Trial</span>
+                </div>
+                <strong class="sample-opt-price" id="sample-price-100g">₹220</strong>
+              </label>
+              
+              <label class="sample-radio-card" id="sample-opt-250g">
+                <input type="radio" name="sample-qty" value="250g" onchange="updateSampleModalCalculations()">
+                <div class="sample-opt-info">
+                  <span class="sample-opt-weight">250 grams</span>
+                  <span class="sample-opt-sub">Commercial Lab Quality Batch</span>
+                </div>
+                <strong class="sample-opt-price" id="sample-price-250g">₹550</strong>
+              </label>
+              
+              <label class="sample-radio-card" id="sample-opt-custom">
+                <input type="radio" name="sample-qty" value="custom" onchange="updateSampleModalCalculations()">
+                <div class="sample-opt-info">
+                  <span class="sample-opt-weight">Custom Sample Weight:</span>
+                  <div style="display:flex; align-items:center; gap:6px; margin-top:5px;">
+                    <input type="number" id="sample-custom-input" placeholder="e.g. 500" min="10" max="5000" step="10" oninput="onSampleCustomInput()" style="width:100px; padding:6px 10px; border:1px solid #c9d4ce; border-radius:6px; font-weight:700; font-size:14px; color:var(--green-900);">
+                    <span style="font-size:12.5px; font-weight:600; color:#555;">grams</span>
+                  </div>
+                </div>
+                <strong class="sample-opt-price" id="sample-price-custom">--</strong>
+              </label>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Market Rate, Sample Calculation & Proceed to Online Payment -->
+          <div class="sample-col-right">
+            <!-- Live Auction Rate Banner -->
+            <div class="bulk-rate-banner" style="margin-bottom:10px;">
+              <div class="rate-banner-info">
+                <span class="rate-label">Daily Market Rate:</span>
+                <span class="rate-value" id="sample-rate-per-kg">₹2,200 / kg</span>
+                <span class="rate-range" id="sample-rate-range">(₹2,100 – ₹2,300)</span>
               </div>
-              <strong class="sample-opt-price" id="sample-price-custom">--</strong>
-            </label>
-          </div>
-        </div>
+              <span class="rate-badge">
+                <span class="live-dot"></span> Live Auction
+              </span>
+            </div>
 
-        <!-- RIGHT COLUMN: Market Rate, Sample Calculation & Confirm Button -->
-        <div class="sample-col-right">
-          <!-- Live Auction Rate Banner -->
-          <div class="bulk-rate-banner" style="margin-bottom:12px;">
-            <div class="rate-banner-info">
-              <span class="rate-label">Daily Market Rate:</span>
-              <span class="rate-value" id="sample-rate-per-kg">₹2,200 / kg</span>
-              <span class="rate-range" id="sample-rate-range">(₹2,100 – ₹2,300)</span>
+            <!-- Real-Time Calculation Card -->
+            <div class="bulk-summary-card" style="margin-bottom:10px;">
+              <div class="summary-card-title">Live Sample &amp; Dispatch Estimation</div>
+              <div class="summary-line">
+                <span>Sample Pods:</span>
+                <strong id="sample-calc-qty">50 grams (0.05 kg)</strong>
+              </div>
+              <div class="summary-line">
+                <span>Cardamom Pod Cost:</span>
+                <strong id="sample-calc-pod-cost" style="color:var(--green-900);">₹110</strong>
+              </div>
+              <div class="summary-line">
+                <span>Packaging:</span>
+                <strong style="color:var(--primary);">Aroma-Lock Heat-Sealed Foil Pouch (Free)</strong>
+              </div>
+              <div class="summary-line flight-charge-line" style="background: rgba(180, 83, 9, 0.08); padding: 5px 8px; border-radius: 6px; margin: 4px 0;">
+                <span style="display:flex; align-items:center; gap:5px; color:#92400e; font-weight:600;">
+                  ✈️ <strong>Flight / Air Express Charges:</strong>
+                </span>
+                <strong id="sample-calc-flight" style="color:#b45309;">₹150</strong>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-line total-line">
+                <span>Total Payable (Sample + Flight):</span>
+                <strong id="sample-calc-total" style="color:var(--green-900); font-size:17px;">₹260</strong>
+              </div>
             </div>
-            <span class="rate-badge">
-              <span class="live-dot"></span> Live Auction
-            </span>
-          </div>
 
-          <!-- Real-Time Calculation Card -->
-          <div class="bulk-summary-card">
-            <div class="summary-card-title">Live Sample Estimation</div>
-            <div class="summary-line">
-              <span>Sample Quantity:</span>
-              <strong id="sample-calc-qty">50 grams (0.05 kg)</strong>
-            </div>
-            <div class="summary-line">
-              <span>Market Rate:</span>
-              <strong id="sample-calc-rate">₹2,200 / kg</strong>
-            </div>
-            <div class="summary-line">
-              <span>Sample Packaging:</span>
-              <strong style="color:var(--primary);">Aroma-Lock Heat-Sealed Pouch</strong>
-            </div>
-            <div class="summary-divider"></div>
-            <div class="summary-line total-line">
-              <span>Estimated Sample Cost:</span>
-              <strong id="sample-calc-total" style="color:var(--green-900);">₹110</strong>
+            <!-- Direct Online Payment Button -->
+            <button class="btn btn-dark btn-bulk-submit" onclick="proceedToSamplePayment()" id="btn-proceed-sample-pay" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+              <span id="sample-proceed-btn-text">Proceed to Direct Online Payment (₹260) &rarr;</span>
+            </button>
+            <div style="margin-top:6px; font-size:11.5px; color:#555; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px;">
+              <span>🏦 Canara Bank Direct Transfer</span>
+              <span>&bull;</span>
+              <span>📱 Instant UPI (GPay/PhonePe)</span>
             </div>
           </div>
-
-          <!-- Submit Button -->
-          <button class="btn btn-dark btn-bulk-submit" onclick="confirmAddSample()" id="btn-add-sample-quote" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span id="sample-submit-btn-text">Add Paid Sample to Quote (₹110) &rarr;</span>
-          </button>
         </div>
       </div>
+
+      <!-- STEP 2: DIRECT ONLINE PAYMENT (CANARA BANK DETAILS & DISPATCH ADDRESS) -->
+      <div id="sample-step-payment" style="display:none;">
+        <div class="sample-pay-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #e5e9e6;">
+          <button type="button" class="sample-back-btn" onclick="backToSampleConfig()" style="background:none; border:none; color:var(--primary); font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:5px; padding:4px 0;">
+            &larr; Back to Sample Details
+          </button>
+          <div class="sample-pay-total-pill" style="background:#eef6f0; border:1px solid #cce3d4; color:var(--green-900); padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700;">
+            Amount to Pay: <span id="pay-step-total-display" style="color:#b45309;">₹260</span> <span style="font-size:11px; font-weight:normal; opacity:0.9;">(Sample Pods + Flight Charges)</span>
+          </div>
+        </div>
+
+        <div class="sample-pay-2col">
+          <!-- LEFT COLUMN: Canara Bank Official Account Details & UPI -->
+          <div class="sample-pay-col-left">
+            <div class="canara-bank-card">
+              <div class="canara-card-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="bank-avatar">CB</div>
+                  <div>
+                    <h4 style="margin:0; font-size:15px; color:#0b4d75; font-weight:800; letter-spacing:0.5px;">CANARA BANK</h4>
+                    <span style="font-size:11px; color:#4a5568;">Official Commercial Account Details</span>
+                  </div>
+                </div>
+                <span class="canara-tag">Crediting Account</span>
+              </div>
+
+              <div class="canara-card-body">
+                <div class="canara-detail-row">
+                  <span class="canara-lbl">Account Holder Name:</span>
+                  <div class="canara-val-group">
+                    <strong class="canara-val">CHANDRU M</strong>
+                  </div>
+                </div>
+
+                <div class="canara-detail-row canara-highlight-row">
+                  <span class="canara-lbl">Account Number:</span>
+                  <div class="canara-val-group">
+                    <strong class="canara-val mono-val" id="canara-acc-num">110058339732</strong>
+                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('110058339732', this)" title="Copy Account Number">📋 Copy</button>
+                  </div>
+                </div>
+
+                <div class="canara-detail-row">
+                  <span class="canara-lbl">IFSC Code:</span>
+                  <div class="canara-val-group">
+                    <strong class="canara-val mono-val" id="canara-ifsc">CNRB0001002</strong>
+                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('CNRB0001002', this)" title="Copy IFSC Code">📋 Copy</button>
+                  </div>
+                </div>
+
+                <div class="canara-detail-row">
+                  <span class="canara-lbl">Mobile Number:</span>
+                  <div class="canara-val-group">
+                    <strong class="canara-val mono-val" id="canara-mobile">+91 79046 12672</strong>
+                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('+917904612672', this)" title="Copy Mobile">📋 Copy</button>
+                  </div>
+                </div>
+
+                <div class="canara-detail-row">
+                  <span class="canara-lbl">MMID:</span>
+                  <div class="canara-val-group">
+                    <strong class="canara-val mono-val" id="canara-mmid">9015522</strong>
+                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('9015522', this)" title="Copy MMID">📋 Copy</button>
+                  </div>
+                </div>
+
+                <div class="canara-detail-row canara-address-row">
+                  <span class="canara-lbl">Branch Address:</span>
+                  <span class="canara-val-sm">NO. 151/2, WARD NO. 03, KRISHNA NAGAR 1ST ARCH, THEVARAM ROAD, BODINAYAKANUR - 625513</span>
+                </div>
+              </div>
+
+              <!-- Instant UPI Row -->
+              <div class="canara-upi-bar">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <span style="font-size:11.5px; font-weight:700; color:#0b4d75;">UPI / GPay / PhonePe / Paytm:</span>
+                    <div style="font-size:13px; font-weight:700; color:#1e293b;">+91 79046 12672</div>
+                  </div>
+                  <a id="btn-upi-intent-link" href="#" class="btn-upi-intent" target="_blank">Pay via UPI App &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Delivery Address & Dispatch Booking -->
+          <div class="sample-pay-col-right">
+            <div class="sample-dispatch-card">
+              <div class="dispatch-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                <div>
+                  <h4 style="margin:0; font-size:14px; color:var(--green-900);">Flight Dispatch Delivery Address</h4>
+                  <p style="margin:2px 0 0; font-size:11.5px; color:#666;">Enter recipient delivery address for express air courier.</p>
+                </div>
+              </div>
+
+              <div class="dispatch-form-body">
+                <div class="form-group-sm" style="margin-bottom:8px;">
+                  <input type="text" id="sample-ship-name" placeholder="Full Name / Company Name *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                </div>
+                <div class="form-group-sm" style="margin-bottom:8px;">
+                  <input type="tel" id="sample-ship-phone" placeholder="Mobile / WhatsApp Number *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                </div>
+                <div class="form-group-sm" style="margin-bottom:8px;">
+                  <textarea id="sample-ship-address" placeholder="Complete Door Delivery Address (Street, Building, Landmark) *" rows="2" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px; resize:none;"></textarea>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
+                  <input type="text" id="sample-ship-city" placeholder="City / District *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                  <input type="text" id="sample-ship-pincode" placeholder="Pincode *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                </div>
+                <div class="form-group-sm" style="margin-bottom:10px;">
+                  <input type="text" id="sample-pay-utr" placeholder="Payment UTR / Ref No. (or send screenshot on WhatsApp)" style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                </div>
+
+                <div class="dispatch-action-buttons" style="display:flex; flex-direction:column; gap:8px;">
+                  <button type="button" class="btn btn-whatsapp-dispatch" onclick="submitSampleViaWhatsApp()" style="width:100%; padding:10px; background:#25D366; color:#fff; border:none; border-radius:8px; font-weight:700; font-size:13.5px; display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <span>Confirm &amp; Send Proof via WhatsApp</span>
+                  </button>
+                  <button type="button" class="btn btn-dark btn-confirm-dispatch" onclick="submitSampleDirectBooking()" style="width:100%; padding:10px; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <span>Confirm Payment &amp; Book Flight Dispatch &rarr;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: ORDER BOOKING SUCCESS RECEIPT -->
+      <div id="sample-step-success" style="display:none;">
+        <div class="sample-success-card" style="text-align:center; padding:24px 16px;">
+          <div class="success-icon-badge" style="width:50px; height:50px; background:#e8f5e9; color:#2e7d32; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:24px; font-weight:bold; margin-bottom:10px;">✓</div>
+          <h3 style="margin:4px 0 6px; font-size:18px; color:var(--green-900);">Sample Order Confirmed!</h3>
+          <p style="margin:0 0 16px; font-size:13px; color:#4a5568;">Your sample order has been registered for immediate flight dispatch.</p>
+
+          <div class="success-receipt-details" style="max-width:500px; margin:0 auto; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px 18px; text-align:left; font-size:13px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; border-bottom:1px solid #eef2f6; padding-bottom:6px;">
+              <span>Order Reference ID:</span>
+              <strong id="receipt-order-id" style="font-family:monospace; color:var(--primary); font-size:14px;">LT-SMP-28491</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span>Product &amp; Weight:</span>
+              <strong id="receipt-product-name">Cardamom Sample</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span>Pod Cost:</span>
+              <strong id="receipt-pod-cost">₹110</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span>Flight / Air Express Charges:</span>
+              <strong id="receipt-flight-cost" style="color:#b45309;">₹150</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; border-top:1px dashed #cbd5e1; padding-top:6px; font-size:14.5px;">
+              <span>Total Amount Credited:</span>
+              <strong id="receipt-total-cost" style="color:var(--green-900);">₹260</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:#555;">
+              <span>Credited Bank:</span>
+              <span>Canara Bank (A/C: 110058339732 · CHANDRU M)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:#0b4d75; font-weight:700;">
+              <span>Dispatch Mode:</span>
+              <span>✈️ Air Express Cargo / Flight Dispatch within 24 Hours</span>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:18px; justify-content:center;">
+            <button type="button" class="btn btn-dark" onclick="closeSampleModal()" style="padding:9px 24px;">Close</button>
+            <a id="btn-success-wa" href="https://wa.me/919342153357" target="_blank" class="btn btn-outline" style="padding:9px 20px; display:inline-flex; align-items:center; gap:6px; border-color:#25D366; color:#128c7e;">
+              <span>WhatsApp Tracking Status</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1670,7 +1861,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=7.3"></script>
+  <script src="app.js?v=7.4"></script>
 </body>
 
 </html>
