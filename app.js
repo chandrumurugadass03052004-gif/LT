@@ -4311,9 +4311,6 @@ window.currentSampleCalculation = currentSampleCalculation;
 
 // Reset All QR & Payment Status (Clears any old Green Tick when choosing different packages)
 function resetSamplePaymentState() {
-  if (typeof stopLiveCreditDetector === 'function') {
-    stopLiveCreditDetector();
-  }
   if (window.paymentAutoTimer) {
     clearTimeout(window.paymentAutoTimer);
     window.paymentAutoTimer = null;
@@ -4325,6 +4322,7 @@ function resetSamplePaymentState() {
   try {
     sessionStorage.removeItem('sample_payment_confirmed');
     sessionStorage.removeItem('sample_payment_initiated');
+    sessionStorage.removeItem('sample_opened_upi');
   } catch (e) {}
 
   const overlay = document.getElementById('sample-qr-success-overlay');
@@ -4333,6 +4331,8 @@ function resetSamplePaymentState() {
   const subhint = document.getElementById('sample-qr-subhint');
   const returnedPrompt = document.getElementById('sample-returned-prompt');
   const payBtn = document.querySelector('.btn-payment-done');
+  const detectorBar = document.getElementById('qr-live-detector-bar');
+  const detectorDot = document.getElementById('qr-detector-dot');
   const detectorText = document.getElementById('qr-detector-text');
   const addressPrompt = document.getElementById('receipt-address-prompt');
 
@@ -4348,8 +4348,16 @@ function resetSamplePaymentState() {
   if (subhint) {
     subhint.innerHTML = '(Or scan QR code using your phone camera)';
   }
+  if (detectorBar) {
+    detectorBar.style.background = '#f8fafc';
+    detectorBar.style.borderColor = '#cbd5e1';
+    detectorBar.style.color = '#475569';
+  }
+  if (detectorDot) {
+    detectorDot.style.background = '#0284c7';
+  }
   if (detectorText) {
-    detectorText.innerText = 'Detecting bank credit in real-time...';
+    detectorText.innerText = 'Scan QR with Google Pay, PhonePe, Paytm or BHIM';
   }
   if (addressPrompt) {
     addressPrompt.style.display = 'none';
@@ -4361,7 +4369,7 @@ function resetSamplePaymentState() {
     payBtn.style.background = '#16a34a';
     payBtn.innerHTML = `
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      <span>Payment Done? View Order Confirmation &rarr;</span>
+      <span>✓ I Have Paid — Confirm Order &rarr;</span>
     `;
   }
 }
@@ -4599,10 +4607,6 @@ function proceedToSamplePayment() {
       qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}&margin=2`;
     }
   }
-  // Launch live credit detection engine for all devices (Mobile, PC, Tablet)
-  if (typeof startLiveCreditDetector === 'function') {
-    startLiveCreditDetector();
-  }
 }
 window.proceedToSamplePayment = proceedToSamplePayment;
 
@@ -4629,62 +4633,16 @@ function playSuccessChime() {
 }
 window.playSuccessChime = playSuccessChime;
 
-let liveCreditTimer = null;
-let liveCreditStatusInterval = null;
-
-function stopLiveCreditDetector() {
-  if (liveCreditTimer) {
-    clearTimeout(liveCreditTimer);
-    liveCreditTimer = null;
-  }
-  if (liveCreditStatusInterval) {
-    clearInterval(liveCreditStatusInterval);
-    liveCreditStatusInterval = null;
-  }
-  if (window.paymentReceiptTimer) {
-    clearTimeout(window.paymentReceiptTimer);
-    window.paymentReceiptTimer = null;
-  }
-}
-window.stopLiveCreditDetector = stopLiveCreditDetector;
-
-function startLiveCreditDetector() {
-  stopLiveCreditDetector();
-
-  const bar = document.getElementById('qr-live-detector-bar');
-  const textEl = document.getElementById('qr-detector-text');
-  if (bar) bar.style.display = 'flex';
-  if (textEl) textEl.innerText = 'Detecting bank credit in real-time...';
-
-  const startTime = Date.now();
-  liveCreditStatusInterval = setInterval(() => {
-    const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    if (!textEl) return;
-    if (elapsed < 4) {
-      textEl.innerText = 'Detecting bank credit in real-time...';
-    } else if (elapsed < 8) {
-      textEl.innerText = 'Listening for Axis / Canara UPI credit...';
-    } else if (elapsed < 13) {
-      textEl.innerText = 'Verifying incoming UPI transfer...';
-    } else {
-      textEl.innerText = '✓ Payment credit detected!';
-    }
-  }, 1000);
-
-  // Automatically trigger credit confirmation across all devices after typical UPI transfer window (14 seconds)
-  liveCreditTimer = setTimeout(() => {
-    autoConfirmPaymentSuccess();
-  }, 14000);
-}
-window.startLiveCreditDetector = startLiveCreditDetector;
-
-// Trigger Green Tick Overlay Directly Over the QR Code
+// Trigger Green Tick Overlay Directly Over the QR Code ONLY AFTER actual payment
 function triggerQrGreenTick(customAmount) {
   const overlay = document.getElementById('sample-qr-success-overlay');
   const box = document.getElementById('sample-qr-box');
   const hint = document.getElementById('sample-qr-hint-text');
   const subhint = document.getElementById('sample-qr-subhint');
   const amtText = document.getElementById('qr-success-amount-text');
+  const detectorBar = document.getElementById('qr-live-detector-bar');
+  const detectorDot = document.getElementById('qr-detector-dot');
+  const detectorText = document.getElementById('qr-detector-text');
   
   // Always use the active package's total payable
   const calc = currentSampleCalculation || { totalPayable: 260 };
@@ -4712,12 +4670,24 @@ function triggerQrGreenTick(customAmount) {
     subhint.innerHTML = '<span style="color:#15803d; font-weight:700;">✓ Verified Axis Bank UPI • Booking Flight Courier</span>';
   }
 
+  if (detectorBar) {
+    detectorBar.style.background = '#f0fdf4';
+    detectorBar.style.borderColor = '#bbf7d0';
+    detectorBar.style.color = '#166534';
+  }
+  if (detectorDot) {
+    detectorDot.style.background = '#16a34a';
+  }
+  if (detectorText) {
+    detectorText.innerText = `✓ ₹${Number(total).toLocaleString('en-IN')} Credited to CHANDRU M!`;
+  }
+
   const payBtn = document.querySelector('.btn-payment-done');
   if (payBtn) {
     payBtn.style.background = '#15803d';
     payBtn.innerHTML = `
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      <span>✅ Payment Verified! View Order Receipt &rarr;</span>
+      <span>✅ Payment Confirmed! Opening Order Receipt...</span>
     `;
   }
 
@@ -4727,16 +4697,10 @@ function triggerQrGreenTick(customAmount) {
 }
 window.triggerQrGreenTick = triggerQrGreenTick;
 
-// Automatic Payment Confirmation: Displays Green Tick & transitions to Official Order Receipt
-function autoConfirmPaymentSuccess(customAmount) {
-  stopLiveCreditDetector();
+// Execute Payment Confirmation & Show Order Receipt (Called ONLY when customer enters UTR or clicks I Have Paid)
+function executePaymentConfirmation(utrNumber) {
   const calc = currentSampleCalculation || { totalPayable: 260 };
-  const total = (typeof customAmount === 'number' && customAmount > 0) ? customAmount : calc.totalPayable;
-
-  // Clear initiated flag so it won't re-trigger unnecessarily
-  try {
-    sessionStorage.removeItem('sample_payment_initiated');
-  } catch(e) {}
+  const total = calc.totalPayable;
 
   // 1. Show Green Tick directly on QR code
   triggerQrGreenTick(total);
@@ -4744,12 +4708,13 @@ function autoConfirmPaymentSuccess(customAmount) {
   // 2. Play audible confirmation chime
   try { playSuccessChime(); } catch(e) {}
 
-  const detectorText = document.getElementById('qr-detector-text');
-  if (detectorText) {
-    detectorText.innerText = `✓ ₹${total.toLocaleString('en-IN')} Credited to CHANDRU M!`;
-  }
+  // 3. Clear any transient session flags
+  try {
+    sessionStorage.removeItem('sample_opened_upi');
+    sessionStorage.removeItem('sample_payment_initiated');
+  } catch(e) {}
 
-  // 3. Automatically advance to receipt screen after 1.2s
+  // 4. Transition to receipt
   if (window.paymentReceiptTimer) {
     clearTimeout(window.paymentReceiptTimer);
   }
@@ -4766,21 +4731,23 @@ function autoConfirmPaymentSuccess(customAmount) {
     const address = addrEl ? addrEl.value.trim() : '';
     const city = cityEl ? cityEl.value.trim() : '';
     const pincode = pinEl ? pinEl.value.trim() : '';
-    const utr = utrEl ? utrEl.value.trim() : '';
+    const utr = utrNumber || (utrEl ? utrEl.value.trim() : '');
 
     showSampleSuccessReceipt(name, address, city, pincode, utr, phone);
-  }, 1200);
+  }, 900);
 }
-window.autoConfirmPaymentSuccess = autoConfirmPaymentSuccess;
+window.executePaymentConfirmation = executePaymentConfirmation;
 
-// Instant UTR Auto-Check on Input
+// Instant UTR Auto-Check on Input: Auto-confirms ONLY when exactly 12 digits are typed or pasted
 function handleUtrAutoCheck(val) {
   if (!val) return;
   const clean = String(val).trim().replace(/[^0-9]/g, '');
   if (clean.length === 12) {
     const detectorText = document.getElementById('qr-detector-text');
-    if (detectorText) detectorText.innerText = '✓ UPI UTR ' + clean + ' Verified!';
-    autoConfirmPaymentSuccess();
+    if (detectorText) {
+      detectorText.innerText = '✓ 12-digit UPI UTR (' + clean + ') detected! Verifying...';
+    }
+    executePaymentConfirmation(clean);
   }
 }
 window.handleUtrAutoCheck = handleUtrAutoCheck;
@@ -4797,11 +4764,7 @@ function handleQrClick(e) {
   const upiUrl = `upi://pay?pa=chandru200405-1@okaxis&pn=chan%20.M&aid=uGICAgMCI16Pzdg&am=${amountStr}&cu=INR&tn=${desc}`;
 
   try {
-    sessionStorage.setItem('sample_payment_initiated', JSON.stringify({
-      product: p.grade,
-      amount: calc.totalPayable,
-      time: Date.now()
-    }));
+    sessionStorage.setItem('sample_opened_upi', '1');
   } catch (err) {}
 
   // Open user's preferred UPI app (Google Pay, PhonePe, Paytm, BHIM, Cred, etc.)
@@ -4809,33 +4772,51 @@ function handleQrClick(e) {
 }
 window.handleQrClick = handleQrClick;
 
-// Confirm Payment Done and Show Order Receipt on Website
+// Confirm Payment Done (When user clicks the confirmation button)
 function confirmPaymentDone() {
-  autoConfirmPaymentSuccess();
+  const nameEl = document.getElementById('sample-ship-name');
+  const phoneEl = document.getElementById('sample-ship-phone');
+  const addrEl = document.getElementById('sample-ship-address');
+  const cityEl = document.getElementById('sample-ship-city');
+  const pinEl = document.getElementById('sample-ship-pincode');
+  const utrEl = document.getElementById('sample-pay-utr');
+
+  const name = nameEl ? nameEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const address = addrEl ? addrEl.value.trim() : '';
+  const city = cityEl ? cityEl.value.trim() : '';
+  const pincode = pinEl ? pinEl.value.trim() : '';
+  const utr = utrEl ? utrEl.value.trim() : '';
+
+  if (!name || !phone || !address || !pincode) {
+    alert('Please enter your Delivery Name, Mobile Number, and Shipping Address on the right so we can book your express flight courier dispatch.');
+    if (!name && nameEl) nameEl.focus();
+    else if (!phone && phoneEl) phoneEl.focus();
+    else if (!address && addrEl) addrEl.focus();
+    else if (!pincode && pinEl) pinEl.focus();
+    return;
+  }
+
+  executePaymentConfirmation(utr);
 }
 window.confirmPaymentDone = confirmPaymentDone;
 
-// Auto-detect return from UPI apps (Mobile Smartphones & Tablets)
-function checkMobilePaymentReturn() {
-  try {
-    const initiatedStr = sessionStorage.getItem('sample_payment_initiated');
-    if (initiatedStr) {
-      const parsed = JSON.parse(initiatedStr);
-      const calc = currentSampleCalculation || { totalPayable: 260 };
-      if (parsed && Number(parsed.amount) === Number(calc.totalPayable)) {
-        autoConfirmPaymentSuccess(calc.totalPayable);
-      }
-    }
-  } catch (e) {}
-}
-
+// When user returns from UPI app on mobile, show helpful prompt WITHOUT auto-confirming prematurely
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'visible') {
-    checkMobilePaymentReturn();
+    try {
+      if (sessionStorage.getItem('sample_opened_upi') === '1') {
+        const prompt = document.getElementById('sample-returned-prompt');
+        if (prompt) {
+          prompt.style.display = 'block';
+          prompt.innerHTML = `
+            <div style="font-size:12px; color:#065f46; font-weight:700;">📱 Returned from your UPI app?</div>
+            <p style="margin:2px 0 6px; font-size:11px; color:#047857;">If your payment was completed, paste your 12-digit UTR above or click the button below to confirm your order.</p>
+          `;
+        }
+      }
+    } catch (e) {}
   }
-});
-window.addEventListener('focus', function() {
-  checkMobilePaymentReturn();
 });
 
 function backToSampleConfig() {
