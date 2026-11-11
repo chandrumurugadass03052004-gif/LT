@@ -4455,6 +4455,27 @@ function onSampleCustomInput() {
 }
 window.onSampleCustomInput = onSampleCustomInput;
 
+// Switch Payment Tabs (UPI / QR Code vs Canara Bank Net Banking)
+function switchPaymentTab(tabName) {
+  const btnUpi = document.getElementById('tab-btn-upi');
+  const btnBank = document.getElementById('tab-btn-bank');
+  const panelUpi = document.getElementById('pay-panel-upi');
+  const panelBank = document.getElementById('pay-panel-bank');
+
+  if (tabName === 'bank') {
+    if (btnBank) btnBank.classList.add('active');
+    if (btnUpi) btnUpi.classList.remove('active');
+    if (panelBank) panelBank.style.display = 'block';
+    if (panelUpi) panelUpi.style.display = 'none';
+  } else {
+    if (btnUpi) btnUpi.classList.add('active');
+    if (btnBank) btnBank.classList.remove('active');
+    if (panelUpi) panelUpi.style.display = 'block';
+    if (panelBank) panelBank.style.display = 'none';
+  }
+}
+window.switchPaymentTab = switchPaymentTab;
+
 // Switch between Step 1 (Configuration) and Step 2 (Direct Online Payment)
 function proceedToSamplePayment() {
   const stepConfig = document.getElementById('sample-step-config');
@@ -4464,19 +4485,35 @@ function proceedToSamplePayment() {
   if (stepSuccess) stepSuccess.style.display = 'none';
   if (stepPayment) stepPayment.style.display = 'block';
 
+  // Default to UPI / QR tab on open
+  switchPaymentTab('upi');
+
   const calc = currentSampleCalculation || { totalPayable: 260 };
   const payStepTotalDisplay = document.getElementById('pay-step-total-display');
   if (payStepTotalDisplay) {
     payStepTotalDisplay.innerText = '₹' + calc.totalPayable.toLocaleString('en-IN');
   }
 
-  // Update dynamic UPI payment intent link
-  const upiLink = document.getElementById('btn-upi-intent-link');
-  if (upiLink && currentActiveProduct) {
-    const p = currentActiveProduct;
-    const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
-    upiLink.href = `upi://pay?pa=7904612672@cnrb&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
+  const p = currentActiveProduct || { grade: 'Cardamom' };
+  const desc = encodeURIComponent(`Sample Cardamom ${p.grade}`);
+  const upiUrl = `upi://pay?pa=7904612672@cnrb&pn=CHANDRU%20M&am=${calc.totalPayable}&cu=INR&tn=${desc}`;
+
+  // Update dynamic scannable QR Code image for computer/tablet screens
+  const qrImg = document.getElementById('sample-qr-code-img');
+  if (qrImg) {
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}&margin=4`;
   }
+
+  // Update 1-tap mobile UPI app launcher buttons
+  const appGpay = document.getElementById('btn-app-gpay');
+  const appPhonepe = document.getElementById('btn-app-phonepe');
+  const appPaytm = document.getElementById('btn-app-paytm');
+  const appBhim = document.getElementById('btn-app-bhim');
+
+  if (appGpay) appGpay.href = upiUrl;
+  if (appPhonepe) appPhonepe.href = upiUrl;
+  if (appPaytm) appPaytm.href = upiUrl;
+  if (appBhim) appBhim.href = upiUrl;
 }
 window.proceedToSamplePayment = proceedToSamplePayment;
 

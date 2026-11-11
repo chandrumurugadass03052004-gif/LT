@@ -56,7 +56,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Pavanam&family=Cinzel+Decorative:wght@700&family=Praise&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7.4">
+  <link rel="stylesheet" href="style.css?v=7.5">
   <script>
     (function() {
       try {
@@ -1631,84 +1631,144 @@
 
       <!-- STEP 2: DIRECT ONLINE PAYMENT (CANARA BANK DETAILS & DISPATCH ADDRESS) -->
       <div id="sample-step-payment" style="display:none;">
-        <div class="sample-pay-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #e5e9e6;">
+        <div class="sample-pay-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #e5e9e6; flex-wrap:wrap; gap:8px;">
           <button type="button" class="sample-back-btn" onclick="backToSampleConfig()" style="background:none; border:none; color:var(--primary); font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:5px; padding:4px 0;">
             &larr; Back to Sample Details
           </button>
-          <div class="sample-pay-total-pill" style="background:#eef6f0; border:1px solid #cce3d4; color:var(--green-900); padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700;">
-            Amount to Pay: <span id="pay-step-total-display" style="color:#b45309;">₹260</span> <span style="font-size:11px; font-weight:normal; opacity:0.9;">(Sample Pods + Flight Charges)</span>
+          <div class="sample-security-badge-top" style="display:inline-flex; align-items:center; gap:5px; background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:14px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>256-Bit SSL Encrypted Direct Settlement</span>
+          </div>
+          <div class="sample-pay-total-pill" style="background:#eef6f0; border:1px solid #cce3d4; color:var(--green-900); padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700;">
+            Amount: <span id="pay-step-total-display" style="color:#b45309;">₹260</span> <span style="font-size:11px; font-weight:normal; opacity:0.9;">(Sample + Flight)</span>
           </div>
         </div>
 
         <div class="sample-pay-2col">
-          <!-- LEFT COLUMN: Canara Bank Official Account Details & UPI -->
+          <!-- LEFT COLUMN: Payment Methods (UPI/QR & Bank Details) -->
           <div class="sample-pay-col-left">
-            <div class="canara-bank-card">
-              <div class="canara-card-header">
-                <div style="display:flex; align-items:center; gap:10px;">
-                  <div class="bank-avatar">CB</div>
-                  <div>
-                    <h4 style="margin:0; font-size:15px; color:#0b4d75; font-weight:800; letter-spacing:0.5px;">CANARA BANK</h4>
-                    <span style="font-size:11px; color:#4a5568;">Official Commercial Account Details</span>
+            <!-- Payment Method Tabs for Any Device -->
+            <div class="payment-tabs-bar" style="display:flex; gap:6px; margin-bottom:10px; border-bottom:2px solid #e2e8f0;">
+              <button type="button" class="pay-tab-btn active" id="tab-btn-upi" onclick="switchPaymentTab('upi')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                <span>UPI / QR Scan (Any Device)</span>
+              </button>
+              <button type="button" class="pay-tab-btn" id="tab-btn-bank" onclick="switchPaymentTab('bank')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"></path></svg>
+                <span>Canara Bank Net Banking</span>
+              </button>
+            </div>
+
+            <!-- TAB 1: UPI & DYNAMIC QR CODE (Works on PC, Mobile, Tablet) -->
+            <div id="pay-panel-upi" class="pay-panel active">
+              <div class="upi-secure-container" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; box-shadow:0 3px 10px rgba(0,0,0,0.03);">
+                <!-- QR Code & Scanner Box (Desktop / Tablet / Laptop) -->
+                <div class="upi-qr-card" style="display:flex; align-items:center; gap:14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:10px;">
+                  <div class="qr-wrapper" style="text-align:center; flex-shrink:0;">
+                    <img id="sample-qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3D7904612672%40cnrb%26pn%3DCHANDRU%2520M%26am%3D260%26cu%3DINR&margin=4" alt="Scan to Pay Cardamom Sample" style="width:115px; height:115px; border-radius:8px; border:1px solid #cbd5e1; background:#fff; padding:3px; display:block;">
+                    <span style="display:block; margin-top:4px; font-size:10px; font-weight:700; color:#0369a1;">Point Camera to Pay</span>
+                  </div>
+                  <div class="qr-info-text" style="flex:1;">
+                    <p style="margin:0 0 6px; font-size:12px; line-height:1.35; color:#334155;">
+                      Scan with <strong>Google Pay, PhonePe, Paytm, or BHIM</strong> from any phone to pay instantly.
+                    </p>
+                    <div style="background:#ffffff; border:1px dashed #94a3b8; border-radius:6px; padding:5px 8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+                      <span style="font-size:11.5px; color:#1e293b;">UPI ID: <strong>7904612672@cnrb</strong></span>
+                      <button type="button" class="btn-copy-chip" onclick="copyToClipboard('7904612672@cnrb', this)" title="Copy UPI ID">📋 Copy</button>
+                    </div>
+                    <div style="font-size:11px; color:#64748b;">Beneficiary: <strong>CHANDRU M</strong></div>
                   </div>
                 </div>
-                <span class="canara-tag">Crediting Account</span>
+
+                <!-- 1-Tap Mobile UPI App Launchers (Phones / Tablets) -->
+                <div class="mobile-apps-section" style="margin-top:10px;">
+                  <span style="display:block; font-size:11px; font-weight:700; color:#475569; margin-bottom:6px;">Tap to Pay via Mobile Apps (Smartphones):</span>
+                  <div class="mobile-upi-apps-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:6px;">
+                    <a id="btn-app-gpay" href="#" class="btn-upi-app-chip btn-gpay" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:11.5px; font-weight:700; color:#1e293b; text-decoration:none;">
+                      <span>🟢</span> Google Pay
+                    </a>
+                    <a id="btn-app-phonepe" href="#" class="btn-upi-app-chip btn-phonepe" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#fbf7ff; border:1px solid #e9d5ff; border-radius:6px; font-size:11.5px; font-weight:700; color:#581c87; text-decoration:none;">
+                      <span>🟣</span> PhonePe
+                    </a>
+                    <a id="btn-app-paytm" href="#" class="btn-upi-app-chip btn-paytm" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; font-size:11.5px; font-weight:700; color:#0369a1; text-decoration:none;">
+                      <span>🔵</span> Paytm
+                    </a>
+                    <a id="btn-app-bhim" href="#" class="btn-upi-app-chip btn-bhim" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 8px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:11.5px; font-weight:700; color:#166534; text-decoration:none;">
+                      <span>⚡</span> Any UPI App
+                    </a>
+                  </div>
+                </div>
+
+                <div class="upi-trust-strip" style="margin-top:10px; padding:6px 8px; background:#f0fdf4; border:1px solid #dcfce7; border-radius:6px; font-size:11px; color:#166534; display:flex; align-items:center; gap:6px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  <span>100% Direct Settlement • Zero Gateway Surcharge • Instant Crediting</span>
+                </div>
               </div>
+            </div>
 
-              <div class="canara-card-body">
-                <div class="canara-detail-row">
-                  <span class="canara-lbl">Account Holder Name:</span>
-                  <div class="canara-val-group">
-                    <strong class="canara-val">CHANDRU M</strong>
+            <!-- TAB 2: CANARA BANK DIRECT TRANSFER DETAILS (IMPS / NEFT / RTGS) -->
+            <div id="pay-panel-bank" class="pay-panel" style="display:none;">
+              <div class="canara-bank-card">
+                <div class="canara-card-header">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <div class="bank-avatar">CB</div>
+                    <div>
+                      <h4 style="margin:0; font-size:14.5px; color:#0b4d75; font-weight:800; letter-spacing:0.5px;">CANARA BANK</h4>
+                      <span style="font-size:11px; color:#4a5568;">Verified Commercial Account Details</span>
+                    </div>
+                  </div>
+                  <span class="canara-tag">✓ Direct Transfer</span>
+                </div>
+
+                <div class="canara-card-body">
+                  <div class="canara-detail-row">
+                    <span class="canara-lbl">Account Holder Name:</span>
+                    <div class="canara-val-group">
+                      <strong class="canara-val">CHANDRU M</strong>
+                    </div>
+                  </div>
+
+                  <div class="canara-detail-row canara-highlight-row">
+                    <span class="canara-lbl">Account Number:</span>
+                    <div class="canara-val-group">
+                      <strong class="canara-val mono-val" id="canara-acc-num">110058339732</strong>
+                      <button type="button" class="btn-copy-chip" onclick="copyToClipboard('110058339732', this)" title="Copy Account Number">📋 Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="canara-detail-row">
+                    <span class="canara-lbl">IFSC Code:</span>
+                    <div class="canara-val-group">
+                      <strong class="canara-val mono-val" id="canara-ifsc">CNRB0001002</strong>
+                      <button type="button" class="btn-copy-chip" onclick="copyToClipboard('CNRB0001002', this)" title="Copy IFSC Code">📋 Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="canara-detail-row">
+                    <span class="canara-lbl">Mobile Number:</span>
+                    <div class="canara-val-group">
+                      <strong class="canara-val mono-val" id="canara-mobile">+91 79046 12672</strong>
+                      <button type="button" class="btn-copy-chip" onclick="copyToClipboard('+917904612672', this)" title="Copy Mobile">📋 Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="canara-detail-row">
+                    <span class="canara-lbl">MMID:</span>
+                    <div class="canara-val-group">
+                      <strong class="canara-val mono-val" id="canara-mmid">9015522</strong>
+                      <button type="button" class="btn-copy-chip" onclick="copyToClipboard('9015522', this)" title="Copy MMID">📋 Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="canara-detail-row canara-address-row">
+                    <span class="canara-lbl">Branch Address:</span>
+                    <span class="canara-val-sm">NO. 151/2, WARD NO. 03, KRISHNA NAGAR 1ST ARCH, THEVARAM ROAD, BODINAYAKANUR - 625513</span>
                   </div>
                 </div>
 
-                <div class="canara-detail-row canara-highlight-row">
-                  <span class="canara-lbl">Account Number:</span>
-                  <div class="canara-val-group">
-                    <strong class="canara-val mono-val" id="canara-acc-num">110058339732</strong>
-                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('110058339732', this)" title="Copy Account Number">📋 Copy</button>
-                  </div>
-                </div>
-
-                <div class="canara-detail-row">
-                  <span class="canara-lbl">IFSC Code:</span>
-                  <div class="canara-val-group">
-                    <strong class="canara-val mono-val" id="canara-ifsc">CNRB0001002</strong>
-                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('CNRB0001002', this)" title="Copy IFSC Code">📋 Copy</button>
-                  </div>
-                </div>
-
-                <div class="canara-detail-row">
-                  <span class="canara-lbl">Mobile Number:</span>
-                  <div class="canara-val-group">
-                    <strong class="canara-val mono-val" id="canara-mobile">+91 79046 12672</strong>
-                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('+917904612672', this)" title="Copy Mobile">📋 Copy</button>
-                  </div>
-                </div>
-
-                <div class="canara-detail-row">
-                  <span class="canara-lbl">MMID:</span>
-                  <div class="canara-val-group">
-                    <strong class="canara-val mono-val" id="canara-mmid">9015522</strong>
-                    <button type="button" class="btn-copy-chip" onclick="copyToClipboard('9015522', this)" title="Copy MMID">📋 Copy</button>
-                  </div>
-                </div>
-
-                <div class="canara-detail-row canara-address-row">
-                  <span class="canara-lbl">Branch Address:</span>
-                  <span class="canara-val-sm">NO. 151/2, WARD NO. 03, KRISHNA NAGAR 1ST ARCH, THEVARAM ROAD, BODINAYAKANUR - 625513</span>
-                </div>
-              </div>
-
-              <!-- Instant UPI Row -->
-              <div class="canara-upi-bar">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <div>
-                    <span style="font-size:11.5px; font-weight:700; color:#0b4d75;">UPI / GPay / PhonePe / Paytm:</span>
-                    <div style="font-size:13px; font-weight:700; color:#1e293b;">+91 79046 12672</div>
-                  </div>
-                  <a id="btn-upi-intent-link" href="#" class="btn-upi-intent" target="_blank">Pay via UPI App &rarr;</a>
+                <div class="canara-bank-trust-footer" style="padding:6px 12px; background:#f0f7fc; border-top:1px dashed #bae0ff; font-size:11px; color:#0369a1; display:flex; align-items:center; gap:5px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  <span>Direct NEFT / RTGS / IMPS • Transfer from any Indian Bank / Corporate Account</span>
                 </div>
               </div>
             </div>
@@ -1739,8 +1799,15 @@
                   <input type="text" id="sample-ship-city" placeholder="City / District *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
                   <input type="text" id="sample-ship-pincode" placeholder="Pincode *" required style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
                 </div>
-                <div class="form-group-sm" style="margin-bottom:10px;">
+                <div class="form-group-sm" style="margin-bottom:8px;">
                   <input type="text" id="sample-pay-utr" placeholder="Payment UTR / Ref No. (or send screenshot on WhatsApp)" style="width:100%; padding:7px 10px; border:1px solid #c9d4ce; border-radius:6px; font-size:13px;">
+                </div>
+
+                <!-- Trust Guarantee Checklist -->
+                <div class="dispatch-trust-checklist" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:6px 8px; margin-bottom:8px; font-size:11px; color:#475569; display:flex; flex-direction:column; gap:3px;">
+                  <div style="display:flex; align-items:center; gap:5px;"><span style="color:#16a34a; font-weight:bold;">✓</span> 24-Hour Express Air Dispatch with AWB Tracking</div>
+                  <div style="display:flex; align-items:center; gap:5px;"><span style="color:#16a34a; font-weight:bold;">✓</span> Official Spices Board Certified Auction Buyer</div>
+                  <div style="display:flex; align-items:center; gap:5px;"><span style="color:#16a34a; font-weight:bold;">✓</span> Tamper-Proof Aroma-Lock Sealed Foil Packing</div>
                 </div>
 
                 <div class="dispatch-action-buttons" style="display:flex; flex-direction:column; gap:8px;">
@@ -1861,7 +1928,7 @@
     <span class="badge" id="floating-quote-badge" style="display:none;">0</span>
   </div>
 
-  <script src="app.js?v=7.4"></script>
+  <script src="app.js?v=7.5"></script>
 </body>
 
 </html>

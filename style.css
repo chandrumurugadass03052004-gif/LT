@@ -6647,6 +6647,42 @@ img.clickable-spec:hover {
    DIRECT ONLINE PAYMENT FOR SAMPLE MODAL (CANARA BANK & FLIGHT DISPATCH)
    ========================================================================== */
 
+/* Payment Tabs Bar */
+.payment-tabs-bar {
+  display: flex;
+  gap: 6px;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 12px;
+}
+
+.pay-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  border-radius: 6px 6px 0 0;
+}
+
+.pay-tab-btn:hover {
+  color: #0b4d75;
+  background: rgba(0, 131, 202, 0.04);
+}
+
+.pay-tab-btn.active {
+  color: #0b4d75 !important;
+  border-bottom-color: #0083ca !important;
+  background: rgba(0, 131, 202, 0.08);
+}
+
 /* Sample Payment 2-Column Responsive Layout */
 .sample-pay-2col {
   display: grid;
@@ -6936,5 +6972,31 @@ img.clickable-spec:hover {
 
   .modal-action.modal-action-bottom .modal-action-sub-row .btn {
     flex: 1 !important;
+  }
+}
+
+/* Mobile Optimization for Payment Modal (< 640px) */
+@media (max-width: 639px) {
+  .dispatch-form-body input,
+  .dispatch-form-body textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+  }
+  .payment-tabs-bar {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+  }
+  .pay-tab-btn {
+    padding: 7px 6px !important;
+    font-size: 11px !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+  .upi-qr-card {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  .sample-security-badge-top {
+    font-size: 10px !important;
   }
 }
